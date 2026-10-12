@@ -323,5 +323,275 @@
     "specs": "Màn hình AMOLED sắc nét 120Hz | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/92/e0/e0/f614498043ec158a71d483658099e6f6.jpg",
     "createdAt": "2026-10-12T11:16:44.873Z"
+  },
+  {
+    "id": "p_1791803987942_06eho",
+    "name": "iPhone 5s",
+    "brand": "Apple",
+    "price": 5080000,
+    "oldPrice": 5840000,
+    "specs": "The iPhone 5s is a classic smartphone known for its compact design and advanced features during its release. While it's an older model, it still provides a reliable user experience.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.942Z"
+  },
+  {
+    "id": "p_1791803987944_vuvkh",
+    "name": "iPhone 6",
+    "brand": "Apple",
+    "price": 7620000,
+    "oldPrice": 8760000,
+    "specs": "The iPhone 6 is a stylish and capable smartphone with a larger display and improved performance. It introduced new features and design elements, making it a popular choice in its time.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.944Z"
+  },
+  {
+    "id": "p_1791803987945_97u48",
+    "name": "iPhone 13 Pro",
+    "brand": "Apple",
+    "price": 27940000,
+    "oldPrice": 32130000,
+    "specs": "The iPhone 13 Pro is a cutting-edge smartphone with a powerful camera system, high-performance chip, and stunning display. It offers advanced features for users who demand top-notch technology.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.945Z"
+  },
+  {
+    "id": "p_1791803987946_yvcm2",
+    "name": "iPhone X",
+    "brand": "Apple",
+    "price": 22860000,
+    "oldPrice": 26290000,
+    "specs": "The iPhone X is a flagship smartphone featuring a bezel-less OLED display, facial recognition technology (Face ID), and impressive performance. It represents a milestone in iPhone design and innovation.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.946Z"
+  },
+  {
+    "id": "p_1791803987946_z5yij",
+    "name": "Oppo A57",
+    "brand": "OPPO",
+    "price": 6350000,
+    "oldPrice": 7300000,
+    "specs": "The Oppo A57 is a mid-range smartphone known for its sleek design and capable features. It offers a balance of performance and affordability, making it a popular choice.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.946Z"
+  },
+  {
+    "id": "p_1791803987947_0cxa3",
+    "name": "Oppo F19 Pro Plus",
+    "brand": "OPPO",
+    "price": 10160000,
+    "oldPrice": 11680000,
+    "specs": "The Oppo F19 Pro Plus is a feature-rich smartphone with a focus on camera capabilities. It boasts advanced photography features and a powerful performance for a premium user experience.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/oppo-f19-pro-plus/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.947Z"
+  },
+  {
+    "id": "p_1791803987948_17qzy",
+    "name": "Oppo K1",
+    "brand": "OPPO",
+    "price": 7620000,
+    "oldPrice": 8760000,
+    "specs": "The Oppo K1 series offers a range of smartphones with various features and specifications. Known for their stylish design and reliable performance, the Oppo K1 series caters to diverse user preferences.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/oppo-k1/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.948Z"
+  },
+  {
+    "id": "p_1791803987949_aia5e",
+    "name": "Realme C35",
+    "brand": "Realme",
+    "price": 3810000,
+    "oldPrice": 4380000,
+    "specs": "The Realme C35 is a budget-friendly smartphone with a focus on providing essential features for everyday use. It offers a reliable performance and user-friendly experience.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-c35/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.949Z"
+  },
+  {
+    "id": "p_1791803987949_p9915",
+    "name": "Realme X",
+    "brand": "Realme",
+    "price": 7620000,
+    "oldPrice": 8760000,
+    "specs": "The Realme X is a mid-range smartphone known for its sleek design and impressive display. It offers a good balance of performance and camera capabilities for users seeking a quality device.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-x/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.949Z"
+  },
+  {
+    "id": "p_1791803987950_7z8qa",
+    "name": "Realme XT",
+    "brand": "Realme",
+    "price": 8890000,
+    "oldPrice": 10220000,
+    "specs": "The Realme XT is a feature-rich smartphone with a focus on camera technology. It comes equipped with advanced camera sensors, delivering high-quality photos and videos for photography enthusiasts.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-xt/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.950Z"
+  },
+  {
+    "id": "p_1791803987951_5x48i",
+    "name": "Samsung Galaxy S7",
+    "brand": "Samsung",
+    "price": 7620000,
+    "oldPrice": 8760000,
+    "specs": "The Samsung Galaxy S7 is a flagship smartphone known for its sleek design and advanced features. It features a high-resolution display, powerful camera, and robust performance.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s7/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.951Z"
+  },
+  {
+    "id": "p_1791803987952_8gxdt",
+    "name": "Samsung Galaxy S8",
+    "brand": "Samsung",
+    "price": 12700000,
+    "oldPrice": 14600000,
+    "specs": "The Samsung Galaxy S8 is a premium smartphone with an Infinity Display, offering a stunning visual experience. It boasts advanced camera capabilities and cutting-edge technology.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s8/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.952Z"
+  },
+  {
+    "id": "p_1791803987953_1xp4a",
+    "name": "Samsung Galaxy S10",
+    "brand": "Samsung",
+    "price": 17780000,
+    "oldPrice": 20450000,
+    "specs": "The Samsung Galaxy S10 is a flagship device featuring a dynamic AMOLED display, versatile camera system, and powerful performance. It represents innovation and excellence in smartphone technology.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s10/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.953Z"
+  },
+  {
+    "id": "p_1791803987954_omszg",
+    "name": "Vivo S1",
+    "brand": "Vivo",
+    "price": 6350000,
+    "oldPrice": 7300000,
+    "specs": "The Vivo S1 is a stylish and mid-range smartphone offering a blend of design and performance. It features a vibrant display, capable camera system, and reliable functionality.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/vivo-s1/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.954Z"
+  },
+  {
+    "id": "p_1791803987954_k1rgt",
+    "name": "Vivo V9",
+    "brand": "Vivo",
+    "price": 7620000,
+    "oldPrice": 8760000,
+    "specs": "The Vivo V9 is a smartphone known for its sleek design and emphasis on capturing high-quality selfies. It features a notch display, dual-camera setup, and a modern design.",
+    "image": "https://cdn.dummyjson.com/product-images/smartphones/vivo-v9/thumbnail.webp",
+    "createdAt": "2026-10-12T11:19:47.954Z"
+  },
+  {
+    "id": "p_1791804031830_prozk",
+    "name": "iPhone 16 Pro 128GB",
+    "brand": "Apple",
+    "price": 28990000,
+    "oldPrice": 30990000,
+    "specs": "6.3 inch Super Retina XDR OLED 120Hz | Apple A18 Pro | Nút Camera Control | Khung Titan cao cấp",
+    "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.830Z"
+  },
+  {
+    "id": "p_1791804031832_5wsxb",
+    "name": "iPhone 16 128GB",
+    "brand": "Apple",
+    "price": 22490000,
+    "oldPrice": 23990000,
+    "specs": "6.1 inch OLED Dynamic Island | Apple A18 mạnh mẽ | Camera 48MP Fusion 2x | Kính pha màu lưng",
+    "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.832Z"
+  },
+  {
+    "id": "p_1791804031833_xzkqf",
+    "name": "Samsung Galaxy S24 FE 5G 128GB",
+    "brand": "Samsung",
+    "price": 16990000,
+    "oldPrice": 18990000,
+    "specs": "6.7 inch Dynamic AMOLED 2X 120Hz | Exynos 2400e | Bộ công cụ thông minh Galaxy AI | Pin 4700mAh",
+    "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.833Z"
+  },
+  {
+    "id": "p_1791804031834_zdteq",
+    "name": "Samsung Galaxy Z Flip5 5G 256GB",
+    "brand": "Samsung",
+    "price": 18990000,
+    "oldPrice": 25990000,
+    "specs": "Màn hình ngoài Flex Window 3.4 inch | Màn chính Dynamic AMOLED 2X 120Hz | Bản lề Flex không khe hở",
+    "image": "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.834Z"
+  },
+  {
+    "id": "p_1791804031835_qs8aw",
+    "name": "OnePlus 12 5G 256GB",
+    "brand": "OnePlus",
+    "price": 19990000,
+    "oldPrice": 22490000,
+    "specs": "6.82 inch 2K LTPO 120Hz 4500 nits | Snapdragon 8 Gen 3 | Camera Hasselblad thế hệ 4 | Sạc 100W",
+    "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.835Z"
+  },
+  {
+    "id": "p_1791804031836_uviel",
+    "name": "Vivo X100 Pro 5G 256GB",
+    "brand": "Vivo",
+    "price": 21990000,
+    "oldPrice": 24990000,
+    "specs": "6.78 inch LTPO AMOLED 120Hz | Dimensity 9300 siêu mạnh | Cảm biến 1 inch ZEISS APO Telephoto | Sạc 100W",
+    "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.836Z"
+  },
+  {
+    "id": "p_1791804031837_imsmw",
+    "name": "ASUS ROG Phone 8 Pro 512GB",
+    "brand": "ASUS",
+    "price": 29990000,
+    "oldPrice": 32990000,
+    "specs": "6.78 inch Samsung E6 AMOLED 165Hz | Snapdragon 8 Gen 3 | AniMe Vision LED lưng | Hệ thống AirTrigger",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.837Z"
+  },
+  {
+    "id": "p_1791804031838_e1ybm",
+    "name": "Sony Xperia 1 VI 5G 256GB",
+    "brand": "Sony",
+    "price": 31990000,
+    "oldPrice": 34990000,
+    "specs": "6.5 inch LTPO OLED 1-120Hz Powered by BRAVIA | Ống kính quang học ZEISS T* Zoom 85-170mm | Snap 8 Gen 3",
+    "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.838Z"
+  },
+  {
+    "id": "p_1791804031840_w0tqb",
+    "name": "Google Pixel 9 Pro 128GB",
+    "brand": "Google",
+    "price": 24990000,
+    "oldPrice": 26990000,
+    "specs": "6.3 inch Super Actua OLED 120Hz 3000 nits | Google Tensor G4 | Trợ lý Gemini AI trực tiếp | Camera 50MP",
+    "image": "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.840Z"
+  },
+  {
+    "id": "p_1791804031841_17xmp",
+    "name": "POCO F6 Pro 5G 512GB",
+    "brand": "Xiaomi",
+    "price": 13990000,
+    "oldPrice": 15990000,
+    "specs": "6.67 inch WQHD+ Flow AMOLED 120Hz 4000 nits | Snapdragon 8 Gen 2 | Sạc siêu tốc HyperCharge 120W",
+    "image": "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.841Z"
+  },
+  {
+    "id": "p_1791804031842_geurk",
+    "name": "Nothing Phone (2) 256GB",
+    "brand": "Khác",
+    "price": 14990000,
+    "oldPrice": 16990000,
+    "specs": "6.7 inch LTPO OLED 120Hz | Giao diện đèn Glyph Interface độc bản | Snapdragon 8+ Gen 1 | OS tối giản",
+    "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.842Z"
+  },
+  {
+    "id": "p_1791804031843_4z05i",
+    "name": "Honor Magic6 Pro 512GB",
+    "brand": "Khác",
+    "price": 23990000,
+    "oldPrice": 26990000,
+    "specs": "6.8 inch LTPO OLED cong 120Hz | Camera kính tiềm vọng 180MP Falcon | Snapdragon 8 Gen 3 | Pin 5600mAh",
+    "image": "https://images.unsplash.com/photo-1533228876829-65c94e7b5025?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T11:20:31.843Z"
   }
 ]
