@@ -43,11 +43,16 @@ app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, 'src', 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`===================================================`);
-  console.log(`🚀 WEB BÁN ĐIỆN THOẠI CHẠY TẠI: http://localhost:${PORT}`);
-  console.log(`🛡️  ADMIN PANEL: http://localhost:${PORT}/admin`);
-  console.log(`🔑 TÀI KHOẢN MẶC ĐỊNH: admin / admin123`);
-  console.log(`✨ Ghi nhớ thông tin khách hàng: [ĐANG HOẠT ĐỘNG]`);
-  console.log(`===================================================`);
-});
+// Chỉ listen port khi chạy cục bộ / standalone (Vercel tự quản lý serverless)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`===================================================`);
+    console.log(`🚀 WEB BÁN ĐIỆN THOẠI CHẠY TẠI: http://localhost:${PORT}`);
+    console.log(`🛡️  ADMIN PANEL: http://localhost:${PORT}/admin`);
+    console.log(`🔑 TÀI KHOẢN MẶC ĐỊNH: admin / admin123`);
+    console.log(`✨ Ghi nhớ thông tin khách hàng: [ĐANG HOẠT ĐỘNG]`);
+    console.log(`===================================================`);
+  });
+}
+
+module.exports = app;
