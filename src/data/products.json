@@ -1,5 +1,15 @@
 [
   {
+    "id": "iphone_duo_256gb",
+    "name": "Apple iPhone Duo Fold 256GB",
+    "brand": "Apple",
+    "price": 26000000,
+    "oldPrice": 64990000,
+    "specs": "Màn hình gập 7.6 inch Super Retina XDR OLED 120Hz + phụ 6.3 inch | Apple A20 Pro | Camera kép 48MP | Bản lề Titan giọt nước | Pin đôi 44 giờ | iphone duo foldable",
+    "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T12:17:53.017Z"
+  },
+  {
     "id": "iqoo_pad_ultra",
     "name": "iQOO Pad Ultra 5G (16GB/512GB)",
     "brand": "iQOO",
