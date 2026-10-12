@@ -1,6 +1,6 @@
 # 📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)
 
-Dự án website thương mại điện tử bán điện thoại xây dựng trên nền tảng **Node.js + Express**, tích hợp hệ thống **Quản Trị Viên (Admin Panel)** toàn diện và lưu trữ dữ liệu khách hàng **Customer CRM**.
+Dự án website thương mại điện tử bán điện thoại xây dựng trên nền tảng **Node.js + Express**, tích hợp hệ thống **Quản Trị Viên (Admin Panel)** toàn diện và lưu trữ dữ liệu khách hàng **Customer CRM**, hỗ trợ triển khai **Vercel Serverless** và cơ sở dữ liệu đám mây **Neon PostgreSQL**.
 
 🔗 **Repository:** [https://github.com/FeurisPT2/phone-store-node](https://github.com/FeurisPT2/phone-store-node)
 
@@ -43,6 +43,26 @@ Dự án website thương mại điện tử bán điện thoại xây dựng tr
 
 ---
 
+## 🐘 Kết Nối Neon Postgres (Lưu Trữ Bền Vững)
+
+Hệ thống hỗ trợ kiến trúc kép **Hybrid Mode**:
+- **Mặc định khi chạy Offline:** Sử dụng JSON Database tự động.
+- **Khi kết nối Neon Postgres:** Tự động tạo bảng (`admins`, `customers`, `orders`, `products`) và lưu trữ dữ liệu vĩnh viễn trên đám mây.
+
+### Cách lấy chuỗi kết nối Neon Postgres:
+1. Đăng ký tài khoản miễn phí tại [neon.tech](https://neon.tech).
+2. Tạo project mới (ví dụ: `phone-store`).
+3. Copy chuỗi kết nối **Connection String** dạng:
+   ```text
+   postgresql://neondb_owner:npg_xxxx@ep-cool-cloud-xxxx.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+   ```
+4. Đặt vào file `.env` (khi chạy local) hoặc dán vào mục **Environment Variables** trên Vercel:
+   ```env
+   DATABASE_URL=postgresql://...
+   ```
+
+---
+
 ## 🚀 Cài Đặt & Khởi Chạy
 
 ### 1. Cài đặt thư viện
@@ -65,42 +85,8 @@ npm start
 
 ---
 
-## 📁 Cấu Trúc Thư Mục
-
-```text
-├── server.js                   # Điểm khởi chạy Express server & cấu hình routing
-├── src/
-│   ├── config/
-│   │   └── sessionConfig.js    # Cấu hình Express Session
-│   ├── controllers/
-│   │   ├── adminController.js  # Controller xử lý auth, thống kê, CRM, đơn hàng
-│   │   ├── cartController.js   # Xử lý giỏ hàng
-│   │   ├── customerController.js # API hồ sơ và tra cứu khách hàng
-│   │   ├── orderController.js  # Xử lý tạo đơn và đồng bộ CRM
-│   │   └── productController.js # Xử lý sản phẩm
-│   ├── data/                   # Cơ sở dữ liệu JSON cục bộ
-│   │   ├── admins.json
-│   │   ├── customers.json
-│   │   ├── orders.json
-│   │   └── products.json
-│   ├── middlewares/
-│   │   ├── adminAuth.js        # Middleware bảo vệ trang và API Admin
-│   │   └── customerMemory.js   # Middleware ghi nhớ khách hàng qua Cookie/Session
-│   ├── models/
-│   │   ├── Admin.js
-│   │   ├── Customer.js
-│   │   ├── Order.js
-│   │   ├── Product.js
-│   │   └── database.js         # Lớp tiện ích đọc/ghi JsonDB
-│   ├── public/                 # Giao diện tĩnh & Frontend Assets
-│   │   ├── css/
-│   │   │   ├── admin.css       # Style cho Admin Dashboard
-│   │   │   └── style.css       # Style cho trang chủ Storefront
-│   │   ├── js/
-│   │   │   ├── admin.js        # Script quản trị, biểu đồ Chart.js, CRM
-│   │   │   └── main.js         # Script phía khách hàng
-│   │   ├── admin.html          # Giao diện Admin Portal
-│   │   ├── index.html          # Giao diện Cửa hàng
-│   │   └── login.html          # Giao diện Đăng nhập Admin
-│   └── routes/                 # Định tuyến API
-```
+## ⚡ Triển Khai Lên Vercel (1-Click Deploy)
+1. Đăng nhập [vercel.com](https://vercel.com) với tài khoản GitHub.
+2. Bấm **Add New Project** ➔ Chọn repo `phone-store-node` ➔ Bấm **Import**.
+3. Thêm biến môi trường **`DATABASE_URL`** với chuỗi kết nối Neon Postgres của bạn.
+4. Bấm **Deploy**.

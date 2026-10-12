@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const JsonDB = require('./database');
+const db = require('../config/db');
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
@@ -20,26 +21,36 @@ const defaultAdmins = [
 const adminDB = new JsonDB('admins', defaultAdmins);
 
 class AdminModel {
-  static getAdmin() {
-    const admins = adminDB.findAll();
-    if (admins.length === 0) {
-      const def = defaultAdmins[0];
-      adminDB.insert(def);
-      return def;
+  static async findByUsername(username) {
+    const cleanUser = (username || '').toLowerCase().trim();
+    if (db.isPostgres()) {
+      try {
+        const res = await db.query('SELECT * FROM admins WHERE LOWER(username) = $1 LIMIT 1', [cleanUser]);
+        if (res && res.rows.length > 0) {
+          const row = res.rows[0];
+          return {
+            id: row.id,
+            username: row.username,
+            passwordHash: row.password_hash,
+            fullName: row.full_name,
+            email: row.email,
+            role: row.role,
+            createdAt: row.created_at
+          };
+        }
+        return null;
+      } catch (err) {
+        console.error('Lỗi truy vấn admin từ Postgres:', err.message);
+      }
     }
-    return admins[0];
+    return adminDB.findOne(a => a.username.toLowerCase() === cleanUser);
   }
 
-  static findByUsername(username) {
-    return adminDB.findOne(a => a.username.toLowerCase() === (username || '').toLowerCase().trim());
-  }
-
-  static verify(username, password) {
-    const admin = this.findByUsername(username);
+  static async verify(username, password) {
+    const admin = await this.findByUsername(username);
     if (!admin) return null;
 
     const hash = hashPassword(password);
-    // Backward compatibility if plain text exists or matching hash
     if (admin.passwordHash === hash || admin.password === password) {
       return {
         id: admin.id,
@@ -52,8 +63,8 @@ class AdminModel {
     return null;
   }
 
-  static changePassword(username, oldPassword, newPassword) {
-    const admin = this.findByUsername(username);
+  static async changePassword(username, oldPassword, newPassword) {
+    const admin = await this.findByUsername(username);
     if (!admin) return { success: false, message: 'Không tìm thấy tài khoản quản trị' };
 
     const oldHash = hashPassword(oldPassword);
@@ -65,9 +76,20 @@ class AdminModel {
       return { success: false, message: 'Mật khẩu mới phải có ít nhất 6 ký tự' };
     }
 
+    const newHash = hashPassword(newPassword);
+
+    if (db.isPostgres()) {
+      try {
+        await db.query('UPDATE admins SET password_hash = $1, updated_at = NOW() WHERE id = $2', [newHash, admin.id]);
+        return { success: true, message: 'Đổi mật khẩu thành công!' };
+      } catch (err) {
+        return { success: false, message: 'Lỗi cập nhật mật khẩu Postgres: ' + err.message };
+      }
+    }
+
     adminDB.update(admin.id, {
-      passwordHash: hashPassword(newPassword),
-      password: null, // clear old plain text if any
+      passwordHash: newHash,
+      password: null,
       updatedAt: new Date().toISOString()
     });
 

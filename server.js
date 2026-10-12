@@ -1,3 +1,6 @@
+require('dotenv').config();
+require('./src/config/db');
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
