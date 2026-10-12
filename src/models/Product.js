@@ -70,7 +70,7 @@ class ProductModel {
   }
 
   static async create({ name, brand, price, oldPrice, specs, image }) {
-    const id = 'p_' + Date.now();
+    const id = 'p_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
     const pPrice = parseInt(price) || 0;
     const pOldPrice = parseInt(oldPrice || price) || pPrice;
 

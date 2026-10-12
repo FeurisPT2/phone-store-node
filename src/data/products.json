@@ -133,5 +133,195 @@
     "oldPrice": 17990000,
     "specs": "Màn cong vô cực 120Hz | Chuyên gia chân dung AI Eraser | Thiết kế ánh bạc tương lai",
     "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "p_1791803620947_mpsti",
+    "name": "Xiaomi Redmi Note 17 Pro 5G 6GB/256GB",
+    "brand": "Xiaomi",
+    "price": 8969000,
+    "oldPrice": 11490000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 6GB/256GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/3c/5c/00/dfb89f9f5872243cc742990a41979b04.jpg",
+    "createdAt": "2026-10-12T11:13:40.947Z"
+  },
+  {
+    "id": "p_1791803620948_qw94b",
+    "name": "Xiaomi Redmi Note 15 Pro+ 5G 12GB/256GB",
+    "brand": "Xiaomi",
+    "price": 10779000,
+    "oldPrice": 12990000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 12GB/256GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/9b/96/0f/0112e0cbfe78645cf0e9afcd9806d041.jpg",
+    "createdAt": "2026-10-12T11:13:40.948Z"
+  },
+  {
+    "id": "p_1791803620949_no6sy",
+    "name": "Xiaomi Redmi 17 (6GB/256GB)",
+    "brand": "Xiaomi",
+    "price": 7490000,
+    "oldPrice": 8600000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 6GB/256GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/d8/e4/22/cd4ffd787a96dc17d3496eaefb25249a.jpg",
+    "createdAt": "2026-10-12T11:13:40.949Z"
+  },
+  {
+    "id": "p_1791803620951_x1rbp",
+    "name": "Xiaomi Redmi A7 Pro 4GB/128GB",
+    "brand": "Xiaomi",
+    "price": 3989000,
+    "oldPrice": 4490000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/5a/81/af/873e1e2a49cb3dbababecd591d8b9fef.jpg",
+    "createdAt": "2026-10-12T11:13:40.951Z"
+  },
+  {
+    "id": "p_1791803620952_wdle0",
+    "name": "Xiaomi Redmi Note 15 Pro 8GB/256GB",
+    "brand": "Xiaomi",
+    "price": 7649000,
+    "oldPrice": 8990000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 8GB/256GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/11/5f/b4/0013e413b30d7e83cbd921bf558d1ce6.jpg",
+    "createdAt": "2026-10-12T11:13:40.952Z"
+  },
+  {
+    "id": "p_1791803627108_rud7g",
+    "name": "Apple iPhone 18 Pro",
+    "brand": "Apple",
+    "price": 37750000,
+    "oldPrice": 43400000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/c6/8c/b4/7a991a572aadf5d211e9d0bb7fb4c566.jpg",
+    "createdAt": "2026-10-12T11:13:47.108Z"
+  },
+  {
+    "id": "p_1791803627110_zjw7m",
+    "name": "Apple iPhone 17 Pro",
+    "brand": "Apple",
+    "price": 30999000,
+    "oldPrice": 35600000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/b5/c9/72/bba1712b77ad93643395eaf0a0470adc.jpg",
+    "createdAt": "2026-10-12T11:13:47.110Z"
+  },
+  {
+    "id": "p_1791803627111_xmk9s",
+    "name": "Apple iPhone 18 Pro Max",
+    "brand": "Apple",
+    "price": 47500000,
+    "oldPrice": 54600000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/83/54/2f/171f270deec1c65647d96b5672bf75c1.jpg",
+    "createdAt": "2026-10-12T11:13:47.111Z"
+  },
+  {
+    "id": "p_1791803630646_j7rry",
+    "name": "Samsung Galaxy A07s (4GB/128GB)",
+    "brand": "Samsung",
+    "price": 4290000,
+    "oldPrice": 5990000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/11/c6/0d/f450172931ac60aeffac30d6b6a74234.jpg",
+    "createdAt": "2026-10-12T11:13:50.646Z"
+  },
+  {
+    "id": "p_1791803630648_to098",
+    "name": "Samsung Galaxy S26 FE (8/128GB)",
+    "brand": "Samsung",
+    "price": 17990000,
+    "oldPrice": 20700000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Dung lượng 128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/5e/a0/91/7672f447efa4942c0568147693b6a740.jpg",
+    "createdAt": "2026-10-12T11:13:50.648Z"
+  },
+  {
+    "id": "p_1791803630649_b6eqf",
+    "name": "Samsung Galaxy A27 5G (6GB + 128GB) | Màn hình 6.7\" FHD+ | Pin 5000mAh | Snapdragon 6 Gen 3",
+    "brand": "Samsung",
+    "price": 7990000,
+    "oldPrice": 9200000,
+    "specs": "Màn hình 6.7 inch Super AMOLED 120Hz | Bộ nhớ 6GB + 128GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin trâu 5000mAh",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/a7/f1/35/fe74fab754e8c2f053ca14113003bdb8.jpg",
+    "createdAt": "2026-10-12T11:13:50.649Z"
+  },
+  {
+    "id": "p_1791803630649_uvdie",
+    "name": "Samsung Galaxy A06 5G (4GB/64GB)",
+    "brand": "Samsung",
+    "price": 3990000,
+    "oldPrice": 4600000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/64GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/0c/36/0b/88f7befba91e4d4ef67740f7b3661a67.jpg",
+    "createdAt": "2026-10-12T11:13:50.649Z"
+  },
+  {
+    "id": "p_1791803634214_hay0j",
+    "name": "Điện thoại Oppo A5x (4GB/128GB)",
+    "brand": "OPPO",
+    "price": 4690000,
+    "oldPrice": 5400000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/b2/a8/95/c5229c9913879eec850801623a8559fe.jpg",
+    "createdAt": "2026-10-12T11:13:54.214Z"
+  },
+  {
+    "id": "p_1791803634215_nwi26",
+    "name": "Oppo A6c 4GB/128GB",
+    "brand": "OPPO",
+    "price": 5189000,
+    "oldPrice": 5690000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/f6/47/a0/0df7cc2caeb659f1d29cc5396927a1e2.jpg",
+    "createdAt": "2026-10-12T11:13:54.215Z"
+  },
+  {
+    "id": "p_1791803634216_e1xbc",
+    "name": "Oppo Find X9s 5G 12GB/256GB",
+    "brand": "OPPO",
+    "price": 19599000,
+    "oldPrice": 24990000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 12GB/256GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/c6/c8/ca/367e07f9ca722de55e687b251553e305.jpg",
+    "createdAt": "2026-10-12T11:13:54.216Z"
+  },
+  {
+    "id": "p_1791803799595_a2pu9",
+    "name": "realme Note 80 4GB/64GB",
+    "brand": "Realme",
+    "price": 3290000,
+    "oldPrice": 3800000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/64GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/a5/8f/15/ead898e857f218c94f3be875fb150ebd.jpg",
+    "createdAt": "2026-10-12T11:16:39.595Z"
+  },
+  {
+    "id": "p_1791803799597_3i7eg",
+    "name": "Realme C85 6GB/128GB",
+    "brand": "Realme",
+    "price": 5499000,
+    "oldPrice": 5690000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 6GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/d1/42/41/93b27f2bcafc2602748a9f78d24b5a8c.jpg",
+    "createdAt": "2026-10-12T11:16:39.597Z"
+  },
+  {
+    "id": "p_1791803799598_1gxmp",
+    "name": "Realme C85 8GB/128GB",
+    "brand": "Realme",
+    "price": 5999000,
+    "oldPrice": 6290000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 8GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/26/ba/8f/491b0d05d33d207b2a84df8f4f8c7fec.jpg",
+    "createdAt": "2026-10-12T11:16:39.598Z"
+  },
+  {
+    "id": "p_1791803804873_c5x56",
+    "name": "OnePlus 10T 5G",
+    "brand": "OnePlus",
+    "price": 15990000,
+    "oldPrice": 18400000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://salt.tikicdn.com/cache/750x750/ts/product/92/e0/e0/f614498043ec158a71d483658099e6f6.jpg",
+    "createdAt": "2026-10-12T11:16:44.873Z"
   }
 ]

@@ -288,10 +288,15 @@
               <button class="pill-btn" data-brand="Apple" onclick="filterProductBrand('Apple')">Apple</button>
               <button class="pill-btn" data-brand="Samsung" onclick="filterProductBrand('Samsung')">Samsung</button>
               <button class="pill-btn" data-brand="Xiaomi" onclick="filterProductBrand('Xiaomi')">Xiaomi</button>
-              <button class="pill-btn" data-brand="Google" onclick="filterProductBrand('Google')">Google</button>
               <button class="pill-btn" data-brand="OPPO" onclick="filterProductBrand('OPPO')">OPPO</button>
+              <button class="pill-btn" data-brand="Realme" onclick="filterProductBrand('Realme')">Realme</button>
+              <button class="pill-btn" data-brand="Google" onclick="filterProductBrand('Google')">Google</button>
+              <button class="pill-btn" data-brand="OnePlus" onclick="filterProductBrand('OnePlus')">OnePlus</button>
             </div>
             <div class="action-buttons">
+              <button class="btn-primary" style="background:#0284c7; margin-right:8px;" onclick="openCrawlModal()">
+                <i class="fa-solid fa-cloud-arrow-down"></i> Cào Dữ Liệu Tự Động
+              </button>
               <button class="btn-primary" onclick="openAddProductModal()">
                 <i class="fa-solid fa-plus"></i> Thêm Điện Thoại Mới
               </button>
@@ -537,6 +542,84 @@
           <button type="button" class="pill-btn" onclick="closeModal('modal-product-edit')">Hủy</button>
           <button type="submit" class="btn-primary">
             <i class="fa-solid fa-floppy-disk"></i> Lưu Sản Phẩm
+          </button>
+        </div>
+      </form>
+    </div>
+  <!-- MODAL: CÀO SẢN PHẨM TỰ ĐỘNG -->
+  <div id="modal-crawl-products" class="modal-backdrop hidden">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-cloud-arrow-down" style="color:#0284c7;"></i> Cào Dữ Liệu Sản Phẩm Tự Động</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-crawl-products')">&times;</button>
+      </div>
+      <form id="form-crawl-products">
+        <div class="modal-body">
+          <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:10px; padding:12px 16px; margin-bottom:16px;">
+            <p style="font-size:13px; color:#0369a1; margin:0; line-height:1.5;">
+              <i class="fa-solid fa-circle-info"></i> Hệ thống tự động quét và cào dữ liệu điện thoại thật từ sàn thương mại điện tử (Tiki Catalog / DummyJSON), tự động loại bỏ phụ kiện, chuẩn hóa thương hiệu và lấy hình ảnh chất lượng cao.
+            </p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Nguồn Dữ Liệu:</label>
+              <select id="crawl-source" onchange="handleCrawlSourceChange()">
+                <option value="tiki">Tiki Vietnam (Chính hãng, VNĐ)</option>
+                <option value="dummy">DummyJSON API (Quốc tế)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Thương Hiệu Muốn Cào:</label>
+              <select id="crawl-brand">
+                <option value="all">Tất cả thương hiệu</option>
+                <option value="Apple">Apple (iPhone)</option>
+                <option value="Samsung">Samsung Galaxy</option>
+                <option value="Xiaomi">Xiaomi / Redmi</option>
+                <option value="OPPO">OPPO</option>
+                <option value="Realme">Realme</option>
+                <option value="Google">Google Pixel</option>
+                <option value="Vivo">Vivo</option>
+                <option value="OnePlus">OnePlus</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Từ Khóa Tìm Kiếm (Tùy chọn):</label>
+              <input type="text" id="crawl-keyword" placeholder="Ví dụ: iPhone 16, Galaxy S25...">
+            </div>
+            <div class="form-field">
+              <label>Số Lượng Cần Cào:</label>
+              <select id="crawl-limit">
+                <option value="5">5 sản phẩm</option>
+                <option value="10" selected>10 sản phẩm</option>
+                <option value="15">15 sản phẩm</option>
+                <option value="25">25 sản phẩm</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+            <input type="checkbox" id="crawl-skip-existing" checked style="width:16px; height:16px; cursor:pointer;">
+            <label for="crawl-skip-existing" style="font-size:13px; color:#475569; margin:0; cursor:pointer;">
+              Bỏ qua sản phẩm đã tồn tại trong kho (tránh trùng lặp)
+            </label>
+          </div>
+
+          <!-- Trạng thái đang cào (Loading spinner) -->
+          <div id="crawl-loading-status" style="display:none; text-align:center; padding:18px 0;">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size:28px; color:#0284c7;"></i>
+            <div style="margin-top:10px; font-weight:600; color:#0f172a;" id="crawl-status-text">Đang kết nối web nguồn và tải sản phẩm...</div>
+            <div style="font-size:12px; color:#64748b; margin-top:4px;">Quá trình có thể mất từ 2-5 giây</div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="pill-btn" onclick="closeModal('modal-crawl-products')">Đóng</button>
+          <button type="submit" id="btn-submit-crawl" class="btn-primary" style="background:#0284c7;">
+            <i class="fa-solid fa-play"></i> Bắt Đầu Cào Dữ Liệu
           </button>
         </div>
       </form>

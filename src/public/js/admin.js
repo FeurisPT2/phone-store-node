@@ -44,6 +44,12 @@ function setupEventListeners() {
   if (prodForm) {
     prodForm.addEventListener('submit', handleSaveProduct);
   }
+
+  // Form cào sản phẩm tự động
+  const crawlForm = document.getElementById('form-crawl-products');
+  if (crawlForm) {
+    crawlForm.addEventListener('submit', handleCrawlSubmit);
+  }
 }
 
 async function checkAdminAuth() {
@@ -750,6 +756,64 @@ async function loadProducts() {
       </td>
     </tr>
   `).join('');
+}
+
+function openCrawlModal() {
+  document.getElementById('form-crawl-products').reset();
+  document.getElementById('crawl-loading-status').style.display = 'none';
+  document.getElementById('btn-submit-crawl').disabled = false;
+  openModal('modal-crawl-products');
+}
+
+function handleCrawlSourceChange() {
+  const source = document.getElementById('crawl-source').value;
+  const keywordInput = document.getElementById('crawl-keyword');
+  if (source === 'dummy') {
+    keywordInput.placeholder = 'Nguồn DummyJSON mặc định toàn bộ smartphone';
+  } else {
+    keywordInput.placeholder = 'Ví dụ: iPhone 16, Galaxy S25...';
+  }
+}
+
+async function handleCrawlSubmit(e) {
+  e.preventDefault();
+  const source = document.getElementById('crawl-source').value;
+  const brand = document.getElementById('crawl-brand').value;
+  const keyword = document.getElementById('crawl-keyword').value.trim();
+  const limit = parseInt(document.getElementById('crawl-limit').value) || 10;
+  const skipExisting = document.getElementById('crawl-skip-existing').checked;
+
+  const statusBox = document.getElementById('crawl-loading-status');
+  const submitBtn = document.getElementById('btn-submit-crawl');
+  const statusText = document.getElementById('crawl-status-text');
+
+  statusBox.style.display = 'block';
+  submitBtn.disabled = true;
+  statusText.innerText = `Đang kết nối web nguồn (${source.toUpperCase()}) và cào sản phẩm...`;
+
+  try {
+    const res = await fetch('/api/admin/products/crawl', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source, brand, keyword, limit, skipExisting })
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      const data = result.data || {};
+      showToast(result.message || `Cào thành công ${data.savedCount} điện thoại mới!`, 'success');
+      closeModal('modal-crawl-products');
+      loadProducts();
+      loadDashboard();
+    } else {
+      showToast(result.message || 'Lỗi khi cào dữ liệu', 'error');
+    }
+  } catch (err) {
+    showToast('Lỗi kết nối máy chủ khi cào sản phẩm', 'error');
+  } finally {
+    statusBox.style.display = 'none';
+    submitBtn.disabled = false;
+  }
 }
 
 function openAddProductModal() {

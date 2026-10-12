@@ -2,6 +2,7 @@ const AdminModel = require('../models/Admin');
 const CustomerModel = require('../models/Customer');
 const OrderModel = require('../models/Order');
 const ProductModel = require('../models/Product');
+const CrawlerService = require('../services/crawlerService');
 
 // ==================== 1. XÁC THỰC ADMIN ====================
 
@@ -303,6 +304,35 @@ exports.exportOrdersCsv = async (req, res) => {
 };
 
 // ==================== 5. QUẢN LÝ SẢN PHẨM ====================
+
+exports.crawlProducts = async (req, res) => {
+  try {
+    const { keyword, brand, limit = 10, source = 'tiki', skipExisting = true } = req.body;
+    let result;
+    if (source === 'dummy') {
+      result = await CrawlerService.crawlFromDummyJson({
+        limit: parseInt(limit) || 10,
+        skipExisting: skipExisting !== false
+      });
+    } else {
+      result = await CrawlerService.crawlFromTiki({
+        keyword: keyword || '',
+        brand: brand || 'all',
+        limit: parseInt(limit) || 10,
+        skipExisting: skipExisting !== false
+      });
+    }
+
+    res.json({
+      success: true,
+      message: `Đã cào thành công ${result.savedCount} sản phẩm từ ${result.source}!`,
+      data: result
+    });
+  } catch (err) {
+    console.error('Lỗi cào sản phẩm:', err);
+    res.status(500).json({ success: false, message: 'Lỗi cào dữ liệu: ' + err.message });
+  }
+};
 
 exports.addProduct = async (req, res) => {
   try {
