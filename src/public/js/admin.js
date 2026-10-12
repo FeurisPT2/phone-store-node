@@ -824,20 +824,47 @@ function openAddProductModal() {
 }
 
 async function openEditProductModal(id) {
-  const res = await fetch(`/api/products/${id}`);
-  const { data: p } = await res.json();
-  if (!p) return;
+  try {
+    const res = await fetch(`/api/products/${id}`);
+    if (!res.ok) {
+      showToast('Không tìm thấy thông tin sản phẩm', 'error');
+      return;
+    }
+    const { data: p } = await res.json();
+    if (!p) {
+      showToast('Không tìm thấy thông tin sản phẩm', 'error');
+      return;
+    }
 
-  document.getElementById('edit-prod-id').value = p.id;
-  document.getElementById('edit-p-name').value = p.name;
-  document.getElementById('edit-p-brand').value = p.brand;
-  document.getElementById('edit-p-price').value = p.price;
-  document.getElementById('edit-p-oldprice').value = p.oldPrice || p.price;
-  document.getElementById('edit-p-specs').value = p.specs || '';
-  document.getElementById('edit-p-image').value = p.image || '';
+    document.getElementById('edit-prod-id').value = p.id;
+    document.getElementById('edit-p-name').value = p.name || '';
+    
+    // Đảm bảo hãng được chọn chính xác
+    const brandSelect = document.getElementById('edit-p-brand');
+    let brandFound = false;
+    for (let i = 0; i < brandSelect.options.length; i++) {
+      if (brandSelect.options[i].value.toLowerCase() === (p.brand || '').toLowerCase()) {
+        brandSelect.selectedIndex = i;
+        brandFound = true;
+        break;
+      }
+    }
+    if (!brandFound) {
+      const newOpt = new Option(p.brand, p.brand, true, true);
+      brandSelect.add(newOpt);
+    }
 
-  document.getElementById('modal-product-title').innerHTML = `<i class="fa-solid fa-pen-to-square" style="color:#4f46e5;"></i> Sửa Sản Phẩm: ${p.name}`;
-  openModal('modal-product-edit');
+    document.getElementById('edit-p-price').value = p.price || 0;
+    document.getElementById('edit-p-oldprice').value = p.oldPrice || p.price || 0;
+    document.getElementById('edit-p-specs').value = p.specs || '';
+    document.getElementById('edit-p-image').value = p.image || '';
+
+    document.getElementById('modal-product-title').innerHTML = `<i class="fa-solid fa-pen-to-square" style="color:#4f46e5;"></i> Sửa Sản Phẩm: ${p.name}`;
+    openModal('modal-product-edit');
+  } catch (err) {
+    console.error('Lỗi khi mở modal sửa sản phẩm:', err);
+    showToast('Lỗi khi tải thông tin sản phẩm: ' + err.message, 'error');
+  }
 }
 
 async function handleSaveProduct(e) {
@@ -846,8 +873,8 @@ async function handleSaveProduct(e) {
   const payload = {
     name: document.getElementById('edit-p-name').value.trim(),
     brand: document.getElementById('edit-p-brand').value,
-    price: document.getElementById('edit-p-price').value,
-    oldPrice: document.getElementById('edit-p-oldprice').value,
+    price: parseInt(document.getElementById('edit-p-price').value) || 0,
+    oldPrice: parseInt(document.getElementById('edit-p-oldprice').value) || 0,
     specs: document.getElementById('edit-p-specs').value.trim(),
     image: document.getElementById('edit-p-image').value.trim()
   };
@@ -870,8 +897,9 @@ async function handleSaveProduct(e) {
     } else {
       showToast(data.message || 'Lỗi lưu sản phẩm', 'error');
     }
-  } catch {
-    showToast('Lỗi kết nối máy chủ', 'error');
+  } catch (err) {
+    console.error('Lỗi khi lưu sản phẩm:', err);
+    showToast('Lỗi kết nối máy chủ: ' + err.message, 'error');
   }
 }
 

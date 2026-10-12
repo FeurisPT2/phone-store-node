@@ -5,8 +5,9 @@
     "brand": "Apple",
     "price": 34990000,
     "oldPrice": 36990000,
-    "specs": "6.9 inch Super Retina XDR OLED 120Hz | Apple A18 Pro | 256GB | Camera 48MP Zoom 5x",
-    "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80"
+    "specs": "6.9 inch Super Retina XDR OLED 120Hz | Apple A18 Pro | 256GB Titan Sa Mạc",
+    "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
+    "updatedAt": "2026-10-12T11:34:40.527Z"
   },
   {
     "id": "p2",
