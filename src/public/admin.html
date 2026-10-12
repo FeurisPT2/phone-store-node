@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển Quản Trị - TechStore Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="admin-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo-icon">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="sidebar-title">
+          <h2>TechStore</h2>
+          <span>Admin Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Quản Trị Hệ Thống</div>
+        <a class="nav-item active" data-tab="tab-dashboard" onclick="switchNavTab('tab-dashboard')">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Tổng Quan</span>
+        </a>
+        <a class="nav-item" data-tab="tab-customers" onclick="switchNavTab('tab-customers')">
+          <i class="fa-solid fa-users"></i>
+          <span>Khách Hàng (CRM)</span>
+          <span class="badge-count" id="badge-cust-count">0</span>
+        </a>
+        <a class="nav-item" data-tab="tab-orders" onclick="switchNavTab('tab-orders')">
+          <i class="fa-solid fa-receipt"></i>
+          <span>Đơn Hàng</span>
+          <span class="badge-count" id="badge-order-count" style="background:#ef4444; color:#fff;">0</span>
+        </a>
+        <a class="nav-item" data-tab="tab-products" onclick="switchNavTab('tab-products')">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <span>Sản Phẩm</span>
+          <span class="badge-count" id="badge-prod-count">0</span>
+        </a>
+
+        <div class="nav-section-title" style="margin-top:16px;">Cấu Hình</div>
+        <a class="nav-item" data-tab="tab-settings" onclick="switchNavTab('tab-settings')">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Cài Đặt & Mật Khẩu</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar" id="admin-avatar">AD</div>
+          <div class="user-info">
+            <div class="name" id="admin-name">Quản Trị Viên</div>
+            <div class="role" id="admin-role">Super Admin</div>
+          </div>
+          <button class="btn-logout" onclick="logoutAdmin()" title="Đăng xuất">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="page-heading">Tổng Quan Hoạt Động</h1>
+        </div>
+        <div class="topbar-actions">
+          <a href="/" target="_blank" class="btn-store">
+            <i class="fa-solid fa-store"></i>
+            <span>Xem Cửa Hàng</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+          </a>
+        </div>
+      </header>
+
+      <main class="main-container">
+
+        <!-- ==================== TAB 1: TỔNG QUAN (DASHBOARD) ==================== -->
+        <section id="tab-dashboard" class="tab-content active">
+          <!-- 4 KPI Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-info">
+                <h4>Tổng Doanh Thu</h4>
+                <div class="stat-value" id="kpi-revenue" style="color:#10b981;">0 đ</div>
+                <div class="stat-sub"><i class="fa-solid fa-arrow-trend-up"></i> Tích lũy đơn thành công</div>
+              </div>
+              <div class="stat-icon revenue"><i class="fa-solid fa-sack-dollar"></i></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-info">
+                <h4>Đơn Đặt Hàng</h4>
+                <div class="stat-value" id="kpi-orders">0</div>
+                <div class="stat-sub" id="kpi-pending-sub" style="color:#f59e0b;"><i class="fa-solid fa-clock"></i> 0 đơn chờ xử lý</div>
+              </div>
+              <div class="stat-icon orders"><i class="fa-solid fa-cart-shopping"></i></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-info">
+                <h4>Khách Hàng Lưu Trữ</h4>
+                <div class="stat-value" id="kpi-customers" style="color:#0284c7;">0</div>
+                <div class="stat-sub" style="color:#0284c7;"><i class="fa-solid fa-address-book"></i> Dữ liệu CRM ghi nhớ</div>
+              </div>
+              <div class="stat-icon customers"><i class="fa-solid fa-users"></i></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-info">
+                <h4>Điện Thoại Đang Bán</h4>
+                <div class="stat-value" id="kpi-products" style="color:#d97706;">0</div>
+                <div class="stat-sub" style="color:#64748b;"><i class="fa-solid fa-boxes-stacked"></i> Danh mục sản phẩm</div>
+              </div>
+              <div class="stat-icon products"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            </div>
+          </div>
+
+          <!-- Charts Grid -->
+          <div class="charts-grid">
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3><i class="fa-solid fa-chart-line" style="color:#4f46e5;"></i> Xu Hướng Doanh Thu Bán Hàng</h3>
+                <span style="font-size:12px; color:#64748b; font-weight:600;">(Đơn vị: VNĐ)</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="revenueChart"></canvas>
+              </div>
+            </div>
+
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3><i class="fa-solid fa-chart-pie" style="color:#06b6d4;"></i> Tỷ Lệ Đơn Hàng</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="statusChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Tables Grid -->
+          <div class="dashboard-tables">
+            <!-- Đơn hàng gần đây -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3><i class="fa-solid fa-clock-rotate-left" style="color:#4f46e5;"></i> Đơn Hàng Mới Nhất</h3>
+                <button class="pill-btn" onclick="switchNavTab('tab-orders')">Xem tất cả</button>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Mã Đơn</th>
+                      <th>Khách Hàng</th>
+                      <th>Tổng Tiền</th>
+                      <th>Trạng Thái</th>
+                      <th>Thao Tác</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-recent-orders"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Top Khách hàng chi tiêu cao nhất -->
+            <div class="card-panel">
+              <div class="card-panel-header">
+                <h3><i class="fa-solid fa-crown" style="color:#f59e0b;"></i> Top Khách Hàng VIP</h3>
+                <button class="pill-btn" onclick="switchNavTab('tab-customers')">Xem CRM</button>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Khách Hàng</th>
+                      <th>Hạng</th>
+                      <th>Chi Tiêu</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-top-customers"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 2: QUẢN LÝ KHÁCH HÀNG (CRM) ==================== -->
+        <section id="tab-customers" class="tab-content" style="display:none;">
+          <div class="action-toolbar">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="cust-search" placeholder="Tìm theo tên, SĐT, email, địa chỉ..." oninput="handleCustomerSearch()">
+            </div>
+            <div class="filter-pills" id="cust-tag-filters">
+              <button class="pill-btn active" data-tag="all" onclick="filterCustomerTag('all')">Tất cả</button>
+              <button class="pill-btn" data-tag="VIP" onclick="filterCustomerTag('VIP')"><i class="fa-solid fa-crown" style="color:#f59e0b"></i> VIP</button>
+              <button class="pill-btn" data-tag="Thân thiết" onclick="filterCustomerTag('Thân thiết')">Thân thiết</button>
+              <button class="pill-btn" data-tag="Mới" onclick="filterCustomerTag('Mới')">Mới</button>
+            </div>
+            <div class="action-buttons">
+              <button class="btn-export" onclick="exportCustomersCsv()">
+                <i class="fa-solid fa-file-excel"></i> Xuất CSV/Excel
+              </button>
+              <button class="btn-primary" onclick="openAddCustomerModal()">
+                <i class="fa-solid fa-user-plus"></i> Thêm Khách Hàng
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Khách Hàng</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Địa Chỉ Nhận Hàng</th>
+                  <th>Phân Hạng</th>
+                  <th>Số Đơn</th>
+                  <th>Tổng Chi Tiêu</th>
+                  <th>Ghi Chú</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="customers-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 3: QUẢN LÝ ĐƠN HÀNG ==================== -->
+        <section id="tab-orders" class="tab-content" style="display:none;">
+          <div class="action-toolbar">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="order-search" placeholder="Tìm theo mã đơn, tên khách, số điện thoại..." oninput="handleOrderSearch()">
+            </div>
+            <div class="filter-pills" id="order-status-filters">
+              <button class="pill-btn active" data-status="all" onclick="filterOrderStatus('all')">Tất cả</button>
+              <button class="pill-btn" data-status="pending" onclick="filterOrderStatus('pending')">Chờ xác nhận</button>
+              <button class="pill-btn" data-status="shipping" onclick="filterOrderStatus('shipping')">Đang giao</button>
+              <button class="pill-btn" data-status="completed" onclick="filterOrderStatus('completed')">Hoàn thành</button>
+              <button class="pill-btn" data-status="cancelled" onclick="filterOrderStatus('cancelled')">Đã hủy</button>
+            </div>
+            <div class="action-buttons">
+              <button class="btn-export" onclick="exportOrdersCsv()">
+                <i class="fa-solid fa-file-excel"></i> Xuất CSV/Excel
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Mã Đơn</th>
+                  <th>Khách Hàng</th>
+                  <th>Sản Phẩm Đặt</th>
+                  <th>Tổng Tiền</th>
+                  <th>Trạng Thái</th>
+                  <th>Thời Gian Đặt</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="orders-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 4: QUẢN LÝ SẢN PHẨM ==================== -->
+        <section id="tab-products" class="tab-content" style="display:none;">
+          <div class="action-toolbar">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="prod-search" placeholder="Tìm kiếm tên điện thoại, hãng..." oninput="handleProductSearch()">
+            </div>
+            <div class="filter-pills" id="prod-brand-filters">
+              <button class="pill-btn active" data-brand="all" onclick="filterProductBrand('all')">Tất cả</button>
+              <button class="pill-btn" data-brand="Apple" onclick="filterProductBrand('Apple')">Apple</button>
+              <button class="pill-btn" data-brand="Samsung" onclick="filterProductBrand('Samsung')">Samsung</button>
+              <button class="pill-btn" data-brand="Xiaomi" onclick="filterProductBrand('Xiaomi')">Xiaomi</button>
+            </div>
+            <div class="action-buttons">
+              <button class="btn-primary" onclick="openAddProductModal()">
+                <i class="fa-solid fa-plus"></i> Thêm Điện Thoại Mới
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Hình Ảnh</th>
+                  <th>Tên Điện Thoại & Cấu Hình</th>
+                  <th>Hãng</th>
+                  <th>Giá Bán</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="products-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 5: CÀI ĐẶT & MẬT KHẨU ==================== -->
+        <section id="tab-settings" class="tab-content" style="display:none;">
+          <div class="settings-card">
+            <h3><i class="fa-solid fa-key" style="color:#4f46e5;"></i> Đổi Mật Khẩu Quản Trị Viên</h3>
+            <form id="change-pass-form">
+              <div class="form-field">
+                <label>Mật khẩu hiện tại (*):</label>
+                <input type="password" id="old-pass" required placeholder="Nhập mật khẩu hiện tại (mặc định: admin123)">
+              </div>
+              <div class="form-field">
+                <label>Mật khẩu mới (*):</label>
+                <input type="password" id="new-pass" required placeholder="Nhập ít nhất 6 ký tự">
+              </div>
+              <div class="form-field">
+                <label>Xác nhận mật khẩu mới (*):</label>
+                <input type="password" id="confirm-new-pass" required placeholder="Nhập lại mật khẩu mới">
+              </div>
+              <button type="submit" class="btn-primary" style="margin-top:10px;">
+                <i class="fa-solid fa-floppy-disk"></i> Cập Nhật Mật Khẩu
+              </button>
+            </form>
+          </div>
+
+          <div class="settings-card">
+            <h3><i class="fa-solid fa-database" style="color:#10b981;"></i> Thông Tin Hệ Thống & Sao Lưu</h3>
+            <p style="font-size:14px; color:#64748b; margin-bottom:16px;">
+              Hệ thống lưu trữ tự động trên cấu trúc JSON Database cục bộ an toàn, đồng bộ tức thời khi có đơn hàng và khách hàng mới.
+            </p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="btn-export" onclick="exportCustomersCsv()">
+                <i class="fa-solid fa-download"></i> Sao Lưu Khách Hàng (CSV)
+              </button>
+              <button class="btn-export" onclick="exportOrdersCsv()">
+                <i class="fa-solid fa-download"></i> Sao Lưu Đơn Hàng (CSV)
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- MODAL: XEM CHI TIẾT KHÁCH HÀNG & LỊCH SỬ ĐƠN HÀNG -->
+  <div id="modal-customer-detail" class="modal-backdrop hidden">
+    <div class="modal-content" style="max-width:750px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-id-card" style="color:#4f46e5;"></i> Hồ Sơ Khách Hàng & Lịch Sử Mua Sắm</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-customer-detail')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="customer-profile-card" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px; margin-bottom:20px;"></div>
+        <h4 style="font-size:15px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-receipt" style="color:#0284c7;"></i> Lịch Sử Đơn Đặt Hàng (<span id="cust-orders-count">0</span>)
+        </h4>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Mã Đơn</th>
+                <th>Sản Phẩm Mua</th>
+                <th>Tổng Tiền</th>
+                <th>Trạng Thái</th>
+                <th>Thời Gian</th>
+              </tr>
+            </thead>
+            <tbody id="cust-orders-history-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="pill-btn" onclick="closeModal('modal-customer-detail')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: THÊM / SỬA KHÁCH HÀNG -->
+  <div id="modal-customer-edit" class="modal-backdrop hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-customer-title"><i class="fa-solid fa-user-pen" style="color:#4f46e5;"></i> Thông Tin Khách Hàng</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-customer-edit')">&times;</button>
+      </div>
+      <form id="form-customer-edit">
+        <input type="hidden" id="edit-cust-id">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Họ và Tên (*):</label>
+              <input type="text" id="edit-cust-name" required placeholder="Nguyễn Văn A">
+            </div>
+            <div class="form-field">
+              <label>Số Điện Thoại (*):</label>
+              <input type="tel" id="edit-cust-phone" required placeholder="0912345678">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Email:</label>
+              <input type="email" id="edit-cust-email" placeholder="example@email.com">
+            </div>
+            <div class="form-field">
+              <label>Phân Hạng Khách Hàng:</label>
+              <select id="edit-cust-tag">
+                <option value="Mới">Mới</option>
+                <option value="Thân thiết">Thân thiết</option>
+                <option value="VIP">VIP</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Địa Chỉ Giao Hàng (*):</label>
+            <textarea id="edit-cust-address" required placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/TP"></textarea>
+          </div>
+          <div class="form-field">
+            <label>Ghi Chú Nội Bộ Của Admin (Chăm sóc khách):</label>
+            <textarea id="edit-cust-admin-note" placeholder="VD: Khách thích nhận hàng buổi sáng, cần tư vấn thêm phụ kiện..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="pill-btn" onclick="closeModal('modal-customer-edit')">Hủy</button>
+          <button type="submit" class="btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Lưu Khách Hàng
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CHI TIẾT & CẬP NHẬT ĐƠN HÀNG -->
+  <div id="modal-order-detail" class="modal-backdrop hidden">
+    <div class="modal-content" style="max-width:700px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-boxes-packing" style="color:#4f46e5;"></i> Chi Tiết Đơn Hàng <span id="modal-order-id" style="color:#2563eb;"></span></h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-order-detail')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="order-detail-content"></div>
+        <hr style="margin:20px 0; border:none; border-top:1px solid #e2e8f0;">
+        <h4 style="font-size:14px; font-weight:800; margin-bottom:12px;">Cập Nhật Trạng Thái Đơn Hàng</h4>
+        <form id="form-update-order-status">
+          <input type="hidden" id="status-order-id">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Trạng Thái Mới:</label>
+              <select id="select-order-status">
+                <option value="pending">Chờ xác nhận (Pending)</option>
+                <option value="shipping">Đang giao hàng (Shipping)</option>
+                <option value="completed">Đã hoàn thành (Completed)</option>
+                <option value="cancelled">Đã hủy (Cancelled)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Ghi Chú Cập Nhật (Admin):</label>
+              <input type="text" id="status-order-note" placeholder="VD: Đã đóng gói giao bưu cục Viettel Post">
+            </div>
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top:6px;">
+            <i class="fa-solid fa-check"></i> Cập Nhật Trạng Thái
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-export" onclick="printCurrentOrder()">
+          <i class="fa-solid fa-print"></i> In Hóa Đơn
+        </button>
+        <button class="pill-btn" onclick="closeModal('modal-order-detail')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: THÊM / SỬA SẢN PHẨM -->
+  <div id="modal-product-edit" class="modal-backdrop hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-product-title"><i class="fa-solid fa-mobile-screen-button" style="color:#4f46e5;"></i> Thông Tin Điện Thoại</h3>
+        <button class="btn-close-modal" onclick="closeModal('modal-product-edit')">&times;</button>
+      </div>
+      <form id="form-product-edit">
+        <input type="hidden" id="edit-prod-id">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Tên Điện Thoại (*):</label>
+              <input type="text" id="edit-p-name" required placeholder="iPhone 16 Pro Max 256GB">
+            </div>
+            <div class="form-field">
+              <label>Hãng Sản Xuất (*):</label>
+              <select id="edit-p-brand">
+                <option value="Apple">Apple</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Xiaomi">Xiaomi</option>
+                <option value="Google">Google</option>
+                <option value="OPPO">OPPO</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Giá Bán (VNĐ) (*):</label>
+              <input type="number" id="edit-p-price" required placeholder="32000000">
+            </div>
+            <div class="form-field">
+              <label>Giá Niêm Yết Cũ (VNĐ):</label>
+              <input type="number" id="edit-p-oldprice" placeholder="34990000">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Thông Số Kỹ Thuật:</label>
+            <input type="text" id="edit-p-specs" placeholder="6.9 inch OLED | Chip A18 Pro | 256GB">
+          </div>
+          <div class="form-field">
+            <label>Link Hình Ảnh (URL):</label>
+            <input type="url" id="edit-p-image" placeholder="https://images.unsplash.com/...">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="pill-btn" onclick="closeModal('modal-product-edit')">Hủy</button>
+          <button type="submit" class="btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Lưu Sản Phẩm
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- INVOICE PRINT HIDDEN CONTAINER -->
+  <div id="invoice-print-area" style="display:none;"></div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container"></div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

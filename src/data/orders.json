@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ORD_1791800380356",
+    "customerId": "CUST_1791800380355",
+    "customerInfo": {
+      "fullName": "Trần Văn Hoàng",
+      "phone": "0988776655",
+      "address": "123 Đường Cầu Giấy, Hà Nội"
+    },
+    "items": [
+      {
+        "id": "p1",
+        "name": "iPhone 15 Pro Max 256GB",
+        "price": 29490000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569"
+      }
+    ],
+    "totalAmount": 29490000,
+    "status": "shipping",
+    "adminNote": "Bàn giao cho đơn vị vận chuyển",
+    "note": "",
+    "statusHistory": [
+      {
+        "status": "pending",
+        "title": "Đơn hàng mới tạo",
+        "time": "2026-10-12T10:19:40.356Z",
+        "note": "Khách hàng hoàn tất đặt hàng trên website"
+      },
+      {
+        "status": "shipping",
+        "title": "Đang giao hàng",
+        "time": "2026-10-12T10:19:40.360Z",
+        "note": "Bàn giao cho đơn vị vận chuyển"
+      }
+    ],
+    "createdAt": "2026-10-12T10:19:40.356Z",
+    "updatedAt": "2026-10-12T10:19:40.360Z"
+  }
+]

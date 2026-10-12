@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechStore - Cửa Hàng Điện Thoại Chính Hãng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container navbar">
+      <div class="logo"><i class="fa-solid fa-mobile-screen"></i> TechStore</div>
+      <div class="nav-right">
+        <div id="customer-badge" class="badge hidden">
+          <i class="fa-solid fa-user-check"></i> <span id="welcome-text"></span>
+          <button id="btn-forget">(Đổi người nhận)</button>
+        </div>
+        <button id="btn-open-cart" class="btn-cart">
+          <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng (<span id="cart-count">0</span>)
+        </button>
+        <a href="/admin" target="_blank" class="btn-admin-nav" style="display:inline-flex; align-items:center; gap:6px; color:#38bdf8; text-decoration:none; font-weight:700; font-size:13px; padding:8px 14px; background:rgba(56, 189, 248, 0.12); border:1px solid rgba(56, 189, 248, 0.35); border-radius:8px; transition:all 0.2s;">
+          <i class="fa-solid fa-shield-halved"></i> Quản Trị Viên
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="filter-bar">
+      <h2>Điện thoại mới nhất</h2>
+      <div class="brands">
+        <button class="btn-filter active" data-brand="all">Tất cả</button>
+        <button class="btn-filter" data-brand="Apple">Apple</button>
+        <button class="btn-filter" data-brand="Samsung">Samsung</button>
+        <button class="btn-filter" data-brand="Xiaomi">Xiaomi</button>
+      </div>
+    </div>
+    <div id="product-list" class="grid"></div>
+  </main>
+  
+  <div id="cart-modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Giỏ Hàng & Thanh Toán</h3>
+        <button id="btn-close">&times;</button>
+      </div>
+      <table class="table"><tbody id="cart-items"></tbody></table>
+      <div class="total-box">Tổng tiền: <b id="cart-total" style="color:#dc2626">0 đ</b></div>
+      <hr style="margin:16px 0">
+      <h4>Thông Tin Người Nhận <span id="remember-hint" class="hint hidden">Đã tự động điền từ lần trước</span></h4>
+      <form id="order-form">
+        <div class="form-item"><label>Số điện thoại (*):</label><input id="c-phone" required placeholder="0912345678"></div>
+        <div class="form-item"><label>Họ và tên (*):</label><input id="c-name" required placeholder="Nguyễn Văn A"></div>
+        <div class="form-item"><label>Địa chỉ nhận hàng (*):</label><textarea id="c-address" required placeholder="Số nhà, đường, phường/xã, quận/huyện"></textarea></div>
+        <div class="remember-box">
+          <input type="checkbox" id="c-remember" checked> <label for="c-remember"><b>Ghi nhớ thông tin của tôi</b> cho lần sau</label>
+        </div>
+        <button type="submit" class="btn-submit">ĐẶT HÀNG NGAY</button>
+      </form>
+    </div>
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+</html>
