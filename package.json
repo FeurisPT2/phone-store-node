@@ -4,7 +4,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "nodemon server.js",
+    "watch": "node --watch server.js",
+    "vercel:dev": "node ./node_modules/vercel/dist/index.js dev",
+    "vercel:deploy": "node ./node_modules/vercel/dist/index.js --prod"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
@@ -13,5 +16,9 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "vercel": "^63.1.2"
   }
 }
