@@ -14,5 +14,39 @@
     "createdAt": "2026-10-12T10:19:40.355Z",
     "updatedAt": "2026-10-12T10:19:40.357Z",
     "lastOrderAt": "2026-10-12T10:19:40.357Z"
+  },
+  {
+    "id": "CUST_1791802409926",
+    "fullName": "Lê Minh Tuấn",
+    "phone": "0919998877",
+    "passwordHash": "6e659deaa85842cdabb5c6305fcc40033ba43772ec00d45c2a3c921741a5e377",
+    "email": "tuan.le@gmail.com",
+    "address": "456 Lê Lợi, Quận 1, TP.HCM",
+    "note": "",
+    "adminNote": "",
+    "tag": "Mới",
+    "visitCount": 1,
+    "orderCount": 0,
+    "totalSpent": 0,
+    "createdAt": "2026-10-12T10:53:29.926Z",
+    "updatedAt": "2026-10-12T10:53:29.927Z"
+  },
+  {
+    "id": "CUST_1791802518023",
+    "fullName": "Phạm Đức Anh",
+    "phone": "0901112233",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "email": "ducanh@gmail.com",
+    "address": "100 Hai Bà Trưng, Quận 1",
+    "note": "",
+    "adminNote": "",
+    "tag": "Thân thiết",
+    "visitCount": 2,
+    "orderCount": 1,
+    "totalSpent": 34990000,
+    "createdAt": "2026-10-12T10:55:18.023Z",
+    "updatedAt": "2026-10-12T10:55:26.689Z",
+    "lastVisited": "2026-10-12T10:55:26.685Z",
+    "lastOrderAt": "2026-10-12T10:55:26.688Z"
   }
 ]

@@ -36,5 +36,40 @@
     ],
     "createdAt": "2026-10-12T10:19:40.356Z",
     "updatedAt": "2026-10-12T10:19:40.360Z"
+  },
+  {
+    "id": "ORD_1791802526686",
+    "customerId": "CUST_1791802518023",
+    "customerInfo": {
+      "fullName": "Phạm Đức Anh",
+      "phone": "0901112233",
+      "address": "100 Hai Bà Trưng, Quận 1"
+    },
+    "items": [
+      {
+        "id": "p1",
+        "name": "iPhone 16 Pro Max 256GB",
+        "brand": "Apple",
+        "price": 34990000,
+        "oldPrice": 36990000,
+        "specs": "6.9 inch Super Retina XDR OLED 120Hz | Apple A18 Pro | 256GB | Camera 48MP Zoom 5x",
+        "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 34990000,
+    "status": "pending",
+    "adminNote": "",
+    "note": "",
+    "statusHistory": [
+      {
+        "status": "pending",
+        "title": "Đơn hàng mới tạo",
+        "time": "2026-10-12T10:55:26.686Z",
+        "note": "Khách hàng hoàn tất đặt hàng trên website"
+      }
+    ],
+    "createdAt": "2026-10-12T10:55:26.686Z",
+    "updatedAt": "2026-10-12T10:55:26.686Z"
   }
 ]

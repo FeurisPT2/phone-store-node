@@ -1,7 +1,12 @@
+const crypto = require('crypto');
 const JsonDB = require('./database');
 const db = require('../config/db');
 
 const customerDB = new JsonDB('customers');
+
+function hashPassword(password) {
+  return crypto.createHash('sha256').update(password).digest('hex');
+}
 
 function calculateTag(orderCount = 0, totalSpent = 0) {
   if (totalSpent >= 50000000 || orderCount >= 5) return 'VIP';
@@ -15,6 +20,7 @@ function mapRowToCustomer(row) {
     id: row.id,
     fullName: row.full_name,
     phone: row.phone,
+    passwordHash: row.password_hash,
     email: row.email,
     address: row.address,
     note: row.note,
@@ -97,6 +103,113 @@ class CustomerModel {
       }
     }
     return customerDB.findOne(c => c.phone && c.phone.trim() === cleanPhone);
+  }
+
+  // Đăng ký tài khoản khách hàng
+  static async register({ fullName, phone, password, email = '', address = '' }) {
+    if (!fullName || !phone || !password) {
+      throw new Error('Vui lòng cung cấp họ tên, số điện thoại và mật khẩu');
+    }
+    if (password.length < 6) {
+      throw new Error('Mật khẩu phải có ít nhất 6 ký tự');
+    }
+
+    const cleanPhone = phone.trim();
+    const existing = await this.findByPhone(cleanPhone);
+    const passHash = hashPassword(password);
+
+    if (existing) {
+      if (existing.passwordHash) {
+        throw new Error('Số điện thoại này đã có tài khoản. Vui lòng đăng nhập.');
+      }
+      // Nâng cấp khách cũ thành tài khoản có mật khẩu
+      if (db.isPostgres()) {
+        try {
+          const res = await db.query(`
+            UPDATE customers
+            SET full_name = $1, password_hash = $2, email = COALESCE(NULLIF($3, ''), email), address = COALESCE(NULLIF($4, ''), address), updated_at = NOW()
+            WHERE id = $5
+            RETURNING *
+          `, [fullName, passHash, email, address, existing.id]);
+          const cust = mapRowToCustomer(res.rows[0]);
+          delete cust.passwordHash;
+          return cust;
+        } catch (err) {
+          throw new Error('Lỗi cập nhật tài khoản: ' + err.message);
+        }
+      }
+
+      const updated = customerDB.update(existing.id, {
+        fullName,
+        passwordHash: passHash,
+        email: email || existing.email,
+        address: address || existing.address
+      });
+      const safe = { ...updated };
+      delete safe.passwordHash;
+      return safe;
+    }
+
+    const newId = 'CUST_' + Date.now();
+    if (db.isPostgres()) {
+      try {
+        const res = await db.query(`
+          INSERT INTO customers (id, full_name, phone, password_hash, email, address, note, admin_note, tag, visit_count, order_count, total_spent, last_visited)
+          VALUES ($1, $2, $3, $4, $5, $6, '', '', 'Mới', 1, 0, 0, NOW())
+          RETURNING *
+        `, [newId, fullName, cleanPhone, passHash, email, address]);
+        const cust = mapRowToCustomer(res.rows[0]);
+        delete cust.passwordHash;
+        return cust;
+      } catch (err) {
+        throw new Error('Lỗi đăng ký tài khoản Postgres: ' + err.message);
+      }
+    }
+
+    const newCust = {
+      id: newId,
+      fullName,
+      phone: cleanPhone,
+      passwordHash: passHash,
+      email: email || '',
+      address: address || '',
+      note: '',
+      adminNote: '',
+      tag: 'Mới',
+      visitCount: 1,
+      orderCount: 0,
+      totalSpent: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    customerDB.insert(newCust);
+    const safeCust = { ...newCust };
+    delete safeCust.passwordHash;
+    return safeCust;
+  }
+
+  // Đăng nhập tài khoản khách hàng
+  static async login({ phone, password }) {
+    if (!phone || !password) {
+      throw new Error('Vui lòng nhập số điện thoại và mật khẩu');
+    }
+    const cleanPhone = phone.trim();
+    const customer = await this.findByPhone(cleanPhone);
+    if (!customer) {
+      throw new Error('Số điện thoại chưa được đăng ký tài khoản');
+    }
+    if (!customer.passwordHash) {
+      throw new Error('Số điện thoại này đã từng mua hàng nhưng chưa tạo mật khẩu. Vui lòng bấm Đăng Ký để thiết lập mật khẩu.');
+    }
+
+    const passHash = hashPassword(password);
+    if (customer.passwordHash !== passHash) {
+      throw new Error('Mật khẩu không chính xác');
+    }
+
+    const safe = { ...customer };
+    delete safe.passwordHash;
+    return safe;
   }
 
   static async rememberCustomer({ phone, fullName, email, address, note }) {

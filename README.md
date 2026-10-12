@@ -9,12 +9,13 @@ Dự án website thương mại điện tử bán điện thoại xây dựng tr
 ## ✨ Tính Năng Nổi Bật
 
 ### 🛒 1. Phía Khách Hàng (Storefront)
-- **Danh mục sản phẩm**: Hiển thị điện thoại với cấu hình, giá niêm yết, phân loại theo hãng (Apple, Samsung, Xiaomi,...).
-- **Giỏ hàng & Thanh toán**: Thêm/xóa sản phẩm, cập nhật số lượng tức thì.
-- **Tự động ghi nhớ khách hàng (Customer Memory)**:
-  - Khi khách đặt hàng và chọn *"Ghi nhớ thông tin của tôi"*, hệ thống lưu thông tin an toàn qua Session & Cookie.
-  - Tự động điền lại Họ tên, SĐT, Địa chỉ cho các lần mua sau mà không cần tạo tài khoản rườm rà.
-  - Tự động tra cứu thông tin cũ khi nhập số điện thoại.
+- **Danh mục 15 điện thoại chính hãng**: Đầy đủ phân khúc Flagship từ Apple (iPhone 16 Pro Max, 16 Plus, 15 Pro Max, 15), Samsung (Galaxy S24 Ultra, Z Fold6, Z Flip6, S24+), Xiaomi (14 Ultra, 14, Redmi Note 13 Pro+), Google Pixel (9 Pro XL, 8a) và OPPO (Find N3 Flip, Reno12 Pro).
+- **Tìm kiếm & Bộ lọc thương hiệu**: Lọc tức thì theo hãng hoặc gõ tìm kiếm thông số, tên máy.
+- **Hệ thống Tài Khoản Khách Hàng (Customer Auth)**:
+  - **Đăng Ký & Đăng Nhập**: Khách hàng có thể tạo tài khoản với SĐT và mật khẩu bảo mật (mã hóa SHA-256).
+  - **Lịch sử đơn mua (My Orders)**: Khách xem lại danh sách đơn hàng đã mua và trạng thái vận chuyển thời gian thực (*Chờ xác nhận, Đang giao hàng, Hoàn thành*).
+  - **Tự động điền khi thanh toán**: Tự động nhận diện thông tin giao hàng của khách hàng đã đăng nhập.
+- **Giỏ hàng & Đặt hàng nhanh**: Thêm/xóa sản phẩm, cập nhật số lượng tức thì, tính tổng tiền tự động.
 
 ### 🛡️ 2. Hệ Thống Quản Trị (Admin Panel & CRM)
 - **Bảo mật & Đăng nhập**:

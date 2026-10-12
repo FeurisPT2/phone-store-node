@@ -57,6 +57,7 @@ async function initDatabase() {
         id VARCHAR(50) PRIMARY KEY,
         full_name VARCHAR(100) NOT NULL,
         phone VARCHAR(20) UNIQUE NOT NULL,
+        password_hash TEXT,
         email VARCHAR(100),
         address TEXT,
         note TEXT,
@@ -70,6 +71,7 @@ async function initDatabase() {
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       );
+      ALTER TABLE customers ADD COLUMN IF NOT EXISTS password_hash TEXT;
     `);
 
     // 3. Bảng orders
