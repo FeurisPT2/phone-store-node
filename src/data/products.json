@@ -1,5 +1,15 @@
 [
   {
+    "id": "iqoo_pad_ultra",
+    "name": "iQOO Pad Ultra 5G (16GB/512GB)",
+    "brand": "iQOO",
+    "price": 22990000,
+    "oldPrice": 25990000,
+    "specs": "8.8 inch OLED 2K 165Hz | Snapdragon 8 Elite Extreme + Chip Q4 | 16GB/512GB | Quạt tản nhiệt cơ học Ice Dome | Pin 9020mAh 66W | iquoo gaming tablet",
+    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+    "createdAt": "2026-10-12T12:02:16.648Z"
+  },
+  {
     "id": "p1",
     "name": "iPhone 16 Pro Max 256GB",
     "brand": "Apple",
@@ -594,15 +604,5 @@
     "specs": "6.8 inch LTPO OLED cong 120Hz | Camera kính tiềm vọng 180MP Falcon | Snapdragon 8 Gen 3 | Pin 5600mAh",
     "image": "https://images.unsplash.com/photo-1533228876829-65c94e7b5025?w=600&auto=format&fit=crop&q=80",
     "createdAt": "2026-10-12T11:20:31.843Z"
-  },
-  {
-    "id": "p_1791806222211_gqz8s",
-    "name": "vivo iQOO Pad Ultra 5G (16GB/512GB)",
-    "brand": "Vivo",
-    "price": 22990000,
-    "oldPrice": 25990000,
-    "specs": "8.8 inch OLED 2K 165Hz | Snapdragon 8 Elite Extreme + Chip Q4 | 16GB/512GB | Quạt tản nhiệt Ice Dome | Pin 9020mAh 66W",
-    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:57:02.211Z"
   }
 ]
