@@ -21,17 +21,31 @@ class JsonDB {
 
     // Khởi tạo file dữ liệu
     if (!fs.existsSync(this.filePath)) {
+      let initialData = defaultData;
       if (fs.existsSync(this.sourcePath)) {
         try {
           const content = fs.readFileSync(this.sourcePath, 'utf8');
           const parsed = JSON.parse(content || '[]');
-          this.write(parsed.length > 0 ? parsed : defaultData);
+          if (Array.isArray(parsed) && parsed.length > 0) initialData = parsed;
         } catch {
-          this.write(defaultData);
+          initialData = defaultData;
         }
-      } else {
-        this.write(defaultData);
       }
+      this.write(initialData);
+    } else if (this.name === 'products') {
+      // Đồng bộ sản phẩm mới nhất nếu kho runtime ít hơn kho nguồn
+      try {
+        let sourceList = defaultData;
+        if (fs.existsSync(this.sourcePath)) {
+          const content = fs.readFileSync(this.sourcePath, 'utf8');
+          const parsed = JSON.parse(content || '[]');
+          if (Array.isArray(parsed) && parsed.length > 0) sourceList = parsed;
+        }
+        const currentList = this.read();
+        if (Array.isArray(sourceList) && sourceList.length > currentList.length) {
+          this.write(sourceList);
+        }
+      } catch (err) {}
     }
   }
 
