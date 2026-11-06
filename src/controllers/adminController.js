@@ -3,6 +3,7 @@ const CustomerModel = require('../models/Customer');
 const OrderModel = require('../models/Order');
 const ProductModel = require('../models/Product');
 const CrawlerService = require('../services/crawlerService');
+const geminiService = require('../services/geminiService');
 
 // ==================== 1. XÁC THỰC ADMIN ====================
 
@@ -350,8 +351,18 @@ exports.addProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, brand, price, oldPrice, specs, image } = req.body;
-    const updated = await ProductModel.update(id, { name, brand, price, oldPrice, specs, image });
+    const { name, brand, price, oldPrice, specs, image, detailedSpecs, aiReview, aiEnrichedAt } = req.body;
+    const updated = await ProductModel.update(id, {
+      name,
+      brand,
+      price,
+      oldPrice,
+      specs,
+      image,
+      detailedSpecs,
+      aiReview,
+      aiEnrichedAt
+    });
     if (!updated) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy sản phẩm' });
     }
@@ -370,6 +381,72 @@ exports.deleteProduct = async (req, res) => {
     }
     res.json({ success: true, message: 'Đã xóa sản phẩm thành công!' });
   } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+
+exports.enrichProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await ProductModel.getById(id);
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Không tìm thấy sản phẩm' });
+    }
+    const enrichment = await geminiService.enrichProduct({
+      name: product.name,
+      brand: product.brand,
+      rawText: product.description || product.specs || ''
+    });
+
+    const updated = await ProductModel.update(id, {
+      detailedSpecs: enrichment.detailedSpecs,
+      aiReview: enrichment.aiReview,
+      aiEnrichedAt: new Date().toISOString()
+    });
+
+    res.json({
+      success: true,
+      message: 'Đã làm giàu dữ liệu bằng AI thành công',
+      product: updated
+    });
+  } catch (err) {
+    console.error('Lỗi enrichProductById:', err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+exports.selfHealProducts = async (req, res) => {
+  try {
+    const limit = parseInt(req.body?.limit || req.query?.limit) || 10;
+    const unenriched = await ProductModel.getUnenriched(limit);
+    let count = 0;
+
+    for (const product of unenriched) {
+      try {
+        const enrichment = await geminiService.enrichProduct({
+          name: product.name,
+          brand: product.brand,
+          rawText: product.description || product.specs || ''
+        });
+        await ProductModel.update(product.id, {
+          detailedSpecs: enrichment.detailedSpecs,
+          aiReview: enrichment.aiReview,
+          aiEnrichedAt: new Date().toISOString()
+        });
+        count++;
+      } catch (e) {
+        console.error('Lỗi enrich cho sản phẩm ' + product.id + ':', e.message);
+      }
+    }
+
+    res.json({
+      success: true,
+      count,
+      message: 'Đã tự vá và làm giàu dữ liệu cho ' + count + ' sản phẩm.'
+    });
+  } catch (err) {
+    console.error('Lỗi selfHealProducts:', err);
     res.status(500).json({ success: false, message: err.message });
   }
 };

@@ -99,7 +99,7 @@
   <footer class="footer">
     <div class="container">
       <p>© 2026 TechStore Việt Nam. Hệ thống bán lẻ điện thoại thông minh chính hãng toàn quốc.</p>
-      <p style="margin-top:6px; font-size:12px; color:#64748b;">Hỗ trợ khách hàng: 1800.6868 | Quản trị viên: <a href="/admin" style="color:#38bdf8; text-decoration:none;">Admin Portal</a></p>
+      <p style="margin-top:6px; font-size:12px; color:#64748b;">Hỗ trợ khách hàng: 1800.6868 | <a href="/login" style="color:#38bdf8; text-decoration:none;">Cổng Đăng Nhập</a> | Quản trị viên: <a href="/admin" style="color:#38bdf8; text-decoration:none;">Admin Portal</a></p>
     </div>
   </footer>
 
@@ -219,6 +219,141 @@
         <button type="submit" class="btn-submit" id="btn-order-submit">XÁC NHẬN ĐẶT HÀNG NGAY</button>
       </form>
     </div>
+  </div>
+
+  <!-- 4. MODAL CHI TIẾT SẢN PHẨM & ĐÁNH GIÁ AI -->
+  <div id="product-detail-modal" class="modal hidden">
+    <div class="modal-box modal-box-lg">
+      <div class="modal-head">
+        <h3 id="detail-modal-title"><i class="fa-solid fa-mobile-screen" style="color:var(--primary);"></i> Chi Tiết Điện Thoại</h3>
+        <button onclick="closeModal('product-detail-modal')">&times;</button>
+      </div>
+
+      <div class="detail-grid">
+        <!-- Cột trái: Ảnh & Giá & Mua hàng -->
+        <div class="detail-left">
+          <div class="detail-img-box">
+            <img id="detail-img" src="" alt="Hình ảnh điện thoại">
+            <div id="detail-brand-badge" class="brand-tag"></div>
+          </div>
+          <div class="detail-pricing">
+            <div class="detail-price" id="detail-price">0 đ</div>
+            <div class="detail-old-price" id="detail-old-price"></div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn-buy" id="detail-btn-buy" style="width:100%; padding:12px; font-size:15px; margin-bottom:8px;">
+              <i class="fa-solid fa-bolt"></i> Mua ngay
+            </button>
+            <button class="btn-submit" id="detail-btn-cart" style="width:100%; background:#0f172a; padding:12px; font-size:14px;">
+              <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+            </button>
+          </div>
+        </div>
+
+        <!-- Cột phải: Bảng thông số kỹ thuật 8 trường & Đánh giá AI -->
+        <div class="detail-right">
+          <!-- Bảng thông số chi tiết -->
+          <div class="detail-section">
+            <h4 class="section-title"><i class="fa-solid fa-microchip"></i> Thông Số Kỹ Thuật Chi Tiết</h4>
+            <div class="specs-table-grid" id="detail-specs-sheet">
+              <!-- Render 8 thông số bằng JS -->
+            </div>
+          </div>
+
+          <!-- Đánh giá chuyên sâu từ Gemini AI -->
+          <div class="detail-section ai-review-box">
+            <div class="ai-review-header">
+              <i class="fa-solid fa-wand-magic-sparkles" style="color:#7c3aed;"></i>
+              <span>Đánh Giá Chuyên Sâu Từ Gemini AI</span>
+            </div>
+            <p class="ai-summary" id="detail-ai-summary"></p>
+            
+            <div class="ai-pros-cons">
+              <div class="ai-pros">
+                <h5><i class="fa-solid fa-circle-check" style="color:#10b981;"></i> Điểm Nổi Bật (Ưu điểm)</h5>
+                <ul id="detail-ai-pros"></ul>
+              </div>
+              <div class="ai-cons">
+                <h5><i class="fa-solid fa-circle-exclamation" style="color:#f59e0b;"></i> Điểm Cần Lưu Ý</h5>
+                <ul id="detail-ai-cons"></ul>
+              </div>
+            </div>
+
+            <div class="ai-audience-box">
+              <i class="fa-solid fa-bullseye" style="color:#6366f1;"></i>
+              <div>
+                <strong>Đối tượng phù hợp:</strong>
+                <span id="detail-ai-audience"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. FLOATING AI SHOPPING CONSULTANT WIDGET -->
+  <div class="ai-chat-fab" id="ai-chat-btn" onclick="toggleChatWindow()">
+    <div class="ai-fab-pulse"></div>
+    <div class="ai-fab-icon">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </div>
+    <span class="ai-fab-label">Tư vấn AI</span>
+  </div>
+
+  <div class="ai-chat-window hidden" id="ai-chat-window">
+    <div class="ai-chat-header">
+      <div class="ai-chat-profile">
+        <div class="ai-chat-avatar">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span class="online-indicator"></span>
+        </div>
+        <div class="ai-chat-info">
+          <h4>Trợ Lý Mua Sắm AI ✨</h4>
+          <span class="ai-chat-status">Gemini 2.5 Flash Grounded</span>
+        </div>
+      </div>
+      <button class="ai-chat-close-btn" onclick="toggleChatWindow()">&times;</button>
+    </div>
+
+    <!-- Quick Prompts Bar -->
+    <div class="ai-quick-prompts">
+      <button class="quick-prompt-pill" onclick="sendQuickPrompt('Tư vấn cho tôi điện thoại chụp ảnh đẹp dưới 15 triệu')">
+        📸 Dưới 15tr chụp ảnh đẹp
+      </button>
+      <button class="quick-prompt-pill" onclick="sendQuickPrompt('Điện thoại pin trâu chơi game mượt giá tốt')">
+        ⚡ Pin trâu chơi game
+      </button>
+      <button class="quick-prompt-pill" onclick="sendQuickPrompt('Tư vấn iPhone chính hãng đáng mua nhất')">
+        📱 iPhone chính hãng
+      </button>
+      <button class="quick-prompt-pill" onclick="sendQuickPrompt('Điện thoại cho học sinh sinh viên dưới 7 triệu')">
+        🎓 Sinh viên dưới 7 triệu
+      </button>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="chat-msg ai-msg">
+        <div class="msg-bubble">
+          👋 Chào bạn! Tôi là <b>Trợ lý Mua sắm AI</b> của TechStore. Tôi có thể giúp bạn tìm chiếc điện thoại hoàn hảo theo ngân sách, thương hiệu, hoặc nhu cầu chơi game, chụp ảnh! Bạn đang tìm mẫu máy như thế nào?
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div class="chat-typing-indicator hidden" id="chat-typing-indicator">
+      <span></span><span></span><span></span>
+      <i>Gemini đang phân tích catalog...</i>
+    </div>
+
+    <!-- Input Footer -->
+    <form class="ai-chat-footer" id="ai-chat-form" onsubmit="handleChatSubmit(event)">
+      <input type="text" id="ai-chat-input" placeholder="Hỏi bất kỳ điều gì về điện thoại..." autocomplete="off">
+      <button type="submit" id="ai-chat-send-btn">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
   </div>
 
   <!-- TOAST NOTIFICATIONS -->

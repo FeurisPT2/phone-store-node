@@ -4,186 +4,645 @@
     "name": "Apple iPhone Duo Fold 256GB",
     "brand": "Apple",
     "price": 26000000,
-    "oldPrice": 64990000,
+    "oldPrice": 26000000,
     "specs": "Màn hình gập 7.6 inch Super Retina XDR OLED 120Hz + phụ 6.3 inch | Apple A20 Pro | Camera kép 48MP | Bản lề Titan giọt nước | Pin đôi 44 giờ | iphone duo foldable",
     "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T12:17:53.017Z"
+    "createdAt": "2026-10-12T12:17:53.017Z",
+    "detailedSpecs": {
+      "screen": "7.6 inch Super AMOLED 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "Apple iPhone Duo Fold 256GB là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:03.416Z",
+    "updatedAt": "2026-11-06T16:59:03.418Z"
   },
   {
     "id": "iqoo_pad_ultra",
     "name": "iQOO Pad Ultra 5G (16GB/512GB)",
     "brand": "iQOO",
     "price": 10400000,
-    "oldPrice": 25990000,
+    "oldPrice": 10400000,
     "specs": "8.8 inch OLED 2K 165Hz | Snapdragon 8 Elite Extreme + Chip Q4 | 16GB/512GB | Quạt tản nhiệt cơ học Ice Dome | Pin 9020mAh 66W | iquoo gaming tablet",
     "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T12:02:16.648Z"
+    "createdAt": "2026-10-12T12:02:16.648Z",
+    "detailedSpecs": {
+      "screen": "8.8 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "16GB",
+      "storage": "512GB",
+      "battery": "9020mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "iQOO Pad Ultra 5G (16GB/512GB) là mẫu điện thoại chính hãng chất lượng cao từ iQOO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ iQOO",
+        "Cấu hình ổn định với dung lượng 512GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:03.418Z",
+    "updatedAt": "2026-11-06T16:59:03.420Z"
   },
   {
     "id": "p1",
     "name": "iPhone 16 Pro Max 256GB",
     "brand": "Apple",
     "price": 14800000,
-    "oldPrice": 36990000,
+    "oldPrice": 14800000,
     "specs": "6.9 inch Super Retina XDR OLED 120Hz | Apple A18 Pro | 256GB Titan Sa Mạc",
     "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
-    "updatedAt": "2026-10-12T11:34:40.527Z"
+    "updatedAt": "2026-11-06T16:59:03.422Z",
+    "detailedSpecs": {
+      "screen": "6.9 inch Super AMOLED 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 16 Pro Max 256GB là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:03.421Z"
   },
   {
     "id": "p2",
     "name": "iPhone 16 Plus 128GB",
     "brand": "Apple",
     "price": 11000000,
-    "oldPrice": 27490000,
+    "oldPrice": 11000000,
     "specs": "6.7 inch OLED Super Retina | Chip A18 | Nút Camera Control | Pin khủng 27 giờ xem video",
-    "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.7 inch Super AMOLED 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 16 Plus 128GB là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:03.423Z",
+    "updatedAt": "2026-11-06T16:59:03.424Z"
   },
   {
     "id": "p3",
     "name": "iPhone 15 Pro Max 256GB",
     "brand": "Apple",
     "price": 13200000,
-    "oldPrice": 32990000,
+    "oldPrice": 13200000,
     "specs": "6.7 inch OLED 120Hz | Khung Titan siêu nhẹ | A17 Pro | Cổng sạc USB-C Type 3",
-    "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.7 inch Super AMOLED 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 15 Pro Max 256GB là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:03.425Z",
+    "updatedAt": "2026-11-06T16:59:03.432Z"
   },
   {
     "id": "p4",
     "name": "iPhone 15 128GB",
     "brand": "Apple",
     "price": 8600000,
-    "oldPrice": 21490000,
+    "oldPrice": 8600000,
     "specs": "6.1 inch Dynamic Island | Camera 48MP sắc nét | Chip A16 Bionic | Kính lưng pha màu",
-    "image": "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.1 inch Super AMOLED 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "48MP",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 15 128GB là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:54.894Z",
+    "updatedAt": "2026-11-06T16:59:54.896Z"
   },
   {
     "id": "p5",
     "name": "Samsung Galaxy S24 Ultra 5G 256GB",
     "brand": "Samsung",
     "price": 12800000,
-    "oldPrice": 31990000,
+    "oldPrice": 12800000,
     "specs": "6.8 inch Dynamic AMOLED 2X 120Hz | Snapdragon 8 Gen 3 for Galaxy | Bút S-Pen | Galaxy AI",
-    "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.8 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy S24 Ultra 5G 256GB là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:54.897Z",
+    "updatedAt": "2026-11-06T16:59:54.898Z"
   },
   {
     "id": "p6",
     "name": "Samsung Galaxy Z Fold6 5G 256GB",
     "brand": "Samsung",
     "price": 17600000,
-    "oldPrice": 43990000,
+    "oldPrice": 17600000,
     "specs": "Màn gập 7.6 inch + phụ 6.3 inch | Snapdragon 8 Gen 3 | Khung Armor Aluminum mỏng nhẹ",
-    "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "7.6 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy Z Fold6 5G 256GB là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:54.899Z",
+    "updatedAt": "2026-11-06T16:59:54.900Z"
   },
   {
     "id": "p7",
     "name": "Samsung Galaxy Z Flip6 5G 256GB",
     "brand": "Samsung",
     "price": 11600000,
-    "oldPrice": 28990000,
+    "oldPrice": 11600000,
     "specs": "Gập vỏ sò thời thượng | FlexCam 50MP | Snapdragon 8 Gen 3 | Màn ngoài FlexWindow đa năng",
-    "image": "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy Z Flip6 5G 256GB là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:54.901Z",
+    "updatedAt": "2026-11-06T16:59:54.904Z"
   },
   {
     "id": "p8",
     "name": "Samsung Galaxy S24+ 256GB",
     "brand": "Samsung",
     "price": 10000000,
-    "oldPrice": 24990000,
+    "oldPrice": 10000000,
     "specs": "6.7 inch QHD+ 120Hz | RAM 12GB đa nhiệm | Trợ lý thông minh Galaxy AI | Pin 4900mAh",
-    "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.7 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "4900mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy S24+ 256GB là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T16:59:54.904Z",
+    "updatedAt": "2026-11-06T16:59:54.906Z"
   },
   {
     "id": "p9",
     "name": "Xiaomi 14 Ultra Leica 512GB",
     "brand": "Xiaomi",
     "price": 12000000,
-    "oldPrice": 29990000,
+    "oldPrice": 12000000,
     "specs": "6.73 inch LTPO OLED 120Hz | Cụm 4 Camera Leica 50MP 1 inch | Snap 8 Gen 3 | Sạc 90W",
-    "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.73 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "512GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi 14 Ultra Leica 512GB là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 512GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:03:47.972Z",
+    "updatedAt": "2026-11-06T17:03:47.975Z"
   },
   {
     "id": "p10",
     "name": "Xiaomi 14 256GB",
     "brand": "Xiaomi",
     "price": 8000000,
-    "oldPrice": 19990000,
+    "oldPrice": 8000000,
     "specs": "6.36 inch viền siêu mỏng | Ống kính quang học Leica Summilux | Snapdragon 8 Gen 3",
-    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.36 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi 14 256GB là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:03:47.976Z",
+    "updatedAt": "2026-11-06T17:03:47.978Z"
   },
   {
     "id": "p11",
     "name": "Xiaomi Redmi Note 13 Pro+ 5G",
     "brand": "Xiaomi",
     "price": 4000000,
-    "oldPrice": 9990000,
+    "oldPrice": 4000000,
     "specs": "Màn cong 1.5K 120Hz | Camera siêu nét 200MP OIS | Sạc thần tốc 120W HyperCharge",
-    "image": "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi Redmi Note 13 Pro+ 5G là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:03:47.978Z",
+    "updatedAt": "2026-11-06T17:03:47.981Z"
   },
   {
     "id": "p12",
     "name": "Google Pixel 9 Pro XL 128GB",
     "brand": "Google",
     "price": 11960000,
-    "oldPrice": 29900000,
+    "oldPrice": 11960000,
     "specs": "6.8 inch Super Actua OLED 120Hz | Google Tensor G4 | Trí tuệ nhân tạo Gemini Nano tích hợp",
-    "image": "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.8 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Google Pixel 9 Pro XL 128GB là mẫu điện thoại chính hãng chất lượng cao từ Google.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Google",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:03:47.981Z",
+    "updatedAt": "2026-11-06T17:03:47.983Z"
   },
   {
     "id": "p13",
     "name": "Google Pixel 8a 128GB",
     "brand": "Google",
     "price": 5400000,
-    "oldPrice": 13500000,
+    "oldPrice": 5400000,
     "specs": "6.1 inch Actua 120Hz | Chip Google Tensor G3 | Camera AI đỉnh cao Best Take, Magic Editor",
-    "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "6.1 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Google Pixel 8a 128GB là mẫu điện thoại chính hãng chất lượng cao từ Google.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Google",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:03:47.983Z",
+    "updatedAt": "2026-11-06T17:03:47.984Z"
   },
   {
     "id": "p14",
     "name": "OPPO Find N3 Flip 256GB",
     "brand": "OPPO",
     "price": 9200000,
-    "oldPrice": 22990000,
+    "oldPrice": 9200000,
     "specs": "Gập không nếp gấp | Bộ 3 camera chuyên nghiệp Hasselblad | Màn hình ngoài tiện ích",
-    "image": "https://images.unsplash.com/photo-1533228876829-65c94e7b5025?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1533228876829-65c94e7b5025?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "OPPO Find N3 Flip 256GB là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:04:11.514Z",
+    "updatedAt": "2026-11-06T17:04:11.516Z"
   },
   {
     "id": "p15",
     "name": "OPPO Reno12 Pro 5G 512GB",
     "brand": "OPPO",
     "price": 7200000,
-    "oldPrice": 17990000,
+    "oldPrice": 7200000,
     "specs": "Màn cong vô cực 120Hz | Chuyên gia chân dung AI Eraser | Thiết kế ánh bạc tương lai",
-    "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80"
+    "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "512GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "OPPO Reno12 Pro 5G 512GB là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 512GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:04:11.517Z",
+    "updatedAt": "2026-11-06T17:04:11.520Z"
   },
   {
     "id": "p_1791803620947_mpsti",
     "name": "Xiaomi Redmi Note 17 Pro 5G 6GB/256GB",
     "brand": "Xiaomi",
     "price": 4600000,
-    "oldPrice": 11490000,
+    "oldPrice": 4600000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 6GB/256GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/3c/5c/00/dfb89f9f5872243cc742990a41979b04.jpg",
-    "createdAt": "2026-10-12T11:13:40.947Z"
+    "createdAt": "2026-10-12T11:13:40.947Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "6GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi Redmi Note 17 Pro 5G 6GB/256GB là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:04:11.521Z",
+    "updatedAt": "2026-11-06T17:04:11.522Z"
   },
   {
     "id": "p_1791803620948_qw94b",
     "name": "Xiaomi Redmi Note 15 Pro+ 5G 12GB/256GB",
     "brand": "Xiaomi",
     "price": 5200000,
-    "oldPrice": 12990000,
+    "oldPrice": 5200000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 12GB/256GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/9b/96/0f/0112e0cbfe78645cf0e9afcd9806d041.jpg",
-    "createdAt": "2026-10-12T11:13:40.948Z"
+    "createdAt": "2026-10-12T11:13:40.948Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "12GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi Redmi Note 15 Pro+ 5G 12GB/256GB là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:04:11.523Z",
+    "updatedAt": "2026-11-06T17:04:11.525Z"
   },
   {
     "id": "p_1791803620949_no6sy",
     "name": "Xiaomi Redmi 17 (6GB/256GB)",
     "brand": "Xiaomi",
     "price": 3440000,
-    "oldPrice": 8600000,
+    "oldPrice": 3440000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 6GB/256GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/d8/e4/22/cd4ffd787a96dc17d3496eaefb25249a.jpg",
-    "createdAt": "2026-10-12T11:13:40.949Z"
+    "createdAt": "2026-10-12T11:13:40.949Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "6GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi Redmi 17 (6GB/256GB) là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:04:11.526Z",
+    "updatedAt": "2026-11-06T17:04:11.529Z"
   },
   {
     "id": "p_1791803620951_x1rbp",
@@ -193,7 +652,29 @@
     "oldPrice": 4490000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/5a/81/af/873e1e2a49cb3dbababecd591d8b9fef.jpg",
-    "createdAt": "2026-10-12T11:13:40.951Z"
+    "createdAt": "2026-10-12T11:13:40.951Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "4GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi Redmi A7 Pro 4GB/128GB là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.370Z"
   },
   {
     "id": "p_1791803620952_wdle0",
@@ -203,7 +684,29 @@
     "oldPrice": 8990000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 8GB/256GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/11/5f/b4/0013e413b30d7e83cbd921bf558d1ce6.jpg",
-    "createdAt": "2026-10-12T11:13:40.952Z"
+    "createdAt": "2026-10-12T11:13:40.952Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Xiaomi Redmi Note 15 Pro 8GB/256GB là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803627108_rud7g",
@@ -213,7 +716,29 @@
     "oldPrice": 43400000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/c6/8c/b4/7a991a572aadf5d211e9d0bb7fb4c566.jpg",
-    "createdAt": "2026-10-12T11:13:47.108Z"
+    "createdAt": "2026-10-12T11:13:47.108Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "Apple iPhone 18 Pro là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803627110_zjw7m",
@@ -223,7 +748,29 @@
     "oldPrice": 35600000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/b5/c9/72/bba1712b77ad93643395eaf0a0470adc.jpg",
-    "createdAt": "2026-10-12T11:13:47.110Z"
+    "createdAt": "2026-10-12T11:13:47.110Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "Apple iPhone 17 Pro là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803627111_xmk9s",
@@ -233,7 +780,29 @@
     "oldPrice": 54600000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/83/54/2f/171f270deec1c65647d96b5672bf75c1.jpg",
-    "createdAt": "2026-10-12T11:13:47.111Z"
+    "createdAt": "2026-10-12T11:13:47.111Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "Apple iPhone 18 Pro Max là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803630646_j7rry",
@@ -243,7 +812,29 @@
     "oldPrice": 5990000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/11/c6/0d/f450172931ac60aeffac30d6b6a74234.jpg",
-    "createdAt": "2026-10-12T11:13:50.646Z"
+    "createdAt": "2026-10-12T11:13:50.646Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "4GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy A07s (4GB/128GB) là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803630648_to098",
@@ -253,7 +844,29 @@
     "oldPrice": 20700000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Dung lượng 128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/5e/a0/91/7672f447efa4942c0568147693b6a740.jpg",
-    "createdAt": "2026-10-12T11:13:50.648Z"
+    "createdAt": "2026-10-12T11:13:50.648Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy S26 FE (8/128GB) là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803630649_b6eqf",
@@ -263,7 +876,29 @@
     "oldPrice": 9200000,
     "specs": "Màn hình 6.7 inch Super AMOLED 120Hz | Bộ nhớ 6GB + 128GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin trâu 5000mAh",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/a7/f1/35/fe74fab754e8c2f053ca14113003bdb8.jpg",
-    "createdAt": "2026-10-12T11:13:50.649Z"
+    "createdAt": "2026-10-12T11:13:50.649Z",
+    "detailedSpecs": {
+      "screen": "6.7 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "6GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy A27 5G (6GB + 128GB) | Màn hình 6.7\" FHD+ | Pin 5000mAh | Snapdragon 6 Gen 3 là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803630649_uvdie",
@@ -273,7 +908,29 @@
     "oldPrice": 4600000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/64GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/0c/36/0b/88f7befba91e4d4ef67740f7b3661a67.jpg",
-    "createdAt": "2026-10-12T11:13:50.649Z"
+    "createdAt": "2026-10-12T11:13:50.649Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "4GB",
+      "storage": "64GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy A06 5G (4GB/64GB) là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 64GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803634214_hay0j",
@@ -283,7 +940,29 @@
     "oldPrice": 5400000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/b2/a8/95/c5229c9913879eec850801623a8559fe.jpg",
-    "createdAt": "2026-10-12T11:13:54.214Z"
+    "createdAt": "2026-10-12T11:13:54.214Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "4GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Điện thoại Oppo A5x (4GB/128GB) là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803634215_nwi26",
@@ -293,7 +972,29 @@
     "oldPrice": 5690000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/f6/47/a0/0df7cc2caeb659f1d29cc5396927a1e2.jpg",
-    "createdAt": "2026-10-12T11:13:54.215Z"
+    "createdAt": "2026-10-12T11:13:54.215Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "4GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Oppo A6c 4GB/128GB là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803634216_e1xbc",
@@ -303,7 +1004,29 @@
     "oldPrice": 24990000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 12GB/256GB | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/c6/c8/ca/367e07f9ca722de55e687b251553e305.jpg",
-    "createdAt": "2026-10-12T11:13:54.216Z"
+    "createdAt": "2026-10-12T11:13:54.216Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "12GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Oppo Find X9s 5G 12GB/256GB là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803799595_a2pu9",
@@ -313,7 +1036,29 @@
     "oldPrice": 3800000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 4GB/64GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/a5/8f/15/ead898e857f218c94f3be875fb150ebd.jpg",
-    "createdAt": "2026-10-12T11:16:39.595Z"
+    "createdAt": "2026-10-12T11:16:39.595Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "4GB",
+      "storage": "64GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "realme Note 80 4GB/64GB là mẫu điện thoại chính hãng chất lượng cao từ Realme.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Realme",
+        "Cấu hình ổn định với dung lượng 64GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803799597_3i7eg",
@@ -323,7 +1068,29 @@
     "oldPrice": 5690000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 6GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/d1/42/41/93b27f2bcafc2602748a9f78d24b5a8c.jpg",
-    "createdAt": "2026-10-12T11:16:39.597Z"
+    "createdAt": "2026-10-12T11:16:39.597Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "6GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Realme C85 6GB/128GB là mẫu điện thoại chính hãng chất lượng cao từ Realme.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Realme",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803799598_1gxmp",
@@ -333,7 +1100,29 @@
     "oldPrice": 6290000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Bộ nhớ 8GB/128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/26/ba/8f/491b0d05d33d207b2a84df8f4f8c7fec.jpg",
-    "createdAt": "2026-10-12T11:16:39.598Z"
+    "createdAt": "2026-10-12T11:16:39.598Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Realme C85 8GB/128GB là mẫu điện thoại chính hãng chất lượng cao từ Realme.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Realme",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803804873_c5x56",
@@ -343,7 +1132,29 @@
     "oldPrice": 18400000,
     "specs": "Màn hình AMOLED sắc nét 120Hz | Hỗ trợ kết nối mạng 5G siêu tốc | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
     "image": "https://salt.tikicdn.com/cache/750x750/ts/product/92/e0/e0/f614498043ec158a71d483658099e6f6.jpg",
-    "createdAt": "2026-10-12T11:16:44.873Z"
+    "createdAt": "2026-10-12T11:16:44.873Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "OnePlus 10T 5G là mẫu điện thoại chính hãng chất lượng cao từ OnePlus.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OnePlus",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987942_06eho",
@@ -353,7 +1164,29 @@
     "oldPrice": 5840000,
     "specs": "The iPhone 5s is a classic smartphone known for its compact design and advanced features during its release. While it's an older model, it still provides a reliable user experience.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.942Z"
+    "createdAt": "2026-10-12T11:19:47.942Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 5s là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987944_vuvkh",
@@ -363,7 +1196,29 @@
     "oldPrice": 8760000,
     "specs": "The iPhone 6 is a stylish and capable smartphone with a larger display and improved performance. It introduced new features and design elements, making it a popular choice in its time.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.944Z"
+    "createdAt": "2026-10-12T11:19:47.944Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 6 là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987945_97u48",
@@ -373,7 +1228,29 @@
     "oldPrice": 32130000,
     "specs": "The iPhone 13 Pro is a cutting-edge smartphone with a powerful camera system, high-performance chip, and stunning display. It offers advanced features for users who demand top-notch technology.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.945Z"
+    "createdAt": "2026-10-12T11:19:47.945Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 13 Pro là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987946_yvcm2",
@@ -383,7 +1260,29 @@
     "oldPrice": 26290000,
     "specs": "The iPhone X is a flagship smartphone featuring a bezel-less OLED display, facial recognition technology (Face ID), and impressive performance. It represents a milestone in iPhone design and innovation.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.946Z"
+    "createdAt": "2026-10-12T11:19:47.946Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone X là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987946_z5yij",
@@ -393,7 +1292,29 @@
     "oldPrice": 7300000,
     "specs": "The Oppo A57 is a mid-range smartphone known for its sleek design and capable features. It offers a balance of performance and affordability, making it a popular choice.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.946Z"
+    "createdAt": "2026-10-12T11:19:47.946Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Oppo A57 là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987947_0cxa3",
@@ -403,7 +1324,29 @@
     "oldPrice": 11680000,
     "specs": "The Oppo F19 Pro Plus is a feature-rich smartphone with a focus on camera capabilities. It boasts advanced photography features and a powerful performance for a premium user experience.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/oppo-f19-pro-plus/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.947Z"
+    "createdAt": "2026-10-12T11:19:47.947Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Oppo F19 Pro Plus là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987948_17qzy",
@@ -413,7 +1356,29 @@
     "oldPrice": 8760000,
     "specs": "The Oppo K1 series offers a range of smartphones with various features and specifications. Known for their stylish design and reliable performance, the Oppo K1 series caters to diverse user preferences.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/oppo-k1/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.948Z"
+    "createdAt": "2026-10-12T11:19:47.948Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Oppo K1 là mẫu điện thoại chính hãng chất lượng cao từ OPPO.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OPPO",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987949_aia5e",
@@ -423,7 +1388,29 @@
     "oldPrice": 4380000,
     "specs": "The Realme C35 is a budget-friendly smartphone with a focus on providing essential features for everyday use. It offers a reliable performance and user-friendly experience.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-c35/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.949Z"
+    "createdAt": "2026-10-12T11:19:47.949Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Realme C35 là mẫu điện thoại chính hãng chất lượng cao từ Realme.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Realme",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987949_p9915",
@@ -433,7 +1420,29 @@
     "oldPrice": 8760000,
     "specs": "The Realme X is a mid-range smartphone known for its sleek design and impressive display. It offers a good balance of performance and camera capabilities for users seeking a quality device.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-x/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.949Z"
+    "createdAt": "2026-10-12T11:19:47.949Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Realme X là mẫu điện thoại chính hãng chất lượng cao từ Realme.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Realme",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987950_7z8qa",
@@ -443,7 +1452,29 @@
     "oldPrice": 10220000,
     "specs": "The Realme XT is a feature-rich smartphone with a focus on camera technology. It comes equipped with advanced camera sensors, delivering high-quality photos and videos for photography enthusiasts.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-xt/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.950Z"
+    "createdAt": "2026-10-12T11:19:47.950Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Realme XT là mẫu điện thoại chính hãng chất lượng cao từ Realme.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Realme",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987951_5x48i",
@@ -453,7 +1484,29 @@
     "oldPrice": 8760000,
     "specs": "The Samsung Galaxy S7 is a flagship smartphone known for its sleek design and advanced features. It features a high-resolution display, powerful camera, and robust performance.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s7/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.951Z"
+    "createdAt": "2026-10-12T11:19:47.951Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy S7 là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987952_8gxdt",
@@ -463,7 +1516,29 @@
     "oldPrice": 14600000,
     "specs": "The Samsung Galaxy S8 is a premium smartphone with an Infinity Display, offering a stunning visual experience. It boasts advanced camera capabilities and cutting-edge technology.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s8/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.952Z"
+    "createdAt": "2026-10-12T11:19:47.952Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy S8 là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987953_1xp4a",
@@ -473,7 +1548,29 @@
     "oldPrice": 20450000,
     "specs": "The Samsung Galaxy S10 is a flagship device featuring a dynamic AMOLED display, versatile camera system, and powerful performance. It represents innovation and excellence in smartphone technology.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s10/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.953Z"
+    "createdAt": "2026-10-12T11:19:47.953Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy S10 là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987954_omszg",
@@ -483,7 +1580,29 @@
     "oldPrice": 7300000,
     "specs": "The Vivo S1 is a stylish and mid-range smartphone offering a blend of design and performance. It features a vibrant display, capable camera system, and reliable functionality.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/vivo-s1/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.954Z"
+    "createdAt": "2026-10-12T11:19:47.954Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Vivo S1 là mẫu điện thoại chính hãng chất lượng cao từ Vivo.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Vivo",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791803987954_k1rgt",
@@ -493,7 +1612,29 @@
     "oldPrice": 8760000,
     "specs": "The Vivo V9 is a smartphone known for its sleek design and emphasis on capturing high-quality selfies. It features a notch display, dual-camera setup, and a modern design.",
     "image": "https://cdn.dummyjson.com/product-images/smartphones/vivo-v9/thumbnail.webp",
-    "createdAt": "2026-10-12T11:19:47.954Z"
+    "createdAt": "2026-10-12T11:19:47.954Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Vivo V9 là mẫu điện thoại chính hãng chất lượng cao từ Vivo.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Vivo",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031830_prozk",
@@ -503,7 +1644,29 @@
     "oldPrice": 30990000,
     "specs": "6.3 inch Super Retina XDR OLED 120Hz | Apple A18 Pro | Nút Camera Control | Khung Titan cao cấp",
     "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.830Z"
+    "createdAt": "2026-10-12T11:20:31.830Z",
+    "detailedSpecs": {
+      "screen": "6.3 inch Super AMOLED 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 16 Pro 128GB là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031832_5wsxb",
@@ -513,7 +1676,29 @@
     "oldPrice": 23990000,
     "specs": "6.1 inch OLED Dynamic Island | Apple A18 mạnh mẽ | Camera 48MP Fusion 2x | Kính pha màu lưng",
     "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.832Z"
+    "createdAt": "2026-10-12T11:20:31.832Z",
+    "detailedSpecs": {
+      "screen": "6.1 inch Super AMOLED 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "48MP",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 16 128GB là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031833_xzkqf",
@@ -523,7 +1708,29 @@
     "oldPrice": 18990000,
     "specs": "6.7 inch Dynamic AMOLED 2X 120Hz | Exynos 2400e | Bộ công cụ thông minh Galaxy AI | Pin 4700mAh",
     "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.833Z"
+    "createdAt": "2026-10-12T11:20:31.833Z",
+    "detailedSpecs": {
+      "screen": "6.7 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "4700mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy S24 FE 5G 128GB là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031834_zdteq",
@@ -533,7 +1740,29 @@
     "oldPrice": 25990000,
     "specs": "Màn hình ngoài Flex Window 3.4 inch | Màn chính Dynamic AMOLED 2X 120Hz | Bản lề Flex không khe hở",
     "image": "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.834Z"
+    "createdAt": "2026-10-12T11:20:31.834Z",
+    "detailedSpecs": {
+      "screen": "3.4 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Samsung Galaxy Z Flip5 5G 256GB là mẫu điện thoại chính hãng chất lượng cao từ Samsung.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Samsung",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031835_qs8aw",
@@ -543,7 +1772,29 @@
     "oldPrice": 22490000,
     "specs": "6.82 inch 2K LTPO 120Hz 4500 nits | Snapdragon 8 Gen 3 | Camera Hasselblad thế hệ 4 | Sạc 100W",
     "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.835Z"
+    "createdAt": "2026-10-12T11:20:31.835Z",
+    "detailedSpecs": {
+      "screen": "6.82 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "OnePlus 12 5G 256GB là mẫu điện thoại chính hãng chất lượng cao từ OnePlus.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OnePlus",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031836_uviel",
@@ -553,7 +1804,29 @@
     "oldPrice": 24990000,
     "specs": "6.78 inch LTPO AMOLED 120Hz | Dimensity 9300 siêu mạnh | Cảm biến 1 inch ZEISS APO Telephoto | Sạc 100W",
     "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.836Z"
+    "createdAt": "2026-10-12T11:20:31.836Z",
+    "detailedSpecs": {
+      "screen": "6.78 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Vivo X100 Pro 5G 256GB là mẫu điện thoại chính hãng chất lượng cao từ Vivo.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Vivo",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031837_imsmw",
@@ -563,7 +1836,29 @@
     "oldPrice": 32990000,
     "specs": "6.78 inch Samsung E6 AMOLED 165Hz | Snapdragon 8 Gen 3 | AniMe Vision LED lưng | Hệ thống AirTrigger",
     "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.837Z"
+    "createdAt": "2026-10-12T11:20:31.837Z",
+    "detailedSpecs": {
+      "screen": "6.78 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "512GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "ASUS ROG Phone 8 Pro 512GB là mẫu điện thoại chính hãng chất lượng cao từ ASUS.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ ASUS",
+        "Cấu hình ổn định với dung lượng 512GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031838_e1ybm",
@@ -573,7 +1868,29 @@
     "oldPrice": 34990000,
     "specs": "6.5 inch LTPO OLED 1-120Hz Powered by BRAVIA | Ống kính quang học ZEISS T* Zoom 85-170mm | Snap 8 Gen 3",
     "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.838Z"
+    "createdAt": "2026-10-12T11:20:31.838Z",
+    "detailedSpecs": {
+      "screen": "6.5 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Sony Xperia 1 VI 5G 256GB là mẫu điện thoại chính hãng chất lượng cao từ Sony.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Sony",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031840_w0tqb",
@@ -583,7 +1900,29 @@
     "oldPrice": 26990000,
     "specs": "6.3 inch Super Actua OLED 120Hz 3000 nits | Google Tensor G4 | Trợ lý Gemini AI trực tiếp | Camera 50MP",
     "image": "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.840Z"
+    "createdAt": "2026-10-12T11:20:31.840Z",
+    "detailedSpecs": {
+      "screen": "6.3 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Google Pixel 9 Pro 128GB là mẫu điện thoại chính hãng chất lượng cao từ Google.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Google",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031841_17xmp",
@@ -593,7 +1932,29 @@
     "oldPrice": 15990000,
     "specs": "6.67 inch WQHD+ Flow AMOLED 120Hz 4000 nits | Snapdragon 8 Gen 2 | Sạc siêu tốc HyperCharge 120W",
     "image": "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.841Z"
+    "createdAt": "2026-10-12T11:20:31.841Z",
+    "detailedSpecs": {
+      "screen": "6.67 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "512GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "POCO F6 Pro 5G 512GB là mẫu điện thoại chính hãng chất lượng cao từ Xiaomi.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Xiaomi",
+        "Cấu hình ổn định với dung lượng 512GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031842_geurk",
@@ -603,7 +1964,29 @@
     "oldPrice": 16990000,
     "specs": "6.7 inch LTPO OLED 120Hz | Giao diện đèn Glyph Interface độc bản | Snapdragon 8+ Gen 1 | OS tối giản",
     "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.842Z"
+    "createdAt": "2026-10-12T11:20:31.842Z",
+    "detailedSpecs": {
+      "screen": "6.7 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "256GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Nothing Phone (2) 256GB là mẫu điện thoại chính hãng chất lượng cao từ Khác.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Khác",
+        "Cấu hình ổn định với dung lượng 256GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
   },
   {
     "id": "p_1791804031843_4z05i",
@@ -613,6 +1996,156 @@
     "oldPrice": 26990000,
     "specs": "6.8 inch LTPO OLED cong 120Hz | Camera kính tiềm vọng 180MP Falcon | Snapdragon 8 Gen 3 | Pin 5600mAh",
     "image": "https://images.unsplash.com/photo-1533228876829-65c94e7b5025?w=600&auto=format&fit=crop&q=80",
-    "createdAt": "2026-10-12T11:20:31.843Z"
+    "createdAt": "2026-10-12T11:20:31.843Z",
+    "detailedSpecs": {
+      "screen": "6.8 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "512GB",
+      "battery": "5600mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Honor Magic6 Pro 512GB là mẫu điện thoại chính hãng chất lượng cao từ Khác.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Khác",
+        "Cấu hình ổn định với dung lượng 512GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
+  },
+  {
+    "id": "p_1793983887568_zw132",
+    "name": "Test Phone AI Edition",
+    "brand": "TestBrand",
+    "price": 15000000,
+    "oldPrice": 15000000,
+    "specs": "Màn hình 6.7 inch",
+    "image": "",
+    "createdAt": "2026-11-06T16:51:27.568Z",
+    "detailedSpecs": {
+      "screen": "6.7 inch Super AMOLED 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Test Phone AI Edition là mẫu điện thoại chính hãng chất lượng cao từ TestBrand.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ TestBrand",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
+  },
+  {
+    "id": "p_1793983887574_hfun0",
+    "name": "Old Unenriched Phone",
+    "brand": "OldBrand",
+    "price": 9000000,
+    "oldPrice": 9000000,
+    "specs": "",
+    "image": "",
+    "createdAt": "2026-11-06T16:51:27.574Z",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Old Unenriched Phone là mẫu điện thoại chính hãng chất lượng cao từ OldBrand.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OldBrand",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z"
+  },
+  {
+    "id": "p_1793983934588_zfc81",
+    "name": "Old Unenriched Phone",
+    "brand": "OldBrand",
+    "price": 9000000,
+    "oldPrice": 9000000,
+    "specs": "",
+    "image": "",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Snapdragon / Dimensity",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "Android"
+    },
+    "aiReview": {
+      "summary": "Old Unenriched Phone là mẫu điện thoại chính hãng chất lượng cao từ OldBrand.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ OldBrand",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:09:41.371Z",
+    "createdAt": "2026-11-06T16:52:14.588Z"
+  },
+  {
+    "id": "p_1793986193248_wmb29",
+    "name": "iPhone 15 Pro 128GB Titan Tự Nhiên AutoEnrichTest",
+    "brand": "Apple",
+    "price": 25990000,
+    "oldPrice": 28990000,
+    "specs": "Màn hình AMOLED sắc nét 120Hz | Dung lượng 128GB | Camera AI chuyên nghiệp | Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng",
+    "image": "https://vcdn.tikicdn.com/cache/750x750/test.jpg",
+    "detailedSpecs": {
+      "screen": "Màn hình sắc nét 120Hz",
+      "chip": "Apple A-Series Bionic",
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "camera": "50MP AI",
+      "charging": "Sạc nhanh công suất cao",
+      "os": "iOS"
+    },
+    "aiReview": {
+      "summary": "iPhone 15 Pro 128GB Titan Tự Nhiên AutoEnrichTest là mẫu điện thoại chính hãng chất lượng cao từ Apple.",
+      "pros": [
+        "Thiết kế hiện đại, hoàn thiện tỉ mỉ từ Apple",
+        "Cấu hình ổn định với dung lượng 128GB"
+      ],
+      "cons": [
+        "Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc"
+      ],
+      "targetAudience": "Người dùng tìm kiếm smartphone chính hãng, đáp ứng tốt công việc và giải trí hàng ngày"
+    },
+    "aiEnrichedAt": "2026-11-06T17:29:53.248Z",
+    "createdAt": "2026-11-06T17:29:53.248Z"
   }
 ]

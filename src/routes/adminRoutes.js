@@ -27,8 +27,10 @@ router.get('/orders/:id', adminAuth, admin.getOrderDetail);
 router.patch('/orders/:id/status', adminAuth, admin.updateOrderStatus);
 router.delete('/orders/:id', adminAuth, admin.deleteOrder);
 
-// 5. Quản lý Sản Phẩm
+// 5. Quản lý Sản Phẩm & Tự động hoá AI
 router.post('/products/crawl', adminAuth, admin.crawlProducts);
+router.post('/products/self-heal', adminAuth, admin.selfHealProducts);
+router.post('/products/:id/enrich', adminAuth, admin.enrichProductById);
 router.post('/products', adminAuth, admin.addProduct);
 router.put('/products/:id', adminAuth, admin.updateProduct);
 router.delete('/products/:id', adminAuth, admin.deleteProduct);

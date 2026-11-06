@@ -1,0 +1,17 @@
+{
+  "0": "admin.js",
+  "1": "CustomerModel",
+  "3": "Product.js",
+  "4": "main.js",
+  "5": "Admin.js",
+  "6": "package.json",
+  "7": "express",
+  "8": "📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)",
+  "9": "server.js",
+  "10": "Spec 0001: Gemini AI Automation (Product Enrichment, Shopping Consultant & Self-healing Catalog)",
+  "11": "0001. Sử dụng Google Gemini 2.5 Flash Tự Động Hóa Dữ Liệu Sản Phẩm Và Tư Vấn Khách Hàng",
+  "12": "0002. Mở Rộng Schema Sản Phẩm Và Cơ Chế Dynamic Catalog Grounding",
+  "13": "0003. Giao Diện Tương Tác Storefront Và Cơ Chế Graceful Fallback Khi Mất Kết Nối AI",
+  "14": "vercel.json",
+  "15": "TechStore"
+}

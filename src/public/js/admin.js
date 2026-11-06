@@ -739,7 +739,7 @@ async function loadProducts() {
         <img src="${p.image}" style="width:48px; height:48px; object-fit:cover; border-radius:8px; border:1px solid #e2e8f0;">
       </td>
       <td>
-        <strong>${p.name}</strong><br>
+        <strong>${p.name}</strong>${p.aiEnrichedAt ? '<span style="display:inline-flex; align-items:center; gap:3px; background:#f5f3ff; color:#7c3aed; font-size:10.5px; font-weight:700; padding:2px 6px; border-radius:4px; margin-left:6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI</span>' : ''}<br>
         <small style="color:#64748b;">${p.specs || ''}</small>
       </td>
       <td><span class="pill-btn" style="padding:3px 10px; font-size:12px;">${p.brand}</span></td>
@@ -1005,4 +1005,65 @@ function showToast(message, type = 'success') {
     toast.style.transition = 'all 0.3s ease';
     setTimeout(() => toast.remove(), 300);
   }, 3500);
+}
+
+// ==================== TỰ ĐỘNG HOÁ GEMINI AI TRONG ADMIN ====================
+
+async function enrichProductWithAI(productId, btn) {
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+  }
+
+  try {
+    const res = await fetch(`/api/admin/products/${productId}/enrich`, {
+      method: 'POST'
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast('Đã làm giàu thông số và đánh giá bằng AI thành công!', 'success');
+      loadProductsTab();
+    } else {
+      showToast(data.message || 'Lỗi khi làm giàu dữ liệu', 'error');
+    }
+  } catch (err) {
+    console.error('Lỗi enrich AI:', err);
+    showToast('Lỗi kết nối máy chủ', 'error');
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i>';
+    }
+  }
+}
+
+async function selfHealAllProducts() {
+  const btn = document.getElementById('btn-self-heal');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tự vá bằng AI...';
+  }
+
+  try {
+    const res = await fetch('/api/admin/products/self-heal', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ limit: 15 })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(`Thành công: ${data.message}`, 'success');
+      loadProductsTab();
+    } else {
+      showToast(data.message || 'Lỗi tự vá sản phẩm', 'error');
+    }
+  } catch (err) {
+    console.error('Lỗi self-heal:', err);
+    showToast('Lỗi kết nối máy chủ', 'error');
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Tự Vá & Làm Giàu Bằng AI';
+    }
+  }
 }
