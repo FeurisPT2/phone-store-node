@@ -1,4 +1,5 @@
 const ProductModel = require('../models/Product');
+const geminiService = require('./geminiService');
 
 // Danh sách từ khóa phụ kiện cần loại trừ khi cào điện thoại
 const ACCESSORY_KEYWORDS = [
@@ -178,6 +179,26 @@ class CrawlerService {
       // 6. Mô tả cấu hình
       const specs = generateSpecs(cleanName);
 
+      // 6b. Tự động làm giàu thông số và đánh giá AI
+      let detailedSpecs = null;
+      let aiReview = null;
+      let aiEnrichedAt = null;
+
+      try {
+        const enrichment = await geminiService.enrichProduct({
+          name: cleanName,
+          brand: cleanBrand,
+          rawText: specs
+        });
+        if (enrichment) {
+          detailedSpecs = enrichment.detailedSpecs;
+          aiReview = enrichment.aiReview;
+          aiEnrichedAt = new Date().toISOString();
+        }
+      } catch (err) {
+        console.warn('Lỗi làm giàu AI khi cào sản phẩm:', err.message);
+      }
+
       // 7. Lưu vào cơ sở dữ liệu
       const newProduct = await ProductModel.create({
         name: cleanName,
@@ -185,6 +206,9 @@ class CrawlerService {
         price,
         oldPrice,
         specs,
+        detailedSpecs,
+        aiReview,
+        aiEnrichedAt,
         image
       });
 

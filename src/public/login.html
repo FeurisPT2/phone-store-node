@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng Nhập Quản Trị - TechStore Admin</title>
+  <title>Cổng Đăng Nhập - TechStore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --admin-color: #7c3aed;
+      --admin-hover: #6d28d9;
       --accent: #06b6d4;
       --bg-dark: #090d16;
-      --card-bg: rgba(17, 24, 39, 0.75);
-      --border-color: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(17, 24, 39, 0.85);
+      --border-color: rgba(255, 255, 255, 0.12);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
     }
@@ -24,32 +26,32 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at 15% 20%, rgba(79, 70, 229, 0.25) 0%, transparent 40%),
-                  radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.2) 0%, transparent 40%),
+      background: radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.25) 0%, transparent 45%),
+                  radial-gradient(circle at 85% 80%, rgba(124, 58, 237, 0.22) 0%, transparent 45%),
                   var(--bg-dark);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 24px 16px;
       color: var(--text-main);
     }
 
     .login-container {
       width: 100%;
-      max-width: 440px;
+      max-width: 480px;
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border-color);
       border-radius: 24px;
-      padding: 40px 32px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                  0 0 40px rgba(79, 70, 229, 0.15);
+      padding: 36px 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                  0 0 40px rgba(37, 99, 235, 0.15);
       position: relative;
       overflow: hidden;
     }
@@ -61,31 +63,31 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, #4f46e5, #06b6d4, #10b981);
+      background: linear-gradient(90deg, #2563eb, #7c3aed, #06b6d4);
     }
 
     .brand-header {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
 
     .brand-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, rgba(79, 70, 229, 0.3), rgba(6, 182, 212, 0.3));
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
+      width: 58px;
+      height: 58px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(124, 58, 237, 0.3));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      font-size: 26px;
       color: #38bdf8;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      margin-bottom: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
 
     .brand-header h1 {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
@@ -95,19 +97,96 @@
 
     .brand-header p {
       color: var(--text-muted);
-      font-size: 14px;
-      margin-top: 6px;
+      font-size: 13.5px;
+      margin-top: 4px;
+    }
+
+    /* Role Switcher Tabs */
+    .role-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 22px;
+      gap: 4px;
+    }
+
+    .role-tab-btn {
+      padding: 10px;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .role-tab-btn.active.customer {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    }
+
+    .role-tab-btn.active.admin {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    }
+
+    /* Sub-tabs for Customer (Login vs Register) */
+    .sub-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 10px;
+    }
+
+    .sub-tab-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 8px;
+      position: relative;
+    }
+
+    .sub-tab-btn.active {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .sub-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -11px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #38bdf8;
+      border-radius: 2px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .form-group label {
       display: block;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: #e2e8f0;
     }
 
@@ -119,43 +198,44 @@
 
     .input-wrapper i.field-icon {
       position: absolute;
-      left: 16px;
+      left: 14px;
       color: #64748b;
-      font-size: 16px;
-      transition: color 0.2s;
+      font-size: 15px;
     }
 
-    .input-wrapper input {
+    .input-wrapper input, .input-wrapper textarea {
       width: 100%;
-      height: 48px;
-      background: rgba(15, 23, 42, 0.6);
+      height: 46px;
+      background: rgba(15, 23, 42, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 12px;
-      padding: 0 46px 0 46px;
+      padding: 0 42px 0 42px;
       color: #fff;
-      font-size: 15px;
+      font-size: 14px;
       transition: all 0.2s ease;
       outline: none;
     }
 
-    .input-wrapper input:focus {
-      border-color: #6366f1;
-      background: rgba(15, 23, 42, 0.9);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    .input-wrapper textarea {
+      height: 64px;
+      padding: 10px 14px;
+      resize: vertical;
     }
 
-    .input-wrapper input:focus + i.field-icon {
-      color: #818cf8;
+    .input-wrapper input:focus, .input-wrapper textarea:focus {
+      border-color: #38bdf8;
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
     }
 
     .toggle-pass {
       position: absolute;
-      right: 14px;
+      right: 12px;
       background: none;
       border: none;
       color: #64748b;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       padding: 4px;
     }
 
@@ -163,57 +243,102 @@
       color: #cbd5e1;
     }
 
-    .btn-login {
+    .remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 12px 0 16px 0;
+      font-size: 12.5px;
+      color: #94a3b8;
+    }
+
+    .remember-row label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .btn-submit {
       width: 100%;
-      height: 48px;
-      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      height: 46px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: #fff;
       border: none;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       transition: all 0.25s ease;
-      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
-      margin-top: 10px;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
     }
 
-    .btn-login:hover {
+    .btn-submit.admin-btn {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+    }
+
+    .btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
-      background: linear-gradient(135deg, #4338ca, #2563eb);
+      filter: brightness(1.1);
     }
 
-    .btn-login:disabled {
+    .btn-submit:disabled {
       opacity: 0.6;
       cursor: not-allowed;
       transform: none;
     }
 
-    .info-card {
+    /* Demo Quick Fill Card */
+    .quick-fill-box {
+      margin-top: 18px;
       background: rgba(30, 41, 59, 0.5);
       border: 1px dashed rgba(255, 255, 255, 0.15);
       border-radius: 12px;
-      padding: 12px 16px;
-      margin-top: 24px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-size: 12px;
       color: #94a3b8;
-      display: flex;
+    }
+
+    .btn-quick-fill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #38bdf8;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-quick-fill:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .alert-error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
       align-items: center;
       gap: 10px;
     }
 
-    .info-card strong {
-      color: #38bdf8;
-    }
-
     .footer-links {
       text-align: center;
-      margin-top: 24px;
+      margin-top: 22px;
       font-size: 13px;
     }
 
@@ -226,19 +351,6 @@
     .footer-links a:hover {
       color: #38bdf8;
     }
-
-    .alert-error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #fca5a5;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 13px;
-      margin-bottom: 20px;
-      display: none;
-      align-items: center;
-      gap: 10px;
-    }
   </style>
 </head>
 <body>
@@ -246,80 +358,331 @@
   <div class="login-container">
     <div class="brand-header">
       <div class="brand-icon">
-        <i class="fa-solid fa-shield-halved"></i>
+        <i class="fa-solid fa-mobile-screen" id="header-icon"></i>
       </div>
-      <h1>TechStore Admin</h1>
-      <p>Hệ thống Quản Trị Bán Hàng & Dữ Liệu Khách Hàng</p>
+      <h1 id="portal-title">Cổng Đăng Nhập TechStore</h1>
+      <p id="portal-subtitle">Chọn vai trò đăng nhập để tiếp tục</p>
     </div>
 
+    <!-- Role Switcher -->
+    <div class="role-tabs">
+      <button class="role-tab-btn active customer" id="tab-btn-customer" onclick="switchRole('customer')">
+        <i class="fa-solid fa-user"></i> Khách Hàng
+      </button>
+      <button class="role-tab-btn admin" id="tab-btn-admin" onclick="switchRole('admin')">
+        <i class="fa-solid fa-shield-halved"></i> Quản Trị Viên
+      </button>
+    </div>
+
+    <!-- Alert Box -->
     <div id="login-alert" class="alert-error">
       <i class="fa-solid fa-circle-exclamation"></i>
       <span id="alert-msg">Thông tin đăng nhập không hợp lệ</span>
     </div>
 
-    <form id="login-form">
-      <div class="form-group">
-        <label for="username">Tên tài khoản</label>
-        <div class="input-wrapper">
-          <input type="text" id="username" placeholder="Nhập tên đăng nhập" required autocomplete="username" autofocus value="admin">
-          <i class="fa-solid fa-user field-icon"></i>
+    <!-- ==================== ROLE 1: KHÁCH HÀNG ==================== -->
+    <div id="section-customer">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" id="sub-login-btn" onclick="switchCustomerTab('login')">Đăng Nhập</button>
+        <button class="sub-tab-btn" id="sub-reg-btn" onclick="switchCustomerTab('register')">Đăng Ký Tài Khoản</button>
+      </div>
+
+      <!-- Customer Login Form -->
+      <form id="form-customer-login">
+        <div class="form-group">
+          <label>Số điện thoại</label>
+          <div class="input-wrapper">
+            <input type="tel" id="cust-login-phone" placeholder="VD: 0901112233" required autocomplete="tel" autofocus>
+            <i class="fa-solid fa-phone field-icon"></i>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="password">Mật khẩu</label>
-        <div class="input-wrapper">
-          <input type="password" id="password" placeholder="Nhập mật khẩu" required autocomplete="current-password" value="admin123">
-          <i class="fa-solid fa-lock field-icon"></i>
-          <button type="button" class="toggle-pass" id="btn-toggle-pass" aria-label="Hiện mật khẩu">
-            <i class="fa-regular fa-eye"></i>
-          </button>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <div class="input-wrapper">
+            <input type="password" id="cust-login-pass" placeholder="Nhập mật khẩu" required autocomplete="current-password">
+            <i class="fa-solid fa-lock field-icon"></i>
+            <button type="button" class="toggle-pass" onclick="togglePass('cust-login-pass', this)">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <button type="submit" id="btn-submit" class="btn-login">
-        <span>Đăng Nhập Quản Trị</span>
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </form>
+        <div class="remember-row">
+          <label>
+            <input type="checkbox" id="cust-remember" checked> Ghi nhớ đăng nhập
+          </label>
+        </div>
 
-    <div class="info-card">
-      <i class="fa-solid fa-key" style="color:#eab308; font-size:16px;"></i>
-      <div>
-        <div>Tài khoản thử nghiệm: <strong>admin</strong></div>
-        <div>Mật khẩu mặc định: <strong>admin123</strong></div>
-      </div>
+        <button type="submit" class="btn-submit" id="btn-cust-login">
+          <span>Đăng Nhập Khách Hàng</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <div class="quick-fill-box">
+          <div>Tài khoản mẫu: <strong>0901112233</strong> / <strong>123456</strong></div>
+          <button type="button" class="btn-quick-fill" onclick="fillCustomerDemo()">Điền mẫu</button>
+        </div>
+      </form>
+
+      <!-- Customer Register Form -->
+      <form id="form-customer-register" style="display:none;">
+        <div class="form-group">
+          <label>Họ và tên (*)</label>
+          <div class="input-wrapper">
+            <input type="text" id="cust-reg-name" placeholder="Nguyễn Văn A" required>
+            <i class="fa-solid fa-user field-icon"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Số điện thoại (*)</label>
+          <div class="input-wrapper">
+            <input type="tel" id="cust-reg-phone" placeholder="0912345678" required>
+            <i class="fa-solid fa-phone field-icon"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mật khẩu (*)</label>
+          <div class="input-wrapper">
+            <input type="password" id="cust-reg-pass" placeholder="Tối thiểu 6 ký tự" required>
+            <i class="fa-solid fa-lock field-icon"></i>
+            <button type="button" class="toggle-pass" onclick="togglePass('cust-reg-pass', this)">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email nhận hóa đơn</label>
+          <div class="input-wrapper">
+            <input type="email" id="cust-reg-email" placeholder="example@gmail.com">
+            <i class="fa-solid fa-envelope field-icon"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Địa chỉ nhận hàng</label>
+          <div class="input-wrapper">
+            <textarea id="cust-reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-cust-reg">
+          <span>Tạo Tài Khoản Khách Hàng</span>
+          <i class="fa-solid fa-user-plus"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- ==================== ROLE 2: QUẢN TRỊ VIÊN ==================== -->
+    <div id="section-admin" style="display:none;">
+      <form id="form-admin-login">
+        <div class="form-group">
+          <label>Tên đăng nhập Admin</label>
+          <div class="input-wrapper">
+            <input type="text" id="admin-user" placeholder="Nhập username" required autocomplete="username" value="admin">
+            <i class="fa-solid fa-user-shield field-icon"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mật khẩu Quản trị</label>
+          <div class="input-wrapper">
+            <input type="password" id="admin-pass" placeholder="Nhập mật khẩu" required autocomplete="current-password" value="admin123">
+            <i class="fa-solid fa-key field-icon"></i>
+            <button type="button" class="toggle-pass" onclick="togglePass('admin-pass', this)">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit admin-btn" id="btn-admin-submit" style="margin-top:14px;">
+          <span>Đăng Nhập Quản Trị Viên</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <div class="quick-fill-box">
+          <div>Tài khoản Admin: <strong>admin</strong> / <strong>admin123</strong></div>
+          <button type="button" class="btn-quick-fill" onclick="fillAdminDemo()">Điền mẫu</button>
+        </div>
+      </form>
     </div>
 
     <div class="footer-links">
       <a href="/">
-        <i class="fa-solid fa-arrow-left"></i> Quay lại Trang Mua Hàng
+        <i class="fa-solid fa-arrow-left"></i> Quay lại Cửa Hàng TechStore
       </a>
     </div>
   </div>
 
   <script>
-    const form = document.getElementById('login-form');
     const alertBox = document.getElementById('login-alert');
     const alertMsg = document.getElementById('alert-msg');
-    const btnSubmit = document.getElementById('btn-submit');
-    const btnToggle = document.getElementById('btn-toggle-pass');
-    const passInput = document.getElementById('password');
 
-    btnToggle.addEventListener('click', () => {
-      const isPass = passInput.type === 'password';
-      passInput.type = isPass ? 'text' : 'password';
-      btnToggle.innerHTML = isPass ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+    function showAlert(msg) {
+      alertBox.style.display = 'flex';
+      alertMsg.innerText = msg;
+    }
+
+    function hideAlert() {
+      alertBox.style.display = 'none';
+    }
+
+    function togglePass(id, btn) {
+      const input = document.getElementById(id);
+      const isPass = input.type === 'password';
+      input.type = isPass ? 'text' : 'password';
+      btn.innerHTML = isPass ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+    }
+
+    function switchRole(role) {
+      hideAlert();
+      const tabCust = document.getElementById('tab-btn-customer');
+      const tabAdmin = document.getElementById('tab-btn-admin');
+      const secCust = document.getElementById('section-customer');
+      const secAdmin = document.getElementById('section-admin');
+      const headerIcon = document.getElementById('header-icon');
+      const title = document.getElementById('portal-title');
+      const subtitle = document.getElementById('portal-subtitle');
+
+      if (role === 'admin') {
+        tabCust.classList.remove('active', 'customer');
+        tabAdmin.classList.add('active', 'admin');
+        secCust.style.display = 'none';
+        secAdmin.style.display = 'block';
+        headerIcon.className = 'fa-solid fa-shield-halved';
+        title.innerText = 'Đăng Nhập Quản Trị Viên';
+        subtitle.innerText = 'Hệ thống Quản Trị Kho Hàng & CRM TechStore';
+      } else {
+        tabAdmin.classList.remove('active', 'admin');
+        tabCust.classList.add('active', 'customer');
+        secAdmin.style.display = 'none';
+        secCust.style.display = 'block';
+        headerIcon.className = 'fa-solid fa-mobile-screen';
+        title.innerText = 'Cổng Đăng Nhập TechStore';
+        subtitle.innerText = 'Tài khoản khách hàng thân thiết';
+      }
+    }
+
+    function switchCustomerTab(type) {
+      hideAlert();
+      const btnLog = document.getElementById('sub-login-btn');
+      const btnReg = document.getElementById('sub-reg-btn');
+      const formLog = document.getElementById('form-customer-login');
+      const formReg = document.getElementById('form-customer-register');
+
+      if (type === 'register') {
+        btnLog.classList.remove('active');
+        btnReg.classList.add('active');
+        formLog.style.display = 'none';
+        formReg.style.display = 'block';
+      } else {
+        btnReg.classList.remove('active');
+        btnLog.classList.add('active');
+        formReg.style.display = 'none';
+        formLog.style.display = 'block';
+      }
+    }
+
+    function fillCustomerDemo() {
+      document.getElementById('cust-login-phone').value = '0901112233';
+      document.getElementById('cust-login-pass').value = '123456';
+    }
+
+    function fillAdminDemo() {
+      document.getElementById('admin-user').value = 'admin';
+      document.getElementById('admin-pass').value = 'admin123';
+    }
+
+    // 1. Submit Customer Login
+    document.getElementById('form-customer-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
+      const btn = document.getElementById('btn-cust-login');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang đăng nhập...';
+
+      const phone = document.getElementById('cust-login-phone').value.trim();
+      const password = document.getElementById('cust-login-pass').value;
+      const rememberMe = document.getElementById('cust-remember').checked;
+
+      try {
+        const res = await fetch('/api/customers/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone, password, rememberMe })
+        });
+        const data = await res.json();
+        if (data.success) {
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Đăng nhập thành công!';
+          btn.style.background = '#10b981';
+          const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || '/';
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, 400);
+        } else {
+          showAlert(data.message || 'Số điện thoại hoặc mật khẩu không chính xác');
+          btn.disabled = false;
+          btn.innerHTML = '<span>Đăng Nhập Khách Hàng</span> <i class="fa-solid fa-arrow-right"></i>';
+        }
+      } catch (err) {
+        showAlert('Lỗi kết nối máy chủ');
+        btn.disabled = false;
+        btn.innerHTML = '<span>Đăng Nhập Khách Hàng</span> <i class="fa-solid fa-arrow-right"></i>';
+      }
     });
 
-    form.addEventListener('submit', async (e) => {
+    // 2. Submit Customer Register
+    document.getElementById('form-customer-register').addEventListener('submit', async (e) => {
       e.preventDefault();
-      alertBox.style.display = 'none';
-      btnSubmit.disabled = true;
-      btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xác thực...';
+      hideAlert();
+      const btn = document.getElementById('btn-cust-reg');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang đăng ký...';
 
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
+      const fullName = document.getElementById('cust-reg-name').value.trim();
+      const phone = document.getElementById('cust-reg-phone').value.trim();
+      const password = document.getElementById('cust-reg-pass').value;
+      const email = document.getElementById('cust-reg-email').value.trim();
+      const address = document.getElementById('cust-reg-address').value.trim();
+
+      try {
+        const res = await fetch('/api/customers/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName, phone, password, email, address })
+        });
+        const data = await res.json();
+        if (data.success) {
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Đăng ký thành công!';
+          btn.style.background = '#10b981';
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 400);
+        } else {
+          showAlert(data.message || 'Đăng ký không thành công');
+          btn.disabled = false;
+          btn.innerHTML = '<span>Tạo Tài Khoản Khách Hàng</span> <i class="fa-solid fa-user-plus"></i>';
+        }
+      } catch (err) {
+        showAlert('Lỗi kết nối máy chủ');
+        btn.disabled = false;
+        btn.innerHTML = '<span>Tạo Tài Khoản Khách Hàng</span> <i class="fa-solid fa-user-plus"></i>';
+      }
+    });
+
+    // 3. Submit Admin Login
+    document.getElementById('form-admin-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
+      const btn = document.getElementById('btn-admin-submit');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xác thực admin...';
+
+      const username = document.getElementById('admin-user').value.trim();
+      const password = document.getElementById('admin-pass').value;
 
       try {
         const res = await fetch('/api/admin/login', {
@@ -328,24 +691,30 @@
           body: JSON.stringify({ username, password })
         });
         const data = await res.json();
-
         if (data.success) {
-          btnSubmit.innerHTML = '<i class="fa-solid fa-check"></i> Đăng nhập thành công!';
-          btnSubmit.style.background = '#10b981';
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Đăng nhập thành công!';
+          btn.style.background = '#10b981';
           setTimeout(() => {
             window.location.href = '/admin';
-          }, 500);
+          }, 400);
         } else {
-          alertBox.style.display = 'flex';
-          alertMsg.innerText = data.message || 'Sai tên đăng nhập hoặc mật khẩu';
-          btnSubmit.disabled = false;
-          btnSubmit.innerHTML = '<span>Đăng Nhập Quản Trị</span> <i class="fa-solid fa-arrow-right"></i>';
+          showAlert(data.message || 'Sai tên đăng nhập hoặc mật khẩu quản trị');
+          btn.disabled = false;
+          btn.innerHTML = '<span>Đăng Nhập Quản Trị Viên</span> <i class="fa-solid fa-arrow-right"></i>';
         }
       } catch (err) {
-        alertBox.style.display = 'flex';
-        alertMsg.innerText = 'Lỗi kết nối máy chủ, vui lòng thử lại sau';
-        btnSubmit.disabled = false;
-        btnSubmit.innerHTML = '<span>Đăng Nhập Quản Trị</span> <i class="fa-solid fa-arrow-right"></i>';
+        showAlert('Lỗi kết nối máy chủ');
+        btn.disabled = false;
+        btn.innerHTML = '<span>Đăng Nhập Quản Trị Viên</span> <i class="fa-solid fa-arrow-right"></i>';
+      }
+    });
+
+    // Tự động chọn tab theo URL query (?role=admin)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const role = params.get('role');
+      if (role === 'admin' || window.location.pathname === '/admin/login') {
+        switchRole('admin');
       }
     });
   </script>

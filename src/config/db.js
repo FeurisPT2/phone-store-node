@@ -101,6 +101,9 @@ async function initDatabase() {
         old_price BIGINT,
         specs TEXT,
         image TEXT,
+        detailed_specs JSONB,
+        ai_review JSONB,
+        ai_enriched_at TIMESTAMPTZ,
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       );

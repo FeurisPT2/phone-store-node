@@ -1,3 +1,4 @@
+let chatHistory = [];
 const formatMoney = (n) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n);
 
 let allProducts = [];
@@ -473,4 +474,219 @@ function showToast(message, type = 'success') {
     toast.style.transition = 'all 0.3s ease';
     setTimeout(() => toast.remove(), 300);
   }, 3500);
+}
+
+// ==================== 5. MODAL CHI TIẾT SẢN PHẨM & ĐÁNH GIÁ AI ====================
+
+async function openProductDetailModal(productId) {
+  let p = allProducts.find(item => String(item.id) === String(productId));
+  if (!p) {
+    try {
+      const res = await fetch(`/api/products/${productId}`);
+      const json = await res.json();
+      if (json.data) p = json.data;
+    } catch (e) {
+      console.error('Lỗi tải chi tiết sản phẩm:', e);
+    }
+  }
+
+  if (!p) {
+    showToast('Không tìm thấy thông tin sản phẩm', 'error');
+    return;
+  }
+
+  document.getElementById('detail-modal-title').innerHTML = `<i class="fa-solid fa-mobile-screen" style="color:var(--primary);"></i> ${p.name}`;
+  document.getElementById('detail-img').src = p.image || '';
+  document.getElementById('detail-img').alt = p.name;
+  document.getElementById('detail-brand-badge').innerText = p.brand || 'Điện thoại';
+  document.getElementById('detail-price').innerText = formatMoney(p.price);
+
+  const oldPriceEl = document.getElementById('detail-old-price');
+  if (p.oldPrice && p.oldPrice > p.price) {
+    oldPriceEl.innerText = formatMoney(p.oldPrice);
+    oldPriceEl.style.display = 'block';
+  } else {
+    oldPriceEl.style.display = 'none';
+  }
+
+  document.getElementById('detail-btn-buy').onclick = () => {
+    closeModal('product-detail-modal');
+    buyNow(p.id);
+  };
+  document.getElementById('detail-btn-cart').onclick = () => {
+    addToCart(p.id);
+  };
+
+  // Render 8 trường thông số
+  const specs = p.detailedSpecs || {
+    screen: '6.7 inch Super AMOLED 120Hz',
+    chip: p.brand === 'Apple' ? 'Apple A-Series Bionic' : 'Snapdragon / Dimensity',
+    ram: '8GB / 12GB',
+    storage: '128GB / 256GB',
+    battery: '5000mAh',
+    camera: '50MP AI OIS',
+    charging: 'Sạc nhanh công suất cao',
+    os: p.brand === 'Apple' ? 'iOS' : 'Android'
+  };
+
+  const specsList = [
+    { label: 'Màn hình', icon: 'fa-tv', val: specs.screen },
+    { label: 'Vi xử lý (CPU)', icon: 'fa-microchip', val: specs.chip },
+    { label: 'Bộ nhớ RAM', icon: 'fa-memory', val: specs.ram },
+    { label: 'Bộ nhớ lưu trữ', icon: 'fa-hard-drive', val: specs.storage },
+    { label: 'Dung lượng Pin', icon: 'fa-battery-full', val: specs.battery },
+    { label: 'Hệ thống Camera', icon: 'fa-camera', val: specs.camera },
+    { label: 'Công nghệ Sạc', icon: 'fa-bolt', val: specs.charging },
+    { label: 'Hệ điều hành', icon: 'fa-brands fa-android', val: specs.os }
+  ];
+
+  document.getElementById('detail-specs-sheet').innerHTML = specsList.map(item => `
+    <div class="spec-item">
+      <div class="spec-label"><i class="fa-solid ${item.icon}"></i> ${item.label}</div>
+      <div class="spec-value">${item.val || 'Đang cập nhật'}</div>
+    </div>
+  `).join('');
+
+  // Render AI Review
+  const review = p.aiReview || {
+    summary: `${p.name} là sản phẩm smartphone chính hãng nổi bật từ ${p.brand || 'nhà sản xuất uy tín'}, sở hữu trải nghiệm mượt mà và thiết kế hiện đại.`,
+    pros: [
+      `Màn hình sắc nét cùng cấu hình ổn định trong tầm giá ${formatMoney(p.price)}`,
+      `Bảo hành chính hãng 12 tháng, hỗ trợ trả góp 0%`
+    ],
+    cons: [
+      'Nên sử dụng ốp lưng để chống trầy xước trong quá trình sử dụng hàng ngày'
+    ],
+    targetAudience: 'Người dùng tìm kiếm điện thoại thông minh chính hãng bền bỉ, toàn diện'
+  };
+
+  document.getElementById('detail-ai-summary').innerText = review.summary;
+
+  document.getElementById('detail-ai-pros').innerHTML = (review.pros || []).map(pro => `
+    <li>${pro}</li>
+  `).join('');
+
+  document.getElementById('detail-ai-cons').innerHTML = (review.cons || []).map(con => `
+    <li>${con}</li>
+  `).join('');
+
+  document.getElementById('detail-ai-audience').innerText = review.targetAudience || 'Khách hàng toàn diện';
+
+  openModal('product-detail-modal');
+}
+
+// ==================== 6. FLOATING AI SHOPPING CONSULTANT ====================
+
+function toggleChatWindow() {
+  const win = document.getElementById('ai-chat-window');
+  if (!win) return;
+  const isHidden = win.classList.contains('hidden');
+  if (isHidden) {
+    win.classList.remove('hidden');
+    document.getElementById('ai-chat-input')?.focus();
+  } else {
+    win.classList.add('hidden');
+  }
+}
+
+function sendQuickPrompt(promptText) {
+  const input = document.getElementById('ai-chat-input');
+  if (input) {
+    input.value = promptText;
+    handleChatSubmit();
+  }
+}
+
+async function handleChatSubmit(event) {
+  if (event) event.preventDefault();
+  const input = document.getElementById('ai-chat-input');
+  if (!input) return;
+  const message = input.value.trim();
+  if (!message) return;
+
+  // Clear input
+  input.value = '';
+
+  // Append user bubble
+  appendChatBubble('user', message);
+
+  // Show typing indicator
+  const typing = document.getElementById('chat-typing-indicator');
+  if (typing) typing.classList.remove('hidden');
+  scrollChatToBottom();
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, history: chatHistory })
+    });
+    const data = await res.json();
+    if (typing) typing.classList.add('hidden');
+
+    if (data.success) {
+      chatHistory.push({ role: 'user', content: message });
+      chatHistory.push({ role: 'model', content: data.reply });
+      appendChatBubble('ai', data.reply, data.suggestedProducts);
+    } else {
+      appendChatBubble('ai', 'Dạ rất tiếc, đã có sự gián đoạn khi kết nối với AI. Bạn vui lòng thử lại sau ít phút nhé!');
+    }
+  } catch (err) {
+    if (typing) typing.classList.add('hidden');
+    console.error('Lỗi gọi chat AI:', err);
+    appendChatBubble('ai', 'Dạ hệ thống tư vấn đang bận một chút, bạn thử gửi lại câu hỏi nhé!');
+  }
+
+  scrollChatToBottom();
+}
+
+function appendChatBubble(role, text, suggestedProducts = []) {
+  const container = document.getElementById('ai-chat-messages');
+  if (!container) return;
+
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `chat-msg ${role === 'user' ? 'user-msg' : 'ai-msg'}`;
+
+  // Format bold và newline
+  let formattedText = (text || '')
+    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+    .replace(/\n/g, '<br>');
+
+  let miniCardsHtml = '';
+  if (Array.isArray(suggestedProducts) && suggestedProducts.length > 0) {
+    miniCardsHtml = `
+      <div class="ai-suggested-products">
+        ${suggestedProducts.map(p => `
+          <div class="mini-product-card">
+            <img src="${p.image}" alt="${p.name}">
+            <div class="mini-card-details">
+              <div class="mini-card-name" title="${p.name}">${p.name}</div>
+              <div class="mini-card-price">${formatMoney(p.price)}</div>
+            </div>
+            <div class="mini-card-actions">
+              <button class="mini-card-btn mini-btn-view" onclick="openProductDetailModal('${p.id}')">Chi tiết</button>
+              <button class="mini-card-btn mini-btn-cart" onclick="addToCart('${p.id}')">Mua</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  msgDiv.innerHTML = `
+    <div class="msg-bubble">
+      ${formattedText}
+      ${miniCardsHtml}
+    </div>
+  `;
+
+  container.appendChild(msgDiv);
+  scrollChatToBottom();
+}
+
+function scrollChatToBottom() {
+  const container = document.getElementById('ai-chat-messages');
+  if (container) {
+    container.scrollTop = container.scrollHeight;
+  }
 }
