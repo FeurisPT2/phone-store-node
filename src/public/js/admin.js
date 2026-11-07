@@ -1131,3 +1131,47 @@ async function handleSelfHealCatalog() {
     }
   }
 }
+
+
+// ==================== THEME MANAGEMENT & REAL-TIME SYNC (UI/UX Pro Max) ====================
+function getStoredTheme() {
+  const saved = localStorage.getItem('techstore_theme');
+  if (saved === 'dark' || saved === 'light') return saved;
+  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('techstore_theme', theme);
+  updateThemeUI(theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || getStoredTheme();
+  const next = current === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+}
+
+function updateThemeUI(theme) {
+  const labels = document.querySelectorAll('.theme-name-text, .theme-label-text');
+  labels.forEach(el => {
+    el.textContent = theme === 'dark' ? 'Tối' : 'Sáng';
+  });
+  const mobileLabel = document.getElementById('theme-status-mobile');
+  if (mobileLabel) {
+    mobileLabel.textContent = theme === 'dark' ? 'Tối' : 'Sáng';
+  }
+}
+
+window.addEventListener('storage', function(e) {
+  if (e.key === 'techstore_theme' && e.newValue) {
+    document.documentElement.setAttribute('data-theme', e.newValue);
+    updateThemeUI(e.newValue);
+  }
+});
+
+// Run UI sync on DOM load
+document.addEventListener('DOMContentLoaded', function() {
+  const t = getStoredTheme();
+  updateThemeUI(t);
+});

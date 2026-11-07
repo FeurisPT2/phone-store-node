@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechStore Pro Max · Hệ Thống Flagship Chính Hãng VN/A &amp; Thanh Toán VietQR 3 Giây</title>
-    <script>document.documentElement.classList.add('js');</script>
+    <script>
+        document.documentElement.classList.add('js');
+        (function() {
+            const saved = localStorage.getItem('techstore_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -64,6 +71,11 @@
             </div>
 
             <div class="header-actions">
+                <button type="button" class="nav-action-btn theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                    <span class="theme-name-text nav-label">Giao diện</span>
+                </button>
                 <button class="nav-action-btn" id="btn-customer-portal" onclick="openCustomerPortal('track')" title="Tra cứu tiến độ vận đơn bằng SĐT">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                     <span class="nav-label">Tra đơn</span>
@@ -120,6 +132,10 @@
             <button class="close-btn" onclick="toggleMobileDrawer(false)">&times;</button>
         </div>
         <div class="mobile-drawer-body">
+            <button class="drawer-item" onclick="toggleTheme();">
+                <span>Chế độ giao diện (Sáng / Tối):</span>
+                <strong id="theme-status-mobile" style="margin-left: 0.5rem; color: var(--accent-text);">Sáng</strong>
+            </button>
             <button class="drawer-item" onclick="resetAllFilters(); toggleMobileDrawer(false);"> Kho Flagship Chính Hãng</button>
             <button class="drawer-item" onclick="openCustomerPortal('track'); toggleMobileDrawer(false);"> Tra Cứu Vận Đơn</button>
             <button class="drawer-item" onclick="openCustomerPortal('orders'); toggleMobileDrawer(false);"> Lịch Sử Đơn Hàng</button>

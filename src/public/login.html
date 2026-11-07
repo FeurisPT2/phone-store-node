@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cổng Đăng Nhập · TechStore Pro Max</title>
-    <script>document.documentElement.classList.add('js');</script>
+    <script>
+        document.documentElement.classList.add('js');
+        (function() {
+            const saved = localStorage.getItem('techstore_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -490,6 +497,73 @@
                 padding: 1.35rem;
             }
         }
+    
+        /* Theme toggle button & Dark Theme adapt (UI/UX Pro Max) */
+        .theme-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.8rem;
+            border-radius: 6px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+        }
+        .theme-toggle-btn:hover {
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .theme-icon-sun { display: inline-block !important; color: #fbbf24; }
+        [data-theme="dark"] .theme-icon-moon { display: none !important; }
+        [data-theme="light"] .theme-icon-sun, :root:not([data-theme="dark"]) .theme-icon-sun { display: none !important; }
+        [data-theme="light"] .theme-icon-moon, :root:not([data-theme="dark"]) .theme-icon-moon { display: inline-block !important; color: var(--muted); }
+
+        [data-theme="dark"] {
+            --bg: #090a0d;
+            --surface: #12151c;
+            --surface-raised: #191d26;
+            --border: rgba(255, 255, 255, 0.10);
+            --border-strong: rgba(255, 255, 255, 0.18);
+            --border-accent: #22c55e;
+            --ink: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #22c55e;
+            --accent-hover: #16a34a;
+            --accent-ink: #0b0d11;
+            --accent-text: #4ade80;
+            --accent-glow: rgba(34, 197, 94, 0.18);
+            --field-1: #191d26;
+            --field-1-ink: #f8fafc;
+            --danger-bg: rgba(239, 68, 68, 0.18);
+            --danger-ink: #fca5a5;
+            --success-bg: rgba(34, 197, 94, 0.18);
+            --success-ink: #4ade80;
+        }
+
+        :root, [data-theme="light"] {
+            --bg: #f5f4ef;
+            --surface: #ffffff;
+            --surface-raised: #f7f6f2;
+            --border: #e6e2d8;
+            --border-strong: #d6d1c7;
+            --border-accent: #28362d;
+            --ink: #141413;
+            --muted: #6b6964;
+            --accent: #28362d;
+            --accent-hover: #1b261f;
+            --accent-ink: #ffffff;
+            --accent-text: #28362d;
+            --accent-glow: rgba(40, 54, 45, 0.12);
+            --field-1: #ffffff;
+            --field-1-ink: #141413;
+            --danger-bg: #fee2e2;
+            --danger-ink: #991b1b;
+            --success-bg: #dcfce7;
+            --success-ink: #166534;
+        }
     </style>
 </head>
 <body>
@@ -502,7 +576,14 @@
                     <span class="brand-logo-icon">TS</span>
                     <span>TechStore · Pro Max</span>
                 </a>
-                <a href="/" class="back-store-link">&larr; Về cửa hàng</a>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                        <svg class="theme-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                        <svg class="theme-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                        <span class="theme-label-text">Giao diện</span>
+                    </button>
+                    <a href="/" class="back-store-link">&larr; Về cửa hàng</a>
+                </div>
             </div>
 
             <div class="visual-object-frame">
@@ -856,6 +937,53 @@
                 btn.innerText = 'Đăng nhập Quản trị (Admin CRM) →';
             }
         }
+    </script>
+
+    <script>
+    
+// ==================== THEME MANAGEMENT & REAL-TIME SYNC (UI/UX Pro Max) ====================
+function getStoredTheme() {
+  const saved = localStorage.getItem('techstore_theme');
+  if (saved === 'dark' || saved === 'light') return saved;
+  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('techstore_theme', theme);
+  updateThemeUI(theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || getStoredTheme();
+  const next = current === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+}
+
+function updateThemeUI(theme) {
+  const labels = document.querySelectorAll('.theme-name-text, .theme-label-text');
+  labels.forEach(el => {
+    el.textContent = theme === 'dark' ? 'Tối' : 'Sáng';
+  });
+  const mobileLabel = document.getElementById('theme-status-mobile');
+  if (mobileLabel) {
+    mobileLabel.textContent = theme === 'dark' ? 'Tối' : 'Sáng';
+  }
+}
+
+window.addEventListener('storage', function(e) {
+  if (e.key === 'techstore_theme' && e.newValue) {
+    document.documentElement.setAttribute('data-theme', e.newValue);
+    updateThemeUI(e.newValue);
+  }
+});
+
+// Run UI sync on DOM load
+document.addEventListener('DOMContentLoaded', function() {
+  const t = getStoredTheme();
+  updateThemeUI(t);
+});
+
     </script>
 </body>
 </html>
