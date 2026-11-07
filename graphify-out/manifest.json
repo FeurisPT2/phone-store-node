@@ -437,6 +437,12 @@
     "ast_hash": "b4df0cbb334ba82c73fc8ea285ed66cd",
     "semantic_hash": ""
   },
+  "docs/adr/0008-storefront-redesign-split-stage-and-tasteskill.md": {
+    "mtime": 1794031955.9132144,
+    "seen": 1794031964.4942198,
+    "ast_hash": "7611906ce32296dd1d559892f6c3da27",
+    "semantic_hash": ""
+  },
   "package-lock.json": {
     "mtime": 1793987417.9307258,
     "seen": 1793989184.6537971,
