@@ -1,13 +1,16 @@
 /**
- * TECHSTORE PROTOTYPE SWITCHER (prototype/UI.md)
- * Switch between 3 radically different UI variants via ?variant=A|B|C and Floating Bottom Switcher.
+ * TECHSTORE PROTOTYPE SWITCHER (design-taste-frontend compliant)
+ * Switch between 3 taste-driven, anti-slop UI variants via ?variant=A|B|C and Floating Bottom Switcher.
+ * - Variant A: hero-object (The object, large — Retail Flagship)
+ * - Variant B: split-stage (The split stage — Calm Editorial Studio)
+ * - Variant C: specimen-catalogue (The specimen catalogue — Hardware Engineering Archive)
  */
 
 (function () {
   const VARIANTS = [
-    { key: 'A', name: 'Variant A · Retail Powerhouse (CellphoneS & TopZone)' },
-    { key: 'B', name: 'Variant B · Studio Minimalist (Apple Store & Luxury)' },
-    { key: 'C', name: 'Variant C · Cyber Neo-Tech (Nothing & ROG Hardware)' }
+    { key: 'A', name: 'Variant A · The Object, Large (Retail Flagship)' },
+    { key: 'B', name: 'Variant B · The Split Stage (Calm Editorial Studio)' },
+    { key: 'C', name: 'Variant C · The Specimen Catalogue (Hardware Archive)' }
   ];
 
   let currentVariantKey = 'A';
@@ -61,67 +64,75 @@
     }
 
     if (variant === 'A') {
-      // VARIANT A: RETAIL POWERHOUSE
+      // VARIANT A: THE OBJECT, LARGE (Retail Flagship - High Contrast, Bright Studio)
       heroMount.innerHTML = `
         <div class="container">
-          <!-- Retail 2-column Hero -->
           <div class="va-retail-hero">
             <div class="va-hero-slider-card">
-              <div>
-                <span class="va-hero-badge-tag">🔥 TUẦN LỄ SIÊU SALE FLAGSHIP VN/A</span>
-                <h1 class="va-hero-headline">iPhone 16 Pro Max 256GB</h1>
-                <p class="va-hero-sub">Khung Titan cấp 5 siêu nhẹ, chip A18 Pro 3nm, quay ProRes 4K 120fps. Giảm ngay 3.500.000₫ & trả góp 0% lãi suất.</p>
-              </div>
-              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
-                <div>
-                  <span style="font-size:13px; color:#94a3b8; display:block;">Giá thanh toán đặc quyền:</span>
-                  <span style="font-size:1.8rem; font-weight:800; color:#ffffff;">29.490.000 ₫</span>
-                  <span style="font-size:13px; color:#f87171; text-decoration:line-through; margin-left:8px;">34.990.000 ₫</span>
+              <div class="va-hero-copy">
+                <span class="va-hero-badge-tag">TUẦN LỄ FLAGSHIP VN/A</span>
+                <h1 class="va-hero-headline">iPhone 16 Pro Max</h1>
+                <p class="va-hero-sub">Khung Titan cấp 5 siêu nhẹ, chip A18 Pro 3nm và camera Fusion 48MP. Phân phối chính hãng nguyên seal, bảo hành ủy quyền toàn quốc 12 tháng.</p>
+                <div class="va-hero-price-line">
+                  <span class="va-hero-price-label">Giá ưu đãi hôm nay:</span>
+                  <div class="va-hero-price-group">
+                    <span class="va-hero-price-num">29.490.000 ₫</span>
+                    <span class="va-hero-old-num">34.990.000 ₫</span>
+                  </div>
                 </div>
-                <button type="button" class="va-hero-cta-btn" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
-                  <span>⚡ SĂN DEAL NGAY</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
+                <div class="va-hero-actions-row">
+                  <button type="button" class="va-hero-cta-btn" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
+                    <span>Xem kho máy sẵn hàng</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </button>
+                  <button type="button" class="va-hero-secondary-btn" onclick="openCustomerPortal('track')">
+                    <span>Tra cứu vận đơn (SĐT)</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="va-hero-object-crop">
+                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="iPhone 16 Pro Max Titan Tự Nhiên" fetchpriority="high">
               </div>
             </div>
 
             <div class="va-hero-promo-stack">
-              <div class="va-promo-card" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
-                <div class="va-promo-icon">🎁</div>
+              <div class="va-promo-card" onclick="filterByBrand('Apple'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">
                 <div class="va-promo-content">
                   <h4>Thu Cũ Đổi Mới Trợ Giá 2 Triệu</h4>
-                  <p>Lên đời iPhone 16 & S24 Ultra trợ giá tối đa 2.000.000₫</p>
+                  <p>Lên đời iPhone 16 &amp; Galaxy S24 Ultra với mức trợ giá trực tiếp vào hóa đơn VAT.</p>
                 </div>
               </div>
-              <div class="va-promo-card" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
-                <div class="va-promo-icon">⚡</div>
+              <div class="va-promo-card" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">
                 <div class="va-promo-content">
                   <h4>Thanh Toán VietQR 3s - Giảm 500K</h4>
-                  <p>Đối soát tự động qua cổng VietQR, gạch nợ tức thì 3 giây</p>
+                  <p>Đối soát tự động qua cổng VietQR, gạch nợ tức thì 3 giây không chờ đợi.</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Flash Sale Deal Sốc Ticker -->
+          <!-- Flash Sale Ticker (Taste-Skill compliant: Clean tabular numbers, solid tone step) -->
           <div class="va-flash-sale-box">
             <div class="va-flash-header">
               <div class="va-flash-title-wrap">
-                <span style="font-size:28px;">⚡</span>
-                <span class="va-flash-title">GIỜ VÀNG SĂN DEAL - GIÁ SỐC HÔM NAY</span>
+                <span class="va-flash-dot"></span>
+                <span class="va-flash-title">GIỜ VÀNG SĂN DEAL - GIÁ XUẤT KHO HÔM NAY</span>
               </div>
               <div class="va-flash-timer">
-                <span>KẾT THÚC TRONG:</span>
-                <span class="va-timer-digit" id="va-h">02</span> :
-                <span class="va-timer-digit" id="va-m">45</span> :
+                <span class="va-timer-label">KẾT THÚC TRONG:</span>
+                <span class="va-timer-digit" id="va-h">02</span>
+                <span class="va-timer-sep">:</span>
+                <span class="va-timer-digit" id="va-m">45</span>
+                <span class="va-timer-sep">:</span>
                 <span class="va-timer-digit" id="va-s">18</span>
               </div>
             </div>
-            <div style="display:flex; gap:12px; overflow-x:auto; padding-bottom:8px;">
-              <span class="ribbon-chip active">🍎 iPhone 16 Pro Max (-15%)</span>
-              <span class="ribbon-chip active">🌌 Galaxy S24 Ultra (-18%)</span>
-              <span class="ribbon-chip active">📷 Xiaomi 14 Ultra Leica (-22%)</span>
-              <span class="ribbon-chip active">🎮 ROG Phone 8 Pro (-12%)</span>
+            <div class="va-flash-chips-row">
+              <span class="va-deal-pill">iPhone 16 Pro Max (-15%)</span>
+              <span class="va-deal-pill">Galaxy S24 Ultra (-18%)</span>
+              <span class="va-deal-pill">Xiaomi 14 Ultra Leica (-22%)</span>
+              <span class="va-deal-pill">ROG Phone 8 Pro (-12%)</span>
             </div>
           </div>
         </div>
@@ -146,87 +157,107 @@
       }, 1000);
 
     } else if (variant === 'B') {
-      // VARIANT B: STUDIO MINIMALIST (Apple Store & TopZone)
+      // VARIANT B: THE SPLIT STAGE (Calm Editorial Studio - 50/50 Split)
       heroMount.innerHTML = `
         <div class="container">
-          <!-- Apple Style Category Discs -->
-          <div class="vb-apple-categories">
-            <div class="vb-cat-disc" onclick="filterByBrand('Apple'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">
-              <div class="vb-disc-circle">🍎</div>
-              <span class="vb-disc-title">iPhone</span>
+          <div class="vb-split-stage-wrap">
+            <div class="vb-split-left-sticky">
+              <div class="vb-stage-image-frame">
+                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="Titanium Flagship Smartphone" id="vb-stage-img">
+              </div>
+              <div class="vb-stage-finish-row">
+                <span class="vb-finish-label">Hoàn thiện bề mặt:</span>
+                <div class="vb-swatch-group">
+                  <button type="button" class="vb-swatch active" title="Titan Tự Nhiên" style="background:#b8b2a8;" onclick="this.parentElement.querySelectorAll('.vb-swatch').forEach(b=>b.classList.remove('active')); this.classList.add('active');"></button>
+                  <button type="button" class="vb-swatch" title="Titan Sa Mạc" style="background:#d4c3b3;" onclick="this.parentElement.querySelectorAll('.vb-swatch').forEach(b=>b.classList.remove('active')); this.classList.add('active');"></button>
+                  <button type="button" class="vb-swatch" title="Titan Trắng" style="background:#e8e7e3;" onclick="this.parentElement.querySelectorAll('.vb-swatch').forEach(b=>b.classList.remove('active')); this.classList.add('active');"></button>
+                  <button type="button" class="vb-swatch" title="Titan Đen" style="background:#2c2c2e;" onclick="this.parentElement.querySelectorAll('.vb-swatch').forEach(b=>b.classList.remove('active')); this.classList.add('active');"></button>
+                </div>
+              </div>
             </div>
-            <div class="vb-cat-disc" onclick="filterByBrand('Samsung'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">
-              <div class="vb-disc-circle">🌌</div>
-              <span class="vb-disc-title">Galaxy</span>
-            </div>
-            <div class="vb-cat-disc" onclick="filterByBrand('Xiaomi'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">
-              <div class="vb-disc-circle">📷</div>
-              <span class="vb-disc-title">Xiaomi</span>
-            </div>
-            <div class="vb-cat-disc" onclick="filterByBrand('Google'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">
-              <div class="vb-disc-circle">🤖</div>
-              <span class="vb-disc-title">Pixel</span>
-            </div>
-            <div class="vb-cat-disc" onclick="filterByBrand('ASUS'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">
-              <div class="vb-disc-circle">🎮</div>
-              <span class="vb-disc-title">ROG Phone</span>
-            </div>
-          </div>
 
-          <!-- Apple Cinematic Studio Hero -->
-          <div class="vb-cinematic-hero">
-            <span class="vb-hero-eyebrow">SIÊU PHẨM MỚI NHẤT</span>
-            <h1 class="vb-hero-title">iPhone 16 Pro Max.<br>Đỉnh cao Titanium.</h1>
-            <p class="vb-hero-sub">Thiết kế viền mỏng nhất lịch sử. Khung titan tự nhiên. Nút Điều Khiển Camera hoàn toàn mới và chip A18 Pro bứt phá.</p>
-            <div class="vb-hero-actions">
-              <button type="button" class="vb-btn-apple-buy" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">Mua ngay từ 29.490.000 ₫</button>
-              <a href="#catalog-section" class="vb-btn-apple-link">Tìm hiểu thêm &gt;</a>
-            </div>
-            <div class="vb-hero-img-wrap">
-              <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="iPhone 16 Pro Max Titanium Studio" loading="lazy">
+            <div class="vb-split-right-column">
+              <span class="vb-editorial-sub">PHIÊN BẢN TITANIUM TỰ NHIÊN</span>
+              <h1 class="vb-editorial-title">iPhone 16 Pro Max</h1>
+              <p class="vb-editorial-desc">Được chế tác từ hợp kim titan cấp 5 với lớp hoàn thiện tinh xảo bằng phương pháp phun vi hạt. Viền màn hình mỏng nhất từng có trên thiết bị Apple cùng thời lượng pin dẫn đầu phân khúc.</p>
+
+              <div class="vb-spec-list-block">
+                <div class="vb-spec-line">
+                  <span class="vb-spec-k">Vi xử lý:</span>
+                  <span class="vb-spec-v">Apple A18 Pro 3nm (6-core GPU, Neural Engine 16 lõi)</span>
+                </div>
+                <div class="vb-spec-line">
+                  <span class="vb-spec-k">Màn hình:</span>
+                  <span class="vb-spec-v">6.9 inch Super Retina XDR OLED, ProMotion 120Hz</span>
+                </div>
+                <div class="vb-spec-line">
+                  <span class="vb-spec-k">Quang học:</span>
+                  <span class="vb-spec-v">Camera Fusion 48MP, Telephoto 5x tetraprism 120mm</span>
+                </div>
+                <div class="vb-spec-line">
+                  <span class="vb-spec-k">Thanh toán:</span>
+                  <span class="vb-spec-v">Đối soát VietQR 3 giây · Giao máy nguyên seal trong 2H</span>
+                </div>
+              </div>
+
+              <div class="vb-editorial-cta-bar">
+                <div>
+                  <span class="vb-price-caption">Giá niêm yết xuất kho:</span>
+                  <span class="vb-price-strong">29.490.000 ₫</span>
+                </div>
+                <button type="button" class="vb-btn-editorial-buy" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
+                  Chọn dung lượng &amp; Đặt mua
+                </button>
+              </div>
             </div>
           </div>
         </div>
       `;
 
     } else if (variant === 'C') {
-      // VARIANT C: CYBER NEO-TECH (Nothing & ROG Hardware Lab)
+      // VARIANT C: THE SPECIMEN CATALOGUE (Hardware Engineering Archive)
       heroMount.innerHTML = `
         <div class="container">
-          <div class="vc-cyber-hero">
-            <div class="vc-diag-strip">
-              <span>// SYSTEM_STATUS: ONLINE</span>
-              <span>HARDWARE_LAB: LEVEL_9</span>
-              <span>CORE_INDEX: 63_UNITS</span>
-            </div>
-            <h1 class="vc-hero-title">EXTREME <span>HARDWARE</span> BENCHMARK</h1>
-            <p style="color:#94a3b8; font-size:1rem; max-width:600px;">Hệ thống phân phối điện thoại hiệu năng cực hạn. Kiểm chuẩn Geekbench, tản nhiệt buồng hơi VC và đối soát thanh toán mã hóa VietQR 3s.</p>
-
-            <div class="vc-hero-metrics-grid">
-              <div class="vc-metric-card">
-                <strong>2,145,890</strong>
-                <span>AnTuTu v10 Benchmark Max</span>
-              </div>
-              <div class="vc-metric-card">
-                <strong>165 Hz</strong>
-                <span>AMOLED LTPO 1-165Hz Touch</span>
-              </div>
-              <div class="vc-metric-card">
-                <strong>120W</strong>
-                <span>HyperCharge Dual-Cell GaN</span>
-              </div>
-              <div class="vc-metric-card">
-                <strong>3 SECS</strong>
-                <span>VietQR Fast Settlement</span>
-              </div>
+          <div class="vc-catalogue-hero">
+            <div class="vc-telemetry-header">
+              <span class="vc-telemetry-tag">HARDWARE TELEMETRY</span>
+              <span class="vc-telemetry-item">KHO SẴN HÀNG: 63 THIẾT BỊ</span>
+              <span class="vc-telemetry-item">VIETQR GATEWAY: 3.0s LATENCY</span>
+              <span class="vc-telemetry-item">IMEI: 100% VERIFIED VN/A</span>
             </div>
 
-            <div style="display:flex; gap:16px;">
-              <button type="button" class="btn-buy-now" style="background:#06b6d4; color:#000; font-weight:800; padding:12px 28px; border-radius:6px;" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
-                // EXECUTE_ORDER
+            <h1 class="vc-catalogue-title">BẢN KIỂM ĐỊNH PHẦN CỨNG DI ĐỘNG</h1>
+            <p class="vc-catalogue-desc">Cơ sở dữ liệu đối chiếu thông số thực tế: vi xử lý 3nm, chuẩn RAM LPDDR5X, dung lượng pin và điểm benchmark AnTuTu v10 của 12 thương hiệu flagship.</p>
+
+            <div class="vc-specimen-grid">
+              <div class="vc-specimen-card">
+                <span class="vc-specimen-label">CHIP XỬ LÝ (SoC)</span>
+                <span class="vc-specimen-val">Apple A18 Pro / SD 8 Gen 3</span>
+                <p class="vc-specimen-sub">Kiến trúc 3nm thế hệ 2, xung nhịp đỉnh 4.04 GHz</p>
+              </div>
+              <div class="vc-specimen-card">
+                <span class="vc-specimen-label">HIỆU NĂNG ĐỒ HỌA</span>
+                <span class="vc-specimen-val">2.145.890 pts AnTuTu</span>
+                <p class="vc-specimen-sub">Ray tracing phần cứng tốc độ cao 60fps</p>
+              </div>
+              <div class="vc-specimen-card">
+                <span class="vc-specimen-label">TẢN NHIỆT KHÍ ĐỘNG</span>
+                <span class="vc-specimen-val">Dual Vapor Chamber VC</span>
+                <p class="vc-specimen-sub">Buồng hơi đồng nguyên chất diện tích 9.126 mm²</p>
+              </div>
+              <div class="vc-specimen-card">
+                <span class="vc-specimen-label">ĐỐI SOÁT TỰ ĐỘNG</span>
+                <span class="vc-specimen-val">VietQR 3 Giây Tức Thì</span>
+                <p class="vc-specimen-sub">Gạch nợ đơn hàng thời gian thực qua ngân hàng</p>
+              </div>
+            </div>
+
+            <div class="vc-action-strip">
+              <button type="button" class="vc-btn-terminal" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
+                Lọc danh mục phần cứng
               </button>
-              <button type="button" class="btn-add-cart" style="border:1px solid #06b6d4; color:#06b6d4; border-radius:6px; padding:12px 20px;" onclick="openCustomerPortal('track')">
-                // TRACE_TELEMETRY
+              <button type="button" class="vc-btn-secondary" onclick="openCustomerPortal('track')">
+                Tra cứu hồ sơ vận đơn
               </button>
             </div>
           </div>
@@ -242,13 +273,13 @@
     switcher.id = 'proto-switcher-bar';
     switcher.className = 'prototype-floating-switcher';
     switcher.innerHTML = `
-      <button type="button" class="proto-arrow-btn" id="proto-prev-btn" title="Biến thể trước (Phím ←)" aria-label="Biến thể trước">←</button>
+      <button type="button" class="proto-arrow-btn" id="proto-prev-btn" title="Biến thể trước (Phím mũi tên trái)" aria-label="Biến thể trước">←</button>
       <div class="proto-info-block">
-        <span class="proto-badge">PROTOTYPE</span>
+        <span class="proto-badge">TASTE PROTOTYPE</span>
         <span class="proto-label-text" id="proto-variant-name">Loading...</span>
         <span class="proto-key-hint">Phím [← / →]</span>
       </div>
-      <button type="button" class="proto-arrow-btn" id="proto-next-btn" title="Biến thể sau (Phím →)" aria-label="Biến thể sau">→</button>
+      <button type="button" class="proto-arrow-btn" id="proto-next-btn" title="Biến thể sau (Phím mũi tên phải)" aria-label="Biến thể sau">→</button>
     `;
 
     document.body.appendChild(switcher);
@@ -272,7 +303,6 @@
     });
   }
 
-  // Init prototype on DOMContentLoaded or immediate
   function init() {
     mountFloatingSwitcher();
     const initialKey = getQueryVariant();
