@@ -443,16 +443,16 @@
     "ast_hash": "7611906ce32296dd1d559892f6c3da27",
     "semantic_hash": ""
   },
-  "scratch/fix_final_emojis.js": {
-    "mtime": 1794033797.2674603,
-    "seen": 1794033831.0006423,
-    "ast_hash": "0cbf36e882a4c6569e129901edc757ef",
+  "docs/CONVERSATION_SUMMARY.md": {
+    "mtime": 1794034230.3612647,
+    "seen": 1794034236.9886107,
+    "ast_hash": "b3c9d25421c2478758565b31ae9c0975",
     "semantic_hash": ""
   },
-  "scratch/remove_all_emojis.js": {
-    "mtime": 1794033759.5469346,
-    "seen": 1794033831.0006423,
-    "ast_hash": "93c76eb730be25052be24960caf49f71",
+  "docs/adr/0009-synchronized-luxury-light-dark-themes-and-svg-system.md": {
+    "mtime": 1794034202.9799874,
+    "seen": 1794034236.9886107,
+    "ast_hash": "f8396eeea8f1cc83ac56528f6ea187c3",
     "semantic_hash": ""
   },
   "package-lock.json": {

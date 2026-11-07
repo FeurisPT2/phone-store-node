@@ -6,8 +6,9 @@
   "4": "main.js",
   "5": "storageSeam.test.js",
   "6": "package.json",
-  "7": "ADR 0008: Storefront Redesign with Variant B (The Split Stage) and Tasteskill v2 Anti-Slop System",
+  "7": "Báo Cáo Tổng Hợp Toàn Bộ Quá Trình Nâng Cấp Giao Diện & Hệ Thống (Conversation Summary)",
   "8": "📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)",
+  "9": "adminController.js",
   "10": "Spec 0001: Gemini AI Automation (Product Enrichment, Shopping Consultant & Self-healing Catalog)",
   "11": "0001. Sử dụng Google Gemini 2.5 Flash Tự Động Hóa Dữ Liệu Sản Phẩm Và Tư Vấn Khách Hàng",
   "12": "0002. Mở Rộng Schema Sản Phẩm Và Cơ Chế Dynamic Catalog Grounding",
@@ -16,6 +17,13 @@
   "15": "geminiService.js",
   "16": "server.js",
   "17": "Research: In-Memory TTL Caching & DB Indexing Benchmarks for Catalog Querying",
-  "19": "adminController.js",
-  "22": "express"
+  "18": "server.js",
+  "19": "CustomerModel",
+  "20": "OrderModel",
+  "21": "catalogCacheAndFilter.test.js",
+  "22": "express",
+  "23": "Admin.js",
+  "24": "orderController.js",
+  "25": "adminRoutes.js",
+  "26": "Language"
 }
