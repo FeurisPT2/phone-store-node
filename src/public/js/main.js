@@ -1,3 +1,44 @@
+
+// ==================== 0B. HERO SPLIT STAGE FINISH SELECTOR ====================
+const FINISH_DATA = {
+  natural: {
+    label: 'PHIÊN BẢN TITANIUM TỰ NHIÊN',
+    alt: 'iPhone 16 Pro Max Titan Tự Nhiên',
+    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80'
+  },
+  desert: {
+    label: 'PHIÊN BẢN TITANIUM SA MẠC',
+    alt: 'iPhone 16 Pro Max Titan Sa Mạc',
+    image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=1200&auto=format&fit=crop&q=80'
+  },
+  white: {
+    label: 'PHIÊN BẢN TITANIUM TRẮNG',
+    alt: 'iPhone 16 Pro Max Titan Trắng',
+    image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=1200&auto=format&fit=crop&q=80'
+  },
+  black: {
+    label: 'PHIÊN BẢN TITANIUM ĐEN KHÔNG GIAN',
+    alt: 'iPhone 16 Pro Max Titan Đen',
+    image: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=1200&auto=format&fit=crop&q=80'
+  }
+};
+
+function selectFinishSwatch(finish) {
+  const data = FINISH_DATA[finish] || FINISH_DATA.natural;
+  const imgEl = document.getElementById('stage-main-image');
+  if (imgEl) {
+    imgEl.src = data.image;
+    imgEl.alt = data.alt;
+  }
+  const tagEl = document.getElementById('stage-finish-tag');
+  if (tagEl) {
+    tagEl.innerText = data.label;
+  }
+  document.querySelectorAll('.swatch-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.getAttribute('data-swatch') === finish);
+  });
+}
+
 // ============================================================================
 // TECHSTORE ATELIER - Storefront, Hardware Configurator, VietQR & Self-Service
 // ============================================================================

@@ -1,46 +1,45 @@
 /* ==========================================================================
-   TECHSTORE PRO MAX - High-Recognition Flagship Commerce & 3s VietQR Platform
-   UI/UX Pro Max System: High Contrast, Tactile Affordances, Scannable Hierarchy
-   Typeface: Work Sans (300, 400, 500, 600, 700)
+   TECHSTORE - Variant B: Calm Editorial Studio (design-taste-frontend v2)
+   Tasteskill direction: split-stage / Typeface: Albert Sans / Bone & Stone
    ========================================================================== */
 
 :root {
-    --bg: #111317;
-    --bg-elevated: #171a20;
-    --surface: #1d2129;
-    --surface-raised: #262b36;
-    --surface-hover: #2e3442;
-    --border: rgba(255, 255, 255, 0.11);
-    --border-strong: rgba(255, 255, 255, 0.22);
-    --border-accent: rgba(166, 207, 164, 0.55);
-    --ink: #f6f7f9;
-    --muted: #a7b0c0;
-    --accent: #98b896;
-    --accent-hover: #b0cfa0;
-    --accent-ink: #0f1410;
-    --accent-text: #b7dbb5;
-    --accent-glow: rgba(152, 184, 150, 0.18);
-    --gold: #f5b942;
-    --gold-bg: rgba(245, 185, 66, 0.15);
-    --field-1: #d4d1c7;
-    --field-1-surface: #c5c1b5;
-    --field-1-ink: #141619;
-    --field-1-muted: #383a3e;
-    --danger-bg: #482124;
-    --danger-ink: #ffb8be;
-    --discount-bg: #e11d48;
+    --bg: #f3f2ee;
+    --bg-elevated: #ffffff;
+    --surface: #ffffff;
+    --surface-raised: #f7f6f2;
+    --surface-hover: #ebe8e1;
+    --border: #e6e2d8;
+    --border-strong: #d6d1c7;
+    --border-accent: #36453b;
+    --ink: #141413;
+    --muted: #6b6964;
+    --accent: #36453b;
+    --accent-hover: #232d26;
+    --accent-ink: #ffffff;
+    --accent-text: #232d26;
+    --accent-glow: rgba(54, 69, 59, 0.12);
+    --gold: #b45309;
+    --gold-bg: rgba(180, 83, 9, 0.08);
+    --field-1: #ffffff;
+    --field-1-surface: #f7f6f2;
+    --field-1-ink: #141413;
+    --field-1-muted: #6b6964;
+    --danger-bg: #fee2e2;
+    --danger-ink: #991b1b;
+    --discount-bg: #dc2626;
     --discount-ink: #ffffff;
-    --warning-bg: #423316;
-    --warning-ink: #fbd38d;
-    --success-bg: #1b3b2b;
-    --success-ink: #86efac;
+    --warning-bg: #fef3c7;
+    --warning-ink: #92400e;
+    --success-bg: #dcfce7;
+    --success-ink: #166534;
     --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
     --radius-pill: 999px;
-    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.55);
-    --shadow-hover: 0 18px 40px -12px rgba(0, 0, 0, 0.75);
-    --font-sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --shadow-card: 0 4px 20px -4px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 12px 32px -6px rgba(0, 0, 0, 0.08);
+    --font-sans: 'Albert Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --fs-display: clamp(2.1rem, 3.2vw, 3.1rem);
     --fs-h2: clamp(1.55rem, 2.3vw, 2.2rem);
     --fs-h3: 1.1875rem;
@@ -560,6 +559,187 @@ a {
     background-color: var(--accent-glow);
     border-color: var(--border-accent);
     color: var(--accent-text);
+}
+
+/* ==========================================================================
+   2. HERO - Split Stage (Variant B: Calm Editorial Studio)
+   ========================================================================== */
+.split-stage-section {
+    margin: 28px auto 40px;
+}
+
+.split-stage-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .split-stage-wrap {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+.split-left-sticky {
+    position: sticky;
+    top: 90px;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 36px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+}
+
+.stage-image-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 380px;
+}
+
+.stage-image-frame img {
+    max-height: 360px;
+    object-fit: contain;
+    border-radius: 16px;
+    transition: transform 220ms ease;
+}
+
+.stage-finish-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #f0ede6;
+}
+
+.finish-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.swatch-group {
+    display: flex;
+    gap: 10px;
+}
+
+.swatch-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px var(--border-strong);
+    cursor: pointer;
+    transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.swatch-btn:hover {
+    transform: scale(1.1);
+}
+
+.swatch-btn.active {
+    box-shadow: 0 0 0 2px var(--ink);
+    transform: scale(1.15);
+}
+
+.editorial-sub {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.editorial-title {
+    font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+}
+
+.editorial-desc {
+    font-size: 1.05rem;
+    color: #4a4843;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.spec-list-block {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+}
+
+.spec-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f2efe9;
+    font-size: 14px;
+}
+
+.spec-line:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.spec-k {
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.spec-v {
+    color: var(--ink);
+    font-weight: 600;
+    text-align: right;
+}
+
+.editorial-cta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.price-caption {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.price-strong {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.btn-editorial-buy {
+    background: var(--ink);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 140ms ease, transform 140ms ease;
+}
+
+.btn-editorial-buy:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
