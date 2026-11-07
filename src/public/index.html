@@ -335,7 +335,7 @@
                     </select>
                 </div>
                 <div class="spec-select-group">
-                    <label for="filter-sort">⇅ Sắp xếp theo</label>
+                    <label for="filter-sort">Sắp xếp theo</label>
                     <select id="filter-sort" onchange="handleSpecsFilterChange()">
                         <option value="default">Mặc định nổi bật</option>
                         <option value="price-asc">Giá thấp đến cao</option>
@@ -343,7 +343,7 @@
                         <option value="discount">Ưu đãi giảm sâu nhất</option>
                     </select>
                 </div>
-                <button class="btn-reset-specs" id="btn-reset-filters" onclick="resetAllFilters()" title="Xóa toàn bộ bộ lọc">↺ Đặt lại</button>
+                <button class="btn-reset-specs" id="btn-reset-filters" onclick="resetAllFilters()" title="Xóa toàn bộ bộ lọc">Đặt lại</button>
             </div>
             <div class="active-filter-chips" id="active-filter-chips" style="display: none;"></div>
         </section>
@@ -756,7 +756,7 @@
             <div class="modal-body" id="qr-payment-body">
                 <div class="qr-payment-box">
                     <div class="qr-status-banner" id="qr-status-banner">
-                        <span id="qr-status-text">⏳ Đang chờ thanh toán. Quét mã QR bên dưới bằng ứng dụng Ngân hàng (tự động kiểm tra mỗi 3 giây).</span>
+                        <span id="qr-status-text">Đang chờ thanh toán. Quét mã QR bên dưới bằng ứng dụng Ngân hàng (tự động kiểm tra mỗi 3 giây).</span>
                     </div>
                     <div class="qr-main-grid">
                         <div class="qr-image-frame">
@@ -828,7 +828,7 @@
                         <div class="detail-meta-card">
                             <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
                                 <span id="detail-brand-badge" class="detail-brand-tag">Brand</span>
-                                <span class="detail-stock-pill">● Sẵn hàng VN/A</span>
+                                <span class="detail-stock-pill"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Sẵn hàng VN/A</span>
                             </div>
                             <div class="detail-price-box">
                                 <span id="detail-price" class="detail-price-current">0 ₫</span>
@@ -886,7 +886,7 @@
                     <span class="ai-avatar">AI</span>
                     <div>
                         <strong style="display:block; font-size:0.9375rem;">Trợ lý Kỹ thuật TechStore AI</strong>
-                        <span style="font-size:0.75rem; color:var(--accent-text);">● Đang trực tuyến · Đối chiếu kho thực tế</span>
+                        <span style="font-size:0.75rem; color:var(--accent-text);"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Đang trực tuyến · Đối chiếu kho thực tế</span>
                     </div>
                 </div>
                 <button class="ai-chat-close" onclick="toggleAiChat()">&times;</button>

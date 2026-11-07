@@ -682,9 +682,9 @@ function renderProductList() {
     if (moreWrap) moreWrap.style.display = 'none';
     container.innerHTML = `
       <div style="grid-column: 1 / -1; padding: 3rem; background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); text-align: center;">
-        <p style="font-size: var(--fs-h3); font-weight: 700; color: var(--ink); margin-bottom: 0.5rem;">🔍 Không tìm thấy thiết bị khớp bộ lọc hiện tại</p>
+        <p style="font-size: var(--fs-h3); font-weight: 700; color: var(--ink); margin-bottom: 0.5rem;">Không tìm thấy thiết bị khớp bộ lọc hiện tại</p>
         <p style="font-size: var(--fs-body); color: var(--muted); margin-bottom: 1.5rem;">Thử nới lỏng tiêu chí RAM, bộ nhớ trong, mức giá hoặc đặt lại toàn bộ bộ lọc.</p>
-        <button type="button" class="btn-primary-sage" onclick="resetAllFilters()">↺ Đặt lại toàn bộ bộ lọc</button>
+        <button type="button" class="btn-primary-sage" onclick="resetAllFilters()">Đặt lại toàn bộ bộ lọc</button>
       </div>
     `;
     return;
@@ -707,7 +707,7 @@ function renderProductList() {
       moreWrap.style.display = 'flex';
       moreWrap.innerHTML = `
         <button type="button" class="btn-secondary-tone" onclick="expandAllCatalog()">
-          📱 Xem đầy đủ toàn bộ ${list.length} mẫu điện thoại trong kho &darr;
+          Xem đầy đủ toàn bộ ${list.length} mẫu điện thoại trong kho &darr;
         </button>
       `;
     } else {
@@ -721,7 +721,7 @@ function renderProductList() {
       const discount = p.oldPrice && p.oldPrice > p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
       const savingAmount = p.oldPrice && p.oldPrice > p.price ? p.oldPrice - p.price : 0;
       const isLiked = userWishlist.includes(String(p.id));
-      const chipBadge = p.detailedSpecs?.chip ? `<span class="spec-pill spec-pill--highlight">⚙️ ${p.detailedSpecs.chip}</span>` : '';
+      const chipBadge = p.detailedSpecs?.chip ? `<span class="spec-pill spec-pill--highlight">${p.detailedSpecs.chip}</span>` : '';
       const ramBadge = p.detailedSpecs?.ram ? `<span class="spec-pill">RAM ${p.detailedSpecs.ram}</span>` : '';
       const romBadge = p.detailedSpecs?.storage ? `<span class="spec-pill">ROM ${p.detailedSpecs.storage}</span>` : '';
 
@@ -733,19 +733,19 @@ function renderProductList() {
             <span class="card-origin-badge">VN/A Chính Hãng</span>
           </div>
           <button type="button" class="card-wish-icon-btn ${isLiked ? 'active' : ''}" onclick="toggleWishlistItem('${p.id}')" title="${isLiked ? 'Bỏ lưu yêu thích' : 'Lưu vào danh sách yêu thích'}" aria-label="Yêu thích">
-            ${isLiked ? '♥' : '♡'}
+            ${isLiked ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>' : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>'}
           </button>
         </div>
 
         <div class="product-img-wrapper" onclick="openProductDetailModal('${p.id}')">
           <img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy" decoding="async">
-          <span class="card-quickview-pill">🔍 Xem cấu hình &amp; AI đánh giá</span>
+          <span class="card-quickview-pill">Xem cấu hình &amp; AI đánh giá</span>
         </div>
 
         <div class="product-body">
           <div class="product-meta-row">
             <span class="product-brand-tag">${p.brand}</span>
-            <span class="product-stock-tag">● Sẵn hàng</span>
+            <span class="product-stock-tag"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Sẵn hàng</span>
           </div>
 
           <div class="product-title" onclick="openProductDetailModal('${p.id}')" title="${p.name}">${p.name}</div>
@@ -768,7 +768,7 @@ function renderProductList() {
           </div>
 
           <div class="product-actions">
-            <button type="button" class="btn-buy-now" onclick="buyNow('${p.id}')">⚡ Mua ngay</button>
+            <button type="button" class="btn-buy-now" onclick="buyNow('${p.id}')">Mua ngay</button>
             <button type="button" class="btn-add-cart" onclick="addToCart('${p.id}')" title="Thêm vào giỏ hàng">+ Giỏ hàng</button>
             <button type="button" class="btn-add-cart" onclick="openProductDetailModal('${p.id}')" title="Xem chi tiết cấu hình">Chi tiết</button>
           </div>
@@ -1011,7 +1011,7 @@ function openQrPaymentModal(order) {
   if (banner) {
     banner.className = 'qr-status-banner';
     banner.innerHTML =
-      '<span id="qr-status-text">⏳ Đang chờ quét mã VietQR thanh toán (tự động kiểm tra mỗi 3 giây)...</span>';
+      '<span id="qr-status-text">Đang chờ quét mã VietQR thanh toán (tự động kiểm tra mỗi 3 giây)...</span>';
   }
 
   openModal('qr-payment-modal');
@@ -1049,7 +1049,7 @@ async function pollQrPaymentStatus(orderId) {
       if (banner) {
         banner.className = 'qr-status-banner paid';
         banner.innerHTML =
-          '<span id="qr-status-text">✅ Thanh toán VietQR thành công. Đơn hàng đã được xác nhận!</span>';
+          '<span id="qr-status-text">Thanh toán VietQR thành công. Đơn hàng đã được xác nhận!</span>';
       }
       showToast('Thanh toán VietQR thành công cho đơn #' + orderId, 'success');
       setTimeout(() => {
@@ -1061,7 +1061,7 @@ async function pollQrPaymentStatus(orderId) {
       if (banner) {
         banner.className = 'qr-status-banner expired';
         banner.innerHTML =
-          '<span id="qr-status-text">⚠️ Đơn hàng đã hết hạn thanh toán VietQR hoặc đã bị hủy.</span>';
+          '<span id="qr-status-text">Đơn hàng đã hết hạn thanh toán VietQR hoặc đã bị hủy.</span>';
       }
       showToast('Đơn hàng QR đã hết hạn hoặc bị hủy', 'error');
     }
