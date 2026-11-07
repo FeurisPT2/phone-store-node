@@ -1,17 +1,17 @@
 # Graph Report - phone-store-node  (2026-11-07)
 
 ## Corpus Check
-- 70 files · ~62,643 words
+- 71 files · ~63,097 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 4 file(s) not represented in the graph (top: .css 2, .example 1, (none) 1)
+- Unclassified: 5 file(s) not represented in the graph (top: .css 3, .example 1, (none) 1)
 
 ## Summary
-- 554 nodes · 1119 edges · 17 communities (14 shown, 3 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 80 edges (avg confidence: 0.91)
+- 562 nodes · 1134 edges · 18 communities (15 shown, 3 thin omitted)
+- Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 86 edges (avg confidence: 0.9)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `80735600`
+- Built from commit: `89b99779`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -23,6 +23,7 @@
 - main.js
 - storageSeam.test.js
 - package.json
+- prototypeSwitcher.js
 - 📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)
 - server.js
 - Spec 0001: Gemini AI Automation (Product Enrichment, Shopping Consultant & Self-healing Catalog)
@@ -40,19 +41,19 @@
 3. `OrderModel` - 20 edges
 4. `showToast()` - 16 edges
 5. `showToast()` - 16 edges
-6. `JsonDB` - 15 edges
-7. `JsonStorageAdapter` - 15 edges
-8. `PostgresStorageAdapter` - 15 edges
+6. `JsonStorageAdapter` - 15 edges
+7. `PostgresStorageAdapter` - 15 edges
+8. `JsonDB` - 15 edges
 9. `loadDashboard()` - 15 edges
 10. `renderProductList()` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `Bối cảnh & Lý do lựa chọn` --references--> `clearQrSessionTimers()`  [INFERRED]
+  docs/adr/0007-ai-orchestration-deepening-and-frontend-cleanup.md → src/public/js/main.js
+- `0005. Thiết Lập Storage Seam Và Tách Biệt Storage Adapter Cho Domain Models` --references--> `JsonStorageAdapter`  [INFERRED]
+  docs/adr/0005-storage-seam-and-adapters.md → src/models/storage/JsonStorageAdapter.js
 - `Solution` --references--> `OrderModel`  [INFERRED]
   docs/specs/0002-techstore-v2-production-release.md → src/models/Order.js
-- `Bối cảnh & Lý do lựa chọn` --references--> `ProductModel`  [INFERRED]
-  docs/adr/0006-order-lifecycle-customer-projection-and-catalog-filter.md → src/models/Product.js
-- `Bối cảnh & Lý do lựa chọn` --references--> `ProductModel`  [INFERRED]
-  docs/adr/0007-ai-orchestration-deepening-and-frontend-cleanup.md → src/models/Product.js
 - `Bối cảnh & Lý do lựa chọn` --references--> `JsonDB`  [INFERRED]
   docs/adr/0005-storage-seam-and-adapters.md → src/models/database.js
 - `Existing Codebase Architecture` --references--> `JsonDB`  [INFERRED]
@@ -61,7 +62,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (17 total, 3 thin omitted)
+## Communities (18 total, 3 thin omitted)
 
 ### Community 0 - "admin.js"
 Cohesion: 0.11
@@ -77,7 +78,7 @@ Nodes (13): 1. Context & Primary Sources, 2. Order & Payment State Machine Desig
 
 ### Community 3 - "Product.js"
 Cohesion: 0.07
-Nodes (24): 0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache), Bối cảnh & Lý do lựa chọn, 2. In-Memory TTL Cache with Write-Through Invalidation, Architecture Pattern, Design Requirements, Problem Statement, Solution, Spec 0002: TechStore v2.0 Production-Ready Release (QR Payment, Customer Portal, Multi-Attribute Specs Filter & Performance Optimization) (+16 more)
+Nodes (25): 0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache), Bối cảnh & Lý do lựa chọn, 2. In-Memory TTL Cache with Write-Through Invalidation, Architecture Pattern, Design Requirements, Problem Statement, Solution, Spec 0002: TechStore v2.0 Production-Ready Release (QR Payment, Customer Portal, Multi-Attribute Specs Filter & Performance Optimization) (+17 more)
 
 ### Community 4 - "main.js"
 Cohesion: 0.06
@@ -90,6 +91,10 @@ Nodes (14): crypto, fs, path, initDatabase(), { Pool }, changePassword(), login(
 ### Community 6 - "package.json"
 Cohesion: 0.05
 Nodes (42): dependencies, cookie-parser@^1.4.6, cors@^2.8.5, dotenv@^18.0.7, express@^4.19.2, express-session@^1.18.0, @google/genai@^3.0.0, pg@^8.23.1 (+34 more)
+
+### Community 7 - "prototypeSwitcher.js"
+Cohesion: 0.54
+Nodes (7): getQueryVariant(), init(), mountFloatingSwitcher(), renderVariantHeroSection(), setVariant(), switchNext(), switchPrev()
 
 ### Community 8 - "📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)"
 Cohesion: 0.17
@@ -109,14 +114,14 @@ Nodes (3): builds, routes, version
 
 ### Community 15 - "geminiService.js"
 Cohesion: 0.10
-Nodes (26): 0007. Làm Sâu Điều Phối AI (AI Product Enrichment, Self-healing Catalog, AI Shopping Consultant) Và Tinh Gọn Mã Nguồn Giao Diện, Bối cảnh & Lý do lựa chọn, Language, TechStore, chatController, escapeRegExp(), extractHardwareSpecs(), filterProducts() (+18 more)
+Nodes (25): 0007. Làm Sâu Điều Phối AI (AI Product Enrichment, Self-healing Catalog, AI Shopping Consultant) Và Tinh Gọn Mã Nguồn Giao Diện, Bối cảnh & Lý do lựa chọn, Language, TechStore, chatController, escapeRegExp(), extractHardwareSpecs(), filterProducts() (+17 more)
 
 ### Community 17 - "Research: In-Memory TTL Caching & DB Indexing Benchmarks for Catalog Querying"
 Cohesion: 0.29
 Nodes (6): 1. Context & Primary Sources, 3. PostgreSQL Indexing Strategy, 4. HTTP Payload Optimization & Compression, Existing Codebase Architecture, Impact Analysis, Research: In-Memory TTL Caching & DB Indexing Benchmarks for Catalog Querying
 
 ### Community 19 - "OrderModel"
-Cohesion: 0.05
+Cohesion: 0.06
 Nodes (41): 0006. Làm Sâu Vòng Đời Đơn Hàng (Order Lifecycle), Bản Chiếu Khách Hàng An Toàn (Safe Customer Projection) Và Hợp Nhất Bộ Lọc Danh Mục (Catalog Filter Engine), Bối cảnh & Lý do lựa chọn, addProduct(), createCustomer(), deleteCustomer(), deleteOrder(), deleteProduct(), exportCustomersCsv() (+33 more)
 
 ## Knowledge Gaps
@@ -126,16 +131,16 @@ Nodes (41): 0006. Làm Sâu Vòng Đời Đơn Hàng (Order Lifecycle), Bản Ch
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `ProductModel` connect `Product.js` to `server.js`, `OrderModel`, `storageSeam.test.js`, `geminiService.js`?**
-  _High betweenness centrality (0.258) - this node is a cross-community bridge._
+  _High betweenness centrality (0.251) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `ProductModel` (e.g. with `0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache)` and `Bối cảnh & Lý do lựa chọn`) actually correct?**
   _`ProductModel` has 4 INFERRED edges - model-reasoned connections that need verification._
 - **Should `admin.js` be split into smaller, more focused modules?**
   _Cohesion score 0.10714285714285714 - nodes in this community are weakly interconnected._
 - **Why does `Bối cảnh & Lý do lựa chọn` connect `geminiService.js` to `Product.js`, `main.js`?**
-  _High betweenness centrality (0.207) - this node is a cross-community bridge._
+  _High betweenness centrality (0.201) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `OrderModel` (e.g. with `0006. Làm Sâu Vòng Đời Đơn Hàng (Order Lifecycle), Bản Chiếu Khách Hàng An Toàn (Safe Customer Projection) Và Hợp Nhất Bộ Lọc Danh Mục (Catalog Filter Engine)` and `Bối cảnh & Lý do lựa chọn`) actually correct?**
   _`OrderModel` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **Should `PostgresStorageAdapter` be split into smaller, more focused modules?**
   _Cohesion score 0.06753006475485661 - nodes in this community are weakly interconnected._
 - **Why does `clearQrSessionTimers()` connect `main.js` to `geminiService.js`?**
-  _High betweenness centrality (0.200) - this node is a cross-community bridge._
+  _High betweenness centrality (0.195) - this node is a cross-community bridge._

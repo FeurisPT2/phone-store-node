@@ -72,20 +72,20 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1794027813.7972229,
-    "seen": 1794027881.741667,
+    "mtime": 1794029333.2054048,
+    "seen": 1794029370.5667777,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1794027814.0481973,
-    "seen": 1794027881.741667,
+    "mtime": 1794029333.4295204,
+    "seen": 1794029370.5667777,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1794027813.9115117,
-    "seen": 1794027881.741667,
+    "mtime": 1794029333.3094115,
+    "seen": 1794029370.5667777,
     "ast_hash": "a67ecaedbec344d5d9b4dd5db5b642f9",
     "semantic_hash": ""
   },
@@ -138,9 +138,9 @@
     "semantic_hash": ""
   },
   "src/public/js/main.js": {
-    "mtime": 1794027105.2973332,
-    "seen": 1794027484.6269736,
-    "ast_hash": "012d8460765b5a170f13c41401648bc1",
+    "mtime": 1794029224.7075994,
+    "seen": 1794029370.5667777,
+    "ast_hash": "95e30431cd45fc3b29599a589064bbad",
     "semantic_hash": ""
   },
   "src/routes/adminRoutes.js": {
@@ -204,9 +204,9 @@
     "semantic_hash": ""
   },
   "src/public/index.html": {
-    "mtime": 1794026929.1116676,
-    "seen": 1794027484.6269736,
-    "ast_hash": "53a45a4f58a6200f3713a13a290feb0b",
+    "mtime": 1794029167.536858,
+    "seen": 1794029370.5667777,
+    "ast_hash": "b9ba914cd9d3a749e4215831288746a1",
     "semantic_hash": ""
   },
   "src/public/login.html": {
@@ -435,6 +435,12 @@
     "mtime": 1794027446.206241,
     "seen": 1794027484.6269736,
     "ast_hash": "b4df0cbb334ba82c73fc8ea285ed66cd",
+    "semantic_hash": ""
+  },
+  "src/public/js/prototypeSwitcher.js": {
+    "mtime": 1794029255.922695,
+    "seen": 1794029370.5667777,
+    "ast_hash": "2a31e55a863df0a605cd673424b00414",
     "semantic_hash": ""
   },
   "package-lock.json": {
