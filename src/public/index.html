@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prototype-variants.css">
 </head>
 <body>
 
@@ -137,150 +138,8 @@
         </div>
     </aside>
 
-    <!-- 1. HERO - Flagship Studio Showcase + Interactive Hardware Configurator -->
-    <section class="container hero-stage" id="hero-section">
-        <div class="hero-object-bleed shutter in" id="hero-shutter-frame">
-            <div class="hero-visual-badges">
-                <span class="hero-float-badge hero-float-badge--primary">★ Flagship Bán Chạy #1</span>
-                <span class="hero-float-badge">Nguyên Seal VN/A · Đủ VAT</span>
-            </div>
-            <img id="hero-stage-image" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="Flagship Titanium Smartphone" fetchpriority="high" decoding="async">
-            <div class="hero-object-caption">
-                <div>
-                    <strong id="hero-visual-label">iPhone 16 Pro Max · Chính hãng VN/A</strong>
-                    <span style="display:block; font-size:0.8125rem;">Bảo hành 12 tháng ủy quyền toàn quốc · Sẵn hàng giao ngay</span>
-                </div>
-                <span class="hero-caption-pill">VietQR 3s</span>
-            </div>
-        </div>
-
-        <div class="hero-copy-column">
-            <div class="hero-eyebrow-row" data-reveal style="--i:0">
-                <span class="hero-eyebrow-badge">TRUNG TÂM FLAGSHIP CHÍNH NGẠCH</span>
-                <span class="hero-eyebrow-live"><span class="live-pulse-dot"></span> Kho sẵn hàng 12 hãng</span>
-            </div>
-            <h1 class="hero-headline" data-reveal style="--i:1">Flagship nguyên bản VN/A. Nhận máy trong 2 giờ.</h1>
-            <p class="hero-subline" data-reveal style="--i:2">Phân phối chính thống 12 thương hiệu di động toàn cầu. Mỗi thiết bị xuất kho đi kèm hóa đơn VAT điện tử, bảo hành 12 tháng chính hãng và thanh toán VietQR đối soát tự động trong 3 giây.</p>
-
-            <div class="hero-cta-row" data-reveal style="--i:3">
-                <a href="#catalog-section" class="btn-primary-sage">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                    <span>Khám phá kho máy ngay</span>
-                </a>
-                <button type="button" class="btn-secondary-tone" onclick="openCustomerPortal('track')">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span>Tra cứu đơn hàng (SĐT)</span>
-                </button>
-            </div>
-
-            <!-- INTERACTIVE FLAGSHIP HARDWARE CONFIGURATOR -->
-            <div class="hero-live-bench" id="hero-live-bench" data-reveal style="--i:4">
-                <div class="bench-header-strip">
-                    <span class="bench-step-badge">⚡ CẤU HÌNH NHANH &amp; BÁO GIÁ TỨC THÌ</span>
-                    <span class="bench-stock-online">● Sẵn hàng trong kho</span>
-                </div>
-                <div class="bench-top-row">
-                    <span class="bench-title" id="hero-caption-model">iPhone 16 Pro Max · 256GB</span>
-                    <span class="bench-status" id="hero-caption-finish">Khung Titan Cấp 5 · Nguyên Seal VN/A</span>
-                </div>
-                <div class="bench-step-label">1. Chọn dòng máy Flagship:</div>
-                <div class="bench-selector-row" role="group" aria-label="Chọn dòng flagship">
-                    <button type="button" class="bench-model-btn active" data-bench-idx="0" onclick="selectBenchModel(0)">iPhone 16 Pro Max</button>
-                    <button type="button" class="bench-model-btn" data-bench-idx="1" onclick="selectBenchModel(1)">Galaxy S24 Ultra</button>
-                    <button type="button" class="bench-model-btn" data-bench-idx="2" onclick="selectBenchModel(2)">Xiaomi 14 Ultra</button>
-                </div>
-                <div class="bench-step-label">2. Chọn phiên bản bộ nhớ ROM:</div>
-                <div class="bench-storage-row">
-                    <div class="bench-cap-group" role="group" aria-label="Chọn dung lượng bộ nhớ">
-                        <button type="button" class="bench-cap-btn active" data-cap-idx="0" onclick="selectBenchCapacity(0)">256GB</button>
-                        <button type="button" class="bench-cap-btn" data-cap-idx="1" onclick="selectBenchCapacity(1)">512GB</button>
-                        <button type="button" class="bench-cap-btn" data-cap-idx="2" onclick="selectBenchCapacity(2)">1TB</button>
-                    </div>
-                    <span class="bench-spec-readout" id="bench-spec-text">Apple A18 Pro · 8GB RAM · 6.9" OLED</span>
-                </div>
-                <div class="bench-bottom-bar">
-                    <div class="bench-price-block">
-                        <span class="bench-price-label">Giá ưu đãi xuất kho hôm nay:</span>
-                        <span class="bench-price-value" id="bench-live-price">14.800.000 ₫</span>
-                        <span class="bench-price-note" id="bench-live-saving">Giá ưu đãi kho chính ngạch · Sẵn hàng giao ngay</span>
-                    </div>
-                    <button type="button" class="bench-buy-btn" id="bench-instant-buy-btn" onclick="triggerBenchBuy()">
-                        <span>Đặt mua cấu hình này</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- USP / SERVICE RECOGNITION BAR (4 Key Pillars for Instant User Understanding) -->
-    <section class="container usp-recognition-section" aria-label="Cam kết dịch vụ TechStore">
-        <div class="usp-recognition-grid">
-            <div class="usp-card">
-                <div class="usp-icon">🛡️</div>
-                <div class="usp-info">
-                    <strong>100% Nguyên Seal VN/A</strong>
-                    <span>Đầy đủ hóa đơn VAT điện tử, đối chiếu IMEI chính hãng</span>
-                </div>
-            </div>
-            <div class="usp-card">
-                <div class="usp-icon">⚡</div>
-                <div class="usp-info">
-                    <strong>Thanh Toán VietQR 3 Giây</strong>
-                    <span>Quét QR tự động điền số tiền, gạch nợ đơn hàng tức thì</span>
-                </div>
-            </div>
-            <div class="usp-card">
-                <div class="usp-icon">🚚</div>
-                <div class="usp-info">
-                    <strong>Giao Hỏa Tốc Nội Thành 2H</strong>
-                    <span>Theo dõi tiến trình vận đơn 4 bước trực tiếp bằng SĐT</span>
-                </div>
-            </div>
-            <div class="usp-card">
-                <div class="usp-icon">🤖</div>
-                <div class="usp-info">
-                    <strong>Trợ Lý AI Gemini 2.0</strong>
-                    <span>Phân tích ưu nhược điểm &amp; so sánh cấu hình theo nhu cầu</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 2. SHOWCASE - "Two objects, two fields" (50/50 split) -->
-    <section class="showcase-split" id="showcase-section" aria-label="Hai dòng máy tâm điểm">
-        <article class="showcase-half showcase-half--charcoal" data-reveal style="--i:0">
-            <div class="showcase-media-crop">
-                <span class="showcase-corner-tag">Tâm điểm Apple VN/A</span>
-                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="iPhone 16 Pro Max 256GB VN/A" loading="lazy" decoding="async">
-            </div>
-            <div class="showcase-foot">
-                <div class="showcase-meta">
-                    <span class="showcase-eyebrow">APPLE FLAGSHIP SERIES</span>
-                    <h2 class="showcase-title">iPhone 16 Pro Max</h2>
-                    <p class="showcase-desc">Khung Titan tự nhiên, viền màn hình mỏng nhất lịch sử Apple, quay ProRes 4K 120fps và chip A18 Pro 3nm.</p>
-                    <span class="showcase-price">Từ 14.800.000 ₫</span>
-                </div>
-                <button type="button" class="showcase-action-dark" onclick="filterByBrand('Apple'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Xem toàn bộ dòng Apple &rarr;</button>
-            </div>
-        </article>
-
-        <article class="showcase-half showcase-half--stone" data-reveal style="--i:1">
-            <div class="showcase-media-crop">
-                <span class="showcase-corner-tag showcase-corner-tag--dark">Tâm điểm Galaxy AI</span>
-                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=1200&auto=format&fit=crop&q=80" alt="Samsung Galaxy S24 Ultra 5G" loading="lazy" decoding="async">
-            </div>
-            <div class="showcase-foot">
-                <div class="showcase-meta">
-                    <span class="showcase-eyebrow">SAMSUNG GALAXY AI</span>
-                    <h2 class="showcase-title">Galaxy S24 Ultra</h2>
-                    <p class="showcase-desc">Bút S-Pen tích hợp, kính Gorilla Armor chống phản chiếu 75%, cảm biến 200MP và Snapdragon 8 Gen 3 for Galaxy.</p>
-                    <span class="showcase-price">Từ 12.800.000 ₫</span>
-                </div>
-                <button type="button" class="showcase-action-stone" onclick="filterByBrand('Samsung'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Xem toàn bộ dòng Samsung &rarr;</button>
-            </div>
-        </article>
-    </section>
+    <!-- PROTOTYPE HERO & SHOWCASE MOUNT (Dynamically populated by prototypeSwitcher.js according to ?variant=A|B|C) -->
+    <div id="prototype-hero-mount"></div>
 
     <!-- 3. CATALOG & MULTI-ATTRIBUTE SPEC LAB -->
     <main class="container catalog-section" id="catalog-section">
@@ -972,5 +831,6 @@
 
     <script src="js/catalogFilter.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/prototypeSwitcher.js"></script>
 </body>
 </html>
