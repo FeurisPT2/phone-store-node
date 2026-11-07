@@ -3,16 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStore · Flagship Nguyên Bản &amp; Thanh Toán VietQR 3 Giây</title>
+    <title>TechStore Pro Max · Hệ Thống Flagship Chính Hãng VN/A &amp; Thanh Toán VietQR 3 Giây</title>
     <script>document.documentElement.classList.add('js');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- PLAIN ARCHITECTURAL TOP BAR -->
+    <!-- TOP RECOGNITION & TRUST BAR -->
+    <div class="top-trust-bar">
+        <div class="container top-trust-inner">
+            <div class="trust-highlights">
+                <span class="trust-pill"><span class="trust-dot"></span> Chính hãng VN/A Nguyên Seal 100%</span>
+                <span class="trust-divider">|</span>
+                <span class="trust-pill">⚡ Thanh toán VietQR đối soát tự động 3 giây</span>
+                <span class="trust-divider">|</span>
+                <span class="trust-pill">🛡️ Bảo hành 12 tháng · 1 đổi 1 trong 30 ngày</span>
+            </div>
+            <div class="trust-quick-links">
+                <button type="button" class="trust-link-btn" onclick="openCustomerPortal('track')">📦 Kiểm tra vận đơn</button>
+                <a href="/login" class="trust-link-btn">🔐 Cổng đăng nhập</a>
+                <a href="/admin" class="trust-link-btn">⚙️ Quản trị CRM</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY PRO MAX HEADER -->
     <header class="main-header">
         <div class="container header-inner">
             <div class="header-left">
@@ -20,31 +38,38 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
                 <a href="/" class="logo" onclick="resetAllFilters(); return false;">
-                    <span class="logo-brand">TechStore</span>
-                    <span class="logo-sub">Atelier</span>
+                    <span class="logo-mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3" ry="3"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    </span>
+                    <span class="logo-text-wrap">
+                        <span class="logo-brand">TechStore</span>
+                        <span class="logo-sub">PRO MAX VN/A</span>
+                    </span>
                 </a>
                 <nav class="top-nav-links" aria-label="Điều hướng chính">
-                    <a href="#catalog-section" class="top-nav-link">Kho Flagship</a>
-                    <a href="#showcase-section" class="top-nav-link">Tâm điểm</a>
-                    <a href="#ritual-section" class="top-nav-link">Quy trình VietQR</a>
-                    <a href="#faq-section" class="top-nav-link">Bảo hành</a>
+                    <a href="#catalog-section" class="top-nav-link active-nav">📱 Kho Flagship</a>
+                    <a href="#showcase-section" class="top-nav-link">🔥 Tâm điểm</a>
+                    <a href="#ritual-section" class="top-nav-link">💳 Quy trình VietQR</a>
+                    <a href="#faq-section" class="top-nav-link">🛡️ Bảo hành</a>
                 </nav>
             </div>
 
             <div class="header-center">
-                <div class="search-box">
+                <div class="search-box" role="search">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="input-search" placeholder="Tìm iPhone 16, S25 Ultra, chip, RAM..." oninput="handleSearch(this.value)">
+                    <input type="text" id="input-search" placeholder="Tìm iPhone 16, S24 Ultra, Xiaomi, chip, RAM..." oninput="handleSearch(this.value)" aria-label="Tìm kiếm điện thoại">
+                    <button type="button" id="btn-clear-search" class="search-clear-btn" style="display:none;" onclick="document.getElementById('input-search').value=''; handleSearch('');" title="Xóa từ khóa">&times;</button>
+                    <kbd class="search-kbd" title="Nhấn / để tìm nhanh">/</kbd>
                 </div>
             </div>
 
             <div class="header-actions">
-                <button class="nav-action-btn" id="btn-customer-portal" onclick="openCustomerPortal('track')" title="Tra cứu vận đơn">
+                <button class="nav-action-btn" id="btn-customer-portal" onclick="openCustomerPortal('track')" title="Tra cứu tiến độ vận đơn bằng SĐT">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                     <span class="nav-label">Tra đơn</span>
                 </button>
 
-                <button class="nav-action-btn" id="btn-open-wishlist" onclick="openCustomerPortal('wishlist')" title="Danh sách yêu thích">
+                <button class="nav-action-btn" id="btn-open-wishlist" onclick="openCustomerPortal('wishlist')" title="Danh sách điện thoại đã lưu">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                     <span class="nav-label">Yêu thích</span>
                     <span id="wishlist-count-badge" class="nav-badge-pill" style="display:none;">0</span>
@@ -52,7 +77,7 @@
 
                 <a href="/login" class="nav-action-btn" id="btn-open-auth" onclick="if(event.ctrlKey||event.metaKey)return true; event.preventDefault(); openAuthModal('login');">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                    <span class="nav-label">Tài khoản</span>
+                    <span class="nav-label">Đăng nhập</span>
                 </a>
 
                 <div class="user-profile-pill" id="user-profile-badge" style="display: none;">
@@ -62,11 +87,27 @@
                     <button class="user-logout-btn" id="btn-logout-cust" onclick="logoutCustomer()" title="Đăng xuất">Thoát</button>
                 </div>
 
-                <button class="cart-btn-trigger" id="btn-open-cart">
+                <button class="cart-btn-trigger" id="btn-open-cart" title="Mở giỏ hàng &amp; thanh toán">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                     <span>Giỏ hàng</span>
                     <span id="cart-count" class="cart-count-pill">0</span>
                 </button>
+            </div>
+        </div>
+
+        <!-- INSTANT CATEGORY & BRAND SHORTCUT RIBBON -->
+        <div class="header-quick-ribbon">
+            <div class="container quick-ribbon-inner">
+                <span class="ribbon-label">Chọn nhanh:</span>
+                <button type="button" class="ribbon-chip active" data-ribbon-brand="all" onclick="filterByBrand('all'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Tất cả kho máy</button>
+                <button type="button" class="ribbon-chip" data-ribbon-brand="Apple" onclick="filterByBrand('Apple'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">🍎 Apple iPhone</button>
+                <button type="button" class="ribbon-chip" data-ribbon-brand="Samsung" onclick="filterByBrand('Samsung'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">🌌 Samsung Galaxy</button>
+                <button type="button" class="ribbon-chip" data-ribbon-brand="Xiaomi" onclick="filterByBrand('Xiaomi'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">📷 Xiaomi Leica</button>
+                <button type="button" class="ribbon-chip" data-ribbon-brand="OPPO" onclick="filterByBrand('OPPO'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">✨ OPPO Find</button>
+                <button type="button" class="ribbon-chip" data-ribbon-brand="Google" onclick="filterByBrand('Google'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">🤖 Google Pixel</button>
+                <button type="button" class="ribbon-chip" data-ribbon-brand="ASUS" onclick="filterByBrand('ASUS'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">🎮 ASUS ROG Gaming</button>
+                <button type="button" class="ribbon-chip ribbon-chip--accent" onclick="applyQuickPreset('discount'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">🏷️ Đang giảm giá sâu</button>
+                <button type="button" class="ribbon-chip ribbon-chip--ai" onclick="toggleAiChat()">✨ Trợ lý AI tư vấn</button>
             </div>
         </div>
     </header>
@@ -75,16 +116,16 @@
     <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" onclick="toggleMobileDrawer(false)"></div>
     <aside class="mobile-drawer" id="mobile-drawer">
         <div class="mobile-drawer-header">
-            <span class="logo-brand">TechStore</span>
+            <span class="logo-brand">TechStore Pro Max</span>
             <button class="close-btn" onclick="toggleMobileDrawer(false)">&times;</button>
         </div>
         <div class="mobile-drawer-body">
-            <button class="drawer-item" onclick="resetAllFilters(); toggleMobileDrawer(false);">Kho Flagship Chính Hãng</button>
-            <button class="drawer-item" onclick="openCustomerPortal('track'); toggleMobileDrawer(false);">Tra Cứu Vận Đơn</button>
-            <button class="drawer-item" onclick="openCustomerPortal('orders'); toggleMobileDrawer(false);">Lịch Sử Đơn Hàng</button>
-            <button class="drawer-item" onclick="openCustomerPortal('wishlist'); toggleMobileDrawer(false);">Danh Sách Yêu Thích</button>
-            <button class="drawer-item" onclick="openCustomerPortal('profile'); toggleMobileDrawer(false);">Sổ Địa Chỉ &amp; Hồ Sơ</button>
-            <p class="drawer-section-title">Thương hiệu phân phối</p>
+            <button class="drawer-item" onclick="resetAllFilters(); toggleMobileDrawer(false);">📱 Kho Flagship Chính Hãng</button>
+            <button class="drawer-item" onclick="openCustomerPortal('track'); toggleMobileDrawer(false);">📦 Tra Cứu Vận Đơn</button>
+            <button class="drawer-item" onclick="openCustomerPortal('orders'); toggleMobileDrawer(false);">🧾 Lịch Sử Đơn Hàng</button>
+            <button class="drawer-item" onclick="openCustomerPortal('wishlist'); toggleMobileDrawer(false);">❤️ Danh Sách Yêu Thích</button>
+            <button class="drawer-item" onclick="openCustomerPortal('profile'); toggleMobileDrawer(false);">👤 Sổ Địa Chỉ &amp; Hồ Sơ</button>
+            <p class="drawer-section-title">Thương hiệu phân phối chính ngạch</p>
             <div class="drawer-brand-grid">
                 <button onclick="filterByBrand('Apple'); toggleMobileDrawer(false);">Apple</button>
                 <button onclick="filterByBrand('Samsung'); toggleMobileDrawer(false);">Samsung</button>
@@ -96,32 +137,59 @@
         </div>
     </aside>
 
-    <!-- 1. HERO - "Object cropped by three edges" + Interactive Flagship Hardware Bench -->
+    <!-- 1. HERO - Flagship Studio Showcase + Interactive Hardware Configurator -->
     <section class="container hero-stage" id="hero-section">
         <div class="hero-object-bleed shutter in" id="hero-shutter-frame">
+            <div class="hero-visual-badges">
+                <span class="hero-float-badge hero-float-badge--primary">★ Flagship Bán Chạy #1</span>
+                <span class="hero-float-badge">Nguyên Seal VN/A · Đủ VAT</span>
+            </div>
             <img id="hero-stage-image" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="Flagship Titanium Smartphone" fetchpriority="high" decoding="async">
+            <div class="hero-object-caption">
+                <div>
+                    <strong id="hero-visual-label">iPhone 16 Pro Max · Chính hãng VN/A</strong>
+                    <span style="display:block; font-size:0.8125rem;">Bảo hành 12 tháng ủy quyền toàn quốc · Sẵn hàng giao ngay</span>
+                </div>
+                <span class="hero-caption-pill">VietQR 3s</span>
+            </div>
         </div>
 
         <div class="hero-copy-column">
-            <h1 class="hero-headline" data-reveal style="--i:1">Flagship nguyên bản VN/A.</h1>
-            <p class="hero-subline" data-reveal style="--i:2">Phân phối chính ngạch 12 thương hiệu toàn cầu. Mỗi thiết bị xuất kho đi kèm hóa đơn VAT điện tử, bảo hành 12 tháng chính hãng và thanh toán VietQR đối soát trong 3 giây.</p>
+            <div class="hero-eyebrow-row" data-reveal style="--i:0">
+                <span class="hero-eyebrow-badge">TRUNG TÂM FLAGSHIP CHÍNH NGẠCH</span>
+                <span class="hero-eyebrow-live"><span class="live-pulse-dot"></span> Kho sẵn hàng 12 hãng</span>
+            </div>
+            <h1 class="hero-headline" data-reveal style="--i:1">Flagship nguyên bản VN/A. Nhận máy trong 2 giờ.</h1>
+            <p class="hero-subline" data-reveal style="--i:2">Phân phối chính thống 12 thương hiệu di động toàn cầu. Mỗi thiết bị xuất kho đi kèm hóa đơn VAT điện tử, bảo hành 12 tháng chính hãng và thanh toán VietQR đối soát tự động trong 3 giây.</p>
 
             <div class="hero-cta-row" data-reveal style="--i:3">
-                <a href="#catalog-section" class="btn-primary-sage">Chọn máy trong kho</a>
-                <button type="button" class="btn-secondary-tone" onclick="openCustomerPortal('track')">Kiểm tra vận đơn</button>
+                <a href="#catalog-section" class="btn-primary-sage">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>Khám phá kho máy ngay</span>
+                </a>
+                <button type="button" class="btn-secondary-tone" onclick="openCustomerPortal('track')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Tra cứu đơn hàng (SĐT)</span>
+                </button>
             </div>
 
-            <!-- ONE LIVE THING: Interactive Flagship Hardware & VietQR Settlement Configurator -->
+            <!-- INTERACTIVE FLAGSHIP HARDWARE CONFIGURATOR -->
             <div class="hero-live-bench" id="hero-live-bench" data-reveal style="--i:4">
+                <div class="bench-header-strip">
+                    <span class="bench-step-badge">⚡ CẤU HÌNH NHANH &amp; BÁO GIÁ TỨC THÌ</span>
+                    <span class="bench-stock-online">● Sẵn hàng trong kho</span>
+                </div>
                 <div class="bench-top-row">
                     <span class="bench-title" id="hero-caption-model">iPhone 16 Pro Max · 256GB</span>
                     <span class="bench-status" id="hero-caption-finish">Khung Titan Cấp 5 · Nguyên Seal VN/A</span>
                 </div>
+                <div class="bench-step-label">1. Chọn dòng máy Flagship:</div>
                 <div class="bench-selector-row" role="group" aria-label="Chọn dòng flagship">
                     <button type="button" class="bench-model-btn active" data-bench-idx="0" onclick="selectBenchModel(0)">iPhone 16 Pro Max</button>
                     <button type="button" class="bench-model-btn" data-bench-idx="1" onclick="selectBenchModel(1)">Galaxy S24 Ultra</button>
                     <button type="button" class="bench-model-btn" data-bench-idx="2" onclick="selectBenchModel(2)">Xiaomi 14 Ultra</button>
                 </div>
+                <div class="bench-step-label">2. Chọn phiên bản bộ nhớ ROM:</div>
                 <div class="bench-storage-row">
                     <div class="bench-cap-group" role="group" aria-label="Chọn dung lượng bộ nhớ">
                         <button type="button" class="bench-cap-btn active" data-cap-idx="0" onclick="selectBenchCapacity(0)">256GB</button>
@@ -132,42 +200,84 @@
                 </div>
                 <div class="bench-bottom-bar">
                     <div class="bench-price-block">
+                        <span class="bench-price-label">Giá ưu đãi xuất kho hôm nay:</span>
                         <span class="bench-price-value" id="bench-live-price">14.800.000 ₫</span>
                         <span class="bench-price-note" id="bench-live-saving">Giá ưu đãi kho chính ngạch · Sẵn hàng giao ngay</span>
                     </div>
-                    <button type="button" class="bench-buy-btn" id="bench-instant-buy-btn" onclick="triggerBenchBuy()">Đặt mua cấu hình này</button>
+                    <button type="button" class="bench-buy-btn" id="bench-instant-buy-btn" onclick="triggerBenchBuy()">
+                        <span>Đặt mua cấu hình này</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 2. SHOWCASE - "Two objects, two fields" (50/50 split, zero gap) -->
+    <!-- USP / SERVICE RECOGNITION BAR (4 Key Pillars for Instant User Understanding) -->
+    <section class="container usp-recognition-section" aria-label="Cam kết dịch vụ TechStore">
+        <div class="usp-recognition-grid">
+            <div class="usp-card">
+                <div class="usp-icon">🛡️</div>
+                <div class="usp-info">
+                    <strong>100% Nguyên Seal VN/A</strong>
+                    <span>Đầy đủ hóa đơn VAT điện tử, đối chiếu IMEI chính hãng</span>
+                </div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">⚡</div>
+                <div class="usp-info">
+                    <strong>Thanh Toán VietQR 3 Giây</strong>
+                    <span>Quét QR tự động điền số tiền, gạch nợ đơn hàng tức thì</span>
+                </div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">🚚</div>
+                <div class="usp-info">
+                    <strong>Giao Hỏa Tốc Nội Thành 2H</strong>
+                    <span>Theo dõi tiến trình vận đơn 4 bước trực tiếp bằng SĐT</span>
+                </div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">🤖</div>
+                <div class="usp-info">
+                    <strong>Trợ Lý AI Gemini 2.0</strong>
+                    <span>Phân tích ưu nhược điểm &amp; so sánh cấu hình theo nhu cầu</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. SHOWCASE - "Two objects, two fields" (50/50 split) -->
     <section class="showcase-split" id="showcase-section" aria-label="Hai dòng máy tâm điểm">
         <article class="showcase-half showcase-half--charcoal" data-reveal style="--i:0">
             <div class="showcase-media-crop">
+                <span class="showcase-corner-tag">Tâm điểm Apple VN/A</span>
                 <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="iPhone 16 Pro Max 256GB VN/A" loading="lazy" decoding="async">
             </div>
             <div class="showcase-foot">
                 <div class="showcase-meta">
+                    <span class="showcase-eyebrow">APPLE FLAGSHIP SERIES</span>
                     <h2 class="showcase-title">iPhone 16 Pro Max</h2>
                     <p class="showcase-desc">Khung Titan tự nhiên, viền màn hình mỏng nhất lịch sử Apple, quay ProRes 4K 120fps và chip A18 Pro 3nm.</p>
-                    <span class="showcase-price">14.800.000 ₫</span>
+                    <span class="showcase-price">Từ 14.800.000 ₫</span>
                 </div>
-                <button type="button" class="showcase-action-dark" onclick="filterByBrand('Apple'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Xem dòng Apple</button>
+                <button type="button" class="showcase-action-dark" onclick="filterByBrand('Apple'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Xem toàn bộ dòng Apple &rarr;</button>
             </div>
         </article>
 
         <article class="showcase-half showcase-half--stone" data-reveal style="--i:1">
             <div class="showcase-media-crop">
+                <span class="showcase-corner-tag showcase-corner-tag--dark">Tâm điểm Galaxy AI</span>
                 <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=1200&auto=format&fit=crop&q=80" alt="Samsung Galaxy S24 Ultra 5G" loading="lazy" decoding="async">
             </div>
             <div class="showcase-foot">
                 <div class="showcase-meta">
+                    <span class="showcase-eyebrow">SAMSUNG GALAXY AI</span>
                     <h2 class="showcase-title">Galaxy S24 Ultra</h2>
                     <p class="showcase-desc">Bút S-Pen tích hợp, kính Gorilla Armor chống phản chiếu 75%, cảm biến 200MP và Snapdragon 8 Gen 3 for Galaxy.</p>
-                    <span class="showcase-price">12.800.000 ₫</span>
+                    <span class="showcase-price">Từ 12.800.000 ₫</span>
                 </div>
-                <button type="button" class="showcase-action-stone" onclick="filterByBrand('Samsung'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Xem dòng Samsung</button>
+                <button type="button" class="showcase-action-stone" onclick="filterByBrand('Samsung'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Xem toàn bộ dòng Samsung &rarr;</button>
             </div>
         </article>
     </section>
@@ -176,27 +286,41 @@
     <main class="container catalog-section" id="catalog-section">
         <div class="catalog-header-grid">
             <div class="catalog-heading-col" data-reveal style="--i:0">
-                <h2 class="section-headline">Kho máy chính hãng</h2>
+                <span class="section-eyebrow">DANH MỤC SẢN PHẨM CHÍNH HÃNG</span>
+                <h2 class="section-headline">Kho máy Flagship nguyên seal</h2>
             </div>
             <div class="catalog-summary-col" data-reveal style="--i:1">
-                <p class="breadcrumb-count">Tổng cộng <strong id="total-products-count">0</strong> sản phẩm nguyên seal trong kho</p>
+                <p class="breadcrumb-count">Đang hiển thị <strong id="total-products-count">0</strong> thiết bị sẵn hàng trong kho</p>
             </div>
         </div>
 
         <nav class="breadcrumb-nav" id="breadcrumb-bar" aria-label="Đường dẫn danh mục" data-reveal style="--i:2">
             <div class="breadcrumb-trail">
-                <span class="breadcrumb-link" onclick="resetAllFilters()">Trang chủ</span>
+                <span class="breadcrumb-link" onclick="resetAllFilters()">🏠 Trang chủ</span>
                 <span class="breadcrumb-sep">/</span>
-                <span class="breadcrumb-link" onclick="resetAllFilters()">Điện thoại</span>
+                <span class="breadcrumb-link" onclick="resetAllFilters()">Kho điện thoại</span>
                 <span class="breadcrumb-sep" id="bc-active-sep" style="display:none;">/</span>
                 <span class="breadcrumb-active" id="bc-active-label" style="display:none;">Tất cả</span>
             </div>
-            <span class="tabular">Bảo hành 12 tháng toàn quốc</span>
+            <div class="breadcrumb-right-meta">
+                <span class="tabular">✔️ Đã kiểm định IMEI &amp; Bảo hành 12 tháng</span>
+            </div>
         </nav>
+
+        <!-- Smart Need / Quick Filter Presets -->
+        <div class="quick-presets-bar" aria-label="Chọn nhanh theo nhu cầu" data-reveal style="--i:2">
+            <span class="preset-label">🎯 Nhu cầu phổ biến:</span>
+            <button type="button" class="preset-pill active" data-preset="all" onclick="applyQuickPreset('all')">Tất cả máy</button>
+            <button type="button" class="preset-pill" data-preset="discount" onclick="applyQuickPreset('discount')">🔥 Giảm giá sâu nhất</button>
+            <button type="button" class="preset-pill" data-preset="gaming" onclick="applyQuickPreset('gaming')">🎮 Cấu hình khủng (RAM 16GB)</button>
+            <button type="button" class="preset-pill" data-preset="flagship" onclick="applyQuickPreset('flagship')">💎 Siêu phẩm (&gt; 25 triệu)</button>
+            <button type="button" class="preset-pill" data-preset="midrange" onclick="applyQuickPreset('midrange')">⚡ Tầm trung (15 - 25 triệu)</button>
+            <button type="button" class="preset-pill" data-preset="budget" onclick="applyQuickPreset('budget')">💰 Giá tốt (&lt; 15 triệu)</button>
+        </div>
 
         <!-- Brand Filter Bar -->
         <section class="filter-bar" aria-label="Lọc theo thương hiệu" data-reveal style="--i:3">
-            <button class="btn-filter active" data-brand="all" onclick="filterByBrand('all')">Tất cả</button>
+            <button class="btn-filter active" data-brand="all" onclick="filterByBrand('all')">Tất cả hãng</button>
             <button class="btn-filter" data-brand="Apple" onclick="filterByBrand('Apple')">Apple</button>
             <button class="btn-filter" data-brand="Samsung" onclick="filterByBrand('Samsung')">Samsung</button>
             <button class="btn-filter" data-brand="Xiaomi" onclick="filterByBrand('Xiaomi')">Xiaomi</button>
@@ -215,16 +339,16 @@
         <section class="specs-filter-bar" id="specs-filter-panel" aria-label="Bộ lọc thông số kỹ thuật" data-reveal style="--i:4">
             <div class="specs-filter-grid">
                 <div class="spec-select-group">
-                    <label for="filter-ram">Dung lượng RAM</label>
+                    <label for="filter-ram">🧠 Dung lượng RAM</label>
                     <select id="filter-ram" onchange="handleSpecsFilterChange()">
                         <option value="all">Tất cả RAM</option>
-                        <option value="8GB">8GB</option>
-                        <option value="12GB">12GB</option>
-                        <option value="16GB">16GB</option>
+                        <option value="8GB">RAM 8GB</option>
+                        <option value="12GB">RAM 12GB</option>
+                        <option value="16GB">RAM 16GB</option>
                     </select>
                 </div>
                 <div class="spec-select-group">
-                    <label for="filter-storage">Bộ nhớ trong</label>
+                    <label for="filter-storage">💾 Bộ nhớ trong (ROM)</label>
                     <select id="filter-storage" onchange="handleSpecsFilterChange()">
                         <option value="all">Tất cả ROM</option>
                         <option value="128GB">128GB</option>
@@ -234,7 +358,7 @@
                     </select>
                 </div>
                 <div class="spec-select-group">
-                    <label for="filter-chip">Vi xử lý (SoC)</label>
+                    <label for="filter-chip">⚙️ Vi xử lý (SoC)</label>
                     <select id="filter-chip" onchange="handleSpecsFilterChange()">
                         <option value="all">Tất cả Chip</option>
                         <option value="Apple A">Apple Silicon (A-Series)</option>
@@ -245,7 +369,7 @@
                     </select>
                 </div>
                 <div class="spec-select-group">
-                    <label for="filter-price">Mức giá</label>
+                    <label for="filter-price">💵 Khoảng giá</label>
                     <select id="filter-price" onchange="handleSpecsFilterChange()">
                         <option value="all">Mọi mức giá</option>
                         <option value="under15">Dưới 15 triệu</option>
@@ -254,15 +378,15 @@
                     </select>
                 </div>
                 <div class="spec-select-group">
-                    <label for="filter-sort">Sắp xếp</label>
+                    <label for="filter-sort">⇅ Sắp xếp theo</label>
                     <select id="filter-sort" onchange="handleSpecsFilterChange()">
-                        <option value="default">Mặc định</option>
+                        <option value="default">Mặc định nổi bật</option>
                         <option value="price-asc">Giá thấp đến cao</option>
                         <option value="price-desc">Giá cao đến thấp</option>
-                        <option value="discount">Ưu đãi cao nhất</option>
+                        <option value="discount">Ưu đãi giảm sâu nhất</option>
                     </select>
                 </div>
-                <button class="btn-reset-specs" id="btn-reset-filters" onclick="resetAllFilters()" title="Xóa bộ lọc">Đặt lại</button>
+                <button class="btn-reset-specs" id="btn-reset-filters" onclick="resetAllFilters()" title="Xóa toàn bộ bộ lọc">↺ Đặt lại</button>
             </div>
             <div class="active-filter-chips" id="active-filter-chips" style="display: none;"></div>
         </section>
@@ -276,28 +400,32 @@
     <section class="features-scene-section" id="features-section">
         <div class="container">
             <div class="features-header-block" data-reveal style="--i:0">
-                <h2 class="section-headline">Chuẩn phần cứng</h2>
+                <span class="section-eyebrow">TIÊU CHUẨN TECHSTORE PRO MAX</span>
+                <h2 class="section-headline">Chuẩn mực phần cứng &amp; Thanh toán</h2>
             </div>
 
             <div class="features-scene-grid">
                 <div class="features-scene-visual" data-reveal style="--i:1">
                     <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=1200&auto=format&fit=crop&q=80" alt="Cụm ống kính quang học Leica Summilux trên flagship tại TechStore" loading="lazy" decoding="async">
-                    <p class="features-scene-caption">Phòng kiểm định phần cứng TechStore Atelier đối chiếu IMEI chính ngạch và xuất hóa đơn VAT điện tử cho toàn bộ thiết bị.</p>
+                    <p class="features-scene-caption">Phòng kiểm định phần cứng TechStore đối chiếu IMEI chính ngạch và xuất hóa đơn VAT điện tử cho toàn bộ thiết bị trước khi niêm phong giao khách.</p>
                 </div>
 
                 <div class="features-stepping-col">
                     <article class="stepping-card" data-reveal style="--i:2">
-                        <h3 class="stepping-heading">Kiểm định 32 bước</h3>
+                        <span class="stepping-num">01 · KIỂM ĐỊNH CHÍNH HÃNG</span>
+                        <h3 class="stepping-heading">Kiểm định 32 bước &amp; Hóa đơn VAT</h3>
                         <p class="stepping-copy">Mỗi máy được đối chiếu mã IMEI trực tiếp với hệ thống bảo hành của Apple, Samsung, Xiaomi và xuất hóa đơn VAT điện tử ngay khi bàn giao.</p>
                     </article>
 
                     <article class="stepping-card stepping-card--second" data-reveal style="--i:3">
-                        <h3 class="stepping-heading">VietQR 3 giây</h3>
-                        <p class="stepping-copy">Mã QR động đi kèm số tiền và nội dung chuyển khoản chính xác từng đơn. Hệ thống khóa giữ máy trong 15 phút và gạch nợ tức thì.</p>
+                        <span class="stepping-num">02 · THANH TOÁN TỰ ĐỘNG</span>
+                        <h3 class="stepping-heading">Đối soát VietQR trong 3 giây</h3>
+                        <p class="stepping-copy">Mã QR động đi kèm số tiền và nội dung chuyển khoản chính xác từng đơn. Hệ thống khóa giữ máy trong 15 phút và xác nhận thanh toán tức thì.</p>
                     </article>
 
                     <article class="stepping-card stepping-card--third" data-reveal style="--i:4">
-                        <h3 class="stepping-heading">Trợ lý Gemini 2.0</h3>
+                        <span class="stepping-num">03 · CHUYÊN GIA TRÍ TUỆ NHÂN TẠO</span>
+                        <h3 class="stepping-heading">Trợ lý AI Gemini 2.0 Grounding</h3>
                         <p class="stepping-copy">Hệ thống AI đối chiếu trực tiếp thông số RAM, vi xử lý, điểm mạnh và hạn chế của từng model trong kho thực tế để gợi ý đúng nhu cầu.</p>
                     </article>
                 </div>
@@ -308,60 +436,63 @@
     <!-- 5. HOW IT WORKS - "Tiles that grow" (bottom-aligned) -->
     <section class="container ritual-section" id="ritual-section">
         <div class="ritual-header" data-reveal style="--i:0">
-            <h2 class="section-headline">Quy trình sở hữu</h2>
-            <p class="ritual-sub">Ba bước minh bạch từ lúc chọn cấu hình đến khi mở hộp tại nhà trong vòng hai giờ.</p>
+            <span class="section-eyebrow">QUY TRÌNH MUA SẮM MINH BẠCH</span>
+            <h2 class="section-headline">Sở hữu Flagship trong 3 bước</h2>
+            <p class="ritual-sub">Trải nghiệm mua sắm không điểm nghẽn từ lúc lọc cấu hình đến khi mở hộp nguyên seal tại nhà trong vòng 2 giờ.</p>
         </div>
 
         <div class="growing-tiles-row">
             <article class="growing-tile growing-tile--one" data-reveal style="--i:1">
-                <span class="tile-stage-tag">Bước 01 · Cấu hình</span>
+                <span class="tile-stage-tag">Bước 01 · Chọn cấu hình</span>
                 <div class="tile-body">
-                    <h3 class="tile-title">Chọn cấu hình chuẩn</h3>
-                    <p class="tile-text">Lọc nhanh theo dung lượng RAM, bộ nhớ ROM, dòng chip xử lý hoặc hỏi trực tiếp trợ lý AI để chọn đúng phiên bản phù hợp.</p>
+                    <h3 class="tile-title">Lọc thông số &amp; So sánh AI</h3>
+                    <p class="tile-text">Lọc nhanh theo dung lượng RAM, bộ nhớ ROM, dòng chip xử lý hoặc hỏi trực tiếp trợ lý AI để chọn đúng phiên bản phù hợp nhất.</p>
                 </div>
             </article>
 
             <article class="growing-tile growing-tile--two" data-reveal style="--i:2">
-                <span class="tile-stage-tag">Bước 02 · Đối soát</span>
+                <span class="tile-stage-tag">Bước 02 · Thanh toán</span>
                 <div class="tile-body">
-                    <h3 class="tile-title">Quét VietQR 3 giây</h3>
-                    <p class="tile-text">Chọn thanh toán COD khi nhận hàng hoặc quét mã VietQR tự động điền sẵn số tiền và mã đơn, hệ thống xác nhận ngay lập tức.</p>
+                    <h3 class="tile-title">Quét VietQR 3s hoặc COD</h3>
+                    <p class="tile-text">Chọn thanh toán COD kiểm hàng trước khi trả tiền, hoặc quét mã VietQR tự động điền sẵn số tiền và mã đơn, xác nhận ngay lập tức.</p>
                 </div>
             </article>
 
             <article class="growing-tile growing-tile--three" data-reveal style="--i:3">
-                <span class="tile-stage-tag">Bước 03 · Bàn giao</span>
+                <span class="tile-stage-tag">Bước 03 · Theo dõi &amp; Nhận máy</span>
                 <div class="tile-body">
-                    <h3 class="tile-title">Nhận máy nguyên seal</h3>
+                    <h3 class="tile-title">Nhận máy nguyên seal trong 2H</h3>
                     <p class="tile-text">Theo dõi tiến trình vận đơn 4 mốc thời gian thực bằng số điện thoại. Kỹ thuật viên giao tận nơi và hỗ trợ chuyển dữ liệu tại chỗ.</p>
                 </div>
             </article>
         </div>
     </section>
 
-    <!-- 6. PROOF - "One quiet logo row" -->
+    <!-- 6. PROOF - Partner Brands -->
     <section class="proof-section" aria-label="Đối tác thương hiệu chính hãng">
         <div class="container proof-inner" data-reveal style="--i:0">
-            <p class="proof-lead">Đối tác phân phối ủy quyền chính thức của 12 thương hiệu tại Việt Nam</p>
+            <p class="proof-lead">Đối tác phân phối ủy quyền chính thức của 12 thương hiệu công nghệ hàng đầu tại Việt Nam (Nhấn vào hãng để lọc nhanh)</p>
             <div class="proof-wordmark-row">
-                <span class="proof-wordmark">Apple</span>
-                <span class="proof-wordmark">Samsung</span>
-                <span class="proof-wordmark">Xiaomi</span>
-                <span class="proof-wordmark">OPPO</span>
-                <span class="proof-wordmark">Google Pixel</span>
-                <span class="proof-wordmark">Sony Xperia</span>
-                <span class="proof-wordmark">ASUS ROG</span>
-                <span class="proof-wordmark">OnePlus</span>
-                <span class="proof-wordmark">Nothing</span>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('Apple'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Apple</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('Samsung'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Samsung</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('Xiaomi'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Xiaomi</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('OPPO'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">OPPO</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('Google'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Google Pixel</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('Sony'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Sony Xperia</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('ASUS'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">ASUS ROG</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('OnePlus'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">OnePlus</button>
+                <button type="button" class="proof-wordmark" onclick="filterByBrand('Nothing'); document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'});">Nothing</button>
             </div>
         </div>
     </section>
 
-    <!-- 7. FAQ - "Wide heading, indented questions" (Cols 5-12) -->
+    <!-- 7. FAQ - "Wide heading, indented questions" -->
     <section class="container faq-section" id="faq-section">
         <div class="faq-grid">
             <div class="faq-heading-col" data-reveal style="--i:0">
+                <span class="section-eyebrow">HỖ TRỢ &amp; CHÍNH SÁCH</span>
                 <h2 class="section-headline">Câu hỏi thường gặp</h2>
+                <p style="margin-top: 0.75rem; color: var(--muted); font-size: var(--fs-sm);">Giải đáp nhanh về nguồn gốc máy, thanh toán VietQR và bảo hành 1 đổi 1.</p>
             </div>
 
             <div class="faq-list-col">
@@ -416,28 +547,28 @@
             </div>
             <div class="footer-menu-half">
                 <nav class="footer-nav-big" aria-label="Liên kết cuối trang">
-                    <a href="#catalog-section" class="footer-big-link">Kho máy Flagship</a>
-                    <a href="#showcase-section" class="footer-big-link">Bộ sưu tập Titan &amp; AI</a>
-                    <a href="/login" class="footer-big-link">Cổng Đăng Nhập</a>
-                    <a href="#faq-section" class="footer-big-link">Chính sách bảo hành</a>
+                    <a href="#catalog-section" class="footer-big-link">Kho máy Flagship &rarr;</a>
+                    <a href="#showcase-section" class="footer-big-link">Bộ sưu tập Titan &amp; AI &rarr;</a>
+                    <a href="/login" class="footer-big-link">Cổng Đăng Nhập Thành Viên &rarr;</a>
+                    <a href="#faq-section" class="footer-big-link">Chính sách Bảo hành &amp; Đổi trả &rarr;</a>
                 </nav>
 
                 <div class="footer-contact-grid">
                     <div class="footer-contact-col">
                         <strong>Showroom &amp; Trung tâm kỹ thuật</strong>
                         <p>Tòa nhà TechStore Atelier, Quận 1, TP. Hồ Chí Minh</p>
-                        <p>Mở cửa: 08:30 – 21:30 tất cả các ngày</p>
+                        <p>Mở cửa: 08:30 – 21:30 tất cả các ngày trong tuần</p>
                     </div>
                     <div class="footer-contact-col">
                         <strong>Tổng đài hỗ trợ miễn cước</strong>
-                        <p class="tabular">Hotline mua hàng: 1800.6868</p>
-                        <p class="tabular">Bảo hành kỹ thuật: 1800.6869</p>
+                        <p class="tabular">Hotline mua hàng: <strong>1800.6868</strong></p>
+                        <p class="tabular">Bảo hành kỹ thuật: <strong>1800.6869</strong></p>
                     </div>
                 </div>
 
                 <div class="footer-bottom-row">
-                    <span>&copy; 2026 TechStore Atelier. Bảo lưu mọi quyền.</span>
-                    <a href="/admin">Quản trị hệ thống</a>
+                    <span>&copy; 2026 TechStore Pro Max Atelier. Bảo lưu mọi quyền.</span>
+                    <a href="/admin" class="footer-admin-btn">⚙️ Quản trị hệ thống (CRM)</a>
                 </div>
             </div>
         </div>
@@ -451,19 +582,22 @@
     <div id="auth-modal" class="modal" data-ui>
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="auth-modal-title">Đăng nhập tài khoản</h2>
+                <div>
+                    <span class="modal-eyebrow">TECHSTORE IDENTITY</span>
+                    <h2 id="auth-modal-title">Đăng nhập tài khoản</h2>
+                </div>
                 <button type="button" class="close-btn" onclick="closeAuthModal()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="auth-tabs">
-                    <button class="auth-tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">Đăng nhập</button>
-                    <button class="auth-tab-btn" id="tab-register-btn" onclick="switchAuthTab('register')">Đăng ký thành viên</button>
+                    <button class="auth-tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">🔑 Đăng nhập</button>
+                    <button class="auth-tab-btn" id="tab-register-btn" onclick="switchAuthTab('register')">✨ Đăng ký thành viên</button>
                 </div>
 
                 <form id="form-customer-login" onsubmit="handleCustomerLogin(event)">
                     <div class="form-group">
-                        <label for="login-phone">Số điện thoại</label>
-                        <input type="tel" id="login-phone" required placeholder="Nhập số điện thoại (VD: 0912345678)">
+                        <label for="login-phone">Số điện thoại đăng nhập</label>
+                        <input type="tel" id="login-phone" required placeholder="Nhập số điện thoại (VD: 0987654321)">
                     </div>
                     <div class="form-group">
                         <label for="login-password">Mật khẩu</label>
@@ -476,6 +610,10 @@
                         </label>
                     </div>
                     <button type="submit" class="btn-submit" id="btn-login-submit">Đăng nhập ngay</button>
+                    <div class="modal-demo-bar">
+                        <span>Tài khoản mẫu: <strong>0987654321</strong> / <strong>123456</strong></span>
+                        <button type="button" class="btn-demo-fill" onclick="document.getElementById('login-phone').value='0987654321'; document.getElementById('login-password').value='123456';">Điền nhanh</button>
+                    </div>
                 </form>
 
                 <form id="form-customer-register" style="display: none;" onsubmit="handleCustomerRegister(event)">
@@ -503,7 +641,7 @@
                         <label for="reg-address">Địa chỉ nhận hàng mặc định</label>
                         <input type="text" id="reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành">
                     </div>
-                    <button type="submit" class="btn-submit" id="btn-reg-submit">Tạo tài khoản</button>
+                    <button type="submit" class="btn-submit" id="btn-reg-submit">Tạo tài khoản thành viên</button>
                 </form>
             </div>
         </div>
@@ -513,19 +651,24 @@
     <div id="customer-portal-modal" class="modal" data-ui>
         <div class="modal-content modal-xl">
             <div class="modal-header">
-                <h2 id="portal-modal-title">Trung tâm khách hàng</h2>
+                <div>
+                    <span class="modal-eyebrow">CUSTOMER SELF-SERVICE PORTAL</span>
+                    <h2 id="portal-modal-title">Trung tâm khách hàng &amp; Theo dõi đơn</h2>
+                </div>
                 <button type="button" class="close-btn" onclick="closeCustomerPortal()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="portal-tabs">
-                    <button class="portal-tab-btn active" data-ptab="track" onclick="switchPortalTab('track')">Tra cứu vận đơn</button>
-                    <button class="portal-tab-btn" data-ptab="orders" onclick="switchPortalTab('orders')">Đơn hàng của tôi</button>
-                    <button class="portal-tab-btn" data-ptab="profile" onclick="switchPortalTab('profile')">Hồ sơ &amp; Địa chỉ</button>
-                    <button class="portal-tab-btn" data-ptab="wishlist" onclick="switchPortalTab('wishlist')">Sản phẩm yêu thích</button>
+                    <button class="portal-tab-btn active" data-ptab="track" onclick="switchPortalTab('track')">📦 Tra cứu vận đơn</button>
+                    <button class="portal-tab-btn" data-ptab="orders" onclick="switchPortalTab('orders')">🧾 Đơn hàng của tôi</button>
+                    <button class="portal-tab-btn" data-ptab="profile" onclick="switchPortalTab('profile')">👤 Hồ sơ &amp; Địa chỉ</button>
+                    <button class="portal-tab-btn" data-ptab="wishlist" onclick="switchPortalTab('wishlist')">❤️ Sản phẩm yêu thích</button>
                 </div>
 
                 <div class="portal-panel" id="portal-panel-track">
-                    <p style="margin-bottom: 1rem;">Nhập Mã đơn hàng và Số điện thoại đặt hàng để kiểm tra tiến độ giao nhận theo thời gian thực.</p>
+                    <div class="portal-info-banner">
+                        <span>🔍 Nhập <strong>Mã đơn hàng</strong> và <strong>Số điện thoại đặt hàng</strong> để kiểm tra tiến độ giao nhận 4 bước theo thời gian thực (không cần đăng nhập).</span>
+                    </div>
                     <form class="form-row" id="form-track-order" onsubmit="handleTrackOrderSubmit(event)" style="align-items: end;">
                         <div class="form-group" style="margin-bottom:0;">
                             <label for="track-order-id">Mã đơn hàng</label>
@@ -535,7 +678,7 @@
                             <label for="track-order-phone">Số điện thoại nhận hàng</label>
                             <input type="tel" id="track-order-phone" required placeholder="VD: 0912345678">
                         </div>
-                        <button type="submit" class="btn-primary-sage" style="grid-column: 1 / -1;">Tra cứu ngay</button>
+                        <button type="submit" class="btn-primary-sage" style="grid-column: 1 / -1;">🔍 Tra cứu trạng thái đơn hàng</button>
                     </form>
                     <div id="track-order-result" style="margin-top: 1.5rem;"></div>
                 </div>
@@ -557,71 +700,81 @@
         </div>
     </div>
 
-    <!-- Legacy My Orders Modal Wrapper -->
-    <div id="my-orders-modal" class="modal" style="display:none;" data-ui>
-        <div class="modal-content modal-lg">
-            <div class="modal-header">
-                <h2>Đơn hàng của tôi</h2>
-                <button type="button" class="close-btn" onclick="closeMyOrdersModal()">&times;</button>
-            </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-
     <!-- 3. Cart & Checkout Modal -->
     <div id="cart-modal" class="modal" data-ui>
         <div class="modal-content modal-lg">
             <div class="modal-header">
-                <h2>Giỏ hàng &amp; Thanh toán</h2>
+                <div>
+                    <span class="modal-eyebrow">GIỎ HÀNG &amp; THANH TOÁN NHANH</span>
+                    <h2>Giỏ hàng &amp; Xác nhận đặt máy</h2>
+                </div>
                 <button type="button" class="close-btn" onclick="closeCartModal()">&times;</button>
             </div>
             <div class="modal-body">
+                <!-- Checkout Visual Stepper -->
+                <div class="checkout-flow-steps">
+                    <div class="cf-step active"><span>1</span> Kiểm tra giỏ hàng</div>
+                    <div class="cf-sep">&rarr;</div>
+                    <div class="cf-step active"><span>2</span> Thông tin nhận máy</div>
+                    <div class="cf-sep">&rarr;</div>
+                    <div class="cf-step active"><span>3</span> VietQR 3s / COD</div>
+                </div>
+
                 <div id="cart-items" class="cart-items-container"></div>
                 <div class="cart-summary">
-                    <span>Tổng thanh toán</span>
+                    <div>
+                        <span style="display:block; font-size:0.8125rem; color:var(--muted); font-weight:400;">Đã bao gồm thuế GTGT (VAT) &amp; Miễn phí vận chuyển</span>
+                        <span>Tổng thanh toán</span>
+                    </div>
                     <span id="cart-total" class="total-price">0 ₫</span>
                 </div>
 
                 <div class="checkout-section">
                     <div class="modal-header" style="margin-bottom: 1rem;">
-                        <h3>Thông tin giao nhận</h3>
-                        <span id="remember-hint" style="display: none; font-size: 0.8125rem; color: var(--accent-text);">Đã tự động điền thông tin</span>
+                        <h3>📍 Thông tin giao nhận</h3>
+                        <span id="remember-hint" style="display: none; font-size: 0.8125rem; color: var(--accent-text);">✓ Đã tự động điền từ hồ sơ của bạn</span>
                     </div>
                     <form id="order-form">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="c-phone">Số điện thoại nhận hàng</label>
-                                <input type="tel" id="c-phone" required placeholder="Nhập SĐT (VD: 0912345678)" autocomplete="tel">
+                                <label for="c-phone">Số điện thoại nhận hàng *</label>
+                                <input type="tel" id="c-phone" required placeholder="Nhập SĐT 10 số (VD: 0912345678)" autocomplete="tel">
                             </div>
                             <div class="form-group">
-                                <label for="c-name">Họ và tên người nhận</label>
-                                <input type="text" id="c-name" required placeholder="Nhập họ và tên" autocomplete="name">
+                                <label for="c-name">Họ và tên người nhận *</label>
+                                <input type="text" id="c-name" required placeholder="Nhập họ và tên người nhận" autocomplete="name">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="c-address">Địa chỉ nhận hàng chi tiết</label>
+                            <label for="c-address">Địa chỉ nhận hàng chi tiết *</label>
                             <input type="text" id="c-address" required placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành" autocomplete="street-address">
                         </div>
                         <div class="form-group">
-                            <label for="c-note">Ghi chú giao hàng</label>
-                            <textarea id="c-note" rows="2" placeholder="Giao giờ hành chính, xuất hóa đơn công ty..."></textarea>
+                            <label for="c-note">Ghi chú giao hàng / Xuất hóa đơn VAT</label>
+                            <textarea id="c-note" rows="2" placeholder="Giao giờ hành chính, hỗ trợ chép dữ liệu, thông tin xuất VAT công ty..."></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label>Phương thức thanh toán</label>
+                            <label>💳 Chọn phương thức thanh toán</label>
                             <div class="payment-methods-grid">
                                 <label class="payment-method-card active" id="pay-opt-cod" onclick="selectPaymentMethodUI('COD')">
                                     <input type="radio" name="paymentMethod" value="COD" checked>
                                     <div class="pm-info">
-                                        <strong>Thanh toán khi nhận hàng (COD)</strong>
-                                        <span>Kiểm tra nguyên seal trước khi thanh toán</span>
+                                        <div class="pm-title-row">
+                                            <strong>🚚 Thanh toán khi nhận hàng (COD)</strong>
+                                            <span class="pm-tag">An toàn</span>
+                                        </div>
+                                        <span>Kiểm tra hộp nguyên seal VN/A trước khi thanh toán</span>
                                     </div>
                                 </label>
                                 <label class="payment-method-card" id="pay-opt-qr" onclick="selectPaymentMethodUI('BANK_QR')">
                                     <input type="radio" name="paymentMethod" value="BANK_QR">
                                     <div class="pm-info">
-                                        <strong>Chuyển khoản VietQR 24/7</strong>
-                                        <span>Quét mã QR tự động xác nhận trong 3 giây</span>
+                                        <div class="pm-title-row">
+                                            <strong>⚡ Chuyển khoản VietQR 24/7</strong>
+                                            <span class="pm-tag pm-tag--fast">Xác nhận 3s</span>
+                                        </div>
+                                        <span>Quét mã QR tự động điền số tiền &amp; gạch nợ tức thì</span>
                                     </div>
                                 </label>
                             </div>
@@ -633,7 +786,7 @@
                                 <span>Lưu thông tin giao hàng cho lần mua tiếp theo</span>
                             </label>
                         </div>
-                        <button type="submit" class="btn-submit" id="btn-order-submit">Xác nhận đặt hàng</button>
+                        <button type="submit" class="btn-submit" id="btn-order-submit">Xác nhận đặt hàng (COD)</button>
                     </form>
                 </div>
             </div>
@@ -644,18 +797,22 @@
     <div id="qr-payment-modal" class="modal" data-ui>
         <div class="modal-content modal-lg">
             <div class="modal-header">
-                <h2>Thanh toán VietQR</h2>
+                <div>
+                    <span class="modal-eyebrow">CỔNG THANH TOÁN NAPAS247 · VIETQR</span>
+                    <h2>Quét mã VietQR thanh toán đơn hàng</h2>
+                </div>
                 <button type="button" class="close-btn" onclick="closeQrPaymentModal()">&times;</button>
             </div>
             <div class="modal-body" id="qr-payment-body">
                 <div class="qr-payment-box">
                     <div class="qr-status-banner" id="qr-status-banner">
-                        <span id="qr-status-text">Đang chờ thanh toán. Quét mã QR bên dưới bằng ứng dụng Ngân hàng.</span>
+                        <span id="qr-status-text">⏳ Đang chờ thanh toán. Quét mã QR bên dưới bằng ứng dụng Ngân hàng (tự động kiểm tra mỗi 3 giây).</span>
                     </div>
                     <div class="qr-main-grid">
                         <div class="qr-image-frame">
+                            <div class="qr-frame-header">VIETQR · NAPAS247</div>
                             <img id="qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="VietQR Payment Code">
-                            <div class="qr-scan-hint">Hỗ trợ hơn 50 ngân hàng Napas247</div>
+                            <div class="qr-scan-hint">Mở App Ngân hàng bất kỳ để quét mã</div>
                         </div>
                         <div class="qr-transfer-details">
                             <div class="qr-detail-row">
@@ -664,7 +821,10 @@
                             </div>
                             <div class="qr-detail-row">
                                 <span>Số tài khoản</span>
-                                <strong id="qr-acc-no" class="tabular">0987654321</strong>
+                                <div class="qr-copy-wrap">
+                                    <strong id="qr-acc-no" class="tabular">0987654321</strong>
+                                    <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard(document.getElementById('qr-acc-no').innerText, 'Số tài khoản')">Sao chép</button>
+                                </div>
                             </div>
                             <div class="qr-detail-row">
                                 <span>Chủ tài khoản</span>
@@ -680,15 +840,18 @@
                             </div>
                             <div class="qr-detail-row">
                                 <span>Nội dung chuyển khoản</span>
-                                <strong id="qr-ref-text" class="tabular">TS...</strong>
+                                <div class="qr-copy-wrap">
+                                    <strong id="qr-ref-text" class="tabular">TS...</strong>
+                                    <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard(document.getElementById('qr-ref-text').innerText, 'Nội dung CK')">Sao chép</button>
+                                </div>
                             </div>
                             <div class="qr-detail-row">
-                                <span>Thời gian giữ đơn</span>
-                                <strong id="qr-countdown-timer" class="tabular">15:00</strong>
+                                <span>Thời gian giữ máy (TTL)</span>
+                                <strong id="qr-countdown-timer" class="tabular qr-timer-badge">15:00</strong>
                             </div>
-                            <div style="display:flex; gap:0.6rem; margin-top:0.75rem; flex-wrap:wrap;">
-                                <button type="button" class="btn-primary-sage" id="btn-simulate-qr-confirm" onclick="simulateQrWebhook()">Giả lập đã chuyển khoản (3s)</button>
-                                <button type="button" class="btn-secondary-tone" onclick="closeQrPaymentModal()">Xem trạng thái đơn</button>
+                            <div class="qr-sandbox-actions">
+                                <button type="button" class="btn-primary-sage" id="btn-simulate-qr-confirm" onclick="simulateQrWebhook()">⚡ Giả lập đã chuyển khoản (3s)</button>
+                                <button type="button" class="btn-secondary-tone" onclick="closeQrPaymentModal()">Đóng / Xem trạng thái đơn</button>
                             </div>
                         </div>
                     </div>
@@ -701,7 +864,10 @@
     <div id="product-detail-modal" class="modal" data-ui>
         <div class="modal-content modal-xl">
             <div class="modal-header">
-                <h2 id="detail-modal-title">Chi tiết sản phẩm</h2>
+                <div>
+                    <span class="modal-eyebrow">HỒ SƠ KỸ THUẬT &amp; ĐÁNH GIÁ AI</span>
+                    <h2 id="detail-modal-title">Chi tiết sản phẩm</h2>
+                </div>
                 <button type="button" class="close-btn" onclick="closeProductDetailModal()">&times;</button>
             </div>
             <div class="modal-body">
@@ -710,40 +876,44 @@
                         <div class="detail-img-box">
                             <img id="detail-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Product Image">
                         </div>
-                        <div>
-                            <span id="detail-brand-badge" class="detail-brand-tag">Brand</span>
+                        <div class="detail-meta-card">
+                            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+                                <span id="detail-brand-badge" class="detail-brand-tag">Brand</span>
+                                <span class="detail-stock-pill">● Sẵn hàng VN/A</span>
+                            </div>
                             <div class="detail-price-box">
                                 <span id="detail-price" class="detail-price-current">0 ₫</span>
                                 <span id="detail-old-price" class="detail-price-old"></span>
                             </div>
+                            <p class="detail-warranty-note">✔️ Bảo hành 12 tháng chính hãng · 1 đổi 1 trong 30 ngày · Hỗ trợ VietQR 3s</p>
                         </div>
                         <div class="detail-cta-group">
-                            <button id="detail-btn-buy" class="btn-buy-now">Mua ngay</button>
-                            <button id="detail-btn-cart" class="btn-add-cart">Thêm vào giỏ</button>
+                            <button id="detail-btn-buy" class="btn-buy-now">⚡ Mua ngay</button>
+                            <button id="detail-btn-cart" class="btn-add-cart">+ Thêm vào giỏ</button>
                         </div>
                     </div>
 
                     <div class="detail-info-col">
                         <div class="detail-section-block">
-                            <h3>Thông số kỹ thuật</h3>
+                            <h3>⚙️ Thông số phần cứng chi tiết</h3>
                             <div id="detail-specs-sheet" class="specs-sheet-grid"></div>
                         </div>
 
                         <div class="detail-section-block">
-                            <h3>Đánh giá thực tế</h3>
-                            <p id="detail-ai-summary">Đang phân tích dữ liệu...</p>
+                            <h3>🤖 Phân tích &amp; Đánh giá từ Gemini AI</h3>
+                            <p id="detail-ai-summary" class="detail-ai-lead">Đang phân tích dữ liệu...</p>
                             <div class="ai-pros-cons-grid">
                                 <div class="ai-pros-box">
-                                    <h4>Điểm mạnh</h4>
+                                    <h4>✓ Điểm mạnh nổi bật</h4>
                                     <ul id="detail-ai-pros"></ul>
                                 </div>
                                 <div class="ai-cons-box">
-                                    <h4>Hạn chế</h4>
+                                    <h4>! Lưu ý khi sử dụng</h4>
                                     <ul id="detail-ai-cons"></ul>
                                 </div>
                             </div>
                             <div class="ai-audience-banner">
-                                <strong>Phù hợp nhất với:</strong>
+                                <strong>🎯 Phù hợp nhất với:</strong>
                                 <span id="detail-ai-audience"></span>
                             </div>
                         </div>
@@ -756,8 +926,9 @@
     <!-- 6. Floating AI Consultant Widget -->
     <div class="ai-chat-widget" id="ai-chat-widget" data-ui>
         <button class="ai-chat-trigger" id="ai-chat-btn" onclick="toggleAiChat()" title="Trợ lý AI tư vấn cấu hình">
+            <span class="ai-trigger-pulse"></span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            <span>Tư vấn AI</span>
+            <span>Tư vấn AI 24/7</span>
         </button>
 
         <div class="ai-chat-window" id="ai-chat-window">
@@ -765,8 +936,8 @@
                 <div class="ai-chat-header-info">
                     <span class="ai-avatar">AI</span>
                     <div>
-                        <strong style="display:block; font-size:0.9375rem;">TechStore AI</strong>
-                        <span style="font-size:0.8125rem; color:var(--muted);">Đối chiếu kho thời gian thực</span>
+                        <strong style="display:block; font-size:0.9375rem;">Trợ lý Kỹ thuật TechStore AI</strong>
+                        <span style="font-size:0.75rem; color:var(--accent-text);">● Đang trực tuyến · Đối chiếu kho thực tế</span>
                     </div>
                 </div>
                 <button class="ai-chat-close" onclick="toggleAiChat()">&times;</button>
@@ -775,18 +946,19 @@
             <div class="ai-chat-messages" id="ai-chat-messages">
                 <div class="chat-msg bot">
                     <div class="msg-bubble">
-                        Xin chào! Tôi là trợ lý kỹ thuật tại <strong>TechStore</strong>. Bạn cần tìm điện thoại theo ngân sách, hiệu năng chơi game hay nhiếp ảnh?
+                        Xin chào! Tôi là trợ lý AI tại <strong>TechStore Pro Max</strong>. Bạn cần tìm điện thoại theo ngân sách, hiệu năng chơi game hay chụp ảnh chuyên nghiệp?
                         <div class="ai-quick-prompts">
-                            <button type="button" onclick="sendQuickPrompt('Tư vấn điện thoại chụp ảnh đẹp nhất hiện nay')">Máy chụp ảnh đẹp</button>
-                            <button type="button" onclick="sendQuickPrompt('So sánh iPhone 16 Pro Max và S24 Ultra')">So sánh iPhone 16 &amp; S24 Ultra</button>
-                            <button type="button" onclick="sendQuickPrompt('Điện thoại chơi game cấu hình mạnh giá tốt')">Cấu hình chơi game</button>
+                            <button type="button" onclick="sendQuickPrompt('Tư vấn điện thoại chụp ảnh đẹp nhất hiện nay')">📷 Máy chụp ảnh đẹp nhất</button>
+                            <button type="button" onclick="sendQuickPrompt('So sánh iPhone 16 Pro Max và S24 Ultra')">⚖️ So sánh iPhone 16 &amp; S24 Ultra</button>
+                            <button type="button" onclick="sendQuickPrompt('Điện thoại chơi game cấu hình mạnh giá tốt')">🎮 Máy chơi game RAM khủng</button>
+                            <button type="button" onclick="sendQuickPrompt('Tư vấn điện thoại dưới 15 triệu pin trâu')">🔋 Máy dưới 15tr pin trâu</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="chat-typing" id="chat-typing-indicator" style="display: none; padding: 0.5rem 1rem; font-size: 0.8125rem; color: var(--muted);">
-                TechStore AI đang phân tích...
+            <div class="chat-typing" id="chat-typing-indicator" style="display: none; padding: 0.5rem 1rem; font-size: 0.8125rem; color: var(--accent-text);">
+                ✨ TechStore AI đang đối chiếu dữ liệu kho...
             </div>
 
             <form class="ai-chat-input-area" id="ai-chat-form" onsubmit="handleAiChatSubmit(event)">
@@ -798,6 +970,7 @@
 
     <div id="toast-container"></div>
 
+    <script src="js/catalogFilter.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

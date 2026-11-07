@@ -1,8 +1,5 @@
-const JsonDB = require('./database');
-const db = require('../config/db');
+const { orderStorage } = require('./storage');
 const CustomerModel = require('./Customer');
-
-const orderDB = new JsonDB('orders');
 
 const QR_PAYMENT_TTL_MS = 15 * 60 * 1000; // 15 minutes
 
@@ -15,42 +12,37 @@ const STATUS_TITLES = {
   cancelled: 'Đã hủy đơn'
 };
 
-function parseJsonSafe(val, fallback) {
-  if (!val) return fallback;
-  if (typeof val === 'object') return val;
-  try {
-    return JSON.parse(val);
-  } catch {
-    return fallback;
-  }
+function createHistoryEntry({ status, title, note = '', time = null }) {
+  const iso = time || new Date().toISOString();
+  return {
+    status,
+    title: title || STATUS_TITLES[status] || status,
+    time: iso,
+    timestamp: iso,
+    note
+  };
 }
 
-function mapRowToOrder(row) {
-  if (!row) return null;
-  return {
-    id: row.id,
-    customerId: row.customer_id !== undefined ? row.customer_id : row.customerId,
-    customerInfo: parseJsonSafe(row.customer_info !== undefined ? row.customer_info : row.customerInfo, {}),
-    items: parseJsonSafe(row.items, []),
-    totalAmount: parseInt(row.total_amount !== undefined ? row.total_amount : row.totalAmount) || 0,
-    status: row.status || 'pending',
-    paymentMethod: row.payment_method || row.paymentMethod || 'cod',
-    paymentStatus: row.payment_status || row.paymentStatus || 'unpaid',
-    paymentRef: row.payment_ref || row.paymentRef || null,
-    paymentExpiresAt: row.payment_expires_at || row.paymentExpiresAt || null,
-    statsSynced: Boolean(row.stats_synced !== undefined ? row.stats_synced : row.statsSynced),
-    adminNote: row.admin_note !== undefined ? row.admin_note : (row.adminNote || ''),
-    note: row.note || '',
-    statusHistory: parseJsonSafe(row.status_history !== undefined ? row.status_history : row.statusHistory, []),
-    createdAt: row.created_at || row.createdAt,
-    updatedAt: row.updated_at || row.updatedAt
-  };
+function normalizeStatusHistory(history, fallbackTime = null) {
+  if (!Array.isArray(history)) return [];
+  return history.map((entry) => {
+    if (!entry || typeof entry !== 'object') return entry;
+    const ts = entry.timestamp || entry.time || fallbackTime || new Date().toISOString();
+    return {
+      ...entry,
+      time: entry.time || ts,
+      timestamp: entry.timestamp || ts
+    };
+  });
 }
 
 class OrderModel {
   static async evaluateLazyExpiration(order) {
     if (!order) return null;
-    const isAwaiting = order.paymentStatus === 'awaiting_payment' || order.status === 'awaiting_payment';
+    if (Array.isArray(order.statusHistory)) {
+      order.statusHistory = normalizeStatusHistory(order.statusHistory, order.createdAt);
+    }
+    const isAwaiting = order.status === 'awaiting_payment' && order.paymentStatus === 'awaiting_payment';
     if (!isAwaiting || !order.paymentExpiresAt) {
       return order;
     }
@@ -60,37 +52,20 @@ class OrderModel {
       return order;
     }
 
-    const history = Array.isArray(order.statusHistory) ? [...order.statusHistory] : [];
-    history.push({
-      status: 'cancelled',
-      title: 'Đã hủy đơn (Quá hạn thanh toán QR)',
-      time: new Date().toISOString(),
-      note: 'Quá hạn thanh toán QR (15 phút)'
-    });
+    const history = normalizeStatusHistory(order.statusHistory, order.createdAt);
+    history.push(
+      createHistoryEntry({
+        status: 'cancelled',
+        title: 'Đã hủy đơn (Quá hạn thanh toán QR)',
+        note: 'Quá hạn thanh toán QR (15 phút)'
+      })
+    );
 
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(
-          `
-          UPDATE orders
-          SET status = 'cancelled', payment_status = 'expired', status_history = $1, updated_at = NOW()
-          WHERE id = $2
-          RETURNING *
-        `,
-          [JSON.stringify(history), order.id]
-        );
-        if (res && res.rows[0]) return mapRowToOrder(res.rows[0]);
-      } catch (err) {
-        console.error('Lỗi cập nhật lazy expiration Postgres:', err.message);
-      }
-    }
-
-    const updated = orderDB.update(order.id, {
+    return await orderStorage.update(order.id, {
       status: 'cancelled',
       paymentStatus: 'expired',
       statusHistory: history
     });
-    return mapRowToOrder(updated);
   }
 
   static async createOrder({
@@ -115,48 +90,14 @@ class OrderModel {
       : null;
 
     const history = [
-      {
+      createHistoryEntry({
         status: initialStatus,
         title: isQr ? 'Chờ thanh toán QR (15 phút)' : 'Đơn hàng mới tạo',
-        time: new Date().toISOString(),
         note: isQr
           ? `Khởi tạo thanh toán QR (${paymentRef}) - Hạn 15 phút`
           : 'Khách hàng hoàn tất đặt hàng trên website (COD)'
-      }
+      })
     ];
-
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(
-          `
-          INSERT INTO orders (
-            id, customer_id, customer_info, items, total_amount, status,
-            payment_method, payment_status, payment_ref, payment_expires_at, stats_synced,
-            admin_note, note, status_history
-          )
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, FALSE, '', $11, $12)
-          RETURNING *
-        `,
-          [
-            id,
-            customerId || null,
-            JSON.stringify(customerInfo || {}),
-            JSON.stringify(items || []),
-            amount,
-            initialStatus,
-            normalizedMethod,
-            initialPaymentStatus,
-            paymentRef,
-            paymentExpiresAt,
-            note || customerInfo?.note || '',
-            JSON.stringify(history)
-          ]
-        );
-        return mapRowToOrder(res.rows[0]);
-      } catch (err) {
-        console.error('Lỗi tạo đơn hàng Postgres:', err.message);
-      }
-    }
 
     const order = {
       id,
@@ -172,25 +113,14 @@ class OrderModel {
       statsSynced: false,
       adminNote: '',
       note: note || customerInfo?.note || '',
-      statusHistory: history,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      statusHistory: history
     };
-    return mapRowToOrder(orderDB.insert(order));
+
+    return await orderStorage.insert(order);
   }
 
   static async getAll({ status = '', search = '', fromDate = '', toDate = '', paymentStatus = '' } = {}) {
-    let list = [];
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('SELECT * FROM orders ORDER BY created_at DESC');
-        list = (res.rows || []).map(mapRowToOrder);
-      } catch (err) {
-        console.error('Lỗi lấy danh sách đơn từ Postgres:', err.message);
-      }
-    } else {
-      list = orderDB.findAll().map(mapRowToOrder);
-    }
+    let list = await orderStorage.find({}, { sort: { createdAt: -1 } });
 
     // Evaluate lazy expiration across orders before filtering so expired awaiting_payment orders
     // transition to cancelled/expired and appear in status=cancelled / paymentStatus=expired queries
@@ -238,45 +168,21 @@ class OrderModel {
   static async findById(id) {
     if (!id) return null;
     const cleanId = String(id).replace(/^#/, '').trim();
-    let order = null;
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('SELECT * FROM orders WHERE id = $1 LIMIT 1', [cleanId]);
-        order = res && res.rows[0] ? mapRowToOrder(res.rows[0]) : null;
-      } catch (err) {
-        console.error('Lỗi tìm đơn theo id từ Postgres:', err.message);
-      }
-    }
+    let order = await orderStorage.findById(cleanId);
     if (!order) {
-      const found = orderDB.findById(cleanId) || orderDB.findOne((o) => o.id && o.id.toLowerCase() === cleanId.toLowerCase());
-      order = mapRowToOrder(found);
+      order = await orderStorage.findOne({ id: { $iexact: cleanId } });
     }
     return await this.evaluateLazyExpiration(order);
   }
 
   static async findByCustomerId(customerId) {
     if (!customerId) return [];
-    let list = [];
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('SELECT * FROM orders WHERE customer_id = $1 ORDER BY created_at DESC', [customerId]);
-        list = (res.rows || []).map(mapRowToOrder);
-      } catch (err) {
-        console.error('Lỗi tìm đơn theo khách hàng từ Postgres:', err.message);
-      }
-    } else {
-      list = orderDB
-        .findAll()
-        .filter((o) => o.customerId === customerId)
-        .map(mapRowToOrder)
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    }
-
+    let list = await orderStorage.find({ customerId }, { sort: { createdAt: -1 } });
     const evaluated = [];
     for (const o of list) {
       evaluated.push(await this.evaluateLazyExpiration(o));
     }
-    return evaluated;
+    return evaluated.filter(Boolean);
   }
 
   static async trackOrder({ orderId, phone }) {
@@ -295,8 +201,11 @@ class OrderModel {
       order = await this.findById(orderId);
     }
     if (!order && paymentRef) {
-      const all = await this.getAll();
-      order = all.find((o) => o.paymentRef === paymentRef) || null;
+      const cleanRef = String(paymentRef).trim();
+      order = await orderStorage.findOne({ paymentRef: cleanRef });
+      if (order) {
+        order = await this.evaluateLazyExpiration(order);
+      }
     }
     if (!order) {
       return { success: false, status: 404, message: 'Không tìm thấy đơn hàng đối soát thanh toán' };
@@ -349,72 +258,39 @@ class OrderModel {
     }
 
     if (action === 'cancel') {
-      const history = [...(order.statusHistory || [])];
-      history.push({
-        status: 'cancelled',
-        title: 'Đã hủy thanh toán QR',
-        time: new Date().toISOString(),
-        note: 'Khách hàng hủy giao dịch thanh toán QR'
-      });
+      const history = normalizeStatusHistory(order.statusHistory, order.createdAt);
+      history.push(
+        createHistoryEntry({
+          status: 'cancelled',
+          title: 'Đã hủy thanh toán QR',
+          note: 'Khách hàng hủy giao dịch thanh toán QR'
+        })
+      );
 
-      if (db.isPostgres()) {
-        try {
-          const res = await db.query(
-            `
-            UPDATE orders
-            SET status = 'cancelled', payment_status = 'failed', status_history = $1, updated_at = NOW()
-            WHERE id = $2
-            RETURNING *
-          `,
-            [JSON.stringify(history), order.id]
-          );
-          return { success: true, status: 200, order: mapRowToOrder(res.rows[0]) };
-        } catch (err) {
-          console.error('Lỗi hủy webhook Postgres:', err.message);
-        }
-      }
-
-      const updated = orderDB.update(order.id, {
+      const updated = await orderStorage.update(order.id, {
         status: 'cancelled',
-        paymentStatus: 'failed',
+        paymentStatus: 'cancelled',
         statusHistory: history
       });
-      return { success: true, status: 200, order: mapRowToOrder(updated) };
+      return { success: true, status: 200, order: updated };
     }
 
     // Default action === 'confirm'
+    const history = normalizeStatusHistory(order.statusHistory, order.createdAt);
+    history.push(
+      createHistoryEntry({
+        status: 'confirmed',
+        title: 'Đã xác nhận (Thanh toán QR thành công)',
+        note: `Đã nhận thanh toán QR thành công (Mã GD: ${order.paymentRef || 'PAY_' + order.id})`
+      })
+    );
 
-    const history = [...(order.statusHistory || [])];
-    history.push({
-      status: 'confirmed',
-      title: 'Đã xác nhận (Thanh toán QR thành công)',
-      time: new Date().toISOString(),
-      note: `Đã nhận thanh toán QR thành công (Mã GD: ${order.paymentRef || 'PAY_' + order.id})`
-    });
-
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(
-          `
-          UPDATE orders
-          SET status = 'confirmed', payment_status = 'paid', status_history = $1, updated_at = NOW()
-          WHERE id = $2
-          RETURNING *
-        `,
-          [JSON.stringify(history), order.id]
-        );
-        return { success: true, status: 200, order: mapRowToOrder(res.rows[0]) };
-      } catch (err) {
-        console.error('Lỗi xác nhận webhook Postgres:', err.message);
-      }
-    }
-
-    const updated = orderDB.update(order.id, {
+    const updated = await orderStorage.update(order.id, {
       status: 'confirmed',
       paymentStatus: 'paid',
       statusHistory: history
     });
-    return { success: true, status: 200, order: mapRowToOrder(updated) };
+    return { success: true, status: 200, order: updated };
   }
 
   static async updateStatus(id, newStatus, note = '') {
@@ -426,19 +302,45 @@ class OrderModel {
       throw new Error('Trạng thái không hợp lệ: ' + newStatus);
     }
 
-    const history = [...(order.statusHistory || [])];
-    history.push({
-      status: newStatus,
-      title: STATUS_TITLES[newStatus] || newStatus,
-      time: new Date().toISOString(),
-      note: note || `Cập nhật trạng thái thành ${STATUS_TITLES[newStatus]}`
-    });
+    // Terminal state transition guards:
+    // 1. A cancelled order cannot be transitioned directly to completed (prevents bogus 'paid' & stats credit)
+    if (order.status === 'cancelled' && newStatus === 'completed') {
+      throw new Error('Không thể chuyển đơn hàng đã hủy sang trạng thái hoàn thành');
+    }
+    // 2. An order with expired or cancelled payment cannot be revived or completed via intermediate states
+    if (
+      (order.paymentStatus === 'expired' || order.paymentStatus === 'cancelled') &&
+      newStatus !== 'cancelled'
+    ) {
+      throw new Error('Không thể khôi phục hoặc hoàn thành đơn hàng đã hủy hoặc quá hạn thanh toán QR');
+    }
+    // 3. A completed order cannot be reverted or cancelled (idempotent completed -> completed is allowed)
+    if (order.status === 'completed' && newStatus !== 'completed') {
+      throw new Error('Đơn hàng đã hoàn thành không thể chuyển sang trạng thái khác');
+    }
+
+    const history = normalizeStatusHistory(order.statusHistory, order.createdAt);
+    history.push(
+      createHistoryEntry({
+        status: newStatus,
+        title: STATUS_TITLES[newStatus] || newStatus,
+        note: note || `Cập nhật trạng thái thành ${STATUS_TITLES[newStatus]}`
+      })
+    );
 
     let newPaymentStatus = order.paymentStatus || 'unpaid';
     if (newStatus === 'completed') {
       newPaymentStatus = 'paid';
+    } else if (
+      (newStatus === 'confirmed' || newStatus === 'shipping') &&
+      newPaymentStatus === 'awaiting_payment'
+    ) {
+      // Admin confirming/shipping an awaiting_payment QR order ("Xác nhận TT") marks payment as paid
+      newPaymentStatus = 'paid';
     } else if (newStatus === 'cancelled' && newPaymentStatus === 'awaiting_payment') {
-      newPaymentStatus = 'expired';
+      // Manual cancellation of an awaiting_payment order sets paymentStatus = 'cancelled'
+      // ('expired' is reserved strictly for evaluateLazyExpiration when the 15-minute TTL elapses)
+      newPaymentStatus = 'cancelled';
     }
 
     let statsSynced = Boolean(order.statsSynced);
@@ -454,32 +356,17 @@ class OrderModel {
       }
     }
 
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(
-          `
-          UPDATE orders
-          SET status = $1, payment_status = $2, stats_synced = $3, status_history = $4,
-              admin_note = COALESCE($5, admin_note), updated_at = NOW()
-          WHERE id = $6
-          RETURNING *
-        `,
-          [newStatus, newPaymentStatus, statsSynced, JSON.stringify(history), note || null, order.id]
-        );
-        return mapRowToOrder(res.rows[0]);
-      } catch (err) {
-        console.error('Lỗi cập nhật trạng thái đơn Postgres:', err.message);
-      }
-    }
-
-    const updated = orderDB.update(order.id, {
+    const updateData = {
       status: newStatus,
       paymentStatus: newPaymentStatus,
       statsSynced,
-      statusHistory: history,
-      adminNote: note ? note : (order.adminNote || '')
-    });
-    return mapRowToOrder(updated);
+      statusHistory: history
+    };
+    if (note) {
+      updateData.adminNote = note;
+    }
+
+    return await orderStorage.update(order.id, updateData);
   }
 
   static async cancelByCustomer({ orderId, customerId, phone, reason = '' }) {
@@ -513,15 +400,7 @@ class OrderModel {
   }
 
   static async deleteOrder(id) {
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('DELETE FROM orders WHERE id = $1', [id]);
-        return res.rowCount > 0;
-      } catch (err) {
-        console.error('Lỗi xóa đơn hàng Postgres:', err.message);
-      }
-    }
-    return orderDB.delete(id);
+    return await orderStorage.delete(id);
   }
 }
 

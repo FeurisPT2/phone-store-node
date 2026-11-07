@@ -1,49 +1,15 @@
 const crypto = require('crypto');
-const JsonDB = require('./database');
-const db = require('../config/db');
+const { adminStorage } = require('./storage');
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
-const defaultAdmins = [
-  {
-    id: 'admin_1',
-    username: 'admin',
-    passwordHash: hashPassword('admin123'),
-    fullName: 'Quản Trị Viên',
-    email: 'admin@techstore.vn',
-    role: 'Super Admin',
-    createdAt: new Date().toISOString()
-  }
-];
-
-const adminDB = new JsonDB('admins', defaultAdmins);
-
 class AdminModel {
   static async findByUsername(username) {
     const cleanUser = (username || '').toLowerCase().trim();
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('SELECT * FROM admins WHERE LOWER(username) = $1 LIMIT 1', [cleanUser]);
-        if (res && res.rows.length > 0) {
-          const row = res.rows[0];
-          return {
-            id: row.id,
-            username: row.username,
-            passwordHash: row.password_hash,
-            fullName: row.full_name,
-            email: row.email,
-            role: row.role,
-            createdAt: row.created_at
-          };
-        }
-        return null;
-      } catch (err) {
-        console.error('Lỗi truy vấn admin từ Postgres:', err.message);
-      }
-    }
-    return adminDB.findOne(a => a.username.toLowerCase() === cleanUser);
+    if (!cleanUser) return null;
+    return await adminStorage.findOne({ username: { $iexact: cleanUser } });
   }
 
   static async verify(username, password) {
@@ -78,22 +44,15 @@ class AdminModel {
 
     const newHash = hashPassword(newPassword);
 
-    if (db.isPostgres()) {
-      try {
-        await db.query('UPDATE admins SET password_hash = $1, updated_at = NOW() WHERE id = $2', [newHash, admin.id]);
-        return { success: true, message: 'Đổi mật khẩu thành công!' };
-      } catch (err) {
-        return { success: false, message: 'Lỗi cập nhật mật khẩu Postgres: ' + err.message };
-      }
+    try {
+      await adminStorage.update(admin.id, {
+        passwordHash: newHash,
+        password: null
+      });
+      return { success: true, message: 'Đổi mật khẩu thành công!' };
+    } catch (err) {
+      return { success: false, message: 'Lỗi cập nhật mật khẩu: ' + err.message };
     }
-
-    adminDB.update(admin.id, {
-      passwordHash: newHash,
-      password: null,
-      updatedAt: new Date().toISOString()
-    });
-
-    return { success: true, message: 'Đổi mật khẩu thành công!' };
   }
 }
 

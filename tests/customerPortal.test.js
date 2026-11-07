@@ -164,4 +164,80 @@ describe('Customer Self-Service Portal: Guest Tracking, Profile Update, Wishlist
     });
     assert.equal(blockedCancel.status, 400);
   });
+
+  test('Safe Customer Projection at the seam: CustomerModel methods, Admin CRM endpoints, and customerMemory never leak passwordHash', async () => {
+    // 1. Direct model methods must never return passwordHash
+    const byPhone = await CustomerModel.findByPhone(testPhone);
+    assert.ok(byPhone);
+    assert.equal(byPhone.passwordHash, undefined, 'findByPhone must not expose passwordHash');
+
+    const byId = await CustomerModel.findById(byPhone.id);
+    assert.ok(byId);
+    assert.equal(byId.passwordHash, undefined, 'findById must not expose passwordHash');
+
+    const allCustomers = await CustomerModel.getAll();
+    assert.ok(allCustomers.length > 0);
+    assert.ok(
+      allCustomers.every((c) => c.passwordHash === undefined),
+      'getAll must strip passwordHash from every customer'
+    );
+
+    const synced = await CustomerModel.syncOrderStats(byPhone.id, 1000000);
+    assert.ok(synced);
+    assert.equal(synced.passwordHash, undefined, 'syncOrderStats must not expose passwordHash');
+
+    // 2. Verify login still works after findByPhone strips passwordHash on public projection
+    const loggedIn = await CustomerModel.login({ phone: testPhone, password: 'password123' });
+    assert.ok(loggedIn);
+    assert.equal(loggedIn.passwordHash, undefined, 'login must not expose passwordHash');
+
+    // 3. Verify Admin endpoints never leak passwordHash
+    const adminLoginRes = await fetch(`${baseUrl}/api/admin/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: 'admin', password: 'admin123' })
+    });
+    const adminCookie = (adminLoginRes.headers.get('set-cookie') || '').split(';')[0];
+
+    const adminCustListRes = await fetch(`${baseUrl}/api/admin/customers`, {
+      headers: { Cookie: adminCookie }
+    });
+    const adminCustListData = await adminCustListRes.json();
+    assert.equal(adminCustListData.success, true);
+    assert.ok(
+      adminCustListData.data.every((c) => c.passwordHash === undefined),
+      'GET /api/admin/customers must never leak passwordHash'
+    );
+
+    const adminCustDetailRes = await fetch(`${baseUrl}/api/admin/customers/${byPhone.id}`, {
+      headers: { Cookie: adminCookie }
+    });
+    const adminCustDetailData = await adminCustDetailRes.json();
+    assert.equal(adminCustDetailData.success, true);
+    assert.equal(
+      adminCustDetailData.data.customer.passwordHash,
+      undefined,
+      'GET /api/admin/customers/:id must never leak passwordHash'
+    );
+
+    const adminStatsRes = await fetch(`${baseUrl}/api/admin/stats`, {
+      headers: { Cookie: adminCookie }
+    });
+    const adminStatsData = await adminStatsRes.json();
+    assert.equal(adminStatsData.success, true);
+    assert.ok(
+      adminStatsData.data.topCustomers.every((c) => c.passwordHash === undefined),
+      'GET /api/admin/stats topCustomers must never leak passwordHash'
+    );
+
+    // 4. Verify customerMemory middleware sanitizes legacy session customer containing passwordHash
+    const customerMemory = require('../src/middlewares/customerMemory');
+    const mockReq = {
+      session: { customer: { id: 'c_legacy', fullName: 'Legacy User', passwordHash: 'secret_hash' } },
+      cookies: {}
+    };
+    await new Promise((resolve) => customerMemory(mockReq, {}, resolve));
+    assert.equal(mockReq.session.customer.passwordHash, undefined);
+    assert.equal(mockReq.currentCustomer.passwordHash, undefined);
+  });
 });

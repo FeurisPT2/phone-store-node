@@ -1,12 +1,11 @@
 {
   "0": "admin.js",
-  "1": "CustomerModel",
-  "2": "scripts",
+  "1": "PostgresStorageAdapter",
+  "2": "JsonDB",
   "3": "Product.js",
   "4": "main.js",
-  "5": "Admin.js",
-  "6": "dependencies",
-  "7": "express",
+  "5": "storageSeam.test.js",
+  "6": "package.json",
   "8": "📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)",
   "9": "server.js",
   "10": "Spec 0001: Gemini AI Automation (Product Enrichment, Shopping Consultant & Self-healing Catalog)",
@@ -14,9 +13,7 @@
   "12": "0002. Mở Rộng Schema Sản Phẩm Và Cơ Chế Dynamic Catalog Grounding",
   "13": "0003. Giao Diện Tương Tác Storefront Và Cơ Chế Graceful Fallback Khi Mất Kết Nối AI",
   "14": "vercel.json",
-  "15": "TechStore",
-  "16": "package.json",
-  "17": "express-session",
-  "18": "adminRoutes.js",
-  "19": "cartRoutes.js"
+  "15": "geminiService.js",
+  "17": "Research: In-Memory TTL Caching & DB Indexing Benchmarks for Catalog Querying",
+  "19": "OrderModel"
 }

@@ -68,3 +68,20 @@ _Avoid_: User settings page, profile tab
 Thanh tiến trình trực quan hóa vòng đời thực thi của một đơn hàng qua các mốc: Chờ thanh toán QR / Chờ xác nhận ➔ Đã xác nhận ➔ Đang giao hàng ➔ Đã hoàn thành (hoặc Đã hủy).
 _Avoid_: Order log, status text
 
+**Storage Seam**:
+Ranh giới kiến trúc phân tách giữa các mô hình nghiệp vụ (Product, Order, Customer, Admin) và tầng lưu trữ vật lý, cung cấp giao diện tập hợp nhất quán, chuẩn hóa ánh xạ trường dữ liệu giữa snake_case và camelCase, loại bỏ hoàn toàn các lệnh rẽ nhánh lưu trữ trong domain models.
+_Avoid_: Database layer, ORM, data access layer, repository layer
+
+**Storage Adapter**:
+Thành phần cụ thể hóa Storage Seam cho một công nghệ lưu trữ xác định (PostgresStorageAdapter giao tiếp với Neon PostgreSQL và JsonStorageAdapter thao tác trên file JSON cục bộ).
+_Avoid_: DB driver, DB client, data provider
+
+**Safe Customer Projection**:
+Bản chiếu dữ liệu khách hàng đã được loại bỏ trường nhạy cảm (`passwordHash`) ngay tại ranh giới `CustomerModel.toSafeCustomer()`, đảm bảo mọi truy vấn đọc, cập nhật hồ sơ, thống kê CRM hay khôi phục phiên (`customerMemory`) đều không bao giờ làm rò rỉ mã băm mật khẩu ra tầng điều khiển hoặc giao diện.
+_Avoid_: Sanitized user, stripped customer object, public user DTO
+
+**Catalog Filter Engine**:
+Mô-đun lọc, sắp xếp và trích xuất thông số danh mục đa môi trường (`catalogFilter.js`, chuẩn UMD dùng chung cho cả Node.js lẫn trình duyệt) thực thi khớp thông số theo ranh giới từ (`Detailed Specs Sheet`), chuẩn hóa các mốc khoảng giá (`priceRange`, `minPrice`/`maxPrice`), đồng nhất bí danh sắp xếp, tìm kiếm toàn văn và bóc tách thông số phần cứng (`extractHardwareSpecs`).
+_Avoid_: Client filter script, product query helper, search util
+
+

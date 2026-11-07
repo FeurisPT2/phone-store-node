@@ -18,31 +18,31 @@
         <aside class="sidebar" id="admin-sidebar">
             <div>
                 <div class="sidebar-brand">
-                    <span class="brand-title">TechStore</span>
-                    <span class="brand-tag">CRM v2.0</span>
+                    <span class="brand-title">⚡ TechStore</span>
+                    <span class="brand-tag">PRO CRM v2.0</span>
                 </div>
 
                 <nav class="sidebar-nav" aria-label="Điều hướng quản trị">
-                    <div class="nav-group-title">Bàn làm việc</div>
+                    <div class="nav-group-title">Bàn làm việc chính</div>
                     <a href="#dashboard" class="nav-item active" data-tab="dashboard" onclick="switchNavTab('dashboard', event)">
-                        <span>Tổng quan hoạt động</span>
+                        <span>📊 Tổng quan hoạt động</span>
                     </a>
                     <a href="#orders" class="nav-item" data-tab="orders" onclick="switchNavTab('orders', event)">
-                        <span>Đơn đặt hàng</span>
+                        <span>📦 Đơn đặt hàng</span>
                         <span id="badge-order-count" class="nav-badge">2</span>
                     </a>
                     <a href="#customers" class="nav-item" data-tab="customers" onclick="switchNavTab('customers', event)">
-                        <span>Khách hàng (CRM)</span>
-                        <span id="badge-cust-count" class="nav-badge" style="display:none;">8</span>
+                        <span>👥 Khách hàng (CRM)</span>
+                        <span id="badge-cust-count" class="nav-badge">8</span>
                     </a>
                     <a href="#products" class="nav-item" data-tab="products" onclick="switchNavTab('products', event)">
-                        <span>Kho sản phẩm</span>
-                        <span id="badge-prod-count" class="nav-badge" style="display:none;">63</span>
+                        <span>📱 Kho sản phẩm</span>
+                        <span id="badge-prod-count" class="nav-badge">63</span>
                     </a>
 
-                    <div class="nav-group-title">Hệ thống</div>
+                    <div class="nav-group-title">Hệ thống &amp; Bảo mật</div>
                     <a href="#settings" class="nav-item" data-tab="settings" onclick="switchNavTab('settings', event)">
-                        <span>Bảo mật &amp; Cấu hình</span>
+                        <span>⚙️ Bảo mật &amp; Cấu hình</span>
                     </a>
                 </nav>
             </div>
@@ -56,23 +56,25 @@
                     </div>
                 </div>
                 <div class="sidebar-footer-actions">
-                    <a href="/" target="_blank" class="btn-storefront">Cửa hàng</a>
-                    <button type="button" class="btn-logout" onclick="logoutAdmin()">Đăng xuất</button>
+                    <a href="/" target="_blank" class="btn-storefront">🏠 Cửa hàng</a>
+                    <button type="button" class="btn-logout" onclick="logoutAdmin()">Thoát</button>
                 </div>
             </div>
         </aside>
 
-        <!-- 48PX TOPBAR (Sits on L-frame canvas with no bottom rule) -->
+        <!-- TOPBAR -->
         <header class="topbar">
             <div class="topbar-left">
                 <button type="button" class="mobile-sidebar-toggle" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" aria-label="Mở menu">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
-                <span class="topbar-crumb">Quản trị /</span>
+                <span class="topbar-crumb">Quản trị Pro Max /</span>
                 <h1 id="page-heading" class="page-title">Tổng quan hoạt động</h1>
             </div>
             <div class="topbar-right">
-                <button type="button" class="btn-refresh" onclick="refreshAllData()">Làm mới dữ liệu</button>
+                <button type="button" class="btn-refresh" onclick="switchNavTab('orders', event)">📦 Xử lý đơn hàng</button>
+                <button type="button" class="btn-refresh" onclick="switchNavTab('products', event); openProductModal();">+ Thêm máy mới</button>
+                <button type="button" class="btn-primary" onclick="refreshAllData()">↻ Làm mới dữ liệu</button>
             </div>
         </header>
 
@@ -81,27 +83,27 @@
 
             <!-- TAB 1: DASHBOARD -->
             <section id="tab-dashboard" class="tab-content active">
-                <!-- KPI Strip divided by 1px vertical hairlines (zero icon-chips) -->
+                <!-- Interactive KPI Strip -->
                 <div class="kpi-strip">
-                    <div class="kpi-cell">
-                        <span class="kpi-label">Tổng doanh thu thực thu</span>
+                    <div class="kpi-cell kpi-cell--revenue" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để xem chi tiết đơn hàng">
+                        <span class="kpi-label">💰 Tổng doanh thu thực thu</span>
                         <strong class="kpi-value tabular" id="kpi-revenue">198.450.000 ₫</strong>
-                        <span class="kpi-sub kpi-sub--ok">Tích lũy đơn hoàn thành &amp; đã thanh toán</span>
+                        <span class="kpi-sub kpi-sub--ok">✓ Tích lũy đơn hoàn thành &amp; đã thanh toán</span>
                     </div>
-                    <div class="kpi-cell">
-                        <span class="kpi-label">Tổng số đơn đặt hàng</span>
+                    <div class="kpi-cell kpi-cell--orders" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để mở danh sách đơn đặt hàng">
+                        <span class="kpi-label">📦 Tổng số đơn đặt hàng</span>
                         <strong class="kpi-value tabular" id="kpi-orders">14</strong>
-                        <span class="kpi-sub kpi-sub--warn tabular" id="kpi-pending-sub">2 đơn chờ xử lý</span>
+                        <span class="kpi-sub kpi-sub--warn tabular" id="kpi-pending-sub">2 đơn chờ xử lý &rarr;</span>
                     </div>
-                    <div class="kpi-cell">
-                        <span class="kpi-label">Hồ sơ khách hàng (CRM)</span>
+                    <div class="kpi-cell kpi-cell--customers" onclick="switchNavTab('customers', event)" style="cursor:pointer;" title="Nhấn để mở quản lý khách hàng CRM">
+                        <span class="kpi-label">👥 Hồ sơ khách hàng (CRM)</span>
                         <strong class="kpi-value tabular" id="kpi-customers">8</strong>
-                        <span class="kpi-sub">Định danh theo số điện thoại</span>
+                        <span class="kpi-sub">Định danh SĐT &amp; Phân hạng VIP &rarr;</span>
                     </div>
-                    <div class="kpi-cell">
-                        <span class="kpi-label">Mã hàng đang kinh doanh</span>
+                    <div class="kpi-cell kpi-cell--products" onclick="switchNavTab('products', event)" style="cursor:pointer;" title="Nhấn để quản lý kho sản phẩm">
+                        <span class="kpi-label">📱 Mã hàng đang kinh doanh</span>
                         <strong class="kpi-value tabular" id="kpi-products">63</strong>
-                        <span class="kpi-sub tabular">12 thương hiệu chính ngạch</span>
+                        <span class="kpi-sub tabular">12 thương hiệu chính ngạch &rarr;</span>
                     </div>
                 </div>
 
@@ -647,6 +649,7 @@
     <div id="invoice-print-area" class="invoice-print-only"></div>
     <div id="toast-container"></div>
 
+    <script src="js/catalogFilter.js"></script>
     <script src="js/admin.js"></script>
 </body>
 </html>

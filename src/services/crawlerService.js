@@ -49,53 +49,36 @@ function cleanProductName(name) {
 }
 
 /**
- * Tạo mô tả cấu hình tự động dựa trên thông số
+ * Tạo mô tả cấu hình tự động dựa trên bộ phân tích thông số hợp nhất (fallbackEnrich)
  */
-function generateSpecs(productName, rawSpecs = '') {
-  const parts = [];
+function generateSpecs(productName, rawSpecs = '', brand = '') {
+  const resolvedBrand = brand || normalizeBrand('', productName);
+  const { detailedSpecs } = geminiService.fallbackEnrich({
+    name: productName,
+    brand: resolvedBrand,
+    rawText: rawSpecs
+  });
 
-  // Màn hình
-  if (/(\d+(\.\d+)?)\s*(inch|\")/i.test(productName)) {
-    const m = productName.match(/(\d+(\.\d+)?)\s*(inch|\")/i);
-    parts.push(`Màn hình ${m[1]} inch Super AMOLED 120Hz`);
-  } else {
-    parts.push('Màn hình AMOLED sắc nét 120Hz');
-  }
+  const parts = [
+    detailedSpecs.screen,
+    detailedSpecs.chip,
+    `Bộ nhớ ${detailedSpecs.ram}/${detailedSpecs.storage}`,
+    `Camera ${detailedSpecs.camera}`,
+    `Pin ${detailedSpecs.battery}`
+  ];
 
-  // RAM/ROM
-  const ramRomMatch = productName.match(/(\d+GB)\s*(\/|\+)\s*(\d+GB|\d+TB)/i);
-  if (ramRomMatch) {
-    parts.push(`Bộ nhớ ${ramRomMatch[0]}`);
-  } else {
-    const romMatch = productName.match(/(\d+GB|\d+TB)/i);
-    if (romMatch) parts.push(`Dung lượng ${romMatch[1]}`);
-  }
-
-  // 5G & Chipset
-  if (/\b5G\b/i.test(productName)) {
+  if (/\b5G\b/i.test(`${productName} ${rawSpecs}`)) {
     parts.push('Hỗ trợ kết nối mạng 5G siêu tốc');
-  }
-
-  // Camera
-  if (/camera\s*(\d+MP)/i.test(productName)) {
-    const camMatch = productName.match(/camera\s*(\d+MP)/i);
-    parts.push(`Camera ${camMatch[1]} AI sắc nét`);
-  } else {
-    parts.push('Camera AI chuyên nghiệp');
-  }
-
-  // Pin & Bảo hành
-  if (/pin\s*(\d+mAh)/i.test(productName)) {
-    const pinMatch = productName.match(/pin\s*(\d+mAh)/i);
-    parts.push(`Pin trâu ${pinMatch[1]}`);
-  } else {
-    parts.push('Pin bền bỉ & Sạc nhanh | Bảo hành chính hãng 12 tháng');
   }
 
   return parts.join(' | ');
 }
 
 class CrawlerService {
+  static generateSpecs(productName, rawSpecs = '', brand = '') {
+    return generateSpecs(productName, rawSpecs, brand);
+  }
+
   /**
    * Cào sản phẩm điện thoại từ Tiki Smartphone Catalog
    * @param {Object} options
@@ -106,7 +89,7 @@ class CrawlerService {
    */
   static async crawlFromTiki({ keyword = '', brand = '', limit = 10, skipExisting = true } = {}) {
     let queryUrl = `https://tiki.vn/api/v2/products?category=1795&limit=${Math.min(limit * 2, 50)}`;
-    
+
     // Nếu có từ khóa hoặc brand cụ thể
     const searchTerm = (keyword || brand || '').trim();
     if (searchTerm && searchTerm.toLowerCase() !== 'all') {
@@ -115,8 +98,9 @@ class CrawlerService {
 
     const res = await fetch(queryUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'application/json, text/plain, */*'
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        Accept: 'application/json, text/plain, */*'
       }
     });
 
@@ -129,9 +113,7 @@ class CrawlerService {
 
     // Lấy danh sách sản phẩm hiện tại để so sánh trùng lặp
     const currentProducts = await ProductModel.getAll('all');
-    const existingNames = new Set(
-      currentProducts.map(p => p.name.toLowerCase().replace(/[^a-z0-9]/g, ''))
-    );
+    const existingNames = new Set(currentProducts.map((p) => p.name.toLowerCase().replace(/[^a-z0-9]/g, '')));
 
     const savedProducts = [];
     let skippedCount = 0;
@@ -141,11 +123,11 @@ class CrawlerService {
 
       const rawName = item.name || '';
       const lowerName = rawName.toLowerCase();
-      const price = parseInt(item.price) || 0;
+      const price = parseInt(item.price, 10) || 0;
 
       // 1. Loại trừ phụ kiện và đồ giá rẻ < 1.5 triệu (không phải smartphone)
       if (price < 1500000) continue;
-      const isAccessory = ACCESSORY_KEYWORDS.some(kw => lowerName.includes(kw));
+      const isAccessory = ACCESSORY_KEYWORDS.some((kw) => lowerName.includes(kw));
       if (isAccessory) continue;
 
       // 2. Làm sạch tên & nhận diện thương hiệu
@@ -165,10 +147,9 @@ class CrawlerService {
       }
 
       // 4. Giá cũ
-      const originalPrice = parseInt(item.original_price) || 0;
-      const oldPrice = originalPrice > price 
-        ? originalPrice 
-        : Math.round((price * 1.15) / 100000) * 100000;
+      const originalPrice = parseInt(item.original_price, 10) || 0;
+      const oldPrice =
+        originalPrice > price ? originalPrice : Math.round((price * 1.15) / 100000) * 100000;
 
       // 5. Hình ảnh độ phân giải cao
       let image = item.thumbnail_url || '';
@@ -176,45 +157,29 @@ class CrawlerService {
         image = image.replace('/cache/280x280/', '/cache/750x750/');
       }
 
-      // 6. Mô tả cấu hình
-      const specs = generateSpecs(cleanName);
+      // 6. Mô tả cấu hình chuẩn hóa
+      const specs = generateSpecs(cleanName, '', cleanBrand);
 
-      // 6b. Tự động làm giàu thông số và đánh giá AI
-      let detailedSpecs = null;
-      let aiReview = null;
-      let aiEnrichedAt = null;
-
-      try {
-        const enrichment = await geminiService.enrichProduct({
-          name: cleanName,
-          brand: cleanBrand,
-          rawText: specs
-        });
-        if (enrichment) {
-          detailedSpecs = enrichment.detailedSpecs;
-          aiReview = enrichment.aiReview;
-          aiEnrichedAt = new Date().toISOString();
-        }
-      } catch (err) {
-        console.warn('Lỗi làm giàu AI khi cào sản phẩm:', err.message);
-      }
-
-      // 7. Lưu vào cơ sở dữ liệu
+      // 7. Lưu vào cơ sở dữ liệu và tự động làm giàu thông số + đánh giá AI
       const newProduct = await ProductModel.create({
         name: cleanName,
         brand: cleanBrand,
         price,
         oldPrice,
         specs,
-        detailedSpecs,
-        aiReview,
-        aiEnrichedAt,
         image
       });
 
       if (newProduct) {
+        let finalProduct = newProduct;
+        try {
+          const enriched = await geminiService.enrichAndPersistProduct(newProduct);
+          if (enriched) finalProduct = enriched;
+        } catch (err) {
+          console.warn('Lỗi làm giàu AI khi cào sản phẩm Tiki:', err.message);
+        }
         existingNames.add(nameKey);
-        savedProducts.push(newProduct);
+        savedProducts.push(finalProduct);
       }
     }
 
@@ -229,7 +194,7 @@ class CrawlerService {
   }
 
   /**
-   * Cào sản phẩm quốc tế từ DummyJSON
+   * Cào sản phẩm quốc tế từ DummyJSON (kèm tự động làm giàu AI)
    */
   static async crawlFromDummyJson({ limit = 10, skipExisting = true } = {}) {
     const res = await fetch('https://dummyjson.com/products/category/smartphones');
@@ -239,9 +204,7 @@ class CrawlerService {
     const rawItems = data.products || [];
 
     const currentProducts = await ProductModel.getAll('all');
-    const existingNames = new Set(
-      currentProducts.map(p => p.name.toLowerCase().replace(/[^a-z0-9]/g, ''))
-    );
+    const existingNames = new Set(currentProducts.map((p) => p.name.toLowerCase().replace(/[^a-z0-9]/g, '')));
 
     const savedProducts = [];
     let skippedCount = 0;
@@ -250,7 +213,7 @@ class CrawlerService {
     for (const item of rawItems) {
       if (savedProducts.length >= limit) break;
 
-      const cleanName = item.title;
+      const cleanName = cleanProductName(item.title || '');
       const nameKey = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '');
 
       if (skipExisting && existingNames.has(nameKey)) {
@@ -263,7 +226,7 @@ class CrawlerService {
       const oldPrice = Math.round((price * 1.15) / 10000) * 10000;
 
       const brand = normalizeBrand(item.brand, cleanName);
-      const specs = item.description || generateSpecs(cleanName);
+      const specs = item.description || generateSpecs(cleanName, '', brand);
       const image = item.thumbnail || (item.images && item.images[0]) || '';
 
       const newProduct = await ProductModel.create({
@@ -276,8 +239,15 @@ class CrawlerService {
       });
 
       if (newProduct) {
+        let finalProduct = newProduct;
+        try {
+          const enriched = await geminiService.enrichAndPersistProduct(newProduct);
+          if (enriched) finalProduct = enriched;
+        } catch (err) {
+          console.warn('Lỗi làm giàu AI khi cào sản phẩm DummyJSON:', err.message);
+        }
         existingNames.add(nameKey);
-        savedProducts.push(newProduct);
+        savedProducts.push(finalProduct);
       }
     }
 
@@ -293,3 +263,4 @@ class CrawlerService {
 }
 
 module.exports = CrawlerService;
+

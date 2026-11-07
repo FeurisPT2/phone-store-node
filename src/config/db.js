@@ -26,15 +26,19 @@ if (process.env.DATABASE_URL) {
 }
 
 async function query(text, params) {
-  if (!isPostgres || !pool) return null;
-  return await pool.query(text, params);
+  const activePostgres = typeof module.exports?.isPostgres === 'function' ? module.exports.isPostgres() : isPostgres;
+  const activePool = module.exports?.pool !== undefined ? module.exports.pool : pool;
+  if (!activePostgres || !activePool) return null;
+  return await activePool.query(text, params);
 }
 
 async function initDatabase() {
-  if (!isPostgres || !pool) return false;
+  const activePostgres = typeof module.exports?.isPostgres === 'function' ? module.exports.isPostgres() : isPostgres;
+  const activePool = module.exports?.pool !== undefined ? module.exports.pool : pool;
+  if (!activePostgres || !activePool) return false;
 
   try {
-    const client = await pool.connect();
+    const client = await activePool.connect();
     console.log('✅ [NEON POSTGRES] Kết nối cơ sở dữ liệu thành công!');
 
     // 1. Bảng admins
@@ -146,17 +150,39 @@ async function initDatabase() {
     try {
       const jsonProducts = require('../data/products.json');
       for (const p of jsonProducts) {
+        const detailedSpecs = p.detailedSpecs || p.detailed_specs || null;
+        const serializedSpecs = detailedSpecs ? (typeof detailedSpecs === 'object' ? JSON.stringify(detailedSpecs) : detailedSpecs) : null;
+        const aiReview = p.aiReview || p.ai_review || null;
+        const serializedReview = aiReview ? (typeof aiReview === 'object' ? JSON.stringify(aiReview) : aiReview) : null;
+        const aiEnrichedAt = p.aiEnrichedAt || p.ai_enriched_at || null;
         await client.query(`
-          INSERT INTO products (id, name, brand, price, old_price, specs, image)
-          VALUES ($1, $2, $3, $4, $5, $6, $7)
+          INSERT INTO products (
+            id, name, brand, price, old_price, specs, image,
+            detailed_specs, ai_review, ai_enriched_at
+          )
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
           ON CONFLICT (id) DO UPDATE SET
             name = EXCLUDED.name,
             brand = EXCLUDED.brand,
             price = EXCLUDED.price,
             old_price = EXCLUDED.old_price,
             specs = EXCLUDED.specs,
-            image = EXCLUDED.image
-        `, [p.id, p.name, p.brand, p.price, p.oldPrice || p.price, p.specs || '', p.image || '']);
+            image = EXCLUDED.image,
+            detailed_specs = COALESCE(products.detailed_specs, EXCLUDED.detailed_specs),
+            ai_review = COALESCE(products.ai_review, EXCLUDED.ai_review),
+            ai_enriched_at = COALESCE(products.ai_enriched_at, EXCLUDED.ai_enriched_at)
+        `, [
+          p.id,
+          p.name,
+          p.brand,
+          p.price,
+          p.oldPrice || p.price,
+          p.specs || '',
+          p.image || '',
+          serializedSpecs,
+          serializedReview,
+          aiEnrichedAt
+        ]);
       }
       console.log(`🌱 [NEON POSTGRES] Đã đồng bộ ${jsonProducts.length} sản phẩm vào cơ sở dữ liệu`);
     } catch (err) {

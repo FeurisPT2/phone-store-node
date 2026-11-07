@@ -3,6 +3,7 @@ const CustomerModel = require('../models/Customer');
 module.exports = async function (req, res, next) {
   if (!req.session.cart) req.session.cart = [];
   if (req.session.customer) {
+    req.session.customer = CustomerModel.toSafeCustomer(req.session.customer);
     req.currentCustomer = req.session.customer;
     return next();
   }

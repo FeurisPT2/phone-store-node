@@ -148,4 +148,128 @@ describe('Catalog TTL Cache, Multi-Attribute Specs Filtering & HTTP Gzip Compres
     assert.equal(parsed.success, true);
     assert.ok(Array.isArray(parsed.data));
   });
+
+  test('Shared CatalogFilter module unifies capacity word boundaries, priceRange presets, sort aliases, and full-text detailedSpecs search', async () => {
+    const fs = require('fs');
+    const path = require('path');
+    const CatalogFilter = require('../src/public/js/catalogFilter');
+
+    // 1. Pass-through productController.js must be removed
+    const controllerPath = path.join(__dirname, '..', 'src', 'controllers', 'productController.js');
+    assert.equal(fs.existsSync(controllerPath), false, 'Pass-through productController.js should be deleted');
+
+    // 2. Word-boundary capacity matching: 8GB never matches 128GB, 12GB never matches 512GB, 6GB never matches 16GB/256GB
+    const sampleItems = [
+      {
+        id: 's1',
+        name: 'Phone A 128GB',
+        brand: 'Apple',
+        price: 9500000,
+        oldPrice: 11000000,
+        specs: 'RAM 6 GB | ROM 128 GB',
+        detailedSpecs: { ram: '6GB', storage: '128GB', chip: 'Apple A16', battery: '4500mAh', os: 'iOS 18' },
+        createdAt: '2026-10-01T00:00:00.000Z'
+      },
+      {
+        id: 's2',
+        name: 'Phone B 256GB',
+        brand: 'Samsung',
+        price: 18000000,
+        oldPrice: 24000000,
+        specs: 'RAM 8 GB | ROM 256 GB',
+        detailedSpecs: { ram: '8GB', storage: '256GB', chip: 'Exynos 2400', battery: '5000mAh', os: 'Android 15' },
+        createdAt: '2026-10-05T00:00:00.000Z'
+      },
+      {
+        id: 's3',
+        name: 'Phone C 512GB',
+        brand: 'ASUS',
+        price: 29000000,
+        oldPrice: 30000000,
+        specs: 'RAM 16 GB | ROM 512 GB',
+        detailedSpecs: { ram: '16GB', storage: '512GB', chip: 'Snapdragon 8 Elite', battery: '6000mAh', os: 'Android 15' },
+        createdAt: '2026-10-10T00:00:00.000Z'
+      }
+    ];
+
+    assert.deepEqual(
+      CatalogFilter.filterProducts(sampleItems, { ram: '8GB' }).map((p) => p.id),
+      ['s2'],
+      'ram=8GB must not match 128GB ROM in s1'
+    );
+    assert.deepEqual(
+      CatalogFilter.filterProducts(sampleItems, { ram: '12GB' }).map((p) => p.id),
+      [],
+      'ram=12GB must not match 512GB ROM in s3'
+    );
+    assert.deepEqual(
+      CatalogFilter.filterProducts(sampleItems, { ram: '6GB' }).map((p) => p.id),
+      ['s1'],
+      'ram=6GB must not match 16GB RAM in s3 or 256GB ROM in s2'
+    );
+
+    // 3. Price presets (under10, 10to20, under15, 15to25, over25)
+    assert.deepEqual(CatalogFilter.filterProducts(sampleItems, { priceRange: 'under10' }).map((p) => p.id), ['s1']);
+    assert.deepEqual(CatalogFilter.filterProducts(sampleItems, { priceRange: '10to20' }).map((p) => p.id), ['s2']);
+    assert.deepEqual(CatalogFilter.filterProducts(sampleItems, { priceRange: 'under15' }).map((p) => p.id), ['s1']);
+    assert.deepEqual(CatalogFilter.filterProducts(sampleItems, { priceRange: '15to25' }).map((p) => p.id), ['s2']);
+    assert.deepEqual(CatalogFilter.filterProducts(sampleItems, { priceRange: 'over25' }).map((p) => p.id), ['s3']);
+
+    // 4. Unified sort aliases (price_asc / price-asc, price_desc / price-desc, discount_desc / discount, newest)
+    assert.deepEqual(
+      CatalogFilter.filterProducts(sampleItems, { sort: 'price-asc' }).map((p) => p.id),
+      CatalogFilter.filterProducts(sampleItems, { sort: 'price_asc' }).map((p) => p.id)
+    );
+    assert.deepEqual(
+      CatalogFilter.filterProducts(sampleItems, { sort: 'price-desc' }).map((p) => p.id),
+      ['s3', 's2', 's1']
+    );
+    assert.deepEqual(
+      CatalogFilter.filterProducts(sampleItems, { sort: 'discount' }).map((p) => p.id),
+      CatalogFilter.filterProducts(sampleItems, { sort: 'discount_desc' }).map((p) => p.id)
+    );
+    assert.equal(CatalogFilter.filterProducts(sampleItems, { sort: 'discount' })[0].id, 's2');
+    assert.deepEqual(
+      CatalogFilter.filterProducts(sampleItems, { sort: 'newest' }).map((p) => p.id),
+      ['s3', 's2', 's1']
+    );
+
+    // 5. Full-text search across detailedSpecs (battery, os, chip)
+    assert.deepEqual(CatalogFilter.filterProducts(sampleItems, { search: '6000mAh' }).map((p) => p.id), ['s3']);
+    assert.deepEqual(CatalogFilter.filterProducts(sampleItems, { q: 'ios 18' }).map((p) => p.id), ['s1']);
+
+    // 6. Verify API supports priceRange and hyphenated sort aliases via inlined productRoutes
+    const apiPresetRes = await fetch(`${baseUrl}/api/products?priceRange=over25&sort=price-desc`);
+    assert.equal(apiPresetRes.status, 200);
+    const apiPresetData = (await apiPresetRes.json()).data;
+    assert.ok(apiPresetData.length > 0);
+    assert.ok(apiPresetData.every((p) => p.price > 25000000));
+
+    // 7. Verify ProductModel.getAll deep-clones cached items so caller mutation never corrupts catalogCache
+    const cachedBatch1 = await ProductModel.getAll('all');
+    const originalPrice = cachedBatch1[0].price;
+    const originalRam = cachedBatch1[0].detailedSpecs?.ram;
+    cachedBatch1[0].price = 123;
+    if (cachedBatch1[0].detailedSpecs) {
+      cachedBatch1[0].detailedSpecs.ram = '999GB_MUTATED';
+    }
+    const cachedBatch2 = await ProductModel.getAll('all');
+    assert.equal(cachedBatch2[0].price, originalPrice, 'Mutating getAll result must not corrupt cached price');
+    assert.equal(
+      cachedBatch2[0].detailedSpecs?.ram,
+      originalRam,
+      'Mutating getAll nested detailedSpecs must not corrupt cache'
+    );
+
+    // 8. Verify UMD browser global attachment (window.CatalogFilter) in a browser-like VM context
+    const vm = require('vm');
+    const code = fs.readFileSync(path.join(__dirname, '..', 'src', 'public', 'js', 'catalogFilter.js'), 'utf8');
+    const sandbox = { window: {} };
+    vm.runInNewContext(code, sandbox);
+    assert.ok(sandbox.window.CatalogFilter, 'UMD bundle must attach CatalogFilter to window when module is undefined');
+    assert.deepEqual(
+      Array.from(sandbox.window.CatalogFilter.filterProducts(sampleItems, { ram: '8GB' }).map((p) => p.id)),
+      ['s2']
+    );
+  });
 });

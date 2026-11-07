@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cổng Đăng Nhập · TechStore Atelier</title>
+    <title>Cổng Đăng Nhập · TechStore Pro Max</title>
     <script>document.documentElement.classList.add('js');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #1c1c1c;
-            --surface: #262626;
-            --surface-raised: #2f2f2e;
-            --ink: #f1f1ef;
-            --muted: #b5b6b0;
-            --accent: #8fa68e;
-            --accent-hover: #a3b9a2;
-            --accent-ink: #1c1c1c;
-            --accent-text: #b2cab1;
-            --field-1: #c8c5ba;
-            --field-1-ink: #1c1c1c;
-            --danger-bg: #452323;
-            --danger-ink: #f5b5b5;
-            --success-bg: #233829;
-            --success-ink: #b8dec0;
+            --bg: #111317;
+            --surface: #1d2129;
+            --surface-raised: #262b36;
+            --border: rgba(255, 255, 255, 0.12);
+            --border-strong: rgba(255, 255, 255, 0.24);
+            --border-accent: rgba(166, 207, 164, 0.55);
+            --ink: #f6f7f9;
+            --muted: #a7b0c0;
+            --accent: #98b896;
+            --accent-hover: #b0cfa0;
+            --accent-ink: #0f1410;
+            --accent-text: #b7dbb5;
+            --accent-glow: rgba(152, 184, 150, 0.2);
+            --field-1: #d4d1c7;
+            --field-1-ink: #141619;
+            --danger-bg: #482124;
+            --danger-ink: #ffb8be;
+            --success-bg: #1b3b2b;
+            --success-ink: #86efac;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
             --font-sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -62,7 +69,7 @@
 
         button {
             cursor: pointer;
-            transition: transform 160ms var(--ease-out), background-color 180ms var(--ease-out), color 180ms var(--ease-out);
+            transition: transform 160ms var(--ease-out), background-color 180ms var(--ease-out), color 180ms var(--ease-out), border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
         }
 
         button:active {
@@ -79,10 +86,11 @@
         .login-visual-col {
             grid-column: 1 / 7;
             background-color: var(--surface);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: clamp(2rem, 4vw, 3.5rem);
+            padding: clamp(2rem, 4vw, 3.25rem);
             position: relative;
             overflow: hidden;
         }
@@ -96,33 +104,56 @@
         }
 
         .brand-wordmark {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
             font-size: 1.25rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.03em;
             color: var(--ink);
+        }
+
+        .brand-logo-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 8px;
+            background-color: var(--accent);
+            color: var(--accent-ink);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
         }
 
         .back-store-link {
             padding: 0.55rem 1rem;
             background-color: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
             color: var(--ink);
             font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .back-store-link:hover {
             background-color: var(--accent);
+            border-color: var(--accent-hover);
             color: var(--accent-ink);
         }
 
         .visual-object-frame {
-            margin: 2rem 0;
-            height: clamp(280px, 46svh, 460px);
+            margin: 1.5rem 0;
+            height: clamp(240px, 40svh, 390px);
             background-color: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-lg);
             overflow: hidden;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
         }
 
         .visual-object-frame img {
@@ -132,25 +163,54 @@
             object-position: center top;
         }
 
+        .visual-float-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            background-color: rgba(17, 19, 23, 0.88);
+            border: 1px solid var(--border-accent);
+            color: var(--accent-text);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
         .visual-editorial-foot {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.85rem;
             z-index: 2;
         }
 
         .visual-headline {
-            font-size: 1.375rem;
-            font-weight: 600;
-            line-height: 1.15;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
             letter-spacing: -0.02em;
-            max-width: 28ch;
         }
 
         .visual-desc {
-            font-size: 1rem;
+            font-size: 0.95rem;
+            color: var(--muted);
+            max-width: 48ch;
+        }
+
+        .visual-perks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.65rem;
+            margin-top: 0.25rem;
+        }
+
+        .perk-item {
+            padding: 0.65rem 0.85rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-weight: 600;
             color: var(--ink);
-            max-width: 46ch;
         }
 
         /* Right Form Half (Columns 7-12) */
@@ -160,21 +220,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: clamp(2rem, 5vw, 4.5rem);
+            padding: clamp(1.5rem, 4vw, 3.5rem);
         }
 
         .portal-panel-box {
             width: 100%;
-            max-width: 460px;
+            max-width: 480px;
+            background-color: var(--surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.35rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
         .portal-header {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.45rem;
         }
 
         .portal-title-row {
@@ -188,23 +253,25 @@
         .portal-badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.3rem 0.75rem;
-            background-color: var(--surface);
+            padding: 0.28rem 0.75rem;
+            border-radius: 999px;
+            background-color: var(--bg);
+            border: 1px solid var(--border-accent);
             color: var(--accent-text);
-            font-size: 0.875rem;
-            font-weight: 600;
+            font-size: 0.78rem;
+            font-weight: 700;
         }
 
         .portal-header h1 {
-            font-size: 1.75rem;
-            font-weight: 600;
+            font-size: 1.65rem;
+            font-weight: 700;
             line-height: 1.15;
             letter-spacing: -0.02em;
             color: var(--ink);
         }
 
         .portal-header p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--muted);
         }
 
@@ -213,14 +280,17 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 0.5rem;
-            background-color: var(--surface);
-            padding: 0.4rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.35rem;
         }
 
         .role-tab-btn {
-            padding: 0.75rem 1rem;
-            font-size: 0.9375rem;
-            font-weight: 500;
+            padding: 0.75rem 0.85rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
             color: var(--muted);
             text-align: center;
         }
@@ -228,7 +298,8 @@
         .role-tab-btn.active {
             background-color: var(--accent);
             color: var(--accent-ink);
-            font-weight: 600;
+            font-weight: 700;
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
 
         /* Customer Sub Tabs (Login vs Register) */
@@ -236,65 +307,79 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 0.5rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.15rem;
         }
 
         .sub-tab-btn {
             padding: 0.6rem 0.85rem;
-            background-color: var(--surface);
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
             color: var(--muted);
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .sub-tab-btn.active {
             background-color: var(--field-1);
+            border-color: #fff;
             color: var(--field-1-ink);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .alert-box {
             display: none;
             padding: 0.85rem 1rem;
+            border-radius: var(--radius-sm);
             font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .alert-box.error {
             display: block;
             background-color: var(--danger-bg);
+            border: 1px solid var(--danger-ink);
             color: var(--danger-ink);
         }
 
         .alert-box.success {
             display: block;
             background-color: var(--success-bg);
+            border: 1px solid var(--success-ink);
             color: var(--success-ink);
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.45rem;
-            margin-bottom: 1rem;
+            gap: 0.4rem;
+            margin-bottom: 0.95rem;
         }
 
         .form-group label {
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.82rem;
+            font-weight: 600;
             color: var(--ink);
         }
 
         .input-wrapper {
             display: flex;
             align-items: center;
-            background-color: var(--surface);
+            background-color: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
         .input-wrapper input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            font-size: 0.9375rem;
+            padding: 0.78rem 0.95rem;
+            font-size: 0.92rem;
             color: var(--ink);
             outline: none;
         }
@@ -305,9 +390,9 @@
 
         .toggle-pass {
             padding: 0 0.85rem;
-            color: var(--muted);
-            font-size: 0.8125rem;
-            font-weight: 500;
+            color: var(--accent-text);
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .form-row-2 {
@@ -320,8 +405,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin: 0.5rem 0 1.25rem;
-            font-size: 0.875rem;
+            margin: 0.4rem 0 1.15rem;
+            font-size: 0.85rem;
         }
 
         .remember-label {
@@ -334,12 +419,15 @@
 
         .btn-submit {
             width: 100%;
-            padding: 0.95rem 1.25rem;
+            padding: 0.9rem 1.25rem;
             background-color: var(--accent);
+            border: 1px solid var(--accent-hover);
+            border-radius: var(--radius-sm);
             color: var(--accent-ink);
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 700;
             text-align: center;
+            box-shadow: 0 6px 18px var(--accent-glow);
         }
 
         .btn-submit:hover {
@@ -347,24 +435,33 @@
         }
 
         .demo-hint-box {
-            margin-top: 1.25rem;
-            padding: 1rem;
-            background-color: var(--surface);
-            font-size: 0.875rem;
+            margin-top: 1.15rem;
+            padding: 0.85rem 1rem;
+            background-color: var(--bg);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
             color: var(--ink);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
         }
 
         .demo-fill-btn {
-            padding: 0.4rem 0.75rem;
-            background-color: var(--bg);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            background-color: var(--surface-raised);
+            border: 1px solid var(--border-accent);
             color: var(--accent-text);
-            font-size: 0.8125rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .demo-fill-btn:hover {
+            background-color: var(--accent);
+            color: var(--accent-ink);
         }
 
         .hidden {
@@ -380,16 +477,17 @@
                 grid-column: 1 / -1;
             }
             .visual-object-frame {
-                height: 240px;
+                height: 220px;
             }
         }
 
         @media (max-width: 600px) {
-            .form-row-2 {
+            .form-row-2,
+            .visual-perks-grid {
                 grid-template-columns: 1fr;
             }
-            .portal-header h1 {
-                font-size: 1.375rem;
+            .portal-panel-box {
+                padding: 1.35rem;
             }
         }
     </style>
@@ -400,17 +498,27 @@
         <!-- Left Architectural Brand & Object Column -->
         <aside class="login-visual-col">
             <div class="brand-bar">
-                <a href="/" class="brand-wordmark">TechStore · Atelier</a>
-                <a href="/" class="back-store-link">Về trang chủ</a>
+                <a href="/" class="brand-wordmark">
+                    <span class="brand-logo-icon">TS</span>
+                    <span>TechStore · Pro Max</span>
+                </a>
+                <a href="/" class="back-store-link">&larr; Về cửa hàng</a>
             </div>
 
             <div class="visual-object-frame">
+                <span class="visual-float-tag">★ Hệ thống Flagship Chính Hãng VN/A</span>
                 <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="TechStore Flagship Hardware" fetchpriority="high" decoding="async">
             </div>
 
             <div class="visual-editorial-foot">
-                <h2 class="visual-headline">Một tài khoản cho toàn bộ hành trình.</h2>
+                <h2 class="visual-headline">Một tài khoản cho toàn bộ hành trình công nghệ.</h2>
                 <p class="visual-desc">Theo dõi vận đơn 4 bước thời gian thực, lưu cấu hình yêu thích, xuất hóa đơn VAT điện tử và quản trị kho hàng tập trung.</p>
+                <div class="visual-perks-grid">
+                    <div class="perk-item">📦 Tra cứu vận đơn 4 mốc</div>
+                    <div class="perk-item">⚡ Thanh toán VietQR 3 giây</div>
+                    <div class="perk-item">💎 Tích lũy hạng VIP CRM</div>
+                    <div class="perk-item">🛡️ Bảo hành 12 tháng VN/A</div>
+                </div>
             </div>
         </aside>
 
@@ -427,8 +535,8 @@
 
                 <!-- Role Switcher -->
                 <div class="role-tabs">
-                    <button type="button" class="role-tab-btn active" id="tab-btn-customer" onclick="switchRole('customer')">Khách Hàng</button>
-                    <button type="button" class="role-tab-btn" id="tab-btn-admin" onclick="switchRole('admin')">Quản Trị Viên</button>
+                    <button type="button" class="role-tab-btn active" id="tab-btn-customer" onclick="switchRole('customer')">👤 Khách Hàng</button>
+                    <button type="button" class="role-tab-btn" id="tab-btn-admin" onclick="switchRole('admin')">🛡️ Quản Trị Viên</button>
                 </div>
 
                 <!-- Alert Banner -->
@@ -439,14 +547,14 @@
                 <!-- CUSTOMER SECTION -->
                 <div id="section-customer">
                     <div class="sub-tabs">
-                        <button type="button" class="sub-tab-btn active" id="sub-login-btn" onclick="switchCustomerTab('login')">Đăng nhập</button>
-                        <button type="button" class="sub-tab-btn" id="sub-reg-btn" onclick="switchCustomerTab('register')">Đăng ký mới</button>
+                        <button type="button" class="sub-tab-btn active" id="sub-login-btn" onclick="switchCustomerTab('login')">🔑 Đăng nhập</button>
+                        <button type="button" class="sub-tab-btn" id="sub-reg-btn" onclick="switchCustomerTab('register')">✨ Đăng ký mới</button>
                     </div>
 
                     <!-- Customer Login Form -->
                     <form id="form-customer-login" onsubmit="handleCustomerLogin(event)">
                         <div class="form-group">
-                            <label for="cust-login-phone">Số điện thoại</label>
+                            <label for="cust-login-phone">Số điện thoại của bạn</label>
                             <div class="input-wrapper">
                                 <input type="tel" id="cust-login-phone" required placeholder="Nhập số điện thoại (VD: 0987654321)" autocomplete="tel">
                             </div>
@@ -467,11 +575,11 @@
                             </label>
                         </div>
 
-                        <button type="submit" class="btn-submit" id="btn-cust-login">Đăng nhập khách hàng</button>
+                        <button type="submit" class="btn-submit" id="btn-cust-login">Đăng nhập khách hàng &rarr;</button>
 
                         <div class="demo-hint-box">
-                            <span>Tài khoản thử nghiệm: <strong>0987654321</strong> / <strong>123456</strong></span>
-                            <button type="button" class="demo-fill-btn" onclick="fillCustomerDemo()">Điền nhanh</button>
+                            <span>Tài khoản mẫu: <strong>0987654321</strong> / <strong>123456</strong></span>
+                            <button type="button" class="demo-fill-btn" onclick="fillCustomerDemo()">⚡ Điền nhanh</button>
                         </div>
                     </form>
 
@@ -515,7 +623,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn-submit" id="btn-cust-reg">Tạo tài khoản &amp; vào cửa hàng</button>
+                        <button type="submit" class="btn-submit" id="btn-cust-reg">Tạo tài khoản &amp; vào cửa hàng &rarr;</button>
                     </form>
                 </div>
 
@@ -537,11 +645,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn-submit" id="btn-admin-submit">Đăng nhập Quản trị (Admin CRM)</button>
+                        <button type="submit" class="btn-submit" id="btn-admin-submit">Đăng nhập Quản trị (Admin CRM) &rarr;</button>
 
                         <div class="demo-hint-box">
                             <span>Quản trị mặc định: <strong>admin</strong> / <strong>admin123</strong></span>
-                            <button type="button" class="demo-fill-btn" onclick="fillAdminDemo()">Điền nhanh</button>
+                            <button type="button" class="demo-fill-btn" onclick="fillAdminDemo()">⚡ Điền nhanh</button>
                         </div>
                     </form>
                 </div>
@@ -667,12 +775,12 @@
                 } else {
                     showAlert(data.message || 'Số điện thoại hoặc mật khẩu không đúng.');
                     btn.disabled = false;
-                    btn.innerText = 'Đăng nhập khách hàng';
+                    btn.innerText = 'Đăng nhập khách hàng →';
                 }
             } catch {
                 showAlert('Lỗi kết nối máy chủ. Vui lòng thử lại.');
                 btn.disabled = false;
-                btn.innerText = 'Đăng nhập khách hàng';
+                btn.innerText = 'Đăng nhập khách hàng →';
             }
         }
 
@@ -705,12 +813,12 @@
                 } else {
                     showAlert(data.message || 'Không thể đăng ký tài khoản.');
                     btn.disabled = false;
-                    btn.innerText = 'Tạo tài khoản & vào cửa hàng';
+                    btn.innerText = 'Tạo tài khoản & vào cửa hàng →';
                 }
             } catch {
                 showAlert('Lỗi kết nối máy chủ.');
                 btn.disabled = false;
-                btn.innerText = 'Tạo tài khoản & vào cửa hàng';
+                btn.innerText = 'Tạo tài khoản & vào cửa hàng →';
             }
         }
 
@@ -740,12 +848,12 @@
                 } else {
                     showAlert(data.message || 'Sai tài khoản hoặc mật khẩu Quản trị viên.');
                     btn.disabled = false;
-                    btn.innerText = 'Đăng nhập Quản trị (Admin CRM)';
+                    btn.innerText = 'Đăng nhập Quản trị (Admin CRM) →';
                 }
             } catch {
                 showAlert('Lỗi kết nối máy chủ.');
                 btn.disabled = false;
-                btn.innerText = 'Đăng nhập Quản trị (Admin CRM)';
+                btn.innerText = 'Đăng nhập Quản trị (Admin CRM) →';
             }
         }
     </script>

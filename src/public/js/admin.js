@@ -286,10 +286,6 @@ function renderCustomersTable() {
   }, 220);
 }
 
-function handleCustomerSearch() {
-  renderCustomersTable();
-}
-
 function filterCustomerTag(tag) {
   currentCustFilter.tag = tag;
   document.querySelectorAll('#cust-tag-filters .pill-btn').forEach((btn) => {
@@ -342,10 +338,6 @@ function openCustomerModal() {
   const titleEl = document.getElementById('modal-cust-edit-title');
   if (titleEl) titleEl.innerText = 'Thêm khách hàng mới';
   openAdminModal('modal-customer-edit');
-}
-
-function openAddCustomerModal() {
-  openCustomerModal();
 }
 
 async function openEditCustomerModal(id) {
@@ -473,10 +465,6 @@ function exportCustomersCSV() {
   window.location.href = '/api/admin/customers/export';
 }
 
-function exportCustomersCsv() {
-  exportCustomersCSV();
-}
-
 // ==================== 4. QUẢN LÝ ĐƠN HÀNG ====================
 
 let orderSearchTimeout = null;
@@ -488,14 +476,6 @@ function renderOrdersTable() {
     currentOrderFilter.toDate = document.getElementById('order-date-to')?.value || '';
     loadOrders();
   }, 220);
-}
-
-function handleOrderSearch() {
-  renderOrdersTable();
-}
-
-function handleOrderDateFilter() {
-  renderOrdersTable();
 }
 
 function filterOrderStatus(status) {
@@ -570,8 +550,8 @@ async function loadOrders() {
       </td>
       <td class="num-col"><strong>${formatMoney(o.totalAmount)}</strong></td>
       <td>
-        <span class="status-badge ${o.paymentStatus === 'paid' ? 'status-paid' : o.paymentStatus === 'expired' ? 'status-expired' : 'status-pending'}">
-          ${(o.paymentMethod || 'cod').toUpperCase()} · ${o.paymentStatus === 'paid' ? 'Đã TT' : o.paymentStatus === 'expired' ? 'Hết hạn' : 'Chưa TT'}
+        <span class="status-badge ${o.paymentStatus === 'paid' ? 'status-paid' : o.paymentStatus === 'expired' ? 'status-expired' : o.paymentStatus === 'cancelled' ? 'status-cancelled' : 'status-pending'}">
+          ${(o.paymentMethod || 'cod').toUpperCase()} · ${o.paymentStatus === 'paid' ? 'Đã TT' : o.paymentStatus === 'expired' ? 'Hết hạn' : o.paymentStatus === 'cancelled' ? 'Đã hủy TT' : 'Chưa TT'}
         </span>
       </td>
       <td>${renderStatusBadge(o.status)}</td>
@@ -656,14 +636,15 @@ async function viewOrder(id) {
         ${order.statusHistory
           .slice()
           .reverse()
-          .map(
-            (h) => `
+          .map((h) => {
+            const ts = h.timestamp || h.time;
+            return `
           <div style="display:flex; justify-content:space-between; gap:0.75rem; font-size:13px; padding:0.25rem 0; border-bottom:1px solid var(--border);">
-            <div><strong>${h.status}</strong> · <span style="color:var(--muted);">${h.note || ''}</span></div>
-            <div class="tabular" style="color:var(--muted);">${h.timestamp ? new Date(h.timestamp).toLocaleString('vi-VN') : ''}</div>
+            <div><strong>${h.status}</strong> · <span style="color:var(--muted);">${h.note || h.title || ''}</span></div>
+            <div class="tabular" style="color:var(--muted);">${ts ? new Date(ts).toLocaleString('vi-VN') : ''}</div>
           </div>
-        `
-          )
+        `;
+          })
           .join('')}
       </div>
     `
@@ -717,10 +698,6 @@ async function deleteOrder(id) {
 function exportOrdersCSV() {
   showToast('Đang xuất danh sách đơn hàng CSV...', 'info');
   window.location.href = '/api/admin/orders/export';
-}
-
-function exportOrdersCsv() {
-  exportOrdersCSV();
 }
 
 function printOrderInvoice() {
@@ -780,10 +757,6 @@ function printOrderInvoice() {
   window.print();
 }
 
-function printCurrentOrder() {
-  printOrderInvoice();
-}
-
 // ==================== 5. QUẢN LÝ SẢN PHẨM ====================
 
 let prodSearchTimeout = null;
@@ -793,10 +766,6 @@ function renderProductsTable() {
     currentProdFilter.search = document.getElementById('prod-search')?.value.trim() || '';
     loadProducts();
   }, 220);
-}
-
-function handleProductSearch() {
-  renderProductsTable();
 }
 
 function filterProductBrand(brand) {
@@ -816,13 +785,17 @@ async function loadProducts() {
 
   let list = data || [];
   if (currentProdFilter.search) {
-    const q = currentProdFilter.search.toLowerCase();
-    list = list.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        String(p.specs || '').toLowerCase().includes(q)
-    );
+    if (typeof window !== 'undefined' && window.CatalogFilter) {
+      list = window.CatalogFilter.filterProducts(list, { search: currentProdFilter.search });
+    } else {
+      const q = currentProdFilter.search.toLowerCase();
+      list = list.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q) ||
+          String(p.specs || '').toLowerCase().includes(q)
+      );
+    }
   }
 
   if (list.length === 0) {
@@ -920,20 +893,12 @@ async function handleCrawlProducts(e) {
   }
 }
 
-function handleCrawlSubmit(e) {
-  return handleCrawlProducts(e);
-}
-
 function openProductModal() {
   document.getElementById('form-product-edit')?.reset();
   document.getElementById('edit-prod-id').value = '';
   const titleEl = document.getElementById('modal-prod-title');
   if (titleEl) titleEl.innerText = 'Thêm sản phẩm mới';
   openAdminModal('modal-product-edit');
-}
-
-function openAddProductModal() {
-  openProductModal();
 }
 
 async function openEditProductModal(id) {
@@ -1055,10 +1020,6 @@ async function handleChangeAdminPassword(e) {
   }
 }
 
-function handleChangePassword(e) {
-  return handleChangeAdminPassword(e);
-}
-
 // ==================== 7. HELPER BADGES & MODALS ====================
 
 function renderCustomerTag(tag) {
@@ -1095,14 +1056,6 @@ function closeAdminModal(modalId) {
   if (!el) return;
   el.classList.add('hidden');
   el.style.display = 'none';
-}
-
-function openModal(modalId) {
-  openAdminModal(modalId);
-}
-
-function closeModal(modalId) {
-  closeAdminModal(modalId);
 }
 
 function showToast(message, type = 'success') {
@@ -1177,8 +1130,4 @@ async function handleSelfHealCatalog() {
       btn.innerText = 'Chuẩn hóa ảnh & thông số';
     }
   }
-}
-
-function selfHealAllProducts() {
-  return handleSelfHealCatalog();
 }

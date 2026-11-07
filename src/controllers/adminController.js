@@ -395,21 +395,10 @@ exports.deleteProduct = async (req, res) => {
 exports.enrichProductById = async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await ProductModel.getById(id);
-    if (!product) {
+    const updated = await geminiService.enrichAndPersistProduct(id);
+    if (!updated) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy sản phẩm' });
     }
-    const enrichment = await geminiService.enrichProduct({
-      name: product.name,
-      brand: product.brand,
-      rawText: product.description || product.specs || ''
-    });
-
-    const updated = await ProductModel.update(id, {
-      detailedSpecs: enrichment.detailedSpecs,
-      aiReview: enrichment.aiReview,
-      aiEnrichedAt: new Date().toISOString()
-    });
 
     res.json({
       success: true,
@@ -424,35 +413,19 @@ exports.enrichProductById = async (req, res) => {
 
 exports.selfHealProducts = async (req, res) => {
   try {
-    const limit = parseInt(req.body?.limit || req.query?.limit) || 10;
-    const unenriched = await ProductModel.getUnenriched(limit);
-    let count = 0;
-
-    for (const product of unenriched) {
-      try {
-        const enrichment = await geminiService.enrichProduct({
-          name: product.name,
-          brand: product.brand,
-          rawText: product.description || product.specs || ''
-        });
-        await ProductModel.update(product.id, {
-          detailedSpecs: enrichment.detailedSpecs,
-          aiReview: enrichment.aiReview,
-          aiEnrichedAt: new Date().toISOString()
-        });
-        count++;
-      } catch (e) {
-        console.error('Lỗi enrich cho sản phẩm ' + product.id + ':', e.message);
-      }
-    }
+    const limit = parseInt(req.body?.limit || req.query?.limit, 10) || 10;
+    const result = await geminiService.selfHealCatalog(limit);
 
     res.json({
       success: true,
-      count,
-      message: 'Đã tự vá và làm giàu dữ liệu cho ' + count + ' sản phẩm.'
+      count: result.enrichedCount,
+      totalFound: result.totalFound,
+      updatedProducts: result.updatedProducts,
+      message: 'Đã tự vá và làm giàu dữ liệu cho ' + result.enrichedCount + ' sản phẩm.'
     });
   } catch (err) {
     console.error('Lỗi selfHealProducts:', err);
     res.status(500).json({ success: false, message: err.message });
   }
 };
+

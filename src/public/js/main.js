@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
   updateBenchDisplay();
+  updateBrandCountBadges();
 
   // Auto-open Customer Self-Service Portal when visiting /customer-portal or ?portal=1
   const urlParams = new URLSearchParams(window.location.search);
@@ -115,11 +116,51 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('btn-open-cart')?.addEventListener('click', openCartModal);
   document.getElementById('order-form')?.addEventListener('submit', handlePlaceOrder);
 
+  // Keyboard shortcut '/' to focus search input
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+      e.preventDefault();
+      document.getElementById('input-search')?.focus();
+    }
+  });
+
   window.addEventListener('popstate', () => {
     hydrateFiltersFromUrl();
     renderProductList();
   });
 });
+
+function copyTextToClipboard(text, label = 'Nội dung') {
+  if (!text) return;
+  const clean = String(text).trim();
+  const fallbackCopy = () => {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = clean;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast(`Đã sao chép ${label}: ${clean}`, 'info');
+    } catch {
+      showToast(`Mã ${label}: ${clean}`, 'info');
+    }
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard
+      .writeText(clean)
+      .then(() => {
+        showToast(`Đã sao chép ${label}: ${clean}`, 'info');
+      })
+      .catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
+}
 
 function initScrollReveal() {
   const shutterEl = document.getElementById('hero-shutter-frame');
@@ -195,6 +236,9 @@ function updateBenchDisplay() {
     imgEl.alt = model.name;
   }
 
+  const visualLabelEl = document.getElementById('hero-visual-label');
+  if (visualLabelEl) visualLabelEl.innerText = `${model.name} (${cap.label}) · Chính hãng VN/A`;
+
   const capModelEl = document.getElementById('hero-caption-model');
   if (capModelEl) capModelEl.innerText = `${model.name} · ${cap.label}`;
 
@@ -208,7 +252,7 @@ function updateBenchDisplay() {
   if (priceEl) priceEl.innerText = formatMoney(finalPrice);
 
   const saveEl = document.getElementById('bench-live-saving');
-  if (saveEl) saveEl.innerText = `Giá ưu đãi kho chính ngạch · Sẵn hàng giao ngay`;
+  if (saveEl) saveEl.innerText = `Tiết kiệm ${formatMoney(model.saving)} so với giá niêm yết · Giao nhanh 2H`;
 }
 
 async function triggerBenchBuy() {
@@ -224,6 +268,119 @@ async function triggerBenchBuy() {
 
 // ==================== 1. DANH MỤC, BỘ LỌC ĐA CHIỀU & ĐỒNG BỘ URL ====================
 
+function updateBrandCountBadges() {
+  if (!Array.isArray(allProducts) || allProducts.length === 0) return;
+  document.querySelectorAll('.filter-bar .btn-filter').forEach((btn) => {
+    const brand = btn.getAttribute('data-brand') || 'all';
+    const count =
+      brand === 'all'
+        ? allProducts.length
+        : allProducts.filter((p) => String(p.brand || '').toLowerCase() === brand.toLowerCase()).length;
+    const baseLabel = brand === 'all' ? 'Tất cả hãng' : brand;
+    btn.innerHTML = `${baseLabel} <span class="brand-count-badge">${count}</span>`;
+  });
+}
+
+function syncFilterButtonsActiveState() {
+  const brandNorm = String(currentBrand || 'all').toLowerCase();
+
+  document.querySelectorAll('.filter-bar .btn-filter').forEach((btn) => {
+    const b = (btn.getAttribute('data-brand') || 'all').toLowerCase();
+    btn.classList.toggle('active', b === brandNorm);
+  });
+
+  document.querySelectorAll('[data-ribbon-brand]').forEach((btn) => {
+    const b = (btn.getAttribute('data-ribbon-brand') || 'all').toLowerCase();
+    btn.classList.toggle('active', b === brandNorm);
+  });
+
+  const { ram, storage, chip, priceRange, sort } = currentSpecsFilter;
+  const sortNorm = sort || 'default';
+  let activePreset = '';
+
+  if (
+    ram === 'all' &&
+    storage === 'all' &&
+    chip === 'all' &&
+    priceRange === 'all' &&
+    sortNorm === 'default'
+  ) {
+    activePreset = 'all';
+  } else if (
+    (sortNorm === 'discount' || sortNorm === 'discount_desc') &&
+    ram === 'all' &&
+    storage === 'all' &&
+    chip === 'all' &&
+    priceRange === 'all'
+  ) {
+    activePreset = 'discount';
+  } else if (
+    ram === '16GB' &&
+    storage === 'all' &&
+    chip === 'all' &&
+    priceRange === 'all'
+  ) {
+    activePreset = 'gaming';
+  } else if (
+    priceRange === 'over25' &&
+    ram === 'all' &&
+    storage === 'all' &&
+    chip === 'all'
+  ) {
+    activePreset = 'flagship';
+  } else if (
+    priceRange === '15to25' &&
+    ram === 'all' &&
+    storage === 'all' &&
+    chip === 'all'
+  ) {
+    activePreset = 'midrange';
+  } else if (
+    priceRange === 'under15' &&
+    ram === 'all' &&
+    storage === 'all' &&
+    chip === 'all'
+  ) {
+    activePreset = 'budget';
+  }
+
+  document.querySelectorAll('.quick-presets-bar .preset-pill').forEach((btn) => {
+    btn.classList.toggle('active', btn.getAttribute('data-preset') === activePreset);
+  });
+}
+
+function applyQuickPreset(preset) {
+  if (preset === 'all' || preset === 'gaming') {
+    currentBrand = 'all';
+  }
+  currentSpecsFilter = { ram: 'all', storage: 'all', chip: 'all', priceRange: 'all', sort: 'default' };
+
+  if (preset === 'discount') {
+    currentSpecsFilter.sort = 'discount';
+  } else if (preset === 'gaming') {
+    currentSpecsFilter.ram = '16GB';
+  } else if (preset === 'flagship') {
+    currentSpecsFilter.priceRange = 'over25';
+  } else if (preset === 'midrange') {
+    currentSpecsFilter.priceRange = '15to25';
+  } else if (preset === 'budget') {
+    currentSpecsFilter.priceRange = 'under15';
+  }
+
+  const setSelectVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  };
+  setSelectVal('filter-ram', currentSpecsFilter.ram);
+  setSelectVal('filter-storage', currentSpecsFilter.storage);
+  setSelectVal('filter-chip', currentSpecsFilter.chip);
+  setSelectVal('filter-price', currentSpecsFilter.priceRange);
+  setSelectVal('filter-sort', currentSpecsFilter.sort || 'default');
+
+  syncFiltersToUrl();
+  renderProductList();
+}
+
 function hydrateFiltersFromUrl() {
   const params = new URLSearchParams(window.location.search);
   currentBrand = params.get('brand') || 'all';
@@ -236,6 +393,8 @@ function hydrateFiltersFromUrl() {
 
   const searchInput = document.getElementById('input-search');
   if (searchInput) searchInput.value = params.get('q') || '';
+  const clearBtn = document.getElementById('btn-clear-search');
+  if (clearBtn) clearBtn.style.display = currentSearch ? 'inline-flex' : 'none';
 
   const setSelectVal = (id, val) => {
     const el = document.getElementById(id);
@@ -247,10 +406,7 @@ function hydrateFiltersFromUrl() {
   setSelectVal('filter-price', currentSpecsFilter.priceRange);
   setSelectVal('filter-sort', currentSpecsFilter.sort || 'default');
 
-  document.querySelectorAll('.filter-bar .btn-filter').forEach((btn) => {
-    const b = btn.getAttribute('data-brand') || 'all';
-    btn.classList.toggle('active', b.toLowerCase() === currentBrand.toLowerCase());
-  });
+  syncFilterButtonsActiveState();
 }
 
 function syncFiltersToUrl() {
@@ -268,6 +424,7 @@ function syncFiltersToUrl() {
   const qs = params.toString();
   const nextUrl = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
   window.history.replaceState({}, '', nextUrl);
+  syncFilterButtonsActiveState();
   updateBreadcrumbAndChips();
 }
 
@@ -394,6 +551,7 @@ async function loadProducts() {
         allProducts = (await fallbackRes.json()) || [];
       }
     }
+    updateBrandCountBadges();
     renderProductList();
   } catch (err) {
     console.error('Lỗi tải sản phẩm:', err);
@@ -403,6 +561,8 @@ async function loadProducts() {
 function handleSearch(val) {
   const inputVal = val !== undefined ? val : document.getElementById('input-search')?.value || '';
   currentSearch = String(inputVal).toLowerCase().trim();
+  const clearBtn = document.getElementById('btn-clear-search');
+  if (clearBtn) clearBtn.style.display = currentSearch ? 'inline-flex' : 'none';
   syncFiltersToUrl();
   renderProductList();
 }
@@ -433,8 +593,14 @@ function resetAllFilters() {
 
   const searchInput = document.getElementById('input-search');
   if (searchInput) searchInput.value = '';
+  const clearBtn = document.getElementById('btn-clear-search');
+  if (clearBtn) clearBtn.style.display = 'none';
+
   document.querySelectorAll('.filter-bar .btn-filter').forEach((btn) => {
     btn.classList.toggle('active', btn.getAttribute('data-brand') === 'all');
+  });
+  document.querySelectorAll('.quick-presets-bar .preset-pill').forEach((btn) => {
+    btn.classList.toggle('active', btn.getAttribute('data-preset') === 'all');
   });
 
   ['filter-ram', 'filter-storage', 'filter-chip', 'filter-price'].forEach((id) => {
@@ -448,107 +614,23 @@ function resetAllFilters() {
   renderProductList();
 }
 
-function normalizeClientCapacity(str) {
-  return String(str || '')
-    .toLowerCase()
-    .replace(/(\d+)\s+(gb|tb|mah)\b/gi, '$1$2');
-}
-
-function matchesProductField(p, field, val) {
-  if (!val || val === 'all') return true;
-  const targets = String(val)
-    .toLowerCase()
-    .split(',')
-    .map((s) => normalizeClientCapacity(s.trim()))
-    .filter(Boolean);
-  if (targets.length === 0) return true;
-
-  const detailed = normalizeClientCapacity(p.detailedSpecs?.[field] || '');
-  const specs = normalizeClientCapacity(p.specs || '');
-  const name = normalizeClientCapacity(p.name || '');
-
-  if (field === 'ram' || field === 'storage') {
-    const source = detailed || `${specs} ${name}`;
-    return targets.some((t) => {
-      const escaped = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      return new RegExp(`(?<![0-9a-z])${escaped}(?![0-9a-z])`, 'i').test(source);
-    });
-  }
-
-  const combined = `${detailed} ${specs} ${name}`;
-  return targets.some((t) => combined.includes(t));
-}
-
-function matchesPriceFilter(price, rangeKey) {
-  if (!rangeKey || rangeKey === 'all') return true;
-  if (rangeKey === 'under15') return price < 15000000;
-  if (rangeKey === '15to25') return price >= 15000000 && price <= 25000000;
-  if (rangeKey === 'over25') return price > 25000000;
-  if (rangeKey.includes('-')) {
-    const [minStr, maxStr] = rangeKey.split('-');
-    const min = Number(minStr) || 0;
-    const max = Number(maxStr) || Infinity;
-    return price >= min && price <= max;
-  }
-  return true;
-}
-
 function renderProductList() {
   const container = document.getElementById('product-list');
   if (!container) return;
 
   updateBreadcrumbAndChips();
 
-  let list = [...allProducts];
-
-  if (currentBrand && currentBrand !== 'all') {
-    list = list.filter((p) => String(p.brand || '').toLowerCase() === currentBrand.toLowerCase());
-  }
-
-  if (currentSpecsFilter.ram && currentSpecsFilter.ram !== 'all') {
-    list = list.filter((p) => matchesProductField(p, 'ram', currentSpecsFilter.ram));
-  }
-
-  if (currentSpecsFilter.storage && currentSpecsFilter.storage !== 'all') {
-    list = list.filter((p) => matchesProductField(p, 'storage', currentSpecsFilter.storage));
-  }
-
-  if (currentSpecsFilter.chip && currentSpecsFilter.chip !== 'all') {
-    list = list.filter((p) => matchesProductField(p, 'chip', currentSpecsFilter.chip));
-  }
-
-  if (currentSpecsFilter.priceRange && currentSpecsFilter.priceRange !== 'all') {
-    list = list.filter((p) => matchesPriceFilter(p.price, currentSpecsFilter.priceRange));
-  }
-
-  if (currentSearch) {
-    list = list.filter((p) => {
-      const hay = [
-        p.name,
-        p.brand,
-        p.specs,
-        p.detailedSpecs?.chip,
-        p.detailedSpecs?.ram,
-        p.detailedSpecs?.storage
-      ]
-        .filter(Boolean)
-        .join(' ')
-        .toLowerCase();
-      return hay.includes(currentSearch);
-    });
-  }
-
-  const sortMode = currentSpecsFilter.sort;
-  if (sortMode === 'price_asc' || sortMode === 'price-asc') {
-    list.sort((a, b) => a.price - b.price);
-  } else if (sortMode === 'price_desc' || sortMode === 'price-desc') {
-    list.sort((a, b) => b.price - a.price);
-  } else if (sortMode === 'name_asc') {
-    list.sort((a, b) => String(a.name).localeCompare(String(b.name), 'vi'));
-  } else if (sortMode === 'discount_desc' || sortMode === 'discount') {
-    const getDisc = (p) => (p.oldPrice && p.oldPrice > p.price ? 1 - p.price / p.oldPrice : 0);
-    list.sort((a, b) => getDisc(b) - getDisc(a));
-  }
+  const list = window.CatalogFilter
+    ? window.CatalogFilter.filterProducts(allProducts, {
+        brand: currentBrand,
+        ram: currentSpecsFilter.ram,
+        storage: currentSpecsFilter.storage,
+        chip: currentSpecsFilter.chip,
+        priceRange: currentSpecsFilter.priceRange,
+        search: currentSearch,
+        sort: currentSpecsFilter.sort
+      })
+    : [...allProducts];
 
   const countEl = document.getElementById('total-products-count');
   if (countEl) countEl.innerText = list.length;
@@ -558,10 +640,10 @@ function renderProductList() {
   if (list.length === 0) {
     if (moreWrap) moreWrap.style.display = 'none';
     container.innerHTML = `
-      <div style="grid-column: 1 / -1; padding: 3rem; background-color: var(--surface); text-align: center;">
-        <p style="font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 0.5rem;">Không tìm thấy thiết bị khớp bộ lọc</p>
+      <div style="grid-column: 1 / -1; padding: 3rem; background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); text-align: center;">
+        <p style="font-size: var(--fs-h3); font-weight: 700; color: var(--ink); margin-bottom: 0.5rem;">🔍 Không tìm thấy thiết bị khớp bộ lọc hiện tại</p>
         <p style="font-size: var(--fs-body); color: var(--muted); margin-bottom: 1.5rem;">Thử nới lỏng tiêu chí RAM, bộ nhớ trong, mức giá hoặc đặt lại toàn bộ bộ lọc.</p>
-        <button type="button" class="btn-primary-sage" onclick="resetAllFilters()">Đặt lại bộ lọc</button>
+        <button type="button" class="btn-primary-sage" onclick="resetAllFilters()">↺ Đặt lại toàn bộ bộ lọc</button>
       </div>
     `;
     return;
@@ -576,14 +658,15 @@ function renderProductList() {
     currentSpecsFilter.priceRange === 'all' &&
     (!currentSpecsFilter.sort || currentSpecsFilter.sort === 'default');
 
-  const visibleList = isUnfiltered && !showAllCatalog ? list.slice(0, 6) : list;
+  const initialLimit = 12;
+  const visibleList = isUnfiltered && !showAllCatalog ? list.slice(0, initialLimit) : list;
 
   if (moreWrap) {
-    if (isUnfiltered && !showAllCatalog && list.length > 6) {
+    if (isUnfiltered && !showAllCatalog && list.length > initialLimit) {
       moreWrap.style.display = 'flex';
       moreWrap.innerHTML = `
         <button type="button" class="btn-secondary-tone" onclick="expandAllCatalog()">
-          Hiển thị toàn bộ ${list.length} thiết bị trong kho
+          📱 Xem đầy đủ toàn bộ ${list.length} mẫu điện thoại trong kho &darr;
         </button>
       `;
     } else {
@@ -595,24 +678,36 @@ function renderProductList() {
   container.innerHTML = visibleList
     .map((p, idx) => {
       const discount = p.oldPrice && p.oldPrice > p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+      const savingAmount = p.oldPrice && p.oldPrice > p.price ? p.oldPrice - p.price : 0;
       const isLiked = userWishlist.includes(String(p.id));
-      const ramBadge = p.detailedSpecs?.ram ? `<span class="spec-pill">${p.detailedSpecs.ram}</span>` : '';
-      const romBadge = p.detailedSpecs?.storage ? `<span class="spec-pill">${p.detailedSpecs.storage}</span>` : '';
-      const chipBadge = p.detailedSpecs?.chip ? `<span class="spec-pill">${p.detailedSpecs.chip}</span>` : '';
+      const chipBadge = p.detailedSpecs?.chip ? `<span class="spec-pill spec-pill--highlight">⚙️ ${p.detailedSpecs.chip}</span>` : '';
+      const ramBadge = p.detailedSpecs?.ram ? `<span class="spec-pill">RAM ${p.detailedSpecs.ram}</span>` : '';
+      const romBadge = p.detailedSpecs?.storage ? `<span class="spec-pill">ROM ${p.detailedSpecs.storage}</span>` : '';
 
       return `
       <article class="product-card" data-reveal style="--i:${idx % 3}">
+        <div class="card-top-badges">
+          <div class="card-badge-stack">
+            ${discount > 0 ? `<span class="card-discount-badge">Giảm -${discount}%</span>` : ''}
+            <span class="card-origin-badge">VN/A Chính Hãng</span>
+          </div>
+          <button type="button" class="card-wish-icon-btn ${isLiked ? 'active' : ''}" onclick="toggleWishlistItem('${p.id}')" title="${isLiked ? 'Bỏ lưu yêu thích' : 'Lưu vào danh sách yêu thích'}" aria-label="Yêu thích">
+            ${isLiked ? '♥' : '♡'}
+          </button>
+        </div>
+
         <div class="product-img-wrapper" onclick="openProductDetailModal('${p.id}')">
           <img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy" decoding="async">
+          <span class="card-quickview-pill">🔍 Xem cấu hình &amp; AI đánh giá</span>
         </div>
 
         <div class="product-body">
           <div class="product-meta-row">
             <span class="product-brand-tag">${p.brand}</span>
-            <span class="product-stock-tag">${discount > 0 ? `Ưu đãi -${discount}%` : 'Sẵn hàng VN/A'}</span>
+            <span class="product-stock-tag">● Sẵn hàng</span>
           </div>
 
-          <div class="product-title" onclick="openProductDetailModal('${p.id}')">${p.name}</div>
+          <div class="product-title" onclick="openProductDetailModal('${p.id}')" title="${p.name}">${p.name}</div>
 
           ${
             ramBadge || romBadge || chipBadge
@@ -621,14 +716,20 @@ function renderProductList() {
           }
 
           <div class="product-price-box">
-            <span class="current-price">${formatMoney(p.price)}</span>
-            ${p.oldPrice && p.oldPrice > p.price ? `<span class="old-price">${formatMoney(p.oldPrice)}</span>` : ''}
+            <div class="price-main-line">
+              <span class="current-price">${formatMoney(p.price)}</span>
+              ${p.oldPrice && p.oldPrice > p.price ? `<span class="old-price">${formatMoney(p.oldPrice)}</span>` : ''}
+            </div>
+            <div class="price-sub-line">
+              <span>${savingAmount > 0 ? `<span class="price-saving-tag">Tiết kiệm ${formatMoney(savingAmount)}</span>` : 'Giá chuẩn xuất kho'}</span>
+              <span>VietQR 3s · BH 12T</span>
+            </div>
           </div>
 
           <div class="product-actions">
-            <button type="button" class="btn-buy-now" onclick="buyNow('${p.id}')">Mua ngay</button>
-            <button type="button" class="btn-add-cart" onclick="addToCart('${p.id}')" title="Thêm vào giỏ">+ Giỏ</button>
-            <button type="button" class="btn-add-cart ${isLiked ? 'active' : ''}" onclick="toggleWishlistItem('${p.id}')" title="Lưu yêu thích">${isLiked ? 'Đã lưu' : 'Lưu'}</button>
+            <button type="button" class="btn-buy-now" onclick="buyNow('${p.id}')">⚡ Mua ngay</button>
+            <button type="button" class="btn-add-cart" onclick="addToCart('${p.id}')" title="Thêm vào giỏ hàng">+ Giỏ hàng</button>
+            <button type="button" class="btn-add-cart" onclick="openProductDetailModal('${p.id}')" title="Xem chi tiết cấu hình">Chi tiết</button>
           </div>
         </div>
       </article>
@@ -838,8 +939,19 @@ async function handlePlaceOrder(e) {
 
 // ==================== 2B. VIETQR PAYMENT SANDBOX & 3S POLLING ====================
 
+function clearQrSessionTimers() {
+  if (activeQrSession.pollTimer) {
+    clearInterval(activeQrSession.pollTimer);
+    activeQrSession.pollTimer = null;
+  }
+  if (activeQrSession.countdownTimer) {
+    clearInterval(activeQrSession.countdownTimer);
+    activeQrSession.countdownTimer = null;
+  }
+}
+
 function openQrPaymentModal(order) {
-  stopQrPolling();
+  clearQrSessionTimers();
   activeQrSession.orderId = order.id;
   activeQrSession.paymentRef = order.paymentRef || `PAY_${order.id}`;
   activeQrSession.expiresAt = order.paymentExpiresAt;
@@ -857,7 +969,8 @@ function openQrPaymentModal(order) {
   const banner = document.getElementById('qr-status-banner');
   if (banner) {
     banner.className = 'qr-status-banner';
-    banner.innerText = 'Đang chờ quét mã VietQR thanh toán (tự động kiểm tra mỗi 3 giây)...';
+    banner.innerHTML =
+      '<span id="qr-status-text">⏳ Đang chờ quét mã VietQR thanh toán (tự động kiểm tra mỗi 3 giây)...</span>';
   }
 
   openModal('qr-payment-modal');
@@ -873,6 +986,7 @@ function updateQrCountdownDisplay() {
   const remainingMs = Date.parse(activeQrSession.expiresAt) - Date.now();
   if (remainingMs <= 0) {
     timerEl.innerText = '00:00 (Hết hạn)';
+    clearQrSessionTimers();
     pollQrPaymentStatus(activeQrSession.orderId);
     return;
   }
@@ -890,21 +1004,23 @@ async function pollQrPaymentStatus(orderId) {
 
     const banner = document.getElementById('qr-status-banner');
     if (data.paymentStatus === 'paid') {
-      stopQrPolling();
+      clearQrSessionTimers();
       if (banner) {
         banner.className = 'qr-status-banner paid';
-        banner.innerText = 'Thanh toán VietQR thành công. Đơn hàng đã được xác nhận.';
+        banner.innerHTML =
+          '<span id="qr-status-text">✅ Thanh toán VietQR thành công. Đơn hàng đã được xác nhận!</span>';
       }
       showToast('Thanh toán VietQR thành công cho đơn #' + orderId, 'success');
       setTimeout(() => {
-        closeModal('qr-payment-modal');
+        closeQrPaymentModal();
         openCustomerPortal('track', { orderId, phone: activeQrSession.phone });
       }, 900);
     } else if (data.paymentStatus === 'expired' || data.status === 'cancelled') {
-      stopQrPolling();
+      clearQrSessionTimers();
       if (banner) {
-        banner.className = 'qr-status-banner';
-        banner.innerText = 'Đơn hàng đã hết hạn thanh toán VietQR hoặc đã bị hủy.';
+        banner.className = 'qr-status-banner expired';
+        banner.innerHTML =
+          '<span id="qr-status-text">⚠️ Đơn hàng đã hết hạn thanh toán VietQR hoặc đã bị hủy.</span>';
       }
       showToast('Đơn hàng QR đã hết hạn hoặc bị hủy', 'error');
     }
@@ -942,19 +1058,8 @@ async function simulateQrWebhook(action = 'confirm') {
   }
 }
 
-function stopQrPolling() {
-  if (activeQrSession.pollTimer) {
-    clearInterval(activeQrSession.pollTimer);
-    activeQrSession.pollTimer = null;
-  }
-  if (activeQrSession.countdownTimer) {
-    clearInterval(activeQrSession.countdownTimer);
-    activeQrSession.countdownTimer = null;
-  }
-}
-
 function closeQrPaymentModal() {
-  stopQrPolling();
+  clearQrSessionTimers();
   closeModal('qr-payment-modal');
 }
 
@@ -1161,14 +1266,6 @@ async function logoutCustomer() {
 
 // ==================== 4. CỔNG KHÁCH HÀNG TỰ PHỤC VỤ & TIMELINE ====================
 
-function openMyOrdersModal() {
-  openCustomerPortal('orders');
-}
-
-function closeMyOrdersModal() {
-  closeModal('my-orders-modal');
-}
-
 function openCustomerPortal(tab = 'track', prefill = null) {
   openModal('customer-portal-modal');
   switchPortalTab(tab);
@@ -1264,7 +1361,9 @@ function renderOrderTimelineTracker(order) {
                 ? 'Chờ quét QR'
                 : order.paymentStatus === 'expired'
                   ? 'Hết hạn QR'
-                  : 'Chưa thanh toán'
+                  : order.paymentStatus === 'cancelled' || order.paymentStatus === 'failed'
+                    ? 'Đã hủy TT'
+                    : 'Chưa thanh toán'
           }
         </span>
       </div>
@@ -1277,13 +1376,13 @@ function renderOrderTimelineTracker(order) {
               ${order.statusHistory
                 .slice()
                 .reverse()
-                .map(
-                  (h) =>
-                    `<div style="display:flex; justify-content:space-between; gap:0.5rem; padding:0.15rem 0;">
-                      <span><strong style="color:var(--ink);">${h.note || h.status}</strong></span>
-                      <span class="tabular">${h.timestamp ? new Date(h.timestamp).toLocaleString('vi-VN') : ''}</span>
-                    </div>`
-                )
+                .map((h) => {
+                  const ts = h.timestamp || h.time;
+                  return `<div style="display:flex; justify-content:space-between; gap:0.5rem; padding:0.15rem 0;">
+                      <span><strong style="color:var(--ink);">${h.note || h.title || h.status}</strong></span>
+                      <span class="tabular">${ts ? new Date(ts).toLocaleString('vi-VN') : ''}</span>
+                    </div>`;
+                })
                 .join('')}
             </div>`
           : ''
@@ -1556,6 +1655,9 @@ function openModal(id) {
 }
 
 function closeModal(id) {
+  if (id === 'qr-payment-modal') {
+    clearQrSessionTimers();
+  }
   const el = document.getElementById(id);
   if (!el) return;
   el.classList.add('hidden');
@@ -1628,16 +1730,24 @@ async function openProductDetailModal(productId) {
     addToCart(p.id);
   };
 
-  const specs = p.detailedSpecs || {
-    screen: '6.7 inch Super AMOLED 120Hz',
-    chip: p.brand === 'Apple' ? 'Apple A-Series Bionic' : 'Snapdragon / Dimensity',
-    ram: '8GB / 12GB',
-    storage: '128GB / 256GB',
-    battery: '5000mAh',
-    camera: '50MP OIS',
-    charging: 'Sạc nhanh công suất cao',
-    os: p.brand === 'Apple' ? 'iOS' : 'Android'
-  };
+  const specs =
+    p.detailedSpecs ||
+    (window.CatalogFilter && typeof window.CatalogFilter.extractHardwareSpecs === 'function'
+      ? window.CatalogFilter.extractHardwareSpecs({
+          name: p.name,
+          brand: p.brand,
+          rawText: p.specs || p.description || ''
+        })
+      : {
+          screen: 'Màn hình sắc nét 120Hz',
+          chip: p.brand === 'Apple' ? 'Apple A-Series Bionic' : 'Snapdragon / Dimensity',
+          ram: '8GB',
+          storage: '128GB',
+          battery: '5000mAh',
+          camera: '50MP AI',
+          charging: 'Sạc nhanh công suất cao',
+          os: p.brand === 'Apple' ? 'iOS' : 'Android'
+        });
 
   const specsList = [
     { label: 'Màn hình', val: specs.screen },
@@ -1694,10 +1804,6 @@ function toggleAiChat() {
   }
 }
 
-function toggleChatWindow() {
-  toggleAiChat();
-}
-
 function sendQuickPrompt(promptText) {
   const input = document.getElementById('ai-chat-input');
   if (input) {
@@ -1743,10 +1849,6 @@ async function handleAiChatSubmit(event) {
   }
 
   scrollChatToBottom();
-}
-
-function handleChatSubmit(event) {
-  return handleAiChatSubmit(event);
 }
 
 function appendChatBubble(role, text, suggestedProducts = []) {

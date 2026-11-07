@@ -3,3 +3,4 @@ node_modules/
 .agents/
 graphify-out/cache/
 .taste-skill/
+.vercel

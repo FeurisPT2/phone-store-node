@@ -7,14 +7,12 @@ exports.getProfile = async (req, res) => {
   if (!sessionCust) {
     return res.json({ loggedIn: false, remembered: false, data: null });
   }
-  const fresh = (await CustomerModel.findById(sessionCust.id)) || sessionCust;
-  const safe = { ...fresh };
-  delete safe.passwordHash;
-  if (req.session) req.session.customer = safe;
+  const fresh = (await CustomerModel.findById(sessionCust.id)) || CustomerModel.toSafeCustomer(sessionCust);
+  if (req.session) req.session.customer = fresh;
   res.json({
     loggedIn: !!(req.session?.customer),
     remembered: true,
-    data: safe
+    data: fresh
   });
 };
 
@@ -34,13 +32,11 @@ exports.updateProfile = async (req, res) => {
     if (!updated) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy tài khoản khách hàng' });
     }
-    const safe = { ...updated };
-    delete safe.passwordHash;
-    if (req.session) req.session.customer = safe;
+    if (req.session) req.session.customer = updated;
     res.json({
       success: true,
       message: 'Cập nhật hồ sơ & sổ địa chỉ thành công!',
-      customer: safe
+      customer: updated
     });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
@@ -84,9 +80,7 @@ exports.toggleWishlist = async (req, res) => {
       if (!result) {
         return res.status(404).json({ success: false, message: 'Không tìm thấy khách hàng' });
       }
-      const safe = { ...result.customer };
-      delete safe.passwordHash;
-      if (req.session) req.session.customer = safe;
+      if (req.session) req.session.customer = result.customer;
       return res.json({
         success: true,
         added: result.added,
@@ -180,9 +174,7 @@ exports.lookup = async (req, res) => {
   try {
     const c = await CustomerModel.findByPhone(req.query.phone);
     if (!c) return res.json({ found: false, customer: null });
-    const safe = { ...c };
-    delete safe.passwordHash;
-    res.json({ found: true, customer: safe });
+    res.json({ found: true, customer: c });
   } catch (err) {
     res.status(500).json({ found: false, error: err.message });
   }

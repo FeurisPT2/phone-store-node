@@ -198,5 +198,110 @@ describe('QR Payment Sandbox, Lazy TTL Expiration & Admin Order Tiering Workflow
     const custIdempotent = await CustomerModel.findById(testCustomerId);
     assert.equal(custIdempotent.totalSpent, 28000000);
     assert.equal(custIdempotent.orderCount, 1);
+
+    // Guard: Completed order cannot be transitioned to cancelled or pending
+    const revertCompletedRes = await fetch(`${baseUrl}/api/admin/orders/${orderId}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Cookie: adminCookie },
+      body: JSON.stringify({ status: 'cancelled', note: 'Thử hủy đơn đã hoàn thành' })
+    });
+    assert.equal(revertCompletedRes.status, 400);
+  });
+
+  test('Manual customer cancellation of awaiting_payment QR order sets paymentStatus="cancelled" (distinct from TTL "expired") and guards cancelled -> completed transition', async () => {
+    const manualQrOrder = await OrderModel.createOrder({
+      customerId: testCustomerId,
+      customerInfo: { fullName: 'Trần Văn QR', phone: testCustomerPhone, address: '123 Nguyễn Huệ' },
+      items: [{ id: 'p3', name: 'Xiaomi 15 Ultra', price: 22000000, quantity: 1 }],
+      totalAmount: 22000000,
+      paymentMethod: 'qr'
+    });
+    createdOrderIds.push(manualQrOrder.id);
+
+    // Verify initial statusHistory has both time and timestamp
+    assert.equal(manualQrOrder.statusHistory.length, 1);
+    assert.ok(manualQrOrder.statusHistory[0].time);
+    assert.ok(manualQrOrder.statusHistory[0].timestamp);
+    assert.equal(manualQrOrder.statusHistory[0].time, manualQrOrder.statusHistory[0].timestamp);
+
+    // Customer cancels awaiting_payment QR order before 15m TTL
+    const cancelRes = await fetch(`${baseUrl}/api/orders/${manualQrOrder.id}/cancel`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: testCustomerPhone, reason: 'Muốn đổi sang trả góp' })
+    });
+    assert.equal(cancelRes.status, 200);
+    const cancelJson = await cancelRes.json();
+    assert.equal(cancelJson.success, true);
+    assert.equal(cancelJson.order.status, 'cancelled');
+    assert.equal(
+      cancelJson.order.paymentStatus,
+      'cancelled',
+      'Manual QR cancellation must set paymentStatus="cancelled", NOT "expired"'
+    );
+
+    // Every statusHistory entry must have both time and timestamp
+    for (const entry of cancelJson.order.statusHistory) {
+      assert.ok(entry.time, 'statusHistory entry must include time');
+      assert.ok(entry.timestamp, 'statusHistory entry must include timestamp');
+      assert.ok(!Number.isNaN(Date.parse(entry.timestamp)), 'statusHistory timestamp must be valid ISO date');
+    }
+
+    // Guard: Admin cannot illegally transition a cancelled order directly to completed
+    const custBeforeIllegal = await CustomerModel.findById(testCustomerId);
+    const spentBefore = custBeforeIllegal.totalSpent;
+
+    const illegalCompleteRes = await fetch(`${baseUrl}/api/admin/orders/${manualQrOrder.id}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Cookie: adminCookie },
+      body: JSON.stringify({ status: 'completed', note: 'Cố tình hoàn thành đơn đã hủy' })
+    });
+    assert.equal(illegalCompleteRes.status, 400);
+
+    // Guard: Multi-hop bypass (cancelled -> confirmed -> completed) on cancelled/expired QR order must also be blocked
+    const illegalConfirmRes = await fetch(`${baseUrl}/api/admin/orders/${manualQrOrder.id}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Cookie: adminCookie },
+      body: JSON.stringify({ status: 'confirmed', note: 'Cố tình khôi phục đơn QR đã hủy' })
+    });
+    assert.equal(illegalConfirmRes.status, 400);
+
+    const orderAfterIllegal = await OrderModel.findById(manualQrOrder.id);
+    assert.equal(orderAfterIllegal.status, 'cancelled');
+    assert.equal(orderAfterIllegal.paymentStatus, 'cancelled');
+    assert.equal(orderAfterIllegal.statsSynced, false);
+
+    const custAfterIllegal = await CustomerModel.findById(testCustomerId);
+    assert.equal(custAfterIllegal.totalSpent, spentBefore, 'Cancelled order must never credit customer totalSpent');
+
+    // Admin confirming an awaiting_payment QR order ("Xác nhận TT") sets paymentStatus="paid"
+    // and prevents evaluateLazyExpiration from falsely expiring it after TTL
+    const adminConfirmedQr = await OrderModel.createOrder({
+      customerId: testCustomerId,
+      customerInfo: { fullName: 'Trần Văn QR', phone: testCustomerPhone, address: '123 Nguyễn Huệ' },
+      items: [{ id: 'p4', name: 'Find X8 Pro', price: 19000000, quantity: 1 }],
+      totalAmount: 19000000,
+      paymentMethod: 'qr',
+      paymentExpiresAt: new Date(Date.now() + 5000).toISOString()
+    });
+    createdOrderIds.push(adminConfirmedQr.id);
+
+    const adminConfirmRes = await fetch(`${baseUrl}/api/admin/orders/${adminConfirmedQr.id}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Cookie: adminCookie },
+      body: JSON.stringify({ status: 'confirmed', note: 'Admin xác nhận đã nhận chuyển khoản' })
+    });
+    assert.equal(adminConfirmRes.status, 200);
+    const adminConfirmJson = await adminConfirmRes.json();
+    assert.equal(adminConfirmJson.data.status, 'confirmed');
+    assert.equal(adminConfirmJson.data.paymentStatus, 'paid');
+
+    // Even if paymentExpiresAt is in the past, evaluateLazyExpiration must NOT cancel a confirmed/paid order
+    const evaluatedAfterTtl = await OrderModel.evaluateLazyExpiration({
+      ...adminConfirmJson.data,
+      paymentExpiresAt: new Date(Date.now() - 60000).toISOString()
+    });
+    assert.equal(evaluatedAfterTtl.status, 'confirmed');
+    assert.equal(evaluatedAfterTtl.paymentStatus, 'paid');
   });
 });

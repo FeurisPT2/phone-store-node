@@ -1,8 +1,5 @@
 const crypto = require('crypto');
-const JsonDB = require('./database');
-const db = require('../config/db');
-
-const customerDB = new JsonDB('customers');
+const { customerStorage } = require('./storage');
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
@@ -14,106 +11,40 @@ function calculateTag(orderCount = 0, totalSpent = 0) {
   return 'Mới';
 }
 
-function mapRowToCustomer(row) {
-  if (!row) return null;
-  let wishlist = [];
-  if (Array.isArray(row.wishlist)) {
-    wishlist = row.wishlist;
-  } else if (typeof row.wishlist === 'string' && row.wishlist) {
-    try {
-      wishlist = JSON.parse(row.wishlist);
-    } catch {
-      wishlist = [];
-    }
-  }
-  return {
-    id: row.id,
-    fullName: row.full_name !== undefined ? row.full_name : row.fullName,
-    phone: row.phone,
-    passwordHash: row.password_hash !== undefined ? row.password_hash : row.passwordHash,
-    email: row.email || '',
-    address: row.address || '',
-    note: row.note || '',
-    adminNote: row.admin_note !== undefined ? row.admin_note : (row.adminNote || ''),
-    tag: row.tag || 'Mới',
-    wishlist,
-    visitCount: parseInt(row.visit_count !== undefined ? row.visit_count : row.visitCount) || 1,
-    orderCount: parseInt(row.order_count !== undefined ? row.order_count : row.orderCount) || 0,
-    totalSpent: parseInt(row.total_spent !== undefined ? row.total_spent : row.totalSpent) || 0,
-    lastVisited: row.last_visited || row.lastVisited,
-    lastOrderAt: row.last_order_at || row.lastOrderAt,
-    createdAt: row.created_at || row.createdAt,
-    updatedAt: row.updated_at || row.updatedAt
-  };
-}
-
 class CustomerModel {
+  static toSafeCustomer(customer) {
+    if (!customer || typeof customer !== 'object') return null;
+    const safe = { ...customer };
+    delete safe.passwordHash;
+    return safe;
+  }
+
   static async getAll({ search = '', tag = '' } = {}) {
-    if (db.isPostgres()) {
-      try {
-        let sql = 'SELECT * FROM customers WHERE 1=1';
-        const params = [];
-
-        if (search) {
-          params.push(`%${search.toLowerCase().trim()}%`);
-          sql += ` AND (LOWER(full_name) LIKE $${params.length} OR phone LIKE $${params.length} OR LOWER(email) LIKE $${params.length} OR LOWER(address) LIKE $${params.length})`;
-        }
-
-        if (tag && tag !== 'all') {
-          params.push(tag);
-          sql += ` AND tag = $${params.length}`;
-        }
-
-        sql += ' ORDER BY updated_at DESC';
-        const res = await db.query(sql, params);
-        return (res.rows || []).map(mapRowToCustomer);
-      } catch (err) {
-        console.error('Lỗi lấy khách hàng từ Postgres:', err.message);
-      }
-    }
-
-    // Fallback JSON
-    let list = customerDB.findAll().map(mapRowToCustomer);
-    if (search) {
-      const q = search.toLowerCase().trim();
-      list = list.filter(c =>
-        (c.fullName && c.fullName.toLowerCase().includes(q)) ||
-        (c.phone && c.phone.includes(q)) ||
-        (c.email && c.email.toLowerCase().includes(q)) ||
-        (c.address && c.address.toLowerCase().includes(q))
-      );
-    }
+    const query = {};
     if (tag && tag !== 'all') {
-      list = list.filter(c => (c.tag || 'Mới') === tag);
+      query.tag = tag;
     }
-    return list.sort((a, b) => new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt));
+    if (search) {
+      query.$search = {
+        term: search,
+        fields: ['fullName', 'phone', 'email', 'address']
+      };
+    }
+    const list = await customerStorage.find(query, { sort: { updatedAt: -1 } });
+    return (list || []).map((c) => this.toSafeCustomer(c));
   }
 
   static async findById(id) {
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('SELECT * FROM customers WHERE id = $1 LIMIT 1', [id]);
-        return res && res.rows[0] ? mapRowToCustomer(res.rows[0]) : null;
-      } catch (err) {
-        console.error('Lỗi tìm khách hàng theo id từ Postgres:', err.message);
-      }
-    }
-    return mapRowToCustomer(customerDB.findById(id));
+    if (!id) return null;
+    const found = await customerStorage.findById(id);
+    return this.toSafeCustomer(found);
   }
 
   static async findByPhone(phone) {
     if (!phone) return null;
-    const cleanPhone = phone.trim();
-
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('SELECT * FROM customers WHERE phone = $1 LIMIT 1', [cleanPhone]);
-        return res && res.rows[0] ? mapRowToCustomer(res.rows[0]) : null;
-      } catch (err) {
-        console.error('Lỗi tìm khách hàng theo SĐT từ Postgres:', err.message);
-      }
-    }
-    return mapRowToCustomer(customerDB.findOne(c => c.phone && c.phone.trim() === cleanPhone));
+    const cleanPhone = String(phone).trim();
+    const found = await customerStorage.findOne({ phone: cleanPhone });
+    return this.toSafeCustomer(found);
   }
 
   // Đăng ký tài khoản khách hàng
@@ -125,8 +56,8 @@ class CustomerModel {
       throw new Error('Mật khẩu phải có ít nhất 6 ký tự');
     }
 
-    const cleanPhone = phone.trim();
-    const existing = await this.findByPhone(cleanPhone);
+    const cleanPhone = String(phone).trim();
+    const existing = await customerStorage.findOne({ phone: cleanPhone });
     const passHash = hashPassword(password);
 
     if (existing) {
@@ -134,49 +65,16 @@ class CustomerModel {
         throw new Error('Số điện thoại này đã có tài khoản. Vui lòng đăng nhập.');
       }
       // Nâng cấp khách cũ thành tài khoản có mật khẩu
-      if (db.isPostgres()) {
-        try {
-          const res = await db.query(`
-            UPDATE customers
-            SET full_name = $1, password_hash = $2, email = COALESCE(NULLIF($3, ''), email), address = COALESCE(NULLIF($4, ''), address), updated_at = NOW()
-            WHERE id = $5
-            RETURNING *
-          `, [fullName, passHash, email, address, existing.id]);
-          const cust = mapRowToCustomer(res.rows[0]);
-          delete cust.passwordHash;
-          return cust;
-        } catch (err) {
-          throw new Error('Lỗi cập nhật tài khoản: ' + err.message);
-        }
-      }
-
-      const updated = customerDB.update(existing.id, {
+      const updated = await customerStorage.update(existing.id, {
         fullName,
         passwordHash: passHash,
         email: email || existing.email,
         address: address || existing.address
       });
-      const safe = { ...updated };
-      delete safe.passwordHash;
-      return safe;
+      return this.toSafeCustomer(updated);
     }
 
     const newId = 'CUST_' + Date.now();
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(`
-          INSERT INTO customers (id, full_name, phone, password_hash, email, address, note, admin_note, tag, visit_count, order_count, total_spent, last_visited)
-          VALUES ($1, $2, $3, $4, $5, $6, '', '', 'Mới', 1, 0, 0, NOW())
-          RETURNING *
-        `, [newId, fullName, cleanPhone, passHash, email, address]);
-        const cust = mapRowToCustomer(res.rows[0]);
-        delete cust.passwordHash;
-        return cust;
-      } catch (err) {
-        throw new Error('Lỗi đăng ký tài khoản Postgres: ' + err.message);
-      }
-    }
-
     const newCust = {
       id: newId,
       fullName,
@@ -187,16 +85,14 @@ class CustomerModel {
       note: '',
       adminNote: '',
       tag: 'Mới',
+      wishlist: [],
       visitCount: 1,
       orderCount: 0,
       totalSpent: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      lastVisited: new Date().toISOString()
     };
-    customerDB.insert(newCust);
-    const safeCust = { ...newCust };
-    delete safeCust.passwordHash;
-    return safeCust;
+    const created = await customerStorage.insert(newCust);
+    return this.toSafeCustomer(created);
   }
 
   // Đăng nhập tài khoản khách hàng
@@ -204,8 +100,8 @@ class CustomerModel {
     if (!phone || !password) {
       throw new Error('Vui lòng nhập số điện thoại và mật khẩu');
     }
-    const cleanPhone = phone.trim();
-    const customer = await this.findByPhone(cleanPhone);
+    const cleanPhone = String(phone).trim();
+    const customer = await customerStorage.findOne({ phone: cleanPhone });
     if (!customer) {
       throw new Error('Số điện thoại chưa được đăng ký tài khoản');
     }
@@ -218,14 +114,12 @@ class CustomerModel {
       throw new Error('Mật khẩu không chính xác');
     }
 
-    const safe = { ...customer };
-    delete safe.passwordHash;
-    return safe;
+    return this.toSafeCustomer(customer);
   }
 
   static async rememberCustomer({ phone, fullName, email, address, note }) {
     if (!phone) return null;
-    const cleanPhone = phone.trim();
+    const cleanPhone = String(phone).trim();
     const existing = await this.findByPhone(cleanPhone);
 
     if (existing) {
@@ -234,38 +128,7 @@ class CustomerModel {
       const newTag = existing.tag || calculateTag(orderCount, totalSpent);
       const visitCount = (existing.visitCount || 1) + 1;
 
-      if (db.isPostgres()) {
-        try {
-          const res = await db.query(`
-            UPDATE customers
-            SET full_name = COALESCE($1, full_name),
-                email = COALESCE($2, email),
-                address = COALESCE($3, address),
-                note = COALESCE($4, note),
-                visit_count = $5,
-                tag = $6,
-                last_visited = NOW(),
-                updated_at = NOW()
-            WHERE id = $7
-            RETURNING *
-          `, [
-            fullName || existing.fullName,
-            email !== undefined ? email : existing.email,
-            address || existing.address,
-            note || existing.note,
-            visitCount,
-            newTag,
-            existing.id
-          ]);
-          const cust = mapRowToCustomer(res.rows[0]);
-          delete cust.passwordHash;
-          return cust;
-        } catch (err) {
-          console.error('Lỗi cập nhật khách hàng vào Postgres:', err.message);
-        }
-      }
-
-      const updated = mapRowToCustomer(customerDB.update(existing.id, {
+      const updated = await customerStorage.update(existing.id, {
         fullName: fullName || existing.fullName,
         email: email !== undefined ? email : (existing.email || ''),
         address: address || existing.address,
@@ -273,36 +136,11 @@ class CustomerModel {
         visitCount,
         tag: newTag,
         lastVisited: new Date().toISOString()
-      }));
-      delete updated.passwordHash;
-      return updated;
+      });
+      return this.toSafeCustomer(updated);
     }
 
     const newId = 'CUST_' + Date.now();
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(`
-          INSERT INTO customers (id, full_name, phone, email, address, note, admin_note, tag, visit_count, order_count, total_spent, last_visited)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 1, 0, 0, NOW())
-          RETURNING *
-        `, [
-          newId,
-          fullName || 'Khách hàng',
-          cleanPhone,
-          email || '',
-          address || '',
-          note || '',
-          '',
-          'Mới'
-        ]);
-        const cust = mapRowToCustomer(res.rows[0]);
-        delete cust.passwordHash;
-        return cust;
-      } catch (err) {
-        console.error('Lỗi tạo mới khách hàng vào Postgres:', err.message);
-      }
-    }
-
     const newCustomer = {
       id: newId,
       fullName: fullName || 'Khách hàng',
@@ -316,17 +154,17 @@ class CustomerModel {
       visitCount: 1,
       orderCount: 0,
       totalSpent: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      lastVisited: new Date().toISOString()
     };
-    return mapRowToCustomer(customerDB.insert(newCustomer));
+    const created = await customerStorage.insert(newCustomer);
+    return this.toSafeCustomer(created);
   }
 
   static async createCustomer({ fullName, phone, email, address, note, adminNote, tag }) {
     if (!fullName || !phone) {
       throw new Error('Vui lòng cung cấp họ tên và số điện thoại');
     }
-    const cleanPhone = phone.trim();
+    const cleanPhone = String(phone).trim();
     const existing = await this.findByPhone(cleanPhone);
     if (existing) {
       throw new Error(`Số điện thoại ${cleanPhone} đã tồn tại với khách hàng ${existing.fullName}`);
@@ -334,21 +172,6 @@ class CustomerModel {
 
     const newId = 'CUST_' + Date.now();
     const newTag = tag || 'Mới';
-
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(`
-          INSERT INTO customers (id, full_name, phone, email, address, note, admin_note, tag, visit_count, order_count, total_spent, last_visited)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 1, 0, 0, NOW())
-          RETURNING *
-        `, [newId, fullName, cleanPhone, email || '', address || '', note || '', adminNote || '', newTag]);
-        const cust = mapRowToCustomer(res.rows[0]);
-        delete cust.passwordHash;
-        return cust;
-      } catch (err) {
-        throw new Error('Lỗi lưu khách hàng vào Postgres: ' + err.message);
-      }
-    }
 
     const newCustomer = {
       id: newId,
@@ -363,10 +186,10 @@ class CustomerModel {
       visitCount: 1,
       orderCount: 0,
       totalSpent: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      lastVisited: new Date().toISOString()
     };
-    return mapRowToCustomer(customerDB.insert(newCustomer));
+    const created = await customerStorage.insert(newCustomer);
+    return this.toSafeCustomer(created);
   }
 
   static async updateCustomer(id, data) {
@@ -374,7 +197,7 @@ class CustomerModel {
     if (!existing) return null;
 
     const fullName = data.fullName !== undefined ? data.fullName : existing.fullName;
-    const phone = data.phone !== undefined ? data.phone.trim() : existing.phone;
+    const phone = data.phone !== undefined ? String(data.phone).trim() : existing.phone;
     const email = data.email !== undefined ? data.email : existing.email;
     const address = data.address !== undefined ? data.address : existing.address;
     const note = data.note !== undefined ? data.note : existing.note;
@@ -382,27 +205,17 @@ class CustomerModel {
     const tag = data.tag || existing.tag;
     const wishlist = Array.isArray(data.wishlist) ? data.wishlist : (existing.wishlist || []);
 
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(`
-          UPDATE customers
-          SET full_name = $1, phone = $2, email = $3, address = $4, note = $5, admin_note = $6, tag = $7, wishlist = $8, updated_at = NOW()
-          WHERE id = $9
-          RETURNING *
-        `, [fullName, phone, email, address, note, adminNote, tag, JSON.stringify(wishlist), id]);
-        const cust = mapRowToCustomer(res.rows[0]);
-        delete cust.passwordHash;
-        return cust;
-      } catch (err) {
-        console.error('Lỗi sửa khách hàng Postgres:', err.message);
-      }
-    }
-
-    const updated = mapRowToCustomer(customerDB.update(id, {
-      fullName, phone, email, address, note, adminNote, tag, wishlist
-    }));
-    delete updated.passwordHash;
-    return updated;
+    const updated = await customerStorage.update(id, {
+      fullName,
+      phone,
+      email,
+      address,
+      note,
+      adminNote,
+      tag,
+      wishlist
+    });
+    return this.toSafeCustomer(updated);
   }
 
   static async toggleWishlist(id, productId) {
@@ -424,20 +237,12 @@ class CustomerModel {
     return {
       added,
       wishlist: updated?.wishlist || currentList,
-      customer: updated
+      customer: this.toSafeCustomer(updated)
     };
   }
 
   static async deleteCustomer(id) {
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query('DELETE FROM customers WHERE id = $1', [id]);
-        return res.rowCount > 0;
-      } catch (err) {
-        console.error('Lỗi xóa khách hàng Postgres:', err.message);
-      }
-    }
-    return customerDB.delete(id);
+    return await customerStorage.delete(id);
   }
 
   static async syncOrderStats(customerId, orderAmount) {
@@ -449,26 +254,13 @@ class CustomerModel {
     const calculatedTag = calculateTag(newOrderCount, newTotalSpent);
     const newTag = customer.tag === 'VIP' ? 'VIP' : calculatedTag;
 
-    if (db.isPostgres()) {
-      try {
-        const res = await db.query(`
-          UPDATE customers
-          SET order_count = $1, total_spent = $2, tag = $3, last_order_at = NOW(), updated_at = NOW()
-          WHERE id = $4
-          RETURNING *
-        `, [newOrderCount, newTotalSpent, newTag, customerId]);
-        return mapRowToCustomer(res.rows[0]);
-      } catch (err) {
-        console.error('Lỗi sync order stats Postgres:', err.message);
-      }
-    }
-
-    return customerDB.update(customerId, {
+    const updated = await customerStorage.update(customerId, {
       orderCount: newOrderCount,
       totalSpent: newTotalSpent,
       tag: newTag,
       lastOrderAt: new Date().toISOString()
     });
+    return this.toSafeCustomer(updated);
   }
 }
 

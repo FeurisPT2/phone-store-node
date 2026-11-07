@@ -1,3 +1,6 @@
+const CatalogFilter = require('../public/js/catalogFilter');
+const ProductModel = require('../models/Product');
+
 let GoogleGenAI = null;
 try {
   const genaiModule = require('@google/genai');
@@ -13,54 +16,34 @@ function getClient(injectedClient) {
   return new GoogleGenAI({ apiKey });
 }
 
-function fallbackEnrich({ name, brand, rawText = '' }) {
-  const combined = `${name} ${rawText}`;
-  
-  // Màn hình
-  let screen = 'Màn hình sắc nét 120Hz';
-  const mScreen = combined.match(/(\d+(\.\d+)?)\s*(inch|\")/i);
-  if (mScreen) screen = `${mScreen[1]} inch Super AMOLED 120Hz`;
-
-  // RAM & ROM
-  let ram = '8GB';
-  let storage = '128GB';
-  const mRamRom = combined.match(/(\d+GB)\s*(\/|\+)\s*(\d+GB|\d+TB)/i);
-  if (mRamRom) {
-    ram = mRamRom[1];
-    storage = mRamRom[3];
-  } else {
-    const mRom = combined.match(/(\d+GB|\d+TB)/i);
-    if (mRom) storage = mRom[1];
+function normalizeEnrichArgs(nameOrObj, brandArg = '', rawTextArg = '', customClient = null) {
+  if (nameOrObj && typeof nameOrObj === 'object') {
+    return {
+      name: String(nameOrObj.name || ''),
+      brand: String(nameOrObj.brand || ''),
+      rawText: String(nameOrObj.rawText || nameOrObj.specs || nameOrObj.description || ''),
+      client: customClient || nameOrObj.client || null
+    };
   }
+  return {
+    name: String(nameOrObj || ''),
+    brand: String(brandArg || ''),
+    rawText: String(rawTextArg || ''),
+    client: customClient || null
+  };
+}
 
-  // Pin & Camera
-  let battery = '5000mAh';
-  const mPin = combined.match(/pin\s*(\d+mAh)/i);
-  if (mPin) battery = mPin[1];
-
-  let camera = '50MP AI';
-  const mCam = combined.match(/camera\s*(\d+MP)/i);
-  if (mCam) camera = mCam[1];
-
-  let chip = brand === 'Apple' ? 'Apple A-Series Bionic' : 'Snapdragon / Dimensity';
-  let os = brand === 'Apple' ? 'iOS' : 'Android';
+function fallbackEnrich(nameOrObj, brandArg = '', rawTextArg = '') {
+  const { name, brand, rawText } = normalizeEnrichArgs(nameOrObj, brandArg, rawTextArg);
+  const detailedSpecs = CatalogFilter.extractHardwareSpecs({ name, brand, rawText });
 
   return {
-    detailedSpecs: {
-      screen,
-      chip,
-      ram,
-      storage,
-      battery,
-      camera,
-      charging: 'Sạc nhanh công suất cao',
-      os
-    },
+    detailedSpecs,
     aiReview: {
-      summary: `${name} là mẫu điện thoại chính hãng chất lượng cao từ ${brand || 'thương hiệu uy tín'}.`,
+      summary: `${name} là mẫu điện thoại chính hãng chất lượng cao từ ${brand || 'thương hiệu uy tín'}, trang bị vi xử lý ${detailedSpecs.chip}.`,
       pros: [
-        `Thiết kế hiện đại, hoàn thiện tỉ mỉ từ ${brand}`,
-        `Cấu hình ổn định với dung lượng ${storage}`
+        `Thiết kế hiện đại, hoàn thiện tỉ mỉ từ ${brand || 'nhà sản xuất'}`,
+        `Hiệu năng mượt mà với ${detailedSpecs.chip} và bộ nhớ ${detailedSpecs.ram}/${detailedSpecs.storage}`
       ],
       cons: [
         'Cần bảo quản cẩn thận hoặc dùng thêm ốp lưng chống sốc'
@@ -73,11 +56,12 @@ function fallbackEnrich({ name, brand, rawText = '' }) {
 /**
  * Làm giàu dữ liệu sản phẩm với Gemini Structured Output
  */
-async function enrichProduct({ name, brand, rawText = '', client = null }) {
+async function enrichProduct(productData = {}, customClient = null) {
+  const { name, brand, rawText, client } = normalizeEnrichArgs(productData, '', '', customClient);
   const aiClient = getClient(client);
 
   if (!aiClient) {
-    return fallbackEnrich({ name, brand, rawText });
+    return geminiService.fallbackEnrich({ name, brand, rawText });
   }
 
   const prompt = `
@@ -122,29 +106,146 @@ Hãy trả về DUY NHẤT một chuỗi JSON hợp lệ (không markdown block)
     if (parsed.detailedSpecs && parsed.aiReview) {
       return parsed;
     }
-    return fallbackEnrich({ name, brand, rawText });
+    return geminiService.fallbackEnrich({ name, brand, rawText });
   } catch (err) {
     console.error('Lỗi gọi Gemini enrichProduct, kích hoạt fallback:', err.message);
-    return fallbackEnrich({ name, brand, rawText });
+    return geminiService.fallbackEnrich({ name, brand, rawText });
   }
+}
+
+/**
+ * Làm giàu sản phẩm và lưu trực tiếp vào ProductModel
+ */
+async function enrichAndPersistProduct(productOrId, customClient = null) {
+  if (!productOrId) return null;
+
+  let product = null;
+  if (typeof productOrId === 'object') {
+    if (productOrId.name) {
+      product = productOrId;
+    } else if (productOrId.id) {
+      product = await ProductModel.getById(productOrId.id);
+    }
+  } else {
+    product = await ProductModel.getById(productOrId);
+  }
+
+  if (!product) return null;
+
+  const client = customClient || (typeof productOrId === 'object' ? productOrId.client : null) || null;
+  const enrichment = await geminiService.enrichProduct(
+    {
+      name: product.name,
+      brand: product.brand,
+      rawText: product.specs || product.description || product.rawText || '',
+      client
+    },
+    client
+  );
+
+  const aiEnrichedAt = new Date().toISOString();
+  if (product.id) {
+    const updated = await ProductModel.update(product.id, {
+      detailedSpecs: enrichment.detailedSpecs,
+      aiReview: enrichment.aiReview,
+      aiEnrichedAt
+    });
+    return updated || null;
+  }
+
+  return {
+    ...product,
+    detailedSpecs: enrichment.detailedSpecs,
+    aiReview: enrichment.aiReview,
+    aiEnrichedAt
+  };
+}
+
+/**
+ * Tự vá và chuẩn hóa hàng loạt sản phẩm chưa có dữ liệu AI trong kho
+ */
+async function selfHealCatalog(limitOrOpts = 10, customClient = null) {
+  let limit = 10;
+  let client = customClient;
+  if (limitOrOpts && typeof limitOrOpts === 'object') {
+    limit = parseInt(limitOrOpts.limit, 10) || 10;
+    client = customClient || limitOrOpts.client || null;
+  } else {
+    limit = parseInt(limitOrOpts, 10) || 10;
+  }
+
+  const unenriched = await ProductModel.getUnenriched(limit);
+  const updatedProducts = [];
+
+  for (const product of unenriched) {
+    try {
+      const updated = await geminiService.enrichAndPersistProduct(product, client);
+      if (updated) {
+        updatedProducts.push(updated);
+      }
+    } catch (e) {
+      console.error('Lỗi enrich cho sản phẩm ' + product.id + ':', e.message);
+    }
+  }
+
+  return {
+    totalFound: unenriched.length,
+    enrichedCount: updatedProducts.length,
+    updatedProducts
+  };
 }
 
 /**
  * Fallback tư vấn khi chưa cấu hình Gemini API hoặc có lỗi mạng
  */
-function fallbackConsult({ message = '', catalog = [] }) {
+function fallbackConsult(arg1 = {}, catalogArg = []) {
+  let message = '';
+  let catalog = [];
+  if (arg1 && typeof arg1 === 'object' && !Array.isArray(arg1)) {
+    message = String(arg1.message || arg1.userQuery || '');
+    catalog = Array.isArray(arg1.catalog) ? arg1.catalog : [];
+  } else {
+    message = String(arg1 || '');
+    catalog = Array.isArray(catalogArg) ? catalogArg : [];
+  }
+
   const msg = message.toLowerCase();
   let matches = [...catalog];
 
   // Lọc thương hiệu nếu có nhắc đến
+  let detectedBrand = 'all';
   if (msg.includes('apple') || msg.includes('iphone')) {
-    matches = matches.filter(p => (p.brand && p.brand.toLowerCase() === 'apple') || p.name.toLowerCase().includes('iphone'));
+    detectedBrand = 'Apple';
   } else if (msg.includes('samsung') || msg.includes('galaxy')) {
-    matches = matches.filter(p => (p.brand && p.brand.toLowerCase() === 'samsung') || p.name.toLowerCase().includes('samsung'));
+    detectedBrand = 'Samsung';
   } else if (msg.includes('xiaomi') || msg.includes('redmi')) {
-    matches = matches.filter(p => (p.brand && p.brand.toLowerCase() === 'xiaomi') || p.name.toLowerCase().includes('xiaomi'));
+    detectedBrand = 'Xiaomi';
   } else if (msg.includes('oppo')) {
-    matches = matches.filter(p => (p.brand && p.brand.toLowerCase() === 'oppo') || p.name.toLowerCase().includes('oppo'));
+    detectedBrand = 'OPPO';
+  } else if (msg.includes('sony') || msg.includes('xperia')) {
+    detectedBrand = 'Sony';
+  } else if (msg.includes('asus') || msg.includes('rog')) {
+    detectedBrand = 'ASUS';
+  } else if (msg.includes('google') || msg.includes('pixel')) {
+    detectedBrand = 'Google';
+  }
+
+  if (detectedBrand !== 'all') {
+    const brandFiltered = CatalogFilter.filterProducts(matches, { brand: detectedBrand });
+    if (brandFiltered.length > 0) {
+      matches = brandFiltered;
+    } else {
+      matches = matches.filter((p) => String(p.name || '').toLowerCase().includes(detectedBrand.toLowerCase()));
+    }
+  }
+
+  // Lọc RAM nếu có nhắc đến (ví dụ: "ram 16gb", "ram 12gb", "ram 8gb")
+  const mRam = msg.match(/ram\s*(\d+\s*gb)/i);
+  if (mRam) {
+    const ramFiltered = CatalogFilter.filterProducts(matches, { ram: mRam[1] });
+    if (ramFiltered.length > 0) {
+      matches = ramFiltered;
+    }
   }
 
   // Lọc ngân sách nếu có (ví dụ: "dưới 10 triệu", "dưới 15tr")
@@ -153,7 +254,7 @@ function fallbackConsult({ message = '', catalog = [] }) {
     const maxMil = parseInt(mBudget[1], 10);
     if (!isNaN(maxMil)) {
       const budgetMax = maxMil * 1000000;
-      const budgetMatches = matches.filter(p => Number(p.price) <= budgetMax);
+      const budgetMatches = CatalogFilter.filterProducts(matches, { maxPrice: budgetMax });
       if (budgetMatches.length > 0) {
         matches = budgetMatches;
       }
@@ -167,10 +268,10 @@ function fallbackConsult({ message = '', catalog = [] }) {
 
   // Chọn tối đa 3 sản phẩm tiêu biểu
   const selected = matches.slice(0, 3);
-  const suggestedProductIds = selected.map(p => p.id);
+  const suggestedProductIds = selected.map((p) => p.id);
 
   let reply = 'Dạ chào bạn! Hệ thống TechStore xin gợi ý các dòng máy nổi bật phù hợp với nhu cầu của bạn:\n';
-  selected.forEach(p => {
+  selected.forEach((p) => {
     const formattedPrice = Number(p.price).toLocaleString('vi-VN');
     reply += `- **${p.name}** (${formattedPrice}đ): Cấu hình mạnh mẽ, thiết kế cao cấp chính hãng.\n`;
   });
@@ -185,28 +286,53 @@ function fallbackConsult({ message = '', catalog = [] }) {
 /**
  * AI Shopping Consultant với Dynamic Catalog Grounding
  */
-async function consultCustomer({ message, history = [], catalog = [], client = null }) {
+async function consultCustomer(arg1 = {}, catalogArg = [], historyArg = [], customClient = null) {
+  let message = '';
+  let history = [];
+  let catalog = [];
+  let client = customClient;
+
+  if (arg1 && typeof arg1 === 'object' && !Array.isArray(arg1)) {
+    message = String(arg1.message || arg1.userQuery || '');
+    history = Array.isArray(arg1.history) ? arg1.history : [];
+    catalog = Array.isArray(arg1.catalog) ? arg1.catalog : [];
+    client = customClient || arg1.client || null;
+  } else {
+    message = String(arg1 || '');
+    catalog = Array.isArray(catalogArg) ? catalogArg : [];
+    history = Array.isArray(historyArg) ? historyArg : [];
+    client = customClient;
+  }
+
   const aiClient = getClient(client);
 
   if (!aiClient) {
-    return fallbackConsult({ message, catalog });
+    return geminiService.fallbackConsult({ message, catalog });
   }
 
-  // Định dạng Catalog Grounding súc tích
-  const catalogContext = catalog.slice(0, 40).map(p => {
-    const priceStr = Number(p.price).toLocaleString('vi-VN');
-    const specStr = p.detailedSpecs 
-      ? `Chip: ${p.detailedSpecs.chip || ''}, RAM: ${p.detailedSpecs.ram || ''}, Bộ nhớ: ${p.detailedSpecs.storage || ''}, Pin: ${p.detailedSpecs.battery || ''}`
-      : (p.description || '');
-    return `[ID: ${p.id}] Tên: ${p.name} | Hãng: ${p.brand || 'Khác'} | Giá: ${priceStr}đ | Thông số: ${specStr}`;
-  }).join('\n');
+  // Định dạng Catalog Grounding súc tích (ưu tiên detailedSpecs -> p.specs -> p.description)
+  const catalogContext = catalog
+    .slice(0, 40)
+    .map((p) => {
+      const priceStr = Number(p.price).toLocaleString('vi-VN');
+      const specStr = p.detailedSpecs
+        ? `Chip: ${p.detailedSpecs.chip || ''}, RAM: ${p.detailedSpecs.ram || ''}, Bộ nhớ: ${p.detailedSpecs.storage || ''}, Pin: ${p.detailedSpecs.battery || ''}`
+        : p.specs || p.description || '';
+      return `[ID: ${p.id}] Tên: ${p.name} | Hãng: ${p.brand || 'Khác'} | Giá: ${priceStr}đ | Thông số: ${specStr}`;
+    })
+    .join('\n');
 
-    let historyContext = '';
+  let historyContext = '';
   if (Array.isArray(history) && history.length > 0) {
-    historyContext = `\nLỊCH SỬ TRÒ CHUYỆN TRƯỚC ĐÓ:\n` + history.map(h => {
-      const roleName = h.role === 'user' ? 'Khách hàng' : 'Trợ lý TechStore';
-      return `- ${roleName}: ${h.content}`;
-    }).join('\n') + '\n';
+    historyContext =
+      `\nLỊCH SỬ TRÒ CHUYỆN TRƯỚC ĐÓ:\n` +
+      history
+        .map((h) => {
+          const roleName = h.role === 'user' ? 'Khách hàng' : 'Trợ lý TechStore';
+          return `- ${roleName}: ${h.content}`;
+        })
+        .join('\n') +
+      '\n';
   }
 
   const prompt = `
@@ -246,16 +372,102 @@ Câu hỏi của khách hàng: "${message}"
         suggestedProductIds: Array.isArray(parsed.suggestedProductIds) ? parsed.suggestedProductIds : []
       };
     }
-    return fallbackConsult({ message, catalog });
+    return geminiService.fallbackConsult({ message, catalog });
   } catch (err) {
     console.error('Lỗi gọi Gemini consultCustomer, kích hoạt fallback:', err.message);
-    return fallbackConsult({ message, catalog });
+    return geminiService.fallbackConsult({ message, catalog });
   }
 }
 
-module.exports = {
+function toMiniProductCard(p) {
+  if (!p) return null;
+  return {
+    id: p.id,
+    name: p.name,
+    brand: p.brand,
+    price: p.price,
+    oldPrice: p.oldPrice,
+    image: p.image,
+    specs: p.specs
+  };
+}
+
+/**
+ * Tư vấn trực tiếp trên toàn bộ kho hàng kèm cơ chế Graceful Fallback và ánh xạ Mini Product Card
+ */
+async function consultWithCatalog(messageOrOpts, history = [], customClient = null) {
+  let message = '';
+  let convHistory = Array.isArray(history) ? history : [];
+  let client = customClient;
+
+  if (messageOrOpts && typeof messageOrOpts === 'object' && !Array.isArray(messageOrOpts)) {
+    message = String(messageOrOpts.message || messageOrOpts.userQuery || '').trim();
+    convHistory = Array.isArray(messageOrOpts.history) ? messageOrOpts.history : [];
+    client = customClient || messageOrOpts.client || null;
+  } else {
+    message = String(messageOrOpts || '').trim();
+  }
+
+  let products = [];
+  try {
+    products = await ProductModel.getAll('all');
+  } catch (err) {
+    console.error('Lỗi tải danh mục cho consultWithCatalog:', err.message);
+    products = [];
+  }
+
+  const hydrateSuggested = (ids) =>
+    (Array.isArray(ids) ? ids : [])
+      .map((id) => products.find((p) => p.id === id || String(p.id) === String(id)))
+      .filter(Boolean)
+      .map(toMiniProductCard);
+
+  try {
+    const result = await geminiService.consultCustomer(
+      {
+        message,
+        history: convHistory,
+        catalog: products,
+        client
+      },
+      products,
+      convHistory,
+      client
+    );
+    return {
+      reply: result.reply,
+      suggestedProducts: hydrateSuggested(result.suggestedProductIds)
+    };
+  } catch (err) {
+    console.error('Lỗi xử lý chat tư vấn, kích hoạt fallback an toàn:', err.message);
+    try {
+      const fallbackResult = geminiService.fallbackConsult({
+        message,
+        catalog: products
+      });
+      return {
+        reply: fallbackResult.reply,
+        suggestedProducts: hydrateSuggested(fallbackResult.suggestedProductIds)
+      };
+    } catch (innerErr) {
+      return {
+        reply:
+          'Dạ hiện tại hệ thống tư vấn AI đang bận một chút, TechStore xin mời bạn tham khảo danh mục điện thoại trên website hoặc gửi lại tin nhắn nhé!',
+        suggestedProducts: []
+      };
+    }
+  }
+}
+
+const geminiService = {
   enrichProduct,
   fallbackEnrich,
+  enrichAndPersistProduct,
+  selfHealCatalog,
   consultCustomer,
-  fallbackConsult
+  fallbackConsult,
+  consultWithCatalog
 };
+
+module.exports = geminiService;
+
