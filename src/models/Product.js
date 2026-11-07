@@ -37,30 +37,189 @@ function mapRowToProduct(row) {
   };
 }
 
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+let catalogCache = {
+  data: null,
+  expiresAt: 0,
+  hits: 0,
+  misses: 0
+};
+
+function escapeRegExp(str) {
+  return String(str).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function normalizeCapacityTokens(str) {
+  return String(str || '')
+    .toLowerCase()
+    .replace(/(\d+)\s+(gb|tb|mah)\b/gi, '$1$2');
+}
+
+function matchesSpecField(product, fieldName, filterValue) {
+  if (!filterValue || filterValue === 'all') return true;
+  const targets = String(filterValue)
+    .toLowerCase()
+    .split(',')
+    .map((s) => normalizeCapacityTokens(s.trim()))
+    .filter(Boolean);
+  if (targets.length === 0) return true;
+
+  const detailedVal = normalizeCapacityTokens(product.detailedSpecs?.[fieldName] || '');
+  const rawSpecs = normalizeCapacityTokens(product.specs || '');
+  const prodName = normalizeCapacityTokens(product.name || '');
+
+  // For capacity fields (ram, storage), if detailedSpecs has the dedicated field, only match against it
+  // to avoid cross-matching RAM against ROM (e.g. 12GB matching 512GB or 8GB matching 128GB).
+  if (fieldName === 'ram' || fieldName === 'storage') {
+    const source = detailedVal || `${rawSpecs} ${prodName}`;
+    return targets.some((t) => {
+      const pattern = new RegExp(`(?<![0-9a-z])${escapeRegExp(t)}(?![0-9a-z])`, 'i');
+      return pattern.test(source);
+    });
+  }
+
+  const combined = `${detailedVal} ${rawSpecs} ${prodName}`;
+  return targets.some((t) => combined.includes(t));
+}
+
 class ProductModel {
-  static async getAll(brand) {
+  static invalidateCache() {
+    catalogCache.data = null;
+    catalogCache.expiresAt = 0;
+  }
+
+  static getCacheStats() {
+    const isCached = Boolean(catalogCache.data && Date.now() < catalogCache.expiresAt);
+    return {
+      cached: isCached,
+      expiresAt: catalogCache.expiresAt,
+      hits: catalogCache.hits,
+      misses: catalogCache.misses,
+      itemCount: catalogCache.data ? catalogCache.data.length : 0,
+      ttlMs: CACHE_TTL_MS
+    };
+  }
+
+  static async _loadFullCatalog() {
+    const now = Date.now();
+    if (catalogCache.data && now < catalogCache.expiresAt) {
+      catalogCache.hits += 1;
+      return catalogCache.data;
+    }
+
+    catalogCache.misses += 1;
+    let mapped = null;
+
     if (db.isPostgres()) {
       try {
-        let sql = 'SELECT * FROM products';
-        const params = [];
-        if (brand && brand !== 'all') {
-          params.push(brand.toLowerCase());
-          sql += ' WHERE LOWER(brand) = $1';
-        }
-        sql += ' ORDER BY created_at ASC';
-        const res = await db.query(sql, params);
-        return (res.rows || []).map(mapRowToProduct);
+        const res = await db.query('SELECT * FROM products ORDER BY created_at ASC');
+        mapped = (res.rows || []).map(mapRowToProduct);
       } catch (err) {
         console.error('Lỗi lấy sản phẩm từ Postgres:', err.message);
       }
     }
 
-    const list = productDB.findAll();
-    const mapped = list.map(mapRowToProduct);
-    return (brand && brand !== 'all') ? mapped.filter(p => p.brand.toLowerCase() === brand.toLowerCase()) : mapped;
+    if (!mapped) {
+      const list = productDB.findAll();
+      mapped = list.map(mapRowToProduct);
+    }
+
+    catalogCache.data = mapped;
+    catalogCache.expiresAt = Date.now() + CACHE_TTL_MS;
+    return mapped;
+  }
+
+  static async getAll(filters = 'all') {
+    const allItems = await this._loadFullCatalog();
+    let result = [...allItems];
+
+    const opts = typeof filters === 'string' || !filters ? { brand: filters || 'all' } : filters;
+    const {
+      brand = 'all',
+      ram = '',
+      storage = '',
+      rom = '',
+      chip = '',
+      minPrice = '',
+      maxPrice = '',
+      search = '',
+      q = '',
+      sort = ''
+    } = opts;
+
+    if (brand && brand !== 'all') {
+      const brandTargets = String(brand)
+        .toLowerCase()
+        .split(',')
+        .map((b) => b.trim())
+        .filter(Boolean);
+      if (brandTargets.length > 0) {
+        result = result.filter((p) => brandTargets.includes(String(p.brand || '').toLowerCase()));
+      }
+    }
+
+    if (ram && ram !== 'all') {
+      result = result.filter((p) => matchesSpecField(p, 'ram', ram));
+    }
+
+    const storageFilter = storage || rom;
+    if (storageFilter && storageFilter !== 'all') {
+      result = result.filter((p) => matchesSpecField(p, 'storage', storageFilter));
+    }
+
+    if (chip && chip !== 'all') {
+      result = result.filter((p) => matchesSpecField(p, 'chip', chip));
+    }
+
+    if (minPrice !== '' && minPrice !== null && minPrice !== undefined && !Number.isNaN(Number(minPrice))) {
+      const min = Number(minPrice);
+      result = result.filter((p) => p.price >= min);
+    }
+
+    if (maxPrice !== '' && maxPrice !== null && maxPrice !== undefined && !Number.isNaN(Number(maxPrice))) {
+      const max = Number(maxPrice);
+      result = result.filter((p) => p.price <= max);
+    }
+
+    const queryStr = String(search || q || '').toLowerCase().trim();
+    if (queryStr) {
+      result = result.filter((p) => {
+        const haystack = [
+          p.name,
+          p.brand,
+          p.specs,
+          p.detailedSpecs?.chip,
+          p.detailedSpecs?.ram,
+          p.detailedSpecs?.storage,
+          p.detailedSpecs?.screen
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
+        return haystack.includes(queryStr);
+      });
+    }
+
+    if (sort === 'price_asc') {
+      result.sort((a, b) => a.price - b.price);
+    } else if (sort === 'price_desc') {
+      result.sort((a, b) => b.price - a.price);
+    } else if (sort === 'name_asc') {
+      result.sort((a, b) => String(a.name).localeCompare(String(b.name), 'vi'));
+    } else if (sort === 'discount_desc') {
+      const getDiscountPct = (p) => (p.oldPrice && p.oldPrice > p.price ? (1 - p.price / p.oldPrice) : 0);
+      result.sort((a, b) => getDiscountPct(b) - getDiscountPct(a));
+    }
+
+    return result;
   }
 
   static async getById(id) {
+    if (catalogCache.data && Date.now() < catalogCache.expiresAt) {
+      const cachedItem = catalogCache.data.find((p) => String(p.id) === String(id));
+      if (cachedItem) return { ...cachedItem };
+    }
+
     if (db.isPostgres()) {
       try {
         const res = await db.query('SELECT * FROM products WHERE id = $1 LIMIT 1', [id]);
@@ -109,6 +268,7 @@ class ProductModel {
           aiReview ? JSON.stringify(aiReview) : null,
           aiEnrichedAt || null
         ]);
+        this.invalidateCache();
         return mapRowToProduct(res.rows[0]);
       } catch (err) {
         console.error('Lỗi tạo sản phẩm Postgres:', err.message);
@@ -129,6 +289,7 @@ class ProductModel {
       createdAt: new Date().toISOString()
     };
     productDB.insert(newProd);
+    this.invalidateCache();
     return mapRowToProduct(newProd);
   }
 
@@ -166,6 +327,7 @@ class ProductModel {
           aiEnrichedAt || null,
           id
         ]);
+        this.invalidateCache();
         return mapRowToProduct(res.rows[0]);
       } catch (err) {
         console.error('Lỗi sửa sản phẩm Postgres:', err.message);
@@ -183,6 +345,7 @@ class ProductModel {
       aiReview,
       aiEnrichedAt
     });
+    this.invalidateCache();
     return mapRowToProduct(updated);
   }
 
@@ -190,12 +353,15 @@ class ProductModel {
     if (db.isPostgres()) {
       try {
         const res = await db.query('DELETE FROM products WHERE id = $1', [id]);
+        this.invalidateCache();
         return res.rowCount > 0;
       } catch (err) {
         console.error('Lỗi xóa sản phẩm Postgres:', err.message);
       }
     }
-    return productDB.delete(id);
+    const deleted = productDB.delete(id);
+    this.invalidateCache();
+    return deleted;
   }
 }
 

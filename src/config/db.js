@@ -72,6 +72,7 @@ async function initDatabase() {
         updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       );
       ALTER TABLE customers ADD COLUMN IF NOT EXISTS password_hash TEXT;
+      ALTER TABLE customers ADD COLUMN IF NOT EXISTS wishlist JSONB DEFAULT '[]'::jsonb;
     `);
 
     // 3. Bảng orders
@@ -83,12 +84,22 @@ async function initDatabase() {
         items JSONB NOT NULL,
         total_amount BIGINT NOT NULL,
         status VARCHAR(20) DEFAULT 'pending',
+        payment_method VARCHAR(20) DEFAULT 'cod',
+        payment_status VARCHAR(30) DEFAULT 'unpaid',
+        payment_ref VARCHAR(100),
+        payment_expires_at TIMESTAMPTZ,
+        stats_synced BOOLEAN DEFAULT FALSE,
         admin_note TEXT,
         note TEXT,
         status_history JSONB DEFAULT '[]'::jsonb,
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       );
+      ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_method VARCHAR(20) DEFAULT 'cod';
+      ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_status VARCHAR(30) DEFAULT 'unpaid';
+      ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_ref VARCHAR(100);
+      ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_expires_at TIMESTAMPTZ;
+      ALTER TABLE orders ADD COLUMN IF NOT EXISTS stats_synced BOOLEAN DEFAULT FALSE;
     `);
 
     // 4. Bảng products
@@ -107,6 +118,16 @@ async function initDatabase() {
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       );
+    `);
+
+    // 5. Indexes tối ưu hóa hiệu năng truy vấn
+    await client.query(`
+      CREATE INDEX IF NOT EXISTS idx_products_brand_lower ON products (LOWER(brand));
+      CREATE INDEX IF NOT EXISTS idx_products_price ON products (price);
+      CREATE INDEX IF NOT EXISTS idx_products_created_at ON products (created_at);
+      CREATE INDEX IF NOT EXISTS idx_orders_customer_id ON orders (customer_id);
+      CREATE INDEX IF NOT EXISTS idx_orders_status ON orders (status);
+      CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders (created_at DESC);
     `);
 
     // Seed Admin mặc định nếu bảng trống

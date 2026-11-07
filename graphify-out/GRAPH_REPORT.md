@@ -1,27 +1,28 @@
 # Graph Report - phone-store-node  (2026-11-07)
 
 ## Corpus Check
-- 52 files · ~38,608 words
+- 65 files · ~74,797 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 4 file(s) not represented in the graph (top: .css 2, .example 1, (none) 1)
 
 ## Summary
-- 353 nodes · 668 edges · 15 communities (11 shown, 4 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 45 edges (avg confidence: 0.85)
+- 464 nodes · 951 edges · 20 communities (14 shown, 6 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 49 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4e4d2fd7`
+- Built from commit: `ade48c54`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - admin.js
 - CustomerModel
+- scripts
 - Product.js
 - main.js
 - Admin.js
-- package.json
+- dependencies
 - express
 - 📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)
 - server.js
@@ -31,62 +32,75 @@
 - 0003. Giao Diện Tương Tác Storefront Và Cơ Chế Graceful Fallback Khi Mất Kết Nối AI
 - vercel.json
 - TechStore
+- package.json
+- express-session
+- adminRoutes.js
+- cartRoutes.js
 
 ## God Nodes (most connected - your core abstractions)
-1. `showToast()` - 15 edges
-2. `CustomerModel` - 14 edges
-3. `ProductModel` - 14 edges
-4. `loadDashboard()` - 14 edges
-5. `JsonDB` - 13 edges
-6. `scripts` - 10 edges
-7. `express` - 10 edges
-8. `showToast()` - 9 edges
-9. `OrderModel` - 9 edges
-10. `formatMoney()` - 9 edges
+1. `ProductModel` - 26 edges
+2. `CustomerModel` - 19 edges
+3. `OrderModel` - 17 edges
+4. `showToast()` - 16 edges
+5. `loadDashboard()` - 15 edges
+6. `showToast()` - 15 edges
+7. `renderProductList()` - 14 edges
+8. `loadOrders()` - 11 edges
+9. `loadProducts()` - 11 edges
+10. `closeModal()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- None detected - all connections are within the same source files.
+- `Solution` --references--> `OrderModel`  [INFERRED]
+  docs/specs/0002-techstore-v2-production-release.md → src/models/Order.js
+- `0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache)` --references--> `ProductModel`  [INFERRED]
+  docs/adr/0004-qr-payment-state-machine-and-catalog-caching.md → src/models/Product.js
+- `Solution` --references--> `ProductModel`  [INFERRED]
+  docs/specs/0002-techstore-v2-production-release.md → src/models/Product.js
 
 ## Import Cycles
 - None detected.
 
-## Communities (15 total, 4 thin omitted)
+## Communities (20 total, 6 thin omitted)
 
 ### Community 0 - "admin.js"
-Cohesion: 0.11
-Nodes (44): closeModal(), currentCustFilter, currentOrderFilter, currentProdFilter, deleteCustomer(), deleteOrder(), deleteProduct(), enrichProductWithAI() (+36 more)
+Cohesion: 0.08
+Nodes (59): closeAdminModal(), closeModal(), currentCustFilter, currentOrderFilter, currentProdFilter, deleteCustomer(), deleteOrder(), deleteProduct() (+51 more)
 
 ### Community 1 - "CustomerModel"
-Cohesion: 0.07
-Nodes (29): addProduct(), createCustomer(), deleteCustomer(), deleteOrder(), deleteProduct(), exportCustomersCsv(), exportOrdersCsv(), getAllCustomers() (+21 more)
+Cohesion: 0.06
+Nodes (39): addProduct(), createCustomer(), deleteCustomer(), deleteOrder(), deleteProduct(), exportCustomersCsv(), exportOrdersCsv(), getAllCustomers() (+31 more)
+
+### Community 2 - "scripts"
+Cohesion: 0.20
+Nodes (10): scripts, build, crawl, db:seed, dev, start, test, vercel:deploy (+2 more)
 
 ### Community 3 - "Product.js"
-Cohesion: 0.11
-Nodes (22): addFlagships(), flagships, run(), crawlProducts(), enrichProductById(), selfHealProducts(), updateProduct(), addToCart() (+14 more)
+Cohesion: 0.06
+Nodes (36): 0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache), Bối cảnh & Lý do lựa chọn, Problem Statement, Solution, Spec 0002: TechStore v2.0 Production-Ready Release (QR Payment, Customer Portal, Multi-Attribute Specs Filter & Performance Optimization), addFlagships(), flagships, run() (+28 more)
 
 ### Community 4 - "main.js"
-Cohesion: 0.15
-Nodes (28): addToCart(), allProducts, appendChatBubble(), buyNow(), chatHistory, checkAuthState(), closeModal(), filterByBrand() (+20 more)
+Cohesion: 0.06
+Nodes (77): activeQrSession, addToCart(), allProducts, appendChatBubble(), BENCH_MODELS, buyNow(), cancelCustomerOrderUI(), chatHistory (+69 more)
 
 ### Community 5 - "Admin.js"
-Cohesion: 0.08
+Cohesion: 0.09
 Nodes (15): crypto, fs, path, initDatabase(), { Pool }, changePassword(), login(), adminDB (+7 more)
 
-### Community 6 - "package.json"
-Cohesion: 0.08
-Nodes (31): dependencies, cookie-parser@^1.4.6, cors@^2.8.5, dotenv@^18.0.7, express-session@^1.18.0, @google/genai@^3.0.0, pg@^8.23.1, devDependencies (+23 more)
+### Community 6 - "dependencies"
+Cohesion: 0.18
+Nodes (11): dependencies, cookie-parser@^1.4.6, cors@^2.8.5, dotenv@^18.0.7, @google/genai@^3.0.0, pg@^8.23.1, cookie-parser, cors (+3 more)
 
 ### Community 7 - "express"
-Cohesion: 0.08
-Nodes (17): express@^4.19.2, express, chatController, express, router, express, router, express (+9 more)
+Cohesion: 0.18
+Nodes (8): express@^4.19.2, express, express, router, express, router, express, router
 
 ### Community 8 - "📱 TechStore - Hệ Thống Bán Điện Thoại & Quản Trị Khách Hàng (CRM)"
 Cohesion: 0.17
 Nodes (11): 1. Cài đặt thư viện, 🛒 1. Phía Khách Hàng (Storefront), 2. Chạy môi trường phát triển, 🛡️ 2. Hệ Thống Quản Trị (Admin Panel & CRM), 3. Truy cập ứng dụng, 🚀 Cài Đặt & Khởi Chạy, Cách lấy chuỗi kết nối Neon Postgres:, 🐘 Kết Nối Neon Postgres (Lưu Trữ Bền Vững) (+3 more)
 
 ### Community 9 - "server.js"
-Cohesion: 0.07
-Nodes (32): app, cookieParser, cors, express, path, session, consultCustomer(), enrichProduct() (+24 more)
+Cohesion: 0.05
+Nodes (43): app, cookieParser, cors, express, path, compressionMiddleware(), zlib, express (+35 more)
 
 ### Community 10 - "Spec 0001: Gemini AI Automation (Product Enrichment, Shopping Consultant & Self-healing Catalog)"
 Cohesion: 0.22
@@ -96,23 +110,31 @@ Nodes (8): Further Notes, Implementation Decisions, Out of Scope, Problem Statem
 Cohesion: 0.50
 Nodes (3): builds, routes, version
 
+### Community 16 - "package.json"
+Cohesion: 0.28
+Nodes (8): devDependencies, nodemon@^3.1.14, vercel@^63.1.2, main, name, version, nodemon, vercel
+
+### Community 17 - "express-session"
+Cohesion: 0.50
+Nodes (3): express-session@^1.18.0, express-session, session
+
 ## Knowledge Gaps
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `express` connect `express` to `server.js`, `package.json`?**
-  _High betweenness centrality (0.067) - this node is a cross-community bridge._
-- **Should `admin.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.10823311748381129 - nodes in this community are weakly interconnected._
 - **Why does `ProductModel` connect `Product.js` to `CustomerModel`, `server.js`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
+  _High betweenness centrality (0.062) - this node is a cross-community bridge._
+- **Are the 2 inferred relationships involving `ProductModel` (e.g. with `0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache)` and `Solution`) actually correct?**
+  _`ProductModel` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **Should `admin.js` be split into smaller, more focused modules?**
+  _Cohesion score 0.08196721311475409 - nodes in this community are weakly interconnected._
+- **Why does `express` connect `express` to `Product.js`, `server.js`, `package.json`, `adminRoutes.js`, `cartRoutes.js`?**
+  _High betweenness centrality (0.040) - this node is a cross-community bridge._
 - **Should `CustomerModel` be split into smaller, more focused modules?**
-  _Cohesion score 0.06853146853146853 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.060694579681921455 - nodes in this community are weakly interconnected._
+- **Why does `OrderModel` connect `CustomerModel` to `server.js`, `Product.js`?**
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **Should `Product.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.1066066066066066 - nodes in this community are weakly interconnected._
-- **Should `Admin.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.08172043010752689 - nodes in this community are weakly interconnected._
-- **Should `package.json` be split into smaller, more focused modules?**
-  _Cohesion score 0.07862903225806452 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05734767025089606 - nodes in this community are weakly interconnected._

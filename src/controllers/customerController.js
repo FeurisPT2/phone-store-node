@@ -1,18 +1,122 @@
 const CustomerModel = require('../models/Customer');
 const OrderModel = require('../models/Order');
+const ProductModel = require('../models/Product');
 
-exports.getProfile = (req, res) => {
-  const c = req.currentCustomer || req.session.customer;
-  if (!c) {
+exports.getProfile = async (req, res) => {
+  const sessionCust = req.currentCustomer || req.session?.customer;
+  if (!sessionCust) {
     return res.json({ loggedIn: false, remembered: false, data: null });
   }
-  const safe = { ...c };
+  const fresh = (await CustomerModel.findById(sessionCust.id)) || sessionCust;
+  const safe = { ...fresh };
   delete safe.passwordHash;
+  if (req.session) req.session.customer = safe;
   res.json({
-    loggedIn: !!(req.session.customer && req.session.customer.passwordHash !== undefined || req.session.customer),
+    loggedIn: !!(req.session?.customer),
     remembered: true,
     data: safe
   });
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const sessionCust = req.currentCustomer || req.session?.customer;
+    if (!sessionCust) {
+      return res.status(401).json({ success: false, message: 'Vui lòng đăng nhập để cập nhật thông tin' });
+    }
+    const { fullName, email, address, note } = req.body;
+    const updated = await CustomerModel.updateCustomer(sessionCust.id, {
+      fullName,
+      email,
+      address,
+      note
+    });
+    if (!updated) {
+      return res.status(404).json({ success: false, message: 'Không tìm thấy tài khoản khách hàng' });
+    }
+    const safe = { ...updated };
+    delete safe.passwordHash;
+    if (req.session) req.session.customer = safe;
+    res.json({
+      success: true,
+      message: 'Cập nhật hồ sơ & sổ địa chỉ thành công!',
+      customer: safe
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+exports.getWishlist = async (req, res) => {
+  try {
+    const sessionCust = req.currentCustomer || req.session?.customer;
+    let wishlistIds = [];
+    if (sessionCust) {
+      const fresh = await CustomerModel.findById(sessionCust.id);
+      wishlistIds = Array.isArray(fresh?.wishlist) ? fresh.wishlist : [];
+    } else if (Array.isArray(req.session?.wishlist)) {
+      wishlistIds = req.session.wishlist;
+    }
+
+    const allProducts = await ProductModel.getAll('all');
+    const products = allProducts.filter((p) => wishlistIds.includes(String(p.id)));
+
+    res.json({
+      success: true,
+      wishlist: wishlistIds,
+      products
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+exports.toggleWishlist = async (req, res) => {
+  try {
+    const { productId } = req.body;
+    if (!productId) {
+      return res.status(400).json({ success: false, message: 'Thiếu mã sản phẩm (productId)' });
+    }
+
+    const sessionCust = req.currentCustomer || req.session?.customer;
+    if (sessionCust) {
+      const result = await CustomerModel.toggleWishlist(sessionCust.id, productId);
+      if (!result) {
+        return res.status(404).json({ success: false, message: 'Không tìm thấy khách hàng' });
+      }
+      const safe = { ...result.customer };
+      delete safe.passwordHash;
+      if (req.session) req.session.customer = safe;
+      return res.json({
+        success: true,
+        added: result.added,
+        wishlist: result.wishlist,
+        message: result.added ? 'Đã thêm vào danh sách yêu thích ❤️' : 'Đã bỏ khỏi danh sách yêu thích'
+      });
+    }
+
+    // Guest session wishlist fallback
+    if (!Array.isArray(req.session.wishlist)) {
+      req.session.wishlist = [];
+    }
+    const pid = String(productId);
+    const idx = req.session.wishlist.indexOf(pid);
+    let added = false;
+    if (idx >= 0) {
+      req.session.wishlist.splice(idx, 1);
+    } else {
+      req.session.wishlist.push(pid);
+      added = true;
+    }
+    res.json({
+      success: true,
+      added,
+      wishlist: req.session.wishlist,
+      message: added ? 'Đã thêm vào danh sách yêu thích ❤️' : 'Đã bỏ khỏi danh sách yêu thích'
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 };
 
 exports.register = async (req, res) => {

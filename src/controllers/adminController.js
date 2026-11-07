@@ -65,7 +65,9 @@ exports.getStats = async (req, res) => {
     const totalRevenue = validOrders.reduce((sum, o) => sum + (Number(o.totalAmount) || 0), 0);
 
     const statusCounts = {
+      awaiting_payment: orders.filter(o => o.status === 'awaiting_payment').length,
       pending: orders.filter(o => o.status === 'pending').length,
+      confirmed: orders.filter(o => o.status === 'confirmed').length,
       shipping: orders.filter(o => o.status === 'shipping').length,
       completed: orders.filter(o => o.status === 'completed').length,
       cancelled: orders.filter(o => o.status === 'cancelled').length
@@ -101,7 +103,9 @@ exports.getStats = async (req, res) => {
           labels: timelineLabels.length > 0 ? timelineLabels : ['Hôm nay'],
           revenue: timelineValues.length > 0 ? timelineValues : [totalRevenue],
           statusDistribution: [
+            statusCounts.awaiting_payment,
             statusCounts.pending,
+            statusCounts.confirmed,
             statusCounts.shipping,
             statusCounts.completed,
             statusCounts.cancelled
@@ -218,8 +222,8 @@ exports.exportCustomersCsv = async (req, res) => {
 
 exports.getAllOrders = async (req, res) => {
   try {
-    const { status, search } = req.query;
-    const list = await OrderModel.getAll({ status, search });
+    const { status, search, fromDate, toDate, paymentStatus } = req.query;
+    const list = await OrderModel.getAll({ status, search, fromDate, toDate, paymentStatus });
     res.json({ success: true, count: list.length, data: list });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -272,7 +276,9 @@ exports.exportOrdersCsv = async (req, res) => {
     const headers = ['Mã Đơn', 'Khách Hàng', 'Số Điện Thoại', 'Địa Chỉ Nhận Hàng', 'Sản Phẩm', 'Tổng Tiền (VNĐ)', 'Trạng Thái', 'Ghi Chú Đơn', 'Thời Gian Đặt'];
     
     const statusNames = {
+      awaiting_payment: 'Chờ thanh toán QR',
       pending: 'Chờ xác nhận',
+      confirmed: 'Đã xác nhận',
       shipping: 'Đang giao hàng',
       completed: 'Đã hoàn thành',
       cancelled: 'Đã hủy'

@@ -16,23 +16,34 @@ function calculateTag(orderCount = 0, totalSpent = 0) {
 
 function mapRowToCustomer(row) {
   if (!row) return null;
+  let wishlist = [];
+  if (Array.isArray(row.wishlist)) {
+    wishlist = row.wishlist;
+  } else if (typeof row.wishlist === 'string' && row.wishlist) {
+    try {
+      wishlist = JSON.parse(row.wishlist);
+    } catch {
+      wishlist = [];
+    }
+  }
   return {
     id: row.id,
-    fullName: row.full_name,
+    fullName: row.full_name !== undefined ? row.full_name : row.fullName,
     phone: row.phone,
-    passwordHash: row.password_hash,
-    email: row.email,
-    address: row.address,
-    note: row.note,
-    adminNote: row.admin_note,
-    tag: row.tag,
-    visitCount: parseInt(row.visit_count) || 1,
-    orderCount: parseInt(row.order_count) || 0,
-    totalSpent: parseInt(row.total_spent) || 0,
-    lastVisited: row.last_visited,
-    lastOrderAt: row.last_order_at,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at
+    passwordHash: row.password_hash !== undefined ? row.password_hash : row.passwordHash,
+    email: row.email || '',
+    address: row.address || '',
+    note: row.note || '',
+    adminNote: row.admin_note !== undefined ? row.admin_note : (row.adminNote || ''),
+    tag: row.tag || 'Mới',
+    wishlist,
+    visitCount: parseInt(row.visit_count !== undefined ? row.visit_count : row.visitCount) || 1,
+    orderCount: parseInt(row.order_count !== undefined ? row.order_count : row.orderCount) || 0,
+    totalSpent: parseInt(row.total_spent !== undefined ? row.total_spent : row.totalSpent) || 0,
+    lastVisited: row.last_visited || row.lastVisited,
+    lastOrderAt: row.last_order_at || row.lastOrderAt,
+    createdAt: row.created_at || row.createdAt,
+    updatedAt: row.updated_at || row.updatedAt
   };
 }
 
@@ -62,7 +73,7 @@ class CustomerModel {
     }
 
     // Fallback JSON
-    let list = customerDB.findAll();
+    let list = customerDB.findAll().map(mapRowToCustomer);
     if (search) {
       const q = search.toLowerCase().trim();
       list = list.filter(c =>
@@ -87,7 +98,7 @@ class CustomerModel {
         console.error('Lỗi tìm khách hàng theo id từ Postgres:', err.message);
       }
     }
-    return customerDB.findById(id);
+    return mapRowToCustomer(customerDB.findById(id));
   }
 
   static async findByPhone(phone) {
@@ -102,7 +113,7 @@ class CustomerModel {
         console.error('Lỗi tìm khách hàng theo SĐT từ Postgres:', err.message);
       }
     }
-    return customerDB.findOne(c => c.phone && c.phone.trim() === cleanPhone);
+    return mapRowToCustomer(customerDB.findOne(c => c.phone && c.phone.trim() === cleanPhone));
   }
 
   // Đăng ký tài khoản khách hàng
@@ -246,13 +257,15 @@ class CustomerModel {
             newTag,
             existing.id
           ]);
-          return mapRowToCustomer(res.rows[0]);
+          const cust = mapRowToCustomer(res.rows[0]);
+          delete cust.passwordHash;
+          return cust;
         } catch (err) {
           console.error('Lỗi cập nhật khách hàng vào Postgres:', err.message);
         }
       }
 
-      return customerDB.update(existing.id, {
+      const updated = mapRowToCustomer(customerDB.update(existing.id, {
         fullName: fullName || existing.fullName,
         email: email !== undefined ? email : (existing.email || ''),
         address: address || existing.address,
@@ -260,7 +273,9 @@ class CustomerModel {
         visitCount,
         tag: newTag,
         lastVisited: new Date().toISOString()
-      });
+      }));
+      delete updated.passwordHash;
+      return updated;
     }
 
     const newId = 'CUST_' + Date.now();
@@ -280,7 +295,9 @@ class CustomerModel {
           '',
           'Mới'
         ]);
-        return mapRowToCustomer(res.rows[0]);
+        const cust = mapRowToCustomer(res.rows[0]);
+        delete cust.passwordHash;
+        return cust;
       } catch (err) {
         console.error('Lỗi tạo mới khách hàng vào Postgres:', err.message);
       }
@@ -295,13 +312,14 @@ class CustomerModel {
       note: note || '',
       adminNote: '',
       tag: 'Mới',
+      wishlist: [],
       visitCount: 1,
       orderCount: 0,
       totalSpent: 0,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    return customerDB.insert(newCustomer);
+    return mapRowToCustomer(customerDB.insert(newCustomer));
   }
 
   static async createCustomer({ fullName, phone, email, address, note, adminNote, tag }) {
@@ -324,7 +342,9 @@ class CustomerModel {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 1, 0, 0, NOW())
           RETURNING *
         `, [newId, fullName, cleanPhone, email || '', address || '', note || '', adminNote || '', newTag]);
-        return mapRowToCustomer(res.rows[0]);
+        const cust = mapRowToCustomer(res.rows[0]);
+        delete cust.passwordHash;
+        return cust;
       } catch (err) {
         throw new Error('Lỗi lưu khách hàng vào Postgres: ' + err.message);
       }
@@ -339,13 +359,14 @@ class CustomerModel {
       note: note || '',
       adminNote: adminNote || '',
       tag: newTag,
+      wishlist: [],
       visitCount: 1,
       orderCount: 0,
       totalSpent: 0,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    return customerDB.insert(newCustomer);
+    return mapRowToCustomer(customerDB.insert(newCustomer));
   }
 
   static async updateCustomer(id, data) {
@@ -359,24 +380,52 @@ class CustomerModel {
     const note = data.note !== undefined ? data.note : existing.note;
     const adminNote = data.adminNote !== undefined ? data.adminNote : existing.adminNote;
     const tag = data.tag || existing.tag;
+    const wishlist = Array.isArray(data.wishlist) ? data.wishlist : (existing.wishlist || []);
 
     if (db.isPostgres()) {
       try {
         const res = await db.query(`
           UPDATE customers
-          SET full_name = $1, phone = $2, email = $3, address = $4, note = $5, admin_note = $6, tag = $7, updated_at = NOW()
-          WHERE id = $8
+          SET full_name = $1, phone = $2, email = $3, address = $4, note = $5, admin_note = $6, tag = $7, wishlist = $8, updated_at = NOW()
+          WHERE id = $9
           RETURNING *
-        `, [fullName, phone, email, address, note, adminNote, tag, id]);
-        return mapRowToCustomer(res.rows[0]);
+        `, [fullName, phone, email, address, note, adminNote, tag, JSON.stringify(wishlist), id]);
+        const cust = mapRowToCustomer(res.rows[0]);
+        delete cust.passwordHash;
+        return cust;
       } catch (err) {
         console.error('Lỗi sửa khách hàng Postgres:', err.message);
       }
     }
 
-    return customerDB.update(id, {
-      fullName, phone, email, address, note, adminNote, tag
-    });
+    const updated = mapRowToCustomer(customerDB.update(id, {
+      fullName, phone, email, address, note, adminNote, tag, wishlist
+    }));
+    delete updated.passwordHash;
+    return updated;
+  }
+
+  static async toggleWishlist(id, productId) {
+    const existing = await this.findById(id);
+    if (!existing || !productId) return null;
+
+    const currentList = Array.isArray(existing.wishlist) ? [...existing.wishlist] : [];
+    const pid = String(productId);
+    const idx = currentList.indexOf(pid);
+    let added = false;
+    if (idx >= 0) {
+      currentList.splice(idx, 1);
+    } else {
+      currentList.push(pid);
+      added = true;
+    }
+
+    const updated = await this.updateCustomer(id, { wishlist: currentList });
+    return {
+      added,
+      wishlist: updated?.wishlist || currentList,
+      customer: updated
+    };
   }
 
   static async deleteCustomer(id) {

@@ -8,6 +8,7 @@ const cors = require('cors');
 
 const sessionConfig = require('./src/config/sessionConfig');
 const customerMemoryMiddleware = require('./src/middlewares/customerMemory');
+const compressionMiddleware = require('./src/middlewares/compression');
 const apiRoutes = require('./src/routes');
 const db = require('./src/config/db');
 
@@ -18,6 +19,7 @@ const PORT = process.env.PORT || 3000;
 app.set('trust proxy', 1);
 
 app.use(cors());
+app.use(compressionMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -40,6 +42,11 @@ app.get(['/login', '/login.html', '/admin/login'], (req, res) => {
     return res.redirect('/admin');
   }
   return res.sendFile(path.join(__dirname, 'src', 'public', 'login.html'));
+});
+
+// Điều hướng Cổng Khách Hàng (Customer Self-Service Portal)
+app.get('/customer-portal', (req, res) => {
+  return res.sendFile(path.join(__dirname, 'src', 'public', 'index.html'));
 });
 
 // Điều hướng & bảo vệ truy cập trang Admin

@@ -2,8 +2,8 @@ const ProductModel = require('../models/Product');
 
 exports.getProducts = async (req, res) => {
   try {
-    const list = await ProductModel.getAll(req.query.brand);
-    res.json({ success: true, data: list });
+    const list = await ProductModel.getAll(req.query);
+    res.json({ success: true, count: list.length, data: list });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

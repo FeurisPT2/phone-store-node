@@ -51,3 +51,20 @@ _Avoid_: Product badge, preview item
 **Graceful Fallback**:
 Cơ chế tự động chuyển đổi sang bộ phân tích Regex truyền thống hoặc hiển thị thông báo an toàn khi thiếu GEMINI_API_KEY hoặc quá hạn mức, đảm bảo website không bao giờ bị gián đoạn hay phát sinh lỗi 500.
 _Avoid_: Error handler, try-catch fallback
+
+**QR Payment Sandbox**:
+Phương thức thanh toán chuyển khoản quét mã QR động (mô phỏng chuẩn VietQR / VNPay / MoMo) gắn với mã tham chiếu giao dịch duy nhất và thời hạn hiệu lực 15 phút cho mỗi đơn hàng.
+_Avoid_: Fake payment, dummy gateway
+
+**Lazy TTL Expiration**:
+Cơ chế kiểm tra và tự động chuyển đơn hàng chờ thanh toán QR quá hạn 15 phút sang trạng thái hủy ngay tại thời điểm truy vấn hoặc đối soát, không phụ thuộc bộ đếm ngầm trong bộ nhớ.
+_Avoid_: Background cron cancel, timeout timer
+
+**Customer Self-Service Portal**:
+Cổng tự phục vụ cho phép khách hàng (đã đăng nhập hoặc khách vãng lai dùng Số điện thoại + Mã đơn) tra cứu tiến độ đơn hàng, cập nhật địa chỉ nhận hàng mặc định, quản lý danh sách yêu thích và chủ động hủy đơn khi chưa giao.
+_Avoid_: User settings page, profile tab
+
+**Order Timeline**:
+Thanh tiến trình trực quan hóa vòng đời thực thi của một đơn hàng qua các mốc: Chờ thanh toán QR / Chờ xác nhận ➔ Đã xác nhận ➔ Đang giao hàng ➔ Đã hoàn thành (hoặc Đã hủy).
+_Avoid_: Order log, status text
+

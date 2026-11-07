@@ -64,10 +64,19 @@ class JsonDB {
   }
 
   write(data) {
-    try {
-      fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2), 'utf8');
-    } catch (err) {
-      console.error(`Error writing to ${this.filePath}:`, err);
+    const payload = JSON.stringify(data, null, 2);
+    for (let attempt = 0; attempt < 4; attempt++) {
+      try {
+        fs.writeFileSync(this.filePath, payload, 'utf8');
+        return;
+      } catch (err) {
+        if (attempt === 3) {
+          console.error(`Error writing to ${this.filePath}:`, err);
+        } else {
+          const waitUntil = Date.now() + 15 * (attempt + 1);
+          while (Date.now() < waitUntil) { /* brief sync backoff for Windows file handle release */ }
+        }
+      }
     }
   }
 

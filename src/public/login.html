@@ -1,722 +1,753 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cổng Đăng Nhập - TechStore</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --admin-color: #7c3aed;
-      --admin-hover: #6d28d9;
-      --accent: #06b6d4;
-      --bg-dark: #090d16;
-      --card-bg: rgba(17, 24, 39, 0.85);
-      --border-color: rgba(255, 255, 255, 0.12);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Đăng Nhập · TechStore Atelier</title>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1c1c1c;
+            --surface: #262626;
+            --surface-raised: #2f2f2e;
+            --ink: #f1f1ef;
+            --muted: #b5b6b0;
+            --accent: #8fa68e;
+            --accent-hover: #a3b9a2;
+            --accent-ink: #1c1c1c;
+            --accent-text: #b2cab1;
+            --field-1: #c8c5ba;
+            --field-1-ink: #1c1c1c;
+            --danger-bg: #452323;
+            --danger-ink: #f5b5b5;
+            --success-bg: #233829;
+            --success-ink: #b8dec0;
+            --font-sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      min-height: 100vh;
-      background: radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.25) 0%, transparent 45%),
-                  radial-gradient(circle at 85% 80%, rgba(124, 58, 237, 0.22) 0%, transparent 45%),
-                  var(--bg-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      color: var(--text-main);
-    }
+        html, body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.55;
+            min-height: 100svh;
+            overflow-x: hidden;
+            max-width: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .login-container {
-      width: 100%;
-      max-width: 480px;
-      background: var(--card-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 36px 32px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
-                  0 0 40px rgba(37, 99, 235, 0.15);
-      position: relative;
-      overflow: hidden;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    .login-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #2563eb, #7c3aed, #06b6d4);
-    }
+        button, input {
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            background: none;
+            border: none;
+        }
 
-    .brand-header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
+        button {
+            cursor: pointer;
+            transition: transform 160ms var(--ease-out), background-color 180ms var(--ease-out), color 180ms var(--ease-out);
+        }
 
-    .brand-icon {
-      width: 58px;
-      height: 58px;
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(124, 58, 237, 0.3));
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      color: #38bdf8;
-      margin-bottom: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
+        button:active {
+            transform: scale(0.98);
+        }
 
-    .brand-header h1 {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        .login-stage {
+            min-height: 100svh;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
 
-    .brand-header p {
-      color: var(--text-muted);
-      font-size: 13.5px;
-      margin-top: 4px;
-    }
+        /* Left Visual Half (Columns 1-6) */
+        .login-visual-col {
+            grid-column: 1 / 7;
+            background-color: var(--surface);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: clamp(2rem, 4vw, 3.5rem);
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* Role Switcher Tabs */
-    .role-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 4px;
-      margin-bottom: 22px;
-      gap: 4px;
-    }
+        .brand-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            z-index: 2;
+        }
 
-    .role-tab-btn {
-      padding: 10px;
-      border: none;
-      background: none;
-      color: var(--text-muted);
-      font-size: 13.5px;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-    }
+        .brand-wordmark {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+        }
 
-    .role-tab-btn.active.customer {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-    }
+        .back-store-link {
+            padding: 0.55rem 1rem;
+            background-color: var(--bg);
+            color: var(--ink);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
 
-    .role-tab-btn.active.admin {
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
-    }
+        .back-store-link:hover {
+            background-color: var(--accent);
+            color: var(--accent-ink);
+        }
 
-    /* Sub-tabs for Customer (Login vs Register) */
-    .sub-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 10px;
-    }
+        .visual-object-frame {
+            margin: 2rem 0;
+            height: clamp(280px, 46svh, 460px);
+            background-color: var(--bg);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .sub-tab-btn {
-      background: none;
-      border: none;
-      color: #94a3b8;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 4px 8px;
-      position: relative;
-    }
+        .visual-object-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
 
-    .sub-tab-btn.active {
-      color: #38bdf8;
-      font-weight: 700;
-    }
+        .visual-editorial-foot {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 2;
+        }
 
-    .sub-tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -11px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: #38bdf8;
-      border-radius: 2px;
-    }
+        .visual-headline {
+            font-size: 1.375rem;
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            max-width: 28ch;
+        }
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+        .visual-desc {
+            font-size: 1rem;
+            color: var(--ink);
+            max-width: 46ch;
+        }
 
-    .form-group label {
-      display: block;
-      font-size: 12.5px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #e2e8f0;
-    }
+        /* Right Form Half (Columns 7-12) */
+        .login-form-col {
+            grid-column: 7 / 13;
+            background-color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(2rem, 5vw, 4.5rem);
+        }
 
-    .input-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
+        .portal-panel-box {
+            width: 100%;
+            max-width: 460px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
 
-    .input-wrapper i.field-icon {
-      position: absolute;
-      left: 14px;
-      color: #64748b;
-      font-size: 15px;
-    }
+        .portal-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
 
-    .input-wrapper input, .input-wrapper textarea {
-      width: 100%;
-      height: 46px;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 0 42px 0 42px;
-      color: #fff;
-      font-size: 14px;
-      transition: all 0.2s ease;
-      outline: none;
-    }
+        .portal-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
 
-    .input-wrapper textarea {
-      height: 64px;
-      padding: 10px 14px;
-      resize: vertical;
-    }
+        .portal-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.75rem;
+            background-color: var(--surface);
+            color: var(--accent-text);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
 
-    .input-wrapper input:focus, .input-wrapper textarea:focus {
-      border-color: #38bdf8;
-      background: rgba(15, 23, 42, 0.95);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
-    }
+        .portal-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
 
-    .toggle-pass {
-      position: absolute;
-      right: 12px;
-      background: none;
-      border: none;
-      color: #64748b;
-      cursor: pointer;
-      font-size: 15px;
-      padding: 4px;
-    }
+        .portal-header p {
+            font-size: 1rem;
+            color: var(--muted);
+        }
 
-    .toggle-pass:hover {
-      color: #cbd5e1;
-    }
+        /* Role Switcher (Customer vs Admin) */
+        .role-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            background-color: var(--surface);
+            padding: 0.4rem;
+        }
 
-    .remember-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 12px 0 16px 0;
-      font-size: 12.5px;
-      color: #94a3b8;
-    }
+        .role-tab-btn {
+            padding: 0.75rem 1rem;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-align: center;
+        }
 
-    .remember-row label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
+        .role-tab-btn.active {
+            background-color: var(--accent);
+            color: var(--accent-ink);
+            font-weight: 600;
+        }
 
-    .btn-submit {
-      width: 100%;
-      height: 46px;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 14.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-    }
+        /* Customer Sub Tabs (Login vs Register) */
+        .sub-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
 
-    .btn-submit.admin-btn {
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
-    }
+        .sub-tab-btn {
+            padding: 0.6rem 0.85rem;
+            background-color: var(--surface);
+            color: var(--muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
 
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.1);
-    }
+        .sub-tab-btn.active {
+            background-color: var(--field-1);
+            color: var(--field-1-ink);
+            font-weight: 600;
+        }
 
-    .btn-submit:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
+        .alert-box {
+            display: none;
+            padding: 0.85rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
 
-    /* Demo Quick Fill Card */
-    .quick-fill-box {
-      margin-top: 18px;
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px dashed rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #94a3b8;
-    }
+        .alert-box.error {
+            display: block;
+            background-color: var(--danger-bg);
+            color: var(--danger-ink);
+        }
 
-    .btn-quick-fill {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #38bdf8;
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+        .alert-box.success {
+            display: block;
+            background-color: var(--success-bg);
+            color: var(--success-ink);
+        }
 
-    .btn-quick-fill:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            margin-bottom: 1rem;
+        }
 
-    .alert-error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #fca5a5;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 13px;
-      margin-bottom: 16px;
-      display: none;
-      align-items: center;
-      gap: 10px;
-    }
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
 
-    .footer-links {
-      text-align: center;
-      margin-top: 22px;
-      font-size: 13px;
-    }
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background-color: var(--surface);
+        }
 
-    .footer-links a {
-      color: #94a3b8;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+        .input-wrapper input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 0.9375rem;
+            color: var(--ink);
+            outline: none;
+        }
 
-    .footer-links a:hover {
-      color: #38bdf8;
-    }
-  </style>
+        .input-wrapper input::placeholder {
+            color: var(--muted);
+        }
+
+        .toggle-pass {
+            padding: 0 0.85rem;
+            color: var(--muted);
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .remember-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0.5rem 0 1.25rem;
+            font-size: 0.875rem;
+        }
+
+        .remember-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.95rem 1.25rem;
+            background-color: var(--accent);
+            color: var(--accent-ink);
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .demo-hint-box {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background-color: var(--surface);
+            font-size: 0.875rem;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-fill-btn {
+            padding: 0.4rem 0.75rem;
+            background-color: var(--bg);
+            color: var(--accent-text);
+            font-size: 0.8125rem;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 960px) {
+            .login-stage {
+                grid-template-columns: 1fr;
+            }
+            .login-visual-col,
+            .login-form-col {
+                grid-column: 1 / -1;
+            }
+            .visual-object-frame {
+                height: 240px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+            .portal-header h1 {
+                font-size: 1.375rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="login-container">
-    <div class="brand-header">
-      <div class="brand-icon">
-        <i class="fa-solid fa-mobile-screen" id="header-icon"></i>
-      </div>
-      <h1 id="portal-title">Cổng Đăng Nhập TechStore</h1>
-      <p id="portal-subtitle">Chọn vai trò đăng nhập để tiếp tục</p>
+    <div class="login-stage">
+        <!-- Left Architectural Brand & Object Column -->
+        <aside class="login-visual-col">
+            <div class="brand-bar">
+                <a href="/" class="brand-wordmark">TechStore · Atelier</a>
+                <a href="/" class="back-store-link">Về trang chủ</a>
+            </div>
+
+            <div class="visual-object-frame">
+                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="TechStore Flagship Hardware" fetchpriority="high" decoding="async">
+            </div>
+
+            <div class="visual-editorial-foot">
+                <h2 class="visual-headline">Một tài khoản cho toàn bộ hành trình.</h2>
+                <p class="visual-desc">Theo dõi vận đơn 4 bước thời gian thực, lưu cấu hình yêu thích, xuất hóa đơn VAT điện tử và quản trị kho hàng tập trung.</p>
+            </div>
+        </aside>
+
+        <!-- Right Authentication Workspace -->
+        <main class="login-form-col">
+            <div class="portal-panel-box">
+                <div class="portal-header">
+                    <div class="portal-title-row">
+                        <h1 id="portal-title">Cổng Đăng Nhập</h1>
+                        <span class="portal-badge" id="header-icon">TechStore Identity</span>
+                    </div>
+                    <p id="portal-subtitle">Chọn vai trò Khách hàng hoặc Quản trị viên để tiếp tục</p>
+                </div>
+
+                <!-- Role Switcher -->
+                <div class="role-tabs">
+                    <button type="button" class="role-tab-btn active" id="tab-btn-customer" onclick="switchRole('customer')">Khách Hàng</button>
+                    <button type="button" class="role-tab-btn" id="tab-btn-admin" onclick="switchRole('admin')">Quản Trị Viên</button>
+                </div>
+
+                <!-- Alert Banner -->
+                <div id="login-alert" class="alert-box">
+                    <span id="alert-msg"></span>
+                </div>
+
+                <!-- CUSTOMER SECTION -->
+                <div id="section-customer">
+                    <div class="sub-tabs">
+                        <button type="button" class="sub-tab-btn active" id="sub-login-btn" onclick="switchCustomerTab('login')">Đăng nhập</button>
+                        <button type="button" class="sub-tab-btn" id="sub-reg-btn" onclick="switchCustomerTab('register')">Đăng ký mới</button>
+                    </div>
+
+                    <!-- Customer Login Form -->
+                    <form id="form-customer-login" onsubmit="handleCustomerLogin(event)">
+                        <div class="form-group">
+                            <label for="cust-login-phone">Số điện thoại</label>
+                            <div class="input-wrapper">
+                                <input type="tel" id="cust-login-phone" required placeholder="Nhập số điện thoại (VD: 0987654321)" autocomplete="tel">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cust-login-pass">Mật khẩu</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="cust-login-pass" required placeholder="Nhập mật khẩu của bạn" autocomplete="current-password">
+                                <button type="button" class="toggle-pass" onclick="togglePass('cust-login-pass', this)">Hiện</button>
+                            </div>
+                        </div>
+
+                        <div class="remember-row">
+                            <label class="remember-label">
+                                <input type="checkbox" id="cust-remember" checked>
+                                <span>Duy trì đăng nhập 30 ngày</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btn-cust-login">Đăng nhập khách hàng</button>
+
+                        <div class="demo-hint-box">
+                            <span>Tài khoản thử nghiệm: <strong>0987654321</strong> / <strong>123456</strong></span>
+                            <button type="button" class="demo-fill-btn" onclick="fillCustomerDemo()">Điền nhanh</button>
+                        </div>
+                    </form>
+
+                    <!-- Customer Register Form -->
+                    <form id="form-customer-register" class="hidden" onsubmit="handleCustomerRegister(event)">
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label for="cust-reg-name">Họ và tên</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="cust-reg-name" required placeholder="Nguyễn Văn A">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-reg-phone">Số điện thoại</label>
+                                <div class="input-wrapper">
+                                    <input type="tel" id="cust-reg-phone" required placeholder="09xxxxxxxx">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label for="cust-reg-pass">Mật khẩu</label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="cust-reg-pass" required minlength="6" placeholder="Tối thiểu 6 ký tự">
+                                    <button type="button" class="toggle-pass" onclick="togglePass('cust-reg-pass', this)">Hiện</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-reg-email">Email nhận hóa đơn</label>
+                                <div class="input-wrapper">
+                                    <input type="email" id="cust-reg-email" placeholder="ten@email.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cust-reg-address">Địa chỉ giao hàng mặc định</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="cust-reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btn-cust-reg">Tạo tài khoản &amp; vào cửa hàng</button>
+                    </form>
+                </div>
+
+                <!-- ADMIN SECTION -->
+                <div id="section-admin" class="hidden">
+                    <form id="form-admin-login" onsubmit="handleAdminLogin(event)">
+                        <div class="form-group">
+                            <label for="admin-user">Tài khoản Quản trị (Username)</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="admin-user" required placeholder="Nhập tài khoản admin" autocomplete="username">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-pass">Mật khẩu Quản trị</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="admin-pass" required placeholder="Nhập mật khẩu quản trị" autocomplete="current-password">
+                                <button type="button" class="toggle-pass" onclick="togglePass('admin-pass', this)">Hiện</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btn-admin-submit">Đăng nhập Quản trị (Admin CRM)</button>
+
+                        <div class="demo-hint-box">
+                            <span>Quản trị mặc định: <strong>admin</strong> / <strong>admin123</strong></span>
+                            <button type="button" class="demo-fill-btn" onclick="fillAdminDemo()">Điền nhanh</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <!-- Role Switcher -->
-    <div class="role-tabs">
-      <button class="role-tab-btn active customer" id="tab-btn-customer" onclick="switchRole('customer')">
-        <i class="fa-solid fa-user"></i> Khách Hàng
-      </button>
-      <button class="role-tab-btn admin" id="tab-btn-admin" onclick="switchRole('admin')">
-        <i class="fa-solid fa-shield-halved"></i> Quản Trị Viên
-      </button>
-    </div>
+    <script>
+        let currentRole = 'customer';
 
-    <!-- Alert Box -->
-    <div id="login-alert" class="alert-error">
-      <i class="fa-solid fa-circle-exclamation"></i>
-      <span id="alert-msg">Thông tin đăng nhập không hợp lệ</span>
-    </div>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const roleParam = params.get('role');
+            const tabParam = params.get('tab');
 
-    <!-- ==================== ROLE 1: KHÁCH HÀNG ==================== -->
-    <div id="section-customer">
-      <div class="sub-tabs">
-        <button class="sub-tab-btn active" id="sub-login-btn" onclick="switchCustomerTab('login')">Đăng Nhập</button>
-        <button class="sub-tab-btn" id="sub-reg-btn" onclick="switchCustomerTab('register')">Đăng Ký Tài Khoản</button>
-      </div>
-
-      <!-- Customer Login Form -->
-      <form id="form-customer-login">
-        <div class="form-group">
-          <label>Số điện thoại</label>
-          <div class="input-wrapper">
-            <input type="tel" id="cust-login-phone" placeholder="VD: 0901112233" required autocomplete="tel" autofocus>
-            <i class="fa-solid fa-phone field-icon"></i>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Mật khẩu</label>
-          <div class="input-wrapper">
-            <input type="password" id="cust-login-pass" placeholder="Nhập mật khẩu" required autocomplete="current-password">
-            <i class="fa-solid fa-lock field-icon"></i>
-            <button type="button" class="toggle-pass" onclick="togglePass('cust-login-pass', this)">
-              <i class="fa-regular fa-eye"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="remember-row">
-          <label>
-            <input type="checkbox" id="cust-remember" checked> Ghi nhớ đăng nhập
-          </label>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btn-cust-login">
-          <span>Đăng Nhập Khách Hàng</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-
-        <div class="quick-fill-box">
-          <div>Tài khoản mẫu: <strong>0901112233</strong> / <strong>123456</strong></div>
-          <button type="button" class="btn-quick-fill" onclick="fillCustomerDemo()">Điền mẫu</button>
-        </div>
-      </form>
-
-      <!-- Customer Register Form -->
-      <form id="form-customer-register" style="display:none;">
-        <div class="form-group">
-          <label>Họ và tên (*)</label>
-          <div class="input-wrapper">
-            <input type="text" id="cust-reg-name" placeholder="Nguyễn Văn A" required>
-            <i class="fa-solid fa-user field-icon"></i>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Số điện thoại (*)</label>
-          <div class="input-wrapper">
-            <input type="tel" id="cust-reg-phone" placeholder="0912345678" required>
-            <i class="fa-solid fa-phone field-icon"></i>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Mật khẩu (*)</label>
-          <div class="input-wrapper">
-            <input type="password" id="cust-reg-pass" placeholder="Tối thiểu 6 ký tự" required>
-            <i class="fa-solid fa-lock field-icon"></i>
-            <button type="button" class="toggle-pass" onclick="togglePass('cust-reg-pass', this)">
-              <i class="fa-regular fa-eye"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Email nhận hóa đơn</label>
-          <div class="input-wrapper">
-            <input type="email" id="cust-reg-email" placeholder="example@gmail.com">
-            <i class="fa-solid fa-envelope field-icon"></i>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Địa chỉ nhận hàng</label>
-          <div class="input-wrapper">
-            <textarea id="cust-reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện..."></textarea>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btn-cust-reg">
-          <span>Tạo Tài Khoản Khách Hàng</span>
-          <i class="fa-solid fa-user-plus"></i>
-        </button>
-      </form>
-    </div>
-
-    <!-- ==================== ROLE 2: QUẢN TRỊ VIÊN ==================== -->
-    <div id="section-admin" style="display:none;">
-      <form id="form-admin-login">
-        <div class="form-group">
-          <label>Tên đăng nhập Admin</label>
-          <div class="input-wrapper">
-            <input type="text" id="admin-user" placeholder="Nhập username" required autocomplete="username" value="admin">
-            <i class="fa-solid fa-user-shield field-icon"></i>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Mật khẩu Quản trị</label>
-          <div class="input-wrapper">
-            <input type="password" id="admin-pass" placeholder="Nhập mật khẩu" required autocomplete="current-password" value="admin123">
-            <i class="fa-solid fa-key field-icon"></i>
-            <button type="button" class="toggle-pass" onclick="togglePass('admin-pass', this)">
-              <i class="fa-regular fa-eye"></i>
-            </button>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-submit admin-btn" id="btn-admin-submit" style="margin-top:14px;">
-          <span>Đăng Nhập Quản Trị Viên</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-
-        <div class="quick-fill-box">
-          <div>Tài khoản Admin: <strong>admin</strong> / <strong>admin123</strong></div>
-          <button type="button" class="btn-quick-fill" onclick="fillAdminDemo()">Điền mẫu</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="footer-links">
-      <a href="/">
-        <i class="fa-solid fa-arrow-left"></i> Quay lại Cửa Hàng TechStore
-      </a>
-    </div>
-  </div>
-
-  <script>
-    const alertBox = document.getElementById('login-alert');
-    const alertMsg = document.getElementById('alert-msg');
-
-    function showAlert(msg) {
-      alertBox.style.display = 'flex';
-      alertMsg.innerText = msg;
-    }
-
-    function hideAlert() {
-      alertBox.style.display = 'none';
-    }
-
-    function togglePass(id, btn) {
-      const input = document.getElementById(id);
-      const isPass = input.type === 'password';
-      input.type = isPass ? 'text' : 'password';
-      btn.innerHTML = isPass ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
-    }
-
-    function switchRole(role) {
-      hideAlert();
-      const tabCust = document.getElementById('tab-btn-customer');
-      const tabAdmin = document.getElementById('tab-btn-admin');
-      const secCust = document.getElementById('section-customer');
-      const secAdmin = document.getElementById('section-admin');
-      const headerIcon = document.getElementById('header-icon');
-      const title = document.getElementById('portal-title');
-      const subtitle = document.getElementById('portal-subtitle');
-
-      if (role === 'admin') {
-        tabCust.classList.remove('active', 'customer');
-        tabAdmin.classList.add('active', 'admin');
-        secCust.style.display = 'none';
-        secAdmin.style.display = 'block';
-        headerIcon.className = 'fa-solid fa-shield-halved';
-        title.innerText = 'Đăng Nhập Quản Trị Viên';
-        subtitle.innerText = 'Hệ thống Quản Trị Kho Hàng & CRM TechStore';
-      } else {
-        tabAdmin.classList.remove('active', 'admin');
-        tabCust.classList.add('active', 'customer');
-        secAdmin.style.display = 'none';
-        secCust.style.display = 'block';
-        headerIcon.className = 'fa-solid fa-mobile-screen';
-        title.innerText = 'Cổng Đăng Nhập TechStore';
-        subtitle.innerText = 'Tài khoản khách hàng thân thiết';
-      }
-    }
-
-    function switchCustomerTab(type) {
-      hideAlert();
-      const btnLog = document.getElementById('sub-login-btn');
-      const btnReg = document.getElementById('sub-reg-btn');
-      const formLog = document.getElementById('form-customer-login');
-      const formReg = document.getElementById('form-customer-register');
-
-      if (type === 'register') {
-        btnLog.classList.remove('active');
-        btnReg.classList.add('active');
-        formLog.style.display = 'none';
-        formReg.style.display = 'block';
-      } else {
-        btnReg.classList.remove('active');
-        btnLog.classList.add('active');
-        formReg.style.display = 'none';
-        formLog.style.display = 'block';
-      }
-    }
-
-    function fillCustomerDemo() {
-      document.getElementById('cust-login-phone').value = '0901112233';
-      document.getElementById('cust-login-pass').value = '123456';
-    }
-
-    function fillAdminDemo() {
-      document.getElementById('admin-user').value = 'admin';
-      document.getElementById('admin-pass').value = 'admin123';
-    }
-
-    // 1. Submit Customer Login
-    document.getElementById('form-customer-login').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      hideAlert();
-      const btn = document.getElementById('btn-cust-login');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang đăng nhập...';
-
-      const phone = document.getElementById('cust-login-phone').value.trim();
-      const password = document.getElementById('cust-login-pass').value;
-      const rememberMe = document.getElementById('cust-remember').checked;
-
-      try {
-        const res = await fetch('/api/customers/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, password, rememberMe })
+            if (roleParam === 'admin') {
+                switchRole('admin');
+            } else {
+                switchRole('customer');
+                if (tabParam === 'register') {
+                    switchCustomerTab('register');
+                }
+            }
         });
-        const data = await res.json();
-        if (data.success) {
-          btn.innerHTML = '<i class="fa-solid fa-check"></i> Đăng nhập thành công!';
-          btn.style.background = '#10b981';
-          const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || '/';
-          setTimeout(() => {
-            window.location.href = redirectUrl;
-          }, 400);
-        } else {
-          showAlert(data.message || 'Số điện thoại hoặc mật khẩu không chính xác');
-          btn.disabled = false;
-          btn.innerHTML = '<span>Đăng Nhập Khách Hàng</span> <i class="fa-solid fa-arrow-right"></i>';
+
+        function showAlert(msg, type = 'error') {
+            const box = document.getElementById('login-alert');
+            const text = document.getElementById('alert-msg');
+            box.className = `alert-box ${type}`;
+            text.innerText = msg;
         }
-      } catch (err) {
-        showAlert('Lỗi kết nối máy chủ');
-        btn.disabled = false;
-        btn.innerHTML = '<span>Đăng Nhập Khách Hàng</span> <i class="fa-solid fa-arrow-right"></i>';
-      }
-    });
 
-    // 2. Submit Customer Register
-    document.getElementById('form-customer-register').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      hideAlert();
-      const btn = document.getElementById('btn-cust-reg');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang đăng ký...';
-
-      const fullName = document.getElementById('cust-reg-name').value.trim();
-      const phone = document.getElementById('cust-reg-phone').value.trim();
-      const password = document.getElementById('cust-reg-pass').value;
-      const email = document.getElementById('cust-reg-email').value.trim();
-      const address = document.getElementById('cust-reg-address').value.trim();
-
-      try {
-        const res = await fetch('/api/customers/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ fullName, phone, password, email, address })
-        });
-        const data = await res.json();
-        if (data.success) {
-          btn.innerHTML = '<i class="fa-solid fa-check"></i> Đăng ký thành công!';
-          btn.style.background = '#10b981';
-          setTimeout(() => {
-            window.location.href = '/';
-          }, 400);
-        } else {
-          showAlert(data.message || 'Đăng ký không thành công');
-          btn.disabled = false;
-          btn.innerHTML = '<span>Tạo Tài Khoản Khách Hàng</span> <i class="fa-solid fa-user-plus"></i>';
+        function hideAlert() {
+            const box = document.getElementById('login-alert');
+            box.className = 'alert-box';
         }
-      } catch (err) {
-        showAlert('Lỗi kết nối máy chủ');
-        btn.disabled = false;
-        btn.innerHTML = '<span>Tạo Tài Khoản Khách Hàng</span> <i class="fa-solid fa-user-plus"></i>';
-      }
-    });
 
-    // 3. Submit Admin Login
-    document.getElementById('form-admin-login').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      hideAlert();
-      const btn = document.getElementById('btn-admin-submit');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xác thực admin...';
+        function switchRole(role) {
+            currentRole = role;
+            hideAlert();
 
-      const username = document.getElementById('admin-user').value.trim();
-      const password = document.getElementById('admin-pass').value;
+            const btnCust = document.getElementById('tab-btn-customer');
+            const btnAdmin = document.getElementById('tab-btn-admin');
+            const secCust = document.getElementById('section-customer');
+            const secAdmin = document.getElementById('section-admin');
+            const icon = document.getElementById('header-icon');
+            const title = document.getElementById('portal-title');
+            const sub = document.getElementById('portal-subtitle');
 
-      try {
-        const res = await fetch('/api/admin/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        });
-        const data = await res.json();
-        if (data.success) {
-          btn.innerHTML = '<i class="fa-solid fa-check"></i> Đăng nhập thành công!';
-          btn.style.background = '#10b981';
-          setTimeout(() => {
-            window.location.href = '/admin';
-          }, 400);
-        } else {
-          showAlert(data.message || 'Sai tên đăng nhập hoặc mật khẩu quản trị');
-          btn.disabled = false;
-          btn.innerHTML = '<span>Đăng Nhập Quản Trị Viên</span> <i class="fa-solid fa-arrow-right"></i>';
+            if (role === 'admin') {
+                btnCust.classList.remove('active');
+                btnAdmin.classList.add('active');
+                secCust.classList.add('hidden');
+                secAdmin.classList.remove('hidden');
+                icon.innerText = 'TechStore Back-Office';
+                title.innerText = 'Cổng Đăng Nhập Quản Trị';
+                sub.innerText = 'Truy cập hệ thống quản lý kho, đơn hàng và CRM';
+            } else {
+                btnAdmin.classList.remove('active');
+                btnCust.classList.add('active');
+                secAdmin.classList.add('hidden');
+                secCust.classList.remove('hidden');
+                icon.innerText = 'TechStore Identity';
+                title.innerText = 'Cổng Đăng Nhập';
+                sub.innerText = 'Đăng nhập để theo dõi đơn hàng & nhận ưu đãi thành viên';
+            }
         }
-      } catch (err) {
-        showAlert('Lỗi kết nối máy chủ');
-        btn.disabled = false;
-        btn.innerHTML = '<span>Đăng Nhập Quản Trị Viên</span> <i class="fa-solid fa-arrow-right"></i>';
-      }
-    });
 
-    // Tự động chọn tab theo URL query (?role=admin)
-    window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const role = params.get('role');
-      if (role === 'admin' || window.location.pathname === '/admin/login') {
-        switchRole('admin');
-      }
-    });
-  </script>
+        function switchCustomerTab(tab) {
+            hideAlert();
+            const isLogin = tab === 'login';
+            document.getElementById('sub-login-btn').classList.toggle('active', isLogin);
+            document.getElementById('sub-reg-btn').classList.toggle('active', !isLogin);
+            document.getElementById('form-customer-login').classList.toggle('hidden', !isLogin);
+            document.getElementById('form-customer-register').classList.toggle('hidden', isLogin);
+        }
+
+        function togglePass(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const isPass = input.type === 'password';
+            input.type = isPass ? 'text' : 'password';
+            btn.innerText = isPass ? 'Ẩn' : 'Hiện';
+        }
+
+        function fillCustomerDemo() {
+            document.getElementById('cust-login-phone').value = '0987654321';
+            document.getElementById('cust-login-pass').value = '123456';
+            hideAlert();
+        }
+
+        function fillAdminDemo() {
+            document.getElementById('admin-user').value = 'admin';
+            document.getElementById('admin-pass').value = 'admin123';
+            hideAlert();
+        }
+
+        async function handleCustomerLogin(e) {
+            e.preventDefault();
+            hideAlert();
+            const btn = document.getElementById('btn-cust-login');
+            btn.disabled = true;
+            btn.innerText = 'Đang xác thực...';
+
+            const payload = {
+                phone: document.getElementById('cust-login-phone').value.trim(),
+                password: document.getElementById('cust-login-pass').value,
+                rememberMe: document.getElementById('cust-remember').checked
+            };
+
+            try {
+                const res = await fetch('/api/customers/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showAlert('Đăng nhập thành công. Đang chuyển về trang chủ...', 'success');
+                    const redirect = new URLSearchParams(window.location.search).get('redirect') || '/';
+                    setTimeout(() => { window.location.href = redirect; }, 500);
+                } else {
+                    showAlert(data.message || 'Số điện thoại hoặc mật khẩu không đúng.');
+                    btn.disabled = false;
+                    btn.innerText = 'Đăng nhập khách hàng';
+                }
+            } catch {
+                showAlert('Lỗi kết nối máy chủ. Vui lòng thử lại.');
+                btn.disabled = false;
+                btn.innerText = 'Đăng nhập khách hàng';
+            }
+        }
+
+        async function handleCustomerRegister(e) {
+            e.preventDefault();
+            hideAlert();
+            const btn = document.getElementById('btn-cust-reg');
+            btn.disabled = true;
+            btn.innerText = 'Đang khởi tạo tài khoản...';
+
+            const payload = {
+                fullName: document.getElementById('cust-reg-name').value.trim(),
+                phone: document.getElementById('cust-reg-phone').value.trim(),
+                password: document.getElementById('cust-reg-pass').value,
+                email: document.getElementById('cust-reg-email').value.trim(),
+                address: document.getElementById('cust-reg-address').value.trim()
+            };
+
+            try {
+                const res = await fetch('/api/customers/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showAlert('Tạo tài khoản thành công. Đang chuyển vào cửa hàng...', 'success');
+                    setTimeout(() => { window.location.href = '/'; }, 600);
+                } else {
+                    showAlert(data.message || 'Không thể đăng ký tài khoản.');
+                    btn.disabled = false;
+                    btn.innerText = 'Tạo tài khoản & vào cửa hàng';
+                }
+            } catch {
+                showAlert('Lỗi kết nối máy chủ.');
+                btn.disabled = false;
+                btn.innerText = 'Tạo tài khoản & vào cửa hàng';
+            }
+        }
+
+        async function handleAdminLogin(e) {
+            e.preventDefault();
+            hideAlert();
+            const btn = document.getElementById('btn-admin-submit');
+            btn.disabled = true;
+            btn.innerText = 'Đang xác thực quyền Admin...';
+
+            const payload = {
+                username: document.getElementById('admin-user').value.trim(),
+                password: document.getElementById('admin-pass').value
+            };
+
+            try {
+                const res = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showAlert('Xác thực Admin thành công. Đang mở bảng điều khiển...', 'success');
+                    setTimeout(() => { window.location.href = '/admin'; }, 500);
+                } else {
+                    showAlert(data.message || 'Sai tài khoản hoặc mật khẩu Quản trị viên.');
+                    btn.disabled = false;
+                    btn.innerText = 'Đăng nhập Quản trị (Admin CRM)';
+                }
+            } catch {
+                showAlert('Lỗi kết nối máy chủ.');
+                btn.disabled = false;
+                btn.innerText = 'Đăng nhập Quản trị (Admin CRM)';
+            }
+        }
+    </script>
 </body>
 </html>
