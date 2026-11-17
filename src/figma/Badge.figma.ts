@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/rUvMCTXrbWVMSQRCU9D2Ld/GearHub---Tech---Gear-Store-Design-System?node-id=23-26
+// url=https://www.figma.com/design/dpERREqOAyN14NDrF95z8Y/GearHub---Tech---Gear-Store-Design-System-(v2)?node-id=1-26
 // source=src/public/css/style.css
 // component=Badge
 import figma from 'figma'

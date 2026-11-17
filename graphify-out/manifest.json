@@ -72,20 +72,20 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1794920697.8063712,
-    "seen": 1794920709.7043047,
+    "mtime": 1794922355.5342612,
+    "seen": 1794922382.6621912,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1794920698.0841799,
-    "seen": 1794920709.7043047,
+    "mtime": 1794922355.789121,
+    "seen": 1794922382.6621912,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1794920697.927549,
-    "seen": 1794920709.7043047,
+    "mtime": 1794922355.6551385,
+    "seen": 1794922382.6621912,
     "ast_hash": "c7919c1aa0764251eee41202951b5ab3",
     "semantic_hash": ""
   },
@@ -204,9 +204,9 @@
     "semantic_hash": ""
   },
   "src/public/index.html": {
-    "mtime": 1794920689.3760836,
-    "seen": 1794920709.7043047,
-    "ast_hash": "45ea44f46e2d0326b1188446cf65b2a4",
+    "mtime": 1794921668.484069,
+    "seen": 1794922382.6621912,
+    "ast_hash": "16d13e82a214b186c489e5944d8a53fb",
     "semantic_hash": ""
   },
   "src/public/login.html": {
@@ -576,27 +576,33 @@
     "semantic_hash": ""
   },
   "src/figma/Badge.figma.ts": {
-    "mtime": 1794916905.2631805,
-    "seen": 1794918823.2957802,
-    "ast_hash": "996301732a157473278fb747a7aa28d8",
+    "mtime": 1794921993.4527924,
+    "seen": 1794922382.6621912,
+    "ast_hash": "7970acff339029e9fb244860784f12b2",
     "semantic_hash": ""
   },
   "src/figma/Button.figma.ts": {
-    "mtime": 1794916900.7933085,
-    "seen": 1794918823.2957802,
-    "ast_hash": "5e2285fab3ce417d3c791f807387ed66",
+    "mtime": 1794921986.2516198,
+    "seen": 1794922382.6621912,
+    "ast_hash": "16c38636183ee536ddba4a4c7f02f149",
     "semantic_hash": ""
   },
   "src/figma/KpiCard.figma.ts": {
-    "mtime": 1794916917.1487262,
-    "seen": 1794918823.2957802,
-    "ast_hash": "c9aec694a53d27be0c082fb6cc5b4a74",
+    "mtime": 1794921973.6356409,
+    "seen": 1794922382.6621912,
+    "ast_hash": "d7fb2e50223cd16f0f481791bb0da151",
     "semantic_hash": ""
   },
   "src/figma/ProductCard.figma.ts": {
-    "mtime": 1794916910.8383338,
-    "seen": 1794918823.2957802,
-    "ast_hash": "b219bc430831f8fc470f6ea4111aa524",
+    "mtime": 1794921967.1328547,
+    "seen": 1794922382.6621912,
+    "ast_hash": "c07d938d7aa2acabb1c951b49a7b38e8",
+    "semantic_hash": ""
+  },
+  "docs/design-system-rules.md": {
+    "mtime": 1794921902.8069606,
+    "seen": 1794922382.6621912,
+    "ast_hash": "1d90a6e76b8d3bf8d8381257054b3b46",
     "semantic_hash": ""
   },
   "package-lock.json": {

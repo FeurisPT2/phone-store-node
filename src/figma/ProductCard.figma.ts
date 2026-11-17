@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/rUvMCTXrbWVMSQRCU9D2Ld/GearHub---Tech---Gear-Store-Design-System?node-id=23-27
+// url=https://www.figma.com/design/dpERREqOAyN14NDrF95z8Y/GearHub---Tech---Gear-Store-Design-System-(v2)?node-id=1-27
 // source=src/public/js/main.js
 // component=ProductCard
 import figma from 'figma'

@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>phone-store-node — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 727 nodes, 1266 edges, 43 communities. Commit: 0299f28</p>
+<p class="subtitle">Generated from graphify knowledge graph: 739 nodes, 1277 edges, 44 communities. Commit: a5ed817</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -70,14 +70,14 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#ingest-cache-update">Ingestion &amp; Updates</a>
     <a href="#serve-api">Serving API</a>
     <a href="#tests-fixtures">Tests &amp; Fixtures</a>
-    <a href="#controllers-models-customerjs">Controllers Models Customerjs</a>
+    <a href="#controllers-models-admincontrollerjs">Controllers Models Admincontrollerjs</a>
     <a href="#admin-crm-inventory-client">Admin CRM &amp; Inventory Client</a>
     <a href="#customerportaljs-public-cancelcustomerorderui">Customerportaljs Public Cancelcustomerorderui</a>
     <a href="#cartjs-public-0013">Cartjs Public 0013</a>
     <a href="#catalog-filter-spec-extractor">Catalog Filter &amp; Spec Extractor</a>
     <a href="#productjs-public-consultaiabout">Productjs Public Consultaiabout</a>
     <a href="#getting-started-runbooks">Getting Started &amp; Runbooks</a>
-    <a href="#utilsjs-public-closemodal">Utilsjs Public Closemodal</a>
+    <a href="#system-design-rulesmd">System Design Rulesmd</a>
     <a href="#other">Other</a>
 </div>
 
@@ -96,12 +96,12 @@ flowchart LR
     class CLI_SKILLS_9964CBB8 module;
     INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>71 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
-    SERVE_API_35EC8E86("Serving API<br/><small>28 nodes</small>")
+    SERVE_API_35EC8E86("Serving API<br/><small>27 nodes</small>")
     class SERVE_API_35EC8E86 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>174 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>176 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
-    CONTROLLERS_MODELS_CUSTOMERJS_1C39FBBE("Controllers Models Customerjs<br/><small>69 nodes</small>")
-    class CONTROLLERS_MODELS_CUSTOMERJS_1C39FBBE module;
+    CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60("Controllers Models Admincontrollerjs<br/><small>67 nodes</small>")
+    class CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60 module;
     ADMIN_CRM_INVENTORY_CLIENT_112ADFE4("Admin CRM &amp; Inventory Client<br/><small>56 nodes</small>")
     class ADMIN_CRM_INVENTORY_CLIENT_112ADFE4 module;
     CUSTOMERPORTALJS_PUBLIC_CANCELCUSTOMERORDERUI_A196BC57("Customerportaljs Public Cancelcustomerorderui<br/><small>24 nodes</small>")
@@ -114,22 +114,22 @@ flowchart LR
     class PRODUCTJS_PUBLIC_CONSULTAIABOUT_780482D4 module;
     GETTING_STARTED_RUNBOOKS_70FD7FCB("Getting Started &amp; Runbooks<br/><small>13 nodes</small>")
     class GETTING_STARTED_RUNBOOKS_70FD7FCB module;
-    UTILSJS_PUBLIC_CLOSEMODAL_FE566FC6("Utilsjs Public Closemodal<br/><small>12 nodes</small>")
-    class UTILSJS_PUBLIC_CLOSEMODAL_FE566FC6 module;
-    OTHER_D0941E68("Other<br/><small>70 nodes</small>")
+    SYSTEM_DESIGN_RULESMD_749E9DFF("System Design Rulesmd<br/><small>12 nodes</small>")
+    class SYSTEM_DESIGN_RULESMD_749E9DFF module;
+    OTHER_D0941E68("Other<br/><small>83 nodes</small>")
     class OTHER_D0941E68 module;
-    CONTROLLERS_MODELS_CUSTOMERJS_1C39FBBE -->|imports x25| TESTS_FIXTURES_B84B1DCC
-    TESTS_FIXTURES_B84B1DCC -->|imports x13| CONTROLLERS_MODELS_CUSTOMERJS_1C39FBBE
-    TESTS_FIXTURES_B84B1DCC -->|imports x9| OTHER_D0941E68
+    CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60 -->|imports x24| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|imports x13| CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60
+    TESTS_FIXTURES_B84B1DCC -->|imports x10| OTHER_D0941E68
     OTHER_D0941E68 -->|imports x6| TESTS_FIXTURES_B84B1DCC
-    SERVE_API_35EC8E86 -->|imports x6| TESTS_FIXTURES_B84B1DCC
+    SERVE_API_35EC8E86 -->|imports x5| TESTS_FIXTURES_B84B1DCC
     INGEST_CACHE_UPDATE_FF457338 -->|imports x4| TESTS_FIXTURES_B84B1DCC
     TESTS_FIXTURES_B84B1DCC -->|imports x3| CATALOG_FILTER_SPEC_EXTRACTOR_8DD5713D
     OTHER_D0941E68 -->|imports x3| BUILD_GRAPH_321CBB04
-    SERVE_API_35EC8E86 -->|imports x3| CONTROLLERS_MODELS_CUSTOMERJS_1C39FBBE
+    SERVE_API_35EC8E86 -->|imports x3| CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60
     TESTS_FIXTURES_B84B1DCC -->|imports x2| BUILD_GRAPH_321CBB04
-    OTHER_D0941E68 -->|imports x2| CONTROLLERS_MODELS_CUSTOMERJS_1C39FBBE
     OTHER_D0941E68 -->|imports x2| SERVE_API_35EC8E86
+    BUILD_GRAPH_321CBB04 -->|imports x2| SERVE_API_35EC8E86
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,19 +146,19 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Graph Build</td><td>42</td><td><code>3, 42, 43</code></td></tr><tr><td>Outputs &amp; Docs</td><td>60</td><td><code>5, 22, 29, 30, 39</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>52</td><td><code>0, 31, 32</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>71</td><td><code>14, 44</code></td></tr><tr><td>Serving API</td><td>28</td><td><code>24</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>174</td><td><code>11, 20, 35, 6, 9, 16, 28, 12, 13, 19</code></td></tr><tr><td>Controllers Models Customerjs</td><td>69</td><td><code>1</code></td></tr><tr><td>Admin CRM &amp; Inventory Client</td><td>56</td><td><code>2</code></td></tr><tr><td>Customerportaljs Public Cancelcustomerorderui</td><td>24</td><td><code>10</code></td></tr><tr><td>Cartjs Public 0013</td><td>21</td><td><code>36</code></td></tr><tr><td>Catalog Filter &amp; Spec Extractor</td><td>18</td><td><code>7</code></td></tr><tr><td>Productjs Public Consultaiabout</td><td>17</td><td><code>8</code></td></tr><tr><td>Getting Started &amp; Runbooks</td><td>13</td><td><code>15</code></td></tr><tr><td>Utilsjs Public Closemodal</td><td>12</td><td><code>17</code></td></tr><tr><td>Other</td><td>70</td><td><code>18, 40, 26, 27, 4, 41, 33, 34, 38, 45, 47</code></td></tr>
+      <tr><td>Graph Build</td><td>42</td><td><code>3, 42, 43</code></td></tr><tr><td>Outputs &amp; Docs</td><td>60</td><td><code>5, 22, 29, 30, 39</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>52</td><td><code>0, 31, 32</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>71</td><td><code>14, 44</code></td></tr><tr><td>Serving API</td><td>27</td><td><code>24</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>176</td><td><code>11, 20, 35, 6, 16, 28, 13, 19, 21, 9</code></td></tr><tr><td>Controllers Models Admincontrollerjs</td><td>67</td><td><code>1</code></td></tr><tr><td>Admin CRM &amp; Inventory Client</td><td>56</td><td><code>2</code></td></tr><tr><td>Customerportaljs Public Cancelcustomerorderui</td><td>24</td><td><code>10</code></td></tr><tr><td>Cartjs Public 0013</td><td>21</td><td><code>36</code></td></tr><tr><td>Catalog Filter &amp; Spec Extractor</td><td>18</td><td><code>7</code></td></tr><tr><td>Productjs Public Consultaiabout</td><td>17</td><td><code>8</code></td></tr><tr><td>Getting Started &amp; Runbooks</td><td>13</td><td><code>15</code></td></tr><tr><td>System Design Rulesmd</td><td>12</td><td><code>12</code></td></tr><tr><td>Other</td><td>83</td><td><code>17, 18, 40, 26, 27, 4, 41, 33, 34, 38, 45, 47</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Outputs &amp; Docs -&gt; Graph Build -&gt; Serving API -&gt; Tests &amp; Fixtures -&gt; Controllers Models Customerjs -&gt; CLI &amp; Skill Installers -&gt; Cartjs Public 0013</div>
+    <div class="arrow-chain">Outputs &amp; Docs -&gt; Graph Build -&gt; Serving API -&gt; Tests &amp; Fixtures -&gt; Controllers Models Admincontrollerjs -&gt; CLI &amp; Skill Installers -&gt; Cartjs Public 0013</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>727 nodes · 1266 edges · 43 communities (36 shown, 7 thin omitted)</li>
+      <li>739 nodes · 1277 edges · 44 communities (37 shown, 7 thin omitted)</li>
       <li>Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 56 edges (avg confidence: 0.85)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `ProductModel` - 27 edges</li>
@@ -1558,12 +1558,12 @@ flowchart LR
 
 <!-- ====== 6. Serving API ====== -->
 <h2 id="serve-api">6. Serving API</h2>
-<p>Serving API groups implementation around routes, unified, auth, portal, mostly in docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md, src/routes/adminRoutes.js, src/routes/authRoutes.js. This section covers 28 nodes and 27 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Serving API groups implementation around routes, unified, auth, portal, mostly in docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md, src/routes/adminRoutes.js, src/routes/authRoutes.js. This section covers 27 nodes and 26 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Serving API (28 nodes, 27 edges)
+    %% Section: Serving API (27 nodes, 26 edges)
     subgraph serve_api_src_routes_adminRoutes_js_f34ac75b["src/routes/adminRoutes.js"]
         src_routes_adminroutes_1b2b7a96("adminRoutes.js")
         src_routes_adminroutes_express_14819345("express<br/><small>src/routes/adminRoutes.js</small>")
@@ -1584,24 +1584,23 @@ flowchart LR
         src_routes_customerroutes_express_d6b6fa0e("express<br/><small>src/routes/customerRoutes.js</small>")
         src_routes_customerroutes_router_ceffb140("router<br/><small>src/routes/customerRoutes.js</small>")
     end
+    subgraph serve_api_src_routes_orderRoutes_js_3cdf23b9["src/routes/orderRoutes.js"]
+        src_routes_orderroutes_1749495a("orderRoutes.js")
+        src_routes_orderroutes_express_d07158c7("express<br/><small>src/routes/orderRoutes.js</small>")
+        src_routes_orderroutes_router_4927e6a4("router<br/><small>src/routes/orderRoutes.js</small>")
+    end
     subgraph serve_api_package_json_de2396b5["package.json"]
         ref_express_54e0f975("express<br/><small>package.json</small>")
         package_dependencies_express_ada56cce("express@^4.19.2<br/><small>package.json</small>")
     end
-    subgraph serve_api_src_routes_orderRoutes_js_3cdf23b9["src/routes/orderRoutes.js"]
-        src_routes_orderroutes_1749495a("orderRoutes.js")
-        src_routes_orderroutes_express_d07158c7("express<br/><small>src/routes/orderRoutes.js</small>")
-    end
-    src_middlewares_adminauth_2bb27060("adminAuth.js")
     src_routes_productroutes_3cf8ac94("productRoutes.js")
     src_routes_adminroutes_1b2b7a96 -->|imports| ref_express_54e0f975
-    src_routes_adminroutes_1b2b7a96 -->|imports| src_middlewares_adminauth_2bb27060
     src_routes_authroutes_1af0e51b -->|imports| ref_express_54e0f975
     src_routes_cartroutes_87010cd4 -->|imports| ref_express_54e0f975
     src_routes_customerroutes_46dec54e -->|imports| ref_express_54e0f975
     src_routes_orderroutes_1749495a -->|imports| ref_express_54e0f975
     src_routes_productroutes_3cf8ac94 -->|imports| ref_express_54e0f975
-    %% Omitted for readability: 10 nodes, 0 edges
+    %% Omitted for readability: 9 nodes, 0 edges
     class src_routes_adminroutes_1b2b7a96 api;
     class src_routes_adminroutes_express_14819345 function;
     class src_routes_adminroutes_router_b0348ad6 api;
@@ -1614,11 +1613,11 @@ flowchart LR
     class src_routes_customerroutes_46dec54e api;
     class src_routes_customerroutes_express_d6b6fa0e function;
     class src_routes_customerroutes_router_ceffb140 api;
-    class ref_express_54e0f975 function;
-    class package_dependencies_express_ada56cce function;
     class src_routes_orderroutes_1749495a api;
     class src_routes_orderroutes_express_d07158c7 function;
-    class src_middlewares_adminauth_2bb27060 module;
+    class src_routes_orderroutes_router_4927e6a4 api;
+    class ref_express_54e0f975 function;
+    class package_dependencies_express_ada56cce function;
     class src_routes_productroutes_3cf8ac94 api;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -1651,14 +1650,6 @@ flowchart LR
 </tr>
 <tr>
   <td>2</td>
-  <td><code>adminAuth.js</code><br><small style="color:var(--muted)">src/middlewares/adminAuth.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>adminRoutes.js</code><br><small style="color:var(--muted)">src/routes/adminRoutes.js</small></td>
-  <td><code>Admin.js</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
-  <td>adminAuth.js node in src/middlewares/adminAuth.js.</td>
-</tr>
-<tr>
-  <td>3</td>
   <td><code>adminRoutes.js</code><br><small style="color:var(--muted)">src/routes/adminRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1666,7 +1657,7 @@ flowchart LR
   <td>adminRoutes.js node in src/routes/adminRoutes.js.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>3</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/adminRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1674,7 +1665,7 @@ flowchart LR
   <td>express node in src/routes/adminRoutes.js.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>4</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/adminRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1682,7 +1673,7 @@ flowchart LR
   <td>router node in src/routes/adminRoutes.js.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>5</td>
   <td><code>authRoutes.js</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1690,7 +1681,7 @@ flowchart LR
   <td>authRoutes.js node in src/routes/authRoutes.js.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>6</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1698,7 +1689,7 @@ flowchart LR
   <td>express node in src/routes/authRoutes.js.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>7</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1706,7 +1697,7 @@ flowchart LR
   <td>router node in src/routes/authRoutes.js.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>8</td>
   <td><code>cartRoutes.js</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1714,7 +1705,7 @@ flowchart LR
   <td>cartRoutes.js node in src/routes/cartRoutes.js.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>9</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1722,7 +1713,7 @@ flowchart LR
   <td>express node in src/routes/cartRoutes.js.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>10</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1730,7 +1721,7 @@ flowchart LR
   <td>router node in src/routes/cartRoutes.js.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>11</td>
   <td><code>customerRoutes.js</code><br><small style="color:var(--muted)">src/routes/customerRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1738,7 +1729,7 @@ flowchart LR
   <td>customerRoutes.js node in src/routes/customerRoutes.js.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>12</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/customerRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1746,7 +1737,7 @@ flowchart LR
   <td>express node in src/routes/customerRoutes.js.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>13</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/customerRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1754,7 +1745,7 @@ flowchart LR
   <td>router node in src/routes/customerRoutes.js.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>14</td>
   <td><code>orderRoutes.js</code><br><small style="color:var(--muted)">src/routes/orderRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1762,7 +1753,7 @@ flowchart LR
   <td>orderRoutes.js node in src/routes/orderRoutes.js.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>15</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/orderRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1770,7 +1761,7 @@ flowchart LR
   <td>express node in src/routes/orderRoutes.js.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>16</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/orderRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1778,7 +1769,7 @@ flowchart LR
   <td>router node in src/routes/orderRoutes.js.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>17</td>
   <td><code>productRoutes.js</code><br><small style="color:var(--muted)">src/routes/productRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1786,7 +1777,7 @@ flowchart LR
   <td>productRoutes.js node in src/routes/productRoutes.js.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>18</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/productRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1794,7 +1785,7 @@ flowchart LR
   <td>express node in src/routes/productRoutes.js.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>19</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/productRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1802,7 +1793,7 @@ flowchart LR
   <td>router node in src/routes/productRoutes.js.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>20</td>
   <td><code>express</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>adminRoutes.js</code><br><small style="color:var(--muted)">src/routes/adminRoutes.js</small><br><code>authRoutes.js</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small><br><code>cartRoutes.js</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small><br>+7 more</td>
@@ -1810,7 +1801,7 @@ flowchart LR
   <td>express node in package.json.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>21</td>
   <td><code>0010-unified-auth-portal-and-serverless-session-persistence.md</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1818,7 +1809,7 @@ flowchart LR
   <td>Documentation node describing 0010-unified-auth-portal-and-serverless-session-persistence.md.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>22</td>
   <td><code>1. Cổng Đăng Nhập Thống Nhất &amp; Phân Luồng Thông Minh (Unified Auth Portal &amp; Smart Role Routing)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1826,7 +1817,7 @@ flowchart LR
   <td>Design note for 1. Cổng Đăng Nhập Thống Nhất &amp; Phân Luồng Thông Minh (Unified Auth Portal &amp; Smart Role Routing).</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>23</td>
   <td><code>2. Duy Trì Phiên Quản Trị Serverless Bằng Chữ Ký Số HMAC-SHA256 (`admin_token`)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1834,7 +1825,7 @@ flowchart LR
   <td>Design note for 2. Duy Trì Phiên Quản Trị Serverless Bằng Chữ Ký Số HMAC-SHA256 (`admin_token`).</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>24</td>
   <td><code>ADR 0010: Unified Auth Portal, Smart Role Routing and Serverless Admin Session Recovery</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1842,7 +1833,7 @@ flowchart LR
   <td>Design note for ADR 0010: Unified Auth Portal, Smart Role Routing and Serverless Admin Session Recovery.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>25</td>
   <td><code>Bối cảnh &amp; Vấn đề (Context)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1850,7 +1841,7 @@ flowchart LR
   <td>Design note for Bối cảnh &amp; Vấn đề (Context).</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>26</td>
   <td><code>Kết Quả &amp; Đánh Giá (Consequences)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1858,7 +1849,7 @@ flowchart LR
   <td>Design note for Kết Quả &amp; Đánh Giá (Consequences).</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>27</td>
   <td><code>Quyết Định Kiến Trúc (Decision)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1884,19 +1875,19 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x12, imports x7, references x6, declares x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x12, imports x6, references x6, declares x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 7. Tests & Fixtures ====== -->
 <h2 id="tests-fixtures">7. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around tests, models, services, assert, mostly in src/models/Product.js, src/services/geminiService.js, src/services/crawlerService.js. This section covers 174 nodes and 303 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Tests &amp; Fixtures groups implementation around tests, models, services, assert, mostly in src/models/Product.js, src/services/geminiService.js, src/services/crawlerService.js. This section covers 176 nodes and 320 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (174 nodes, 303 edges)
+    %% Section: Tests &amp; Fixtures (176 nodes, 320 edges)
     subgraph tests_fixtures_src_models_Product_js_22f580ff["src/models/Product.js"]
         src_models_product_productmodel_bc31b71c("ProductModel<br/><small>src/models/Product.js</small>")
         src_models_product_productmodel_update_fae4d254("update()<br/><small>src/models/Product.js</small>")
@@ -1913,8 +1904,8 @@ flowchart LR
     scripts_seed_db_6f2cdee7("seed-db.js")
     src_services_crawlerservice_crawlerservice_84050c18("CrawlerService<br/><small>src/services/crawlerService.js</small>")
     tests_adminai_test_7207e87d("adminAI.test.js")
-    tests_adminupdateai_test_fabb3891("adminUpdateAI.test.js")
     tests_catalogcacheandfilter_test_507b7745("catalogCacheAndFilter.test.js")
+    tests_customerportal_test_085bfb75("customerPortal.test.js")
     tests_geminiservice_test_23325fd0("geminiService.test.js")
     tests_storageseam_test_a9231a33("storageSeam.test.js")
     src_models_product_productmodel_bc31b71c -->|method| src_models_product_productmodel_update_fae4d254
@@ -1934,12 +1925,11 @@ flowchart LR
     src_models_product_productmodel_getbyid_8619a4f9 -->|calls| src_models_product_productmodel_cloneitem_b80f68b0
     src_models_product_productmodel_update_fae4d254 -->|calls| src_models_product_productmodel_getbyid_8619a4f9
     src_models_product_productmodel_update_fae4d254 -->|calls| src_models_product_productmodel_invalidatecache_258baece
-    tests_adminai_test_7207e87d -->|imports| src_models_product_productmodel_bc31b71c
     tests_storageseam_test_a9231a33 -->|imports| src_models_product_productmodel_bc31b71c
     tests_catalogcacheandfilter_test_507b7745 -->|imports| src_models_product_productmodel_bc31b71c
     tests_geminiservice_test_23325fd0 -->|imports| src_models_product_productmodel_bc31b71c
-    tests_adminupdateai_test_fabb3891 -->|imports| src_models_product_productmodel_bc31b71c
-    %% Omitted for readability: 156 nodes, 0 edges
+    tests_adminai_test_7207e87d -->|imports| src_models_product_productmodel_bc31b71c
+    %% Omitted for readability: 158 nodes, 0 edges
     class src_models_product_productmodel_bc31b71c klass;
     class src_models_product_productmodel_update_fae4d254 function;
     class src_models_product_productmodel_invalidatecache_258baece function;
@@ -1954,8 +1944,8 @@ flowchart LR
     class scripts_seed_db_6f2cdee7 module;
     class src_services_crawlerservice_crawlerservice_84050c18 klass;
     class tests_adminai_test_7207e87d test;
-    class tests_adminupdateai_test_fabb3891 test;
     class tests_catalogcacheandfilter_test_507b7745 test;
+    class tests_customerportal_test_085bfb75 test;
     class tests_geminiservice_test_23325fd0 test;
     class tests_storageseam_test_a9231a33 test;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
@@ -2013,14 +2003,6 @@ flowchart LR
 </tr>
 <tr>
   <td>5</td>
-  <td><code>addProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>create()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
-  <td>addProduct() node in src/controllers/adminController.js.</td>
-</tr>
-<tr>
-  <td>6</td>
   <td><code>crawlProducts()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2028,23 +2010,7 @@ flowchart LR
   <td>crawlProducts() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>7</td>
-  <td><code>deleteProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>delete()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
-  <td>deleteProduct() node in src/controllers/adminController.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>updateProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
-  <td>updateProduct() node in src/controllers/adminController.js.</td>
-</tr>
-<tr>
-  <td>9</td>
+  <td>6</td>
   <td><code>addToCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2052,7 +2018,7 @@ flowchart LR
   <td>addToCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>7</td>
   <td><code>clearCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2060,7 +2026,7 @@ flowchart LR
   <td>clearCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>8</td>
   <td><code>getCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2068,7 +2034,7 @@ flowchart LR
   <td>getCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>9</td>
   <td><code>removeFromCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2076,7 +2042,7 @@ flowchart LR
   <td>removeFromCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>10</td>
   <td><code>updateCartItem()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2084,7 +2050,7 @@ flowchart LR
   <td>updateCartItem() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>11</td>
   <td><code>._cloneItem()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>getAll()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>getById()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2092,7 +2058,7 @@ flowchart LR
   <td>Turns a local path or remote repository into analysis context.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>12</td>
   <td><code>.create()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>addFlagships()</code><br><small style="color:var(--muted)">scripts/add-flagships.js</small><br><code>addProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br>+2 more</td>
@@ -2100,7 +2066,7 @@ flowchart LR
   <td>.create() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>13</td>
   <td><code>.delete()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>deleteProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2108,7 +2074,7 @@ flowchart LR
   <td>.delete() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>14</td>
   <td><code>.getAll()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>addFlagships()</code><br><small style="color:var(--muted)">scripts/add-flagships.js</small><br><code>consultWithCatalog()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br>+5 more</td>
@@ -2116,7 +2082,7 @@ flowchart LR
   <td>.getAll() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>15</td>
   <td><code>.getById()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>addToCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small><br><code>enrichAndPersistProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br>+1 more</td>
@@ -2124,7 +2090,7 @@ flowchart LR
   <td>.getById() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>16</td>
   <td><code>.getCacheStats()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2132,7 +2098,7 @@ flowchart LR
   <td>Caches analysis results or computes cache keys.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>17</td>
   <td><code>.getUnenriched()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>selfHealCatalog()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
@@ -2140,7 +2106,7 @@ flowchart LR
   <td>.getUnenriched() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>18</td>
   <td><code>.invalidateCache()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>create()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>delete()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br>+1 more</td>
@@ -2148,7 +2114,7 @@ flowchart LR
   <td>Caches analysis results or computes cache keys.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>19</td>
   <td><code>._loadFullCatalog()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>getAll()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2156,7 +2122,7 @@ flowchart LR
   <td>._loadFullCatalog() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>20</td>
   <td><code>.update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>enrichAndPersistProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>updateProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
@@ -2164,7 +2130,7 @@ flowchart LR
   <td>.update() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>21</td>
   <td><code>cleanProductName()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
@@ -2172,7 +2138,7 @@ flowchart LR
   <td>cleanProductName() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>22</td>
   <td><code>.crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>CrawlerService</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlProducts()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>run()</code><br><small style="color:var(--muted)">scripts/crawl-products.js</small></td>
@@ -2180,7 +2146,7 @@ flowchart LR
   <td>.crawlFromDummyJson() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>23</td>
   <td><code>.crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>CrawlerService</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlProducts()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>run()</code><br><small style="color:var(--muted)">scripts/crawl-products.js</small></td>
@@ -2188,7 +2154,7 @@ flowchart LR
   <td>.crawlFromTiki() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>24</td>
   <td><code>.generateSpecs()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>CrawlerService</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br>+1 more</td>
@@ -2196,7 +2162,7 @@ flowchart LR
   <td>.generateSpecs() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>25</td>
   <td><code>generateSpecs()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2204,7 +2170,7 @@ flowchart LR
   <td>generateSpecs() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>26</td>
   <td><code>normalizeBrand()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>generateSpecs()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
@@ -2212,12 +2178,36 @@ flowchart LR
   <td>normalizeBrand() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>27</td>
   <td><code>consultCustomer()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
   <td><code>getClient()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
   <td>consultCustomer() node in src/services/geminiService.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>consultWithCatalog()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td><code>getAll()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>toMiniProductCard()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td>consultWithCatalog() node in src/services/geminiService.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>enrichAndPersistProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td><code>getById()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
+  <td>enrichAndPersistProduct() node in src/services/geminiService.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>enrichProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td><code>getClient()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>normalizeEnrichArgs()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
+  <td>enrichProduct() node in src/services/geminiService.js.</td>
 </tr>
 </table>
 
@@ -2230,28 +2220,28 @@ flowchart LR
 <tr><td><code>src/services/geminiService.js</code></td><td>12 nodes</td></tr>
 <tr><td><code>src/models/Admin.js</code></td><td>9 nodes</td></tr>
 <tr><td><code>src/services/crawlerService.js</code></td><td>9 nodes</td></tr>
-<tr><td><code>src/controllers/adminController.js</code></td><td>6 nodes</td></tr>
 <tr><td><code>src/controllers/cartController.js</code></td><td>6 nodes</td></tr>
 <tr><td><code>scripts/seed-db.js</code></td><td>5 nodes</td></tr>
 <tr><td><code>src/config/db.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>tests/catalogCacheAndFilter.test.js</code></td><td>5 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: imports x91, contains x80, calls x48, imports x46. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: imports x105, contains x82, imports x50, calls x45. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 8. Controllers Models Customerjs ====== -->
-<h2 id="controllers-models-customerjs">8. Controllers Models Customerjs</h2>
-<p>Controllers Models Customerjs groups implementation around controllers, models, customerjs, admincontrollerjs, mostly in src/models/Customer.js, src/controllers/adminController.js, src/models/Order.js. This section covers 69 nodes and 150 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 8. Controllers Models Admincontrollerjs ====== -->
+<h2 id="controllers-models-admincontrollerjs">8. Controllers Models Admincontrollerjs</h2>
+<p>Controllers Models Admincontrollerjs groups implementation around controllers, models, admincontrollerjs, customerjs, mostly in src/controllers/adminController.js, src/models/Customer.js, src/models/Order.js. This section covers 67 nodes and 135 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Controllers Models Customerjs (69 nodes, 150 edges)
-    subgraph controllers_models_customerjs_src_models_Custome_ca134a1a["src/models/Customer.js"]
+    %% Section: Controllers Models Admincontrollerjs (67 nodes, 135 edges)
+    subgraph controllers_models_admincontrollerjs_src_models_9c9b2c87["src/models/Customer.js"]
         src_models_customer_customermodel_c8e5e671("CustomerModel<br/><small>src/models/Customer.js</small>")
         src_models_customer_customermodel_remembercustom_1983a33b("rememberCustomer()<br/><small>src/models/Customer.js</small>")
         src_models_customer_customermodel_tosafecustomer_266a0b2b("toSafeCustomer()<br/><small>src/models/Customer.js</small>")
@@ -2266,13 +2256,13 @@ flowchart LR
         src_models_customer_customermodel_findbyphone_d932da5e("findByPhone()<br/><small>src/models/Customer.js</small>")
         src_models_customer_customermodel_register_cbcce421("register()<br/><small>src/models/Customer.js</small>")
     end
-    subgraph controllers_models_customerjs_src_controllers_cu_1d79e4cb["src/controllers/customerController.js"]
-        src_controllers_customercontroller_4d289053("customerController.js")
-        src_controllers_customercontroller_getprofile_156856e1("getProfile()<br/><small>src/controllers/customerController.js</small>")
+    subgraph controllers_models_admincontrollerjs_src_models_ecd14342["src/models/Order.js"]
+        src_models_order_ordermodel_35e15dcb("OrderModel<br/><small>src/models/Order.js</small>")
+        src_models_order_ordermodel_updatestatus_0d169e1b("updateStatus()<br/><small>src/models/Order.js</small>")
+        src_models_order_ordermodel_processpaymentwebhoo_e067a491("processPaymentWebhook()<br/><small>src/models/Order.js</small>")
     end
     src_controllers_admincontroller_bd08196e("adminController.js")
-    src_controllers_ordercontroller_ed0cb2f1("orderController.js")
-    src_models_order_ordermodel_35e15dcb("OrderModel<br/><small>src/models/Order.js</small>")
+    src_controllers_customercontroller_getprofile_156856e1("getProfile()<br/><small>src/controllers/customerController.js</small>")
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_remembercustom_1983a33b
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_createcustomer_e975c362
@@ -2285,6 +2275,8 @@ flowchart LR
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_findbyid_3803b3dd
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_findbyphone_d932da5e
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_register_cbcce421
+    src_models_order_ordermodel_35e15dcb -->|method| src_models_order_ordermodel_processpaymentwebhoo_e067a491
+    src_models_order_ordermodel_35e15dcb -->|method| src_models_order_ordermodel_updatestatus_0d169e1b
     src_controllers_customercontroller_getprofile_156856e1 -->|calls| src_models_customer_customermodel_findbyid_3803b3dd
     src_controllers_customercontroller_getprofile_156856e1 -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_controllers_customercontroller_getprofile_156856e1 -->|calls| src_models_customer_customermodel_findbyphone_d932da5e
@@ -2295,9 +2287,7 @@ flowchart LR
     src_models_customer_customermodel_findbyphone_d932da5e -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_models_customer_customermodel_getall_ae6c6de3 -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_models_customer_customermodel_register_cbcce421 -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
-    src_models_customer_customermodel_remembercustom_1983a33b -->|calls| src_models_customer_customermodel_findbyphone_d932da5e
-    src_models_customer_customermodel_remembercustom_1983a33b -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
-    %% Omitted for readability: 51 nodes, 13 edges
+    %% Omitted for readability: 49 nodes, 13 edges
     class src_models_customer_customermodel_c8e5e671 klass;
     class src_models_customer_customermodel_remembercustom_1983a33b function;
     class src_models_customer_customermodel_tosafecustomer_266a0b2b function;
@@ -2311,11 +2301,11 @@ flowchart LR
     class src_models_customer_customermodel_findbyid_3803b3dd function;
     class src_models_customer_customermodel_findbyphone_d932da5e function;
     class src_models_customer_customermodel_register_cbcce421 function;
-    class src_controllers_customercontroller_4d289053 module;
-    class src_controllers_customercontroller_getprofile_156856e1 function;
-    class src_controllers_admincontroller_bd08196e module;
-    class src_controllers_ordercontroller_ed0cb2f1 module;
     class src_models_order_ordermodel_35e15dcb klass;
+    class src_models_order_ordermodel_updatestatus_0d169e1b function;
+    class src_models_order_ordermodel_processpaymentwebhoo_e067a491 ui;
+    class src_controllers_admincontroller_bd08196e module;
+    class src_controllers_customercontroller_getprofile_156856e1 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -2355,6 +2345,14 @@ flowchart LR
 </tr>
 <tr>
   <td>3</td>
+  <td><code>addProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>create()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
+  <td>addProduct() node in src/controllers/adminController.js.</td>
+</tr>
+<tr>
+  <td>4</td>
   <td><code>createCustomer()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2362,7 +2360,7 @@ flowchart LR
   <td>createCustomer() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>5</td>
   <td><code>deleteCustomer()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2370,7 +2368,7 @@ flowchart LR
   <td>deleteCustomer() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>6</td>
   <td><code>deleteOrder()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2378,7 +2376,15 @@ flowchart LR
   <td>deleteOrder() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>7</td>
+  <td><code>deleteProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>delete()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
+  <td>deleteProduct() node in src/controllers/adminController.js.</td>
+</tr>
+<tr>
+  <td>8</td>
   <td><code>enrichProductById()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2386,7 +2392,7 @@ flowchart LR
   <td>enrichProductById() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>9</td>
   <td><code>exportCustomersCsv()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2394,7 +2400,7 @@ flowchart LR
   <td>Exports documentation data to a target format.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>10</td>
   <td><code>exportOrdersCsv()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2402,7 +2408,7 @@ flowchart LR
   <td>Exports documentation data to a target format.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>11</td>
   <td><code>getAllCustomers()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2410,7 +2416,7 @@ flowchart LR
   <td>getAllCustomers() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>12</td>
   <td><code>getAllOrders()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2418,7 +2424,7 @@ flowchart LR
   <td>getAllOrders() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>13</td>
   <td><code>getCustomerDetail()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2426,7 +2432,7 @@ flowchart LR
   <td>getCustomerDetail() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>14</td>
   <td><code>getMe()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2434,7 +2440,7 @@ flowchart LR
   <td>getMe() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>15</td>
   <td><code>getOrderDetail()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2442,7 +2448,7 @@ flowchart LR
   <td>getOrderDetail() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>16</td>
   <td><code>getStats()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2450,7 +2456,7 @@ flowchart LR
   <td>getStats() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>17</td>
   <td><code>logout()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2458,7 +2464,7 @@ flowchart LR
   <td>logout() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>18</td>
   <td><code>selfHealProducts()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2466,7 +2472,7 @@ flowchart LR
   <td>selfHealProducts() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>19</td>
   <td><code>updateCustomer()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2474,7 +2480,7 @@ flowchart LR
   <td>updateCustomer() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>20</td>
   <td><code>updateOrderStatus()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2482,7 +2488,15 @@ flowchart LR
   <td>updateOrderStatus() node in src/controllers/adminController.js.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>21</td>
+  <td><code>updateProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
+  <td>updateProduct() node in src/controllers/adminController.js.</td>
+</tr>
+<tr>
+  <td>22</td>
   <td><code>changePassword()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2490,7 +2504,7 @@ flowchart LR
   <td>changePassword() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>23</td>
   <td><code>forget()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2498,7 +2512,7 @@ flowchart LR
   <td>forget() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>24</td>
   <td><code>getMyOrders()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2506,7 +2520,7 @@ flowchart LR
   <td>getMyOrders() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>25</td>
   <td><code>getProfile()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2514,7 +2528,7 @@ flowchart LR
   <td>getProfile() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>26</td>
   <td><code>getWishlist()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2522,7 +2536,7 @@ flowchart LR
   <td>getWishlist() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>27</td>
   <td><code>login()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2530,7 +2544,7 @@ flowchart LR
   <td>login() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>28</td>
   <td><code>logout()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2538,7 +2552,7 @@ flowchart LR
   <td>logout() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>29</td>
   <td><code>lookup()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2546,36 +2560,12 @@ flowchart LR
   <td>lookup() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>30</td>
   <td><code>register()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td><code>register()</code><br><small style="color:var(--muted)">src/models/Customer.js</small></td>
   <td>register() node in src/controllers/customerController.js.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>toggleWishlist()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>toggleWishlist()</code><br><small style="color:var(--muted)">src/models/Customer.js</small></td>
-  <td>toggleWishlist() node in src/controllers/customerController.js.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>updateProfile()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>updateCustomer()</code><br><small style="color:var(--muted)">src/models/Customer.js</small></td>
-  <td>updateProfile() node in src/controllers/customerController.js.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>cancelOrder()</code><br><small style="color:var(--muted)">src/controllers/orderController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>cancelByCustomer()</code><br><small style="color:var(--muted)">src/models/Order.js</small></td>
-  <td>cancelOrder() node in src/controllers/orderController.js.</td>
 </tr>
 </table>
 
@@ -2584,17 +2574,16 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>src/models/Customer.js</code></td><td>18 nodes</td></tr>
-<tr><td><code>src/controllers/adminController.js</code></td><td>17 nodes</td></tr>
-<tr><td><code>src/models/Order.js</code></td><td>15 nodes</td></tr>
+      <tr><td><code>src/controllers/adminController.js</code></td><td>20 nodes</td></tr>
+<tr><td><code>src/models/Customer.js</code></td><td>16 nodes</td></tr>
+<tr><td><code>src/models/Order.js</code></td><td>13 nodes</td></tr>
 <tr><td><code>src/controllers/customerController.js</code></td><td>12 nodes</td></tr>
 <tr><td><code>src/controllers/orderController.js</code></td><td>6 nodes</td></tr>
-<tr><td><code>src/middlewares/customerMemory.js</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x71, contains x40, method x23, imports x8. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x71, contains x35, method x23, imports x6. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -4173,42 +4162,253 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 15. Utilsjs Public Closemodal ====== -->
-<h2 id="utilsjs-public-closemodal">15. Utilsjs Public Closemodal</h2>
-<p>Utilsjs Public Closemodal groups implementation around utilsjs, public, closemodal, copytexttoclipboard, mostly in public/js/utils.js. This section covers 12 nodes and 15 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 15. System Design Rulesmd ====== -->
+<h2 id="system-design-rulesmd">15. System Design Rulesmd</h2>
+<p>System Design Rulesmd groups implementation around system, design, rulesmd, docs, mostly in docs/design-system-rules.md. This section covers 12 nodes and 11 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Utilsjs Public Closemodal (12 nodes, 15 edges)
-    src_public_js_utils_toggletheme_80ba2c4b("toggleTheme()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_copytexttoclipboard_f4da52e8("copyTextToClipboard()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_settheme_02cdde90("setTheme()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_showtoast_2479635a("showToast()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_updatethemeui_8b9834af("updateThemeUI()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_getstoredtheme_76eb13c2("getStoredTheme()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_closemodal_3669a30a("closeModal()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_formatmoney_ef0c68c5("formatMoney()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_openmodal_c17b2cc7("openModal()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_togglemobiledrawer_d31c5c2f("toggleMobileDrawer()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_twodigits_93448567("twoDigits()<br/><small>public/js/utils.js</small>")
-    src_public_js_utils_31f2c4c2("utils.js")
+    %% Section: System Design Rulesmd (12 nodes, 11 edges)
+    docs_design_system_rules_gearhub_design_system_r_1e233061("GearHub Design System Rules &amp; Architecture<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_1_token_definitions_cd0c7c25("1. Token Definitions<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_8e94576f("design-system-rules.md")
+    docs_design_system_rules_color_tokens_7b92d252("Color Tokens<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_typography_scale_aff6fdd5("Typography Scale<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_geometry_elevation_c7c2cb8d("Geometry &amp; Elevation<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_2_component_library_ac40bea5("2. Component Library<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_3_frameworks_libraries_02245a8e("3. Frameworks &amp; Libraries<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_4_asset_management_64328fda("4. Asset Management<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_5_icon_system_febbd102("5. Icon System<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_6_styling_approach_a0347a3f("6. Styling Approach<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_7_project_structure_32fb95cf("7. Project Structure<br/><small>docs/design-system-rules.md</small>")
+    docs_design_system_rules_8e94576f -->|contains| docs_design_system_rules_gearhub_design_system_r_1e233061
+    docs_design_system_rules_1_token_definitions_cd0c7c25 -->|contains| docs_design_system_rules_color_tokens_7b92d252
+    docs_design_system_rules_1_token_definitions_cd0c7c25 -->|contains| docs_design_system_rules_typography_scale_aff6fdd5
+    docs_design_system_rules_1_token_definitions_cd0c7c25 -->|contains| docs_design_system_rules_geometry_elevation_c7c2cb8d
+    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_6_styling_approach_a0347a3f
+    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_7_project_structure_32fb95cf
+    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_2_component_library_ac40bea5
+    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_1_token_definitions_cd0c7c25
+    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_3_frameworks_libraries_02245a8e
+    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_4_asset_management_64328fda
+    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_5_icon_system_febbd102
+    class docs_design_system_rules_gearhub_design_system_r_1e233061 concept;
+    class docs_design_system_rules_1_token_definitions_cd0c7c25 concept;
+    class docs_design_system_rules_8e94576f concept;
+    class docs_design_system_rules_color_tokens_7b92d252 concept;
+    class docs_design_system_rules_typography_scale_aff6fdd5 concept;
+    class docs_design_system_rules_geometry_elevation_c7c2cb8d concept;
+    class docs_design_system_rules_2_component_library_ac40bea5 concept;
+    class docs_design_system_rules_3_frameworks_libraries_02245a8e concept;
+    class docs_design_system_rules_4_asset_management_64328fda concept;
+    class docs_design_system_rules_5_icon_system_febbd102 concept;
+    class docs_design_system_rules_6_styling_approach_a0347a3f concept;
+    class docs_design_system_rules_7_project_structure_32fb95cf concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>design-system-rules.md</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing design-system-rules.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>1. Token Definitions</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 1. Token Definitions.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>2. Component Library</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 2. Component Library.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>3. Frameworks &amp; Libraries</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3. Frameworks &amp; Libraries.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>4. Asset Management</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 4. Asset Management.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>5. Icon System</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 5. Icon System.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>6. Styling Approach</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 6. Styling Approach.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>7. Project Structure</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 7. Project Structure.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Color Tokens</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Color Tokens.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>GearHub Design System Rules &amp; Architecture</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing GearHub Design System Rules &amp; Architecture.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Geometry &amp; Elevation</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Geometry &amp; Elevation.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Typography Scale</code><br><small style="color:var(--muted)">docs/design-system-rules.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Typography Scale.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>docs/design-system-rules.md</code></td><td>12 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x11. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around docs, public, adr, storefront, mostly in public/js/utils.js, public/js/qrPayment.js, docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md. This section covers 83 nodes and 92 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Other (83 nodes, 92 edges)
+    subgraph other_public_js_qrPayment_js_4645124a["public/js/qrPayment.js"]
+        src_public_js_qrpayment_openqrpaymentmodal_97e891eb("openQrPaymentModal()<br/><small>public/js/qrPayment.js</small>")
+        src_public_js_qrpayment_simulateqrwebhook_d5255b2b("simulateQrWebhook()<br/><small>public/js/qrPayment.js</small>")
+        src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b("updateQrCountdownDisplay()<br/><small>public/js/qrPayment.js</small>")
+        src_public_js_qrpayment_closeqrpaymentmodal_591ec89e("closeQrPaymentModal()<br/><small>public/js/qrPayment.js</small>")
+        src_public_js_qrpayment_clearqrsessiontimers_10e78784("clearQrSessionTimers()<br/><small>public/js/qrPayment.js</small>")
+        src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd("openQrModalByOrderMeta()<br/><small>public/js/qrPayment.js</small>")
+        src_public_js_qrpayment_pollqrpaymentstatus_d973578c("pollQrPaymentStatus()<br/><small>public/js/qrPayment.js</small>")
+    end
+    subgraph other_public_js_utils_js_008d2e44["public/js/utils.js"]
+        src_public_js_utils_toggletheme_80ba2c4b("toggleTheme()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_copytexttoclipboard_f4da52e8("copyTextToClipboard()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_showtoast_2479635a("showToast()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_settheme_02cdde90("setTheme()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_updatethemeui_8b9834af("updateThemeUI()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_getstoredtheme_76eb13c2("getStoredTheme()<br/><small>public/js/utils.js</small>")
+    end
+    subgraph other_public_js_aiChat_js_e8f92de5["public/js/aiChat.js"]
+        src_public_js_aichat_handleaichatsubmit_00ee6d21("handleAiChatSubmit()<br/><small>public/js/aiChat.js</small>")
+        src_public_js_aichat_appendchatbubble_1155f201("appendChatBubble()<br/><small>public/js/aiChat.js</small>")
+        src_public_js_aichat_scrollchattobottom_5de50c59("scrollChatToBottom()<br/><small>public/js/aiChat.js</small>")
+        src_public_js_aichat_sendquickprompt_38f02621("sendQuickPrompt()<br/><small>public/js/aiChat.js</small>")
+    end
+    server_3de4f901("server.js")
     src_public_js_utils_copytexttoclipboard_f4da52e8 -->|calls| src_public_js_utils_showtoast_2479635a
     src_public_js_utils_settheme_02cdde90 -->|calls| src_public_js_utils_updatethemeui_8b9834af
     src_public_js_utils_toggletheme_80ba2c4b -->|calls| src_public_js_utils_getstoredtheme_76eb13c2
     src_public_js_utils_toggletheme_80ba2c4b -->|calls| src_public_js_utils_settheme_02cdde90
+    src_public_js_qrpayment_closeqrpaymentmodal_591ec89e -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
+    src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd -->|calls| src_public_js_qrpayment_openqrpaymentmodal_97e891eb
+    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
+    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b
+    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
+    src_public_js_qrpayment_pollqrpaymentstatus_d973578c -->|calls| src_public_js_qrpayment_closeqrpaymentmodal_591ec89e
+    src_public_js_qrpayment_pollqrpaymentstatus_d973578c -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
+    src_public_js_qrpayment_simulateqrwebhook_d5255b2b -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
+    src_public_js_qrpayment_simulateqrwebhook_d5255b2b -->|calls| src_public_js_qrpayment_closeqrpaymentmodal_591ec89e
+    src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
+    src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
+    src_public_js_aichat_appendchatbubble_1155f201 -->|calls| src_public_js_aichat_scrollchattobottom_5de50c59
+    src_public_js_aichat_handleaichatsubmit_00ee6d21 -->|calls| src_public_js_aichat_appendchatbubble_1155f201
+    src_public_js_aichat_handleaichatsubmit_00ee6d21 -->|calls| src_public_js_aichat_scrollchattobottom_5de50c59
+    src_public_js_aichat_sendquickprompt_38f02621 -->|calls| src_public_js_aichat_handleaichatsubmit_00ee6d21
+    %% Omitted for readability: 65 nodes, 0 edges
+    class src_public_js_qrpayment_openqrpaymentmodal_97e891eb function;
+    class src_public_js_qrpayment_simulateqrwebhook_d5255b2b ui;
+    class src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b function;
+    class src_public_js_qrpayment_closeqrpaymentmodal_591ec89e function;
+    class src_public_js_qrpayment_clearqrsessiontimers_10e78784 function;
+    class src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd function;
+    class src_public_js_qrpayment_pollqrpaymentstatus_d973578c function;
     class src_public_js_utils_toggletheme_80ba2c4b function;
     class src_public_js_utils_copytexttoclipboard_f4da52e8 entry;
-    class src_public_js_utils_settheme_02cdde90 function;
     class src_public_js_utils_showtoast_2479635a function;
+    class src_public_js_utils_settheme_02cdde90 function;
     class src_public_js_utils_updatethemeui_8b9834af function;
     class src_public_js_utils_getstoredtheme_76eb13c2 ui;
-    class src_public_js_utils_closemodal_3669a30a function;
-    class src_public_js_utils_formatmoney_ef0c68c5 function;
-    class src_public_js_utils_openmodal_c17b2cc7 function;
-    class src_public_js_utils_togglemobiledrawer_d31c5c2f function;
-    class src_public_js_utils_twodigits_93448567 function;
-    class src_public_js_utils_31f2c4c2 module;
+    class src_public_js_aichat_handleaichatsubmit_00ee6d21 function;
+    class src_public_js_aichat_appendchatbubble_1155f201 function;
+    class src_public_js_aichat_scrollchattobottom_5de50c59 function;
+    class src_public_js_aichat_sendquickprompt_38f02621 function;
+    class server_3de4f901 module;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -4326,6 +4526,150 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>utils.js node in public/js/utils.js.</td>
 </tr>
+<tr>
+  <td>13</td>
+  <td><code>compressionMiddleware()</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>compressionMiddleware() node in src/middlewares/compression.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>adminAI.test.js</code><br><small style="color:var(--muted)">tests/adminAI.test.js</small><br><code>adminUpdateAI.test.js</code><br><small style="color:var(--muted)">tests/adminUpdateAI.test.js</small><br><code>catalogCacheAndFilter.test.js</code><br><small style="color:var(--muted)">tests/catalogCacheAndFilter.test.js</small><br>+6 more</td>
+  <td><code>Admin.js</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small><br>+10 more</td>
+  <td>server.js node in server.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>cookieParser</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>cookieParser node in server.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>cors</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>cors node in server.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>express</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>express node in server.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>path</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>path node in server.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td><code>ref_zlib</code></td>
+  <td>compression.js node in src/middlewares/compression.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>zlib</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>zlib node in src/middlewares/compression.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>routes/index.js</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td><code>express</code><br><small style="color:var(--muted)">package.json</small><br><code>orderController.js</code><br><small style="color:var(--muted)">src/controllers/orderController.js</small></td>
+  <td>routes/index.js node in src/routes/index.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>express</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>express node in src/routes/index.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>router</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>router node in src/routes/index.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>ref_zlib</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>catalogCacheAndFilter.test.js</code><br><small style="color:var(--muted)">tests/catalogCacheAndFilter.test.js</small><br><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>ref_zlib node in project.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>clearQrSessionTimers() node in public/js/qrPayment.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td>closeQrPaymentModal() node in public/js/qrPayment.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>openQrModalByOrderMeta()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td>openQrModalByOrderMeta() node in public/js/qrPayment.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>openQrModalByOrderMeta()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>updateQrCountdownDisplay()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td>openQrPaymentModal() node in public/js/qrPayment.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>updateQrCountdownDisplay()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td>pollQrPaymentStatus() node in public/js/qrPayment.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
+  <td>simulateQrWebhook() node in public/js/qrPayment.js.</td>
+</tr>
 </table>
 
 <div class="grid">
@@ -4334,369 +4678,18 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>public/js/utils.js</code></td><td>12 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x11, calls x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 16. Other ====== -->
-<h2 id="other">16. Other</h2>
-<p>Other groups implementation around docs, adr, storefront, public, mostly in public/js/qrPayment.js, docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md, docs/adr/0011-split-landing-about-and-storefront-routing.md. This section covers 70 nodes and 76 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Other (70 nodes, 76 edges)
-    subgraph other_public_js_qrPayment_js_4645124a["public/js/qrPayment.js"]
-        src_public_js_qrpayment_openqrpaymentmodal_97e891eb("openQrPaymentModal()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_simulateqrwebhook_d5255b2b("simulateQrWebhook()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b("updateQrCountdownDisplay()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_closeqrpaymentmodal_591ec89e("closeQrPaymentModal()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_clearqrsessiontimers_10e78784("clearQrSessionTimers()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd("openQrModalByOrderMeta()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_pollqrpaymentstatus_d973578c("pollQrPaymentStatus()<br/><small>public/js/qrPayment.js</small>")
-    end
-    subgraph other_public_js_aiChat_js_e8f92de5["public/js/aiChat.js"]
-        src_public_js_aichat_handleaichatsubmit_00ee6d21("handleAiChatSubmit()<br/><small>public/js/aiChat.js</small>")
-        src_public_js_aichat_appendchatbubble_1155f201("appendChatBubble()<br/><small>public/js/aiChat.js</small>")
-        src_public_js_aichat_scrollchattobottom_5de50c59("scrollChatToBottom()<br/><small>public/js/aiChat.js</small>")
-        src_public_js_aichat_sendquickprompt_38f02621("sendQuickPrompt()<br/><small>public/js/aiChat.js</small>")
-    end
-    subgraph other_src_middlewares_compression_js_ac1b63ce["src/middlewares/compression.js"]
-        src_middlewares_compression_compressionmiddlewar_454ea66c("compressionMiddleware()<br/><small>src/middlewares/compression.js</small>")
-        src_middlewares_compression_10f0724e("compression.js")
-    end
-    subgraph other_src_routes_index_js_07e8da05["src/routes/index.js"]
-        src_routes_index_router_5ab28c04("router<br/><small>src/routes/index.js</small>")
-        src_routes_index_72551c6f("index.js")
-    end
-    ref_figma_5fc0b89e("ref_figma")
-    server_3de4f901("server.js")
-    src_figma_badge_figma_a27706f6("Badge.figma.ts")
-    src_public_js_qrpayment_closeqrpaymentmodal_591ec89e -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd -->|calls| src_public_js_qrpayment_openqrpaymentmodal_97e891eb
-    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b
-    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
-    src_public_js_qrpayment_pollqrpaymentstatus_d973578c -->|calls| src_public_js_qrpayment_closeqrpaymentmodal_591ec89e
-    src_public_js_qrpayment_pollqrpaymentstatus_d973578c -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_simulateqrwebhook_d5255b2b -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
-    src_public_js_qrpayment_simulateqrwebhook_d5255b2b -->|calls| src_public_js_qrpayment_closeqrpaymentmodal_591ec89e
-    src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
-    src_public_js_aichat_appendchatbubble_1155f201 -->|calls| src_public_js_aichat_scrollchattobottom_5de50c59
-    src_public_js_aichat_handleaichatsubmit_00ee6d21 -->|calls| src_public_js_aichat_appendchatbubble_1155f201
-    src_public_js_aichat_handleaichatsubmit_00ee6d21 -->|calls| src_public_js_aichat_scrollchattobottom_5de50c59
-    src_public_js_aichat_sendquickprompt_38f02621 -->|calls| src_public_js_aichat_handleaichatsubmit_00ee6d21
-    server_3de4f901 -->|imports| src_middlewares_compression_compressionmiddlewar_454ea66c
-    server_3de4f901 -->|imports| src_routes_index_router_5ab28c04
-    server_3de4f901 -->|imports| src_middlewares_compression_10f0724e
-    server_3de4f901 -->|imports| src_routes_index_72551c6f
-    src_figma_badge_figma_a27706f6 -->|imports| ref_figma_5fc0b89e
-    %% Omitted for readability: 52 nodes, 0 edges
-    class src_public_js_qrpayment_openqrpaymentmodal_97e891eb function;
-    class src_public_js_qrpayment_simulateqrwebhook_d5255b2b ui;
-    class src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b function;
-    class src_public_js_qrpayment_closeqrpaymentmodal_591ec89e function;
-    class src_public_js_qrpayment_clearqrsessiontimers_10e78784 function;
-    class src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd function;
-    class src_public_js_qrpayment_pollqrpaymentstatus_d973578c function;
-    class src_public_js_aichat_handleaichatsubmit_00ee6d21 function;
-    class src_public_js_aichat_appendchatbubble_1155f201 function;
-    class src_public_js_aichat_scrollchattobottom_5de50c59 function;
-    class src_public_js_aichat_sendquickprompt_38f02621 function;
-    class src_middlewares_compression_compressionmiddlewar_454ea66c function;
-    class src_middlewares_compression_10f0724e module;
-    class src_routes_index_router_5ab28c04 api;
-    class src_routes_index_72551c6f api;
-    class ref_figma_5fc0b89e function;
-    class server_3de4f901 module;
-    class src_figma_badge_figma_a27706f6 klass;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>compressionMiddleware()</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>compressionMiddleware() node in src/middlewares/compression.js.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>adminAI.test.js</code><br><small style="color:var(--muted)">tests/adminAI.test.js</small><br><code>adminUpdateAI.test.js</code><br><small style="color:var(--muted)">tests/adminUpdateAI.test.js</small><br><code>catalogCacheAndFilter.test.js</code><br><small style="color:var(--muted)">tests/catalogCacheAndFilter.test.js</small><br>+6 more</td>
-  <td><code>Admin.js</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small><br>+10 more</td>
-  <td>server.js node in server.js.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>cookieParser</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>cookieParser node in server.js.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>cors</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>cors node in server.js.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>express</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in server.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>path</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>path node in server.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><code>ref_zlib</code></td>
-  <td>compression.js node in src/middlewares/compression.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>zlib</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>zlib node in src/middlewares/compression.js.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>routes/index.js</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><code>express</code><br><small style="color:var(--muted)">package.json</small><br><code>orderController.js</code><br><small style="color:var(--muted)">src/controllers/orderController.js</small></td>
-  <td>routes/index.js node in src/routes/index.js.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>express</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in src/routes/index.js.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>router</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>router node in src/routes/index.js.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br>+1 more</td>
-  <td>No direct outbound edge</td>
-  <td>clearQrSessionTimers() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>closeQrPaymentModal() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>openQrModalByOrderMeta()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>openQrModalByOrderMeta() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>openQrModalByOrderMeta()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>updateQrCountdownDisplay()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>openQrPaymentModal() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>updateQrCountdownDisplay()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>pollQrPaymentStatus() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-hook">UI</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>simulateQrWebhook() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>updateQrCountdownDisplay()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>updateQrCountdownDisplay() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>qrPayment.js</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>qrPayment.js node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>activeQrSession</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>activeQrSession node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>0012-dedicated-multi-page-routing-and-cart-redesign.md</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 0012-dedicated-multi-page-routing-and-cart-redesign.md.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>1. Tối Ưu Hóa Tuyến Đường &amp; Hợp Nhất Cửa Hàng (Streamlined Routing &amp; Unified Shop)</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 1. Tối Ưu Hóa Tuyến Đường &amp; Hợp Nhất Cửa Hàng (Streamlined Routing &amp; Unified Shop).</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>2. Chuẩn Hóa Bảng Màu &amp; Thiết Kế Tối Giản (Calm Editorial / Bone &amp; Stone)</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 2. Chuẩn Hóa Bảng Màu &amp; Thiết Kế Tối Giản (Calm Editorial / Bone &amp; Stone).</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>3. Tái Thiết Kế Giỏ Hàng 3 Phân Lớp &amp; Hover Mini-Cart (Tri-Tier Cart Redesign)</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 3. Tái Thiết Kế Giỏ Hàng 3 Phân Lớp &amp; Hover Mini-Cart (Tri-Tier Cart Redesign).</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>ADR 0012: Kiến Trúc 5 Trang Chuyên Biệt, Đồng Bộ Màu &amp; Tái Thiết Kế Giỏ Hàng 3 Phân Lớp</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing ADR 0012: Kiến Trúc 5 Trang Chuyên Biệt, Đồng Bộ Màu &amp; Tái Thiết Kế Giỏ Hàng 3 Phân Lớp.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>Bối cảnh &amp; Phản hồi từ Giảng viên (Context &amp; Feedback)</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Bối cảnh &amp; Phản hồi từ Giảng viên (Context &amp; Feedback).</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>Kết Quả &amp; Đánh Giá (Consequences)</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Kết Quả &amp; Đánh Giá (Consequences).</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>Quyết Định Kiến Trúc (Decision)</code><br><small style="color:var(--muted)">docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Quyết Định Kiến Trúc (Decision).</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>0011-split-landing-about-and-storefront-routing.md</code><br><small style="color:var(--muted)">docs/adr/0011-split-landing-about-and-storefront-routing.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 0011-split-landing-about-and-storefront-routing.md.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>1. Phân Tách Định Tuyến Hai Tầng (Dual-Route Decoupling)</code><br><small style="color:var(--muted)">docs/adr/0011-split-landing-about-and-storefront-routing.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 1. Phân Tách Định Tuyến Hai Tầng (Dual-Route Decoupling).</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>public/js/qrPayment.js</code></td><td>9 nodes</td></tr>
+<tr><td><code>public/js/qrPayment.js</code></td><td>9 nodes</td></tr>
 <tr><td><code>docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</code></td><td>8 nodes</td></tr>
 <tr><td><code>docs/adr/0011-split-landing-about-and-storefront-routing.md</code></td><td>7 nodes</td></tr>
 <tr><td><code>public/js/aiChat.js</code></td><td>7 nodes</td></tr>
 <tr><td><code>docs/adr/0008-storefront-redesign-split-stage-and-tasteskill.md</code></td><td>6 nodes</td></tr>
 <tr><td><code>docs/agents/domain.md</code></td><td>6 nodes</td></tr>
 <tr><td><code>server.js</code></td><td>5 nodes</td></tr>
-<tr><td><code>GLOSSARY.md</code></td><td>4 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x37, references x16, calls x15, imports x6. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x48, calls x19, references x16, imports x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -4707,17 +4700,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>727</td></tr>
-      <tr><td>Edges</td><td>1266</td></tr>
+      <tr><td>Nodes</td><td>739</td></tr>
+      <tr><td>Edges</td><td>1277</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>43</td></tr>
+      <tr><td>Communities</td><td>44</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>1210</td></tr>
+      <tr><td>EXTRACTED</td><td>1221</td></tr>
       <tr><td>INFERRED</td><td>56</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -4726,7 +4719,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>phone-store-node — Architecture Documentation</p>
-  <p>Generated: 2026-11-17 12:33 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-11-17 13:33 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->
