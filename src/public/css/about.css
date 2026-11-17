@@ -1127,3 +1127,39 @@ body.editorial-mode,
         padding: 1.75rem 1.25rem;
     }
 }
+
+/* Minimalist Single-Column Site Footer (Synced with Figma 8:578) */
+.site-footer {
+    background-color: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+    padding: clamp(2.5rem, 4vw, 3.5rem) 0;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.footer-inner {
+    max-width: 900px;
+}
+
+.footer-brand-title {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+}
+
+.footer-brand-desc {
+    font-size: 0.925rem;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 1.25rem;
+}
+
+.footer-copy {
+    font-size: 0.825rem;
+    color: var(--muted);
+    opacity: 0.85;
+}
+
