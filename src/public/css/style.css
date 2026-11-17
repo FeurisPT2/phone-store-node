@@ -238,14 +238,23 @@ a {
     width: 2.35rem;
     height: 2.35rem;
     border-radius: 10px;
-    background-color: var(--accent);
-    color: var(--accent-ink);
+    background-color: #012550;
+    border: 1px solid rgba(6, 247, 251, 0.28);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px var(--accent-glow);
+    box-shadow: 0 4px 12px rgba(1, 37, 80, 0.25);
     flex-shrink: 0;
+    padding: 3px;
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.logo-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 1px 4px rgba(6, 247, 251, 0.35));
 }
 
 .logo-mark svg {

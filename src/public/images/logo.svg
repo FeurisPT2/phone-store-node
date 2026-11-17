@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="290 480 1468 1040" width="1468" height="1040" fill="none">
+  <defs>
+    <!-- Gradient bánh răng kim loại bạc -->
+    <linearGradient id="gearSilver" x1="690" y1="950" x2="1180" y2="540" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#939BA2" />
+      <stop offset="50%" stop-color="#C4C8CC" />
+      <stop offset="100%" stop-color="#E6E9EB" />
+    </linearGradient>
+
+    <!-- Gradient vòng sáng bên trong bánh răng -->
+    <linearGradient id="innerRingSilver" x1="820" y1="880" x2="1120" y2="690" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D5D8DC" />
+      <stop offset="100%" stop-color="#EFF2F4" />
+    </linearGradient>
+
+    <!-- Gradient tia sét / tốc độ bên phải -->
+    <linearGradient id="cyanSpikes" x1="1120" y1="640" x2="1310" y2="910" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2CF9FD" />
+      <stop offset="55%" stop-color="#06F7FB" />
+      <stop offset="100%" stop-color="#09B2D7" />
+    </linearGradient>
+
+    <!-- Gradient mặt trên phím cơ (Keycap Top) -->
+    <linearGradient id="keycapTop" x1="930" y1="755" x2="1115" y2="935" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7CF6FC" />
+      <stop offset="45%" stop-color="#06F7FB" />
+      <stop offset="100%" stop-color="#09B2D7" />
+    </linearGradient>
+
+    <!-- Gradient mặt trái phím cơ (Keycap Left) -->
+    <linearGradient id="keycapLeft" x1="875" y1="885" x2="1005" y2="1070" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22D7EC" />
+      <stop offset="40%" stop-color="#049EC8" />
+      <stop offset="100%" stop-color="#027BA8" />
+    </linearGradient>
+
+    <!-- Gradient mặt phải phím cơ (Keycap Right) -->
+    <linearGradient id="keycapRight" x1="1045" y1="885" x2="1175" y2="1070" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0684B3" />
+      <stop offset="55%" stop-color="#026199" />
+      <stop offset="100%" stop-color="#014B80" />
+    </linearGradient>
+  </defs>
+
+  <!-- ==================== BIỂU TƯỢNG LOGO (EMBLEM) ==================== -->
+  <g id="GearHub_Emblem">
+    <!-- Lớp nền viền xanh đậm tổng thể (#012550) -->
+    <path fill="#012550" d="
+      M 651 1098
+      L 725 995
+      L 718 960
+      L 654 946
+      L 654 846
+      L 714 828
+      L 725 796
+      L 682 745
+      L 745 666
+      L 807 692
+      L 836 668
+      L 827 602
+      L 917 556
+      L 957 608
+      L 992 601
+      L 1018 538
+      L 1118 538
+      L 1138 604
+      L 1173 614
+      L 1218 566
+      L 1266 598
+      L 1372 512
+      L 1304 678
+      L 1378 674
+      L 1326 798
+      L 1403 822
+      L 1212 978
+      L 1044 1094
+      C 1031 1102 1017 1102 1004 1094
+      L 848 986
+      L 651 1098
+      Z" />
+
+    <!-- Bánh răng kim loại bạc (6 răng cưa nửa trên) -->
+    <path fill="url(#gearSilver)" d="
+      M 744 974
+      L 737 940
+      L 676 926
+      L 676 864
+      L 734 846
+      L 748 802
+      L 708 750
+      L 752 694
+      L 812 718
+      L 852 686
+      L 846 622
+      L 910 588
+      L 950 636
+      L 1002 628
+      L 1028 566
+      L 1102 566
+      L 1122 630
+      L 1172 644
+      L 1214 598
+      L 1244 618
+      L 1188 666
+      C 1136 636 1082 622 1024 622
+      C 882 622 768 736 768 878
+      C 768 906 773 933 782 958
+      Z" />
+
+    <!-- Vòng cung phát sáng Cyan bên trong bánh răng -->
+    <path fill="#06F7FB" d="
+      M 796 948
+      C 789 926 785 902 785 878
+      C 785 746 892 639 1024 639
+      C 1076 639 1124 656 1164 684
+      L 1146 700
+      C 1110 676 1068 662 1024 662
+      C 905 662 808 759 808 878
+      C 808 899 811 919 817 938
+      Z" />
+
+    <!-- Vòng cung bạc sáng sát dưới dải Cyan -->
+    <path fill="url(#innerRingSilver)" d="
+      M 832 928
+      C 827 912 825 895 825 878
+      C 825 768 914 679 1024 679
+      C 1062 679 1098 690 1128 709
+      L 1062 746
+      C 1040 732 1008 732 986 746
+      L 878 824
+      C 862 836 854 854 850 874
+      L 838 924
+      Z" />
+
+    <!-- 3 Tia sét / mũi nhọn tốc độ Cyan bên phải -->
+    <path fill="url(#cyanSpikes)" d="
+      M 1096 756
+      L 1320 582
+      L 1266 710
+      L 1338 706
+      L 1286 818
+      L 1352 838
+      L 1202 952
+      L 1164 832
+      C 1158 814 1146 798 1130 786
+      Z" />
+
+    <!-- Phím cơ 3D (Keycap) - Mặt trên -->
+    <path fill="url(#keycapTop)" d="
+      M 1006 762
+      C 1017 754 1031 754 1042 762
+      L 1132 828
+      C 1144 837 1144 853 1132 862
+      L 1042 928
+      C 1031 936 1017 936 1006 928
+      L 916 862
+      C 904 853 904 837 916 828
+      Z" />
+
+    <!-- Phím cơ 3D (Keycap) - Cạnh vát bên trái -->
+    <path fill="url(#keycapLeft)" d="
+      M 896 878
+      L 1008 958
+      L 1008 1066
+      L 864 966
+      Z" />
+
+    <!-- Phím cơ 3D (Keycap) - Cạnh vát bên phải -->
+    <path fill="url(#keycapRight)" d="
+      M 1152 878
+      L 1040 958
+      L 1040 1066
+      L 1184 966
+      Z" />
+  </g>
+
+  <!-- ==================== CHỮ THƯƠNG HIỆU (WORDMARK) ==================== -->
+  <g id="GearHub_Typography">
+    <text x="1024" y="1374" text-anchor="middle" font-family="&#39;Montserrat&#39;, &#39;Poppins&#39;, &#39;Arial Black&#39;, &#39;Segoe UI&#39;, sans-serif" font-weight="900" font-size="258" letter-spacing="-3">
+      <tspan fill="#012550">GEAR</tspan><tspan fill="#06F7FB">HUB</tspan>
+    </text>
+
+    <text x="1024" y="1484" text-anchor="middle" font-family="&#39;Montserrat&#39;, &#39;Poppins&#39;, &#39;Segoe UI&#39;, Arial, sans-serif" font-weight="800" font-size="68" letter-spacing="11" fill="#012550">
+      CAMPUS TECH SERVICES
+    </text>
+  </g>
+</svg>
