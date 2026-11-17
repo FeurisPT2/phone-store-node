@@ -8,13 +8,12 @@
     <link rel="icon" type="image/svg+xml" href="/images/logo-emblem.svg">
     <link rel="alternate icon" type="image/svg+xml" href="/images/logo.svg">
 
-    <!-- Đồng bộ hóa Theme Sáng/Tối tức thì chống FOUC -->
+    <!-- Đồng bộ hóa Theme Sáng/Tối tức thì chống FOUC (Mặc định: Theme Sáng) -->
     <script>
         (function() {
             try {
                 var stored = localStorage.getItem('techstore_theme');
-                var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                var theme = stored ? stored : (systemDark ? 'dark' : 'light');
+                var theme = (stored === 'dark' || stored === 'light') ? stored : 'light';
                 document.documentElement.setAttribute('data-theme', theme);
             } catch(e) {}
         })();

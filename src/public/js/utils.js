@@ -90,8 +90,7 @@ function showToast(message, type = 'success') {
 function getStoredTheme() {
   if (typeof localStorage === 'undefined') return 'light';
   const saved = localStorage.getItem('techstore_theme');
-  if (saved === 'dark' || saved === 'light') return saved;
-  return (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  return (saved === 'dark' || saved === 'light') ? saved : 'light';
 }
 
 function setTheme(theme) {

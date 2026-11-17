@@ -1192,8 +1192,7 @@ async function handleSelfHealCatalog() {
 // ==================== THEME MANAGEMENT & REAL-TIME SYNC (UI/UX Pro Max) ====================
 function getStoredTheme() {
   const saved = localStorage.getItem('techstore_theme');
-  if (saved === 'dark' || saved === 'light') return saved;
-  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  return (saved === 'dark' || saved === 'light') ? saved : 'light';
 }
 
 function setTheme(theme) {

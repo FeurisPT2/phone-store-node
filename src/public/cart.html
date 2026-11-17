@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +13,7 @@
         (function() {
             const urlTheme = new URLSearchParams(window.location.search).get('theme');
             const saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('techstore_theme');
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+            document.documentElement.setAttribute('data-theme', (saved === 'dark' || saved === 'light') ? saved : 'light');
         })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">

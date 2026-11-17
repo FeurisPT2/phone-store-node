@@ -1,7 +1,7 @@
 # Graph Report - phone-store-node  (2026-11-17)
 
 ## Corpus Check
-- 94 files · ~142,409 words
+- 94 files · ~143,058 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: .css 4, .example 1, (none) 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0e65bc57`
+- Built from commit: `11ee1c32`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -64,14 +64,14 @@
 ## God Nodes (most connected - your core abstractions)
 1. `ProductModel` - 27 edges
 2. `CustomerModel` - 21 edges
-3. `OrderModel` - 16 edges
-4. `showToast()` - 16 edges
+3. `showToast()` - 16 edges
+4. `OrderModel` - 16 edges
 5. `loadDashboard()` - 15 edges
 6. `JsonStorageAdapter` - 14 edges
 7. `PostgresStorageAdapter` - 14 edges
 8. `renderProductList()` - 13 edges
 9. `loadProducts()` - 12 edges
-10. `StorageCollection` - 11 edges
+10. `loadOrders()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `1. Tuyến Đường & Bộ Điều Khiển Trang Chi Tiết` --references--> `buyNow()`  [INFERRED]
