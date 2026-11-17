@@ -957,9 +957,12 @@ body.editorial-mode,
     padding: 8px;
 }
 
-.campus-qr-img svg {
+.campus-qr-img svg,
+.campus-qr-img img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .campus-qr-title {
