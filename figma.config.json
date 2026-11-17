@@ -1,0 +1,8 @@
+{
+  "codeConnect": {
+    "include": [
+      "src/figma/**/*.figma.ts",
+      "src/public/**/*.figma.ts"
+    ]
+  }
+}
