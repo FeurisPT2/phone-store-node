@@ -113,7 +113,7 @@ function renderCartDropdownFlyout(cart, total) {
       <div class="flyout-empty" style="padding: 1.5rem 1rem; text-align: center; color: var(--muted); font-size: 0.8125rem;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32" style="margin: 0 auto 0.5rem; display: block; opacity: 0.45;"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
         <div>Chưa có dịch vụ hoặc thiết bị trong giỏ</div>
-        <div style="font-size: 0.75rem; color: var(--muted-soft); margin-top: 4px;">Khám phá vệ sinh máy tính hoặc thuê gear tại Sảnh C</div>
+        <div style="font-size: 0.75rem; color: var(--muted-soft); margin-top: 4px;">Khám phá vệ sinh máy tính hoặc thuê gear tại Sảnh I</div>
       </div>
       <div class="flyout-footer">
         <a href="/shop" class="btn-flyout-checkout" style="text-decoration:none;">
@@ -278,7 +278,7 @@ function renderCartPage(cart, total) {
           ${serviceItems.map(renderPageItemRow).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
-          <span>⏱️ Cam kết: Lấy liền 30-45 phút tại Sảnh C</span>
+          <span>⏱️ Cam kết: Lấy liền 30-45 phút tại Sảnh I</span>
           <span>Tạm tính dịch vụ: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(serviceSubtotal)}</strong></span>
         </div>
       </div>
@@ -322,7 +322,7 @@ function renderCartPage(cart, total) {
           ${retailItems.map(renderPageItemRow).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
-          <span>📍 Nhận ngay tại bàn kỹ thuật Sảnh C</span>
+          <span>📍 Nhận ngay tại bàn kỹ thuật Sảnh I</span>
           <span>Tạm tính phụ kiện: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(retailSubtotal)}</strong></span>
         </div>
       </div>
@@ -509,7 +509,7 @@ async function openCartModal() {
               ${serviceItems.map(renderItemHtml).join('')}
             </div>
             <div class="cart-tier-subtotal-row">
-              <span>Cam kết: Lấy liền 30-45 phút tại Sảnh C</span>
+              <span>Cam kết: Lấy liền 30-45 phút tại Sảnh I</span>
               <span>Tạm tính dịch vụ: <strong>${fmt(serviceSubtotal)}</strong></span>
             </div>
           </div>

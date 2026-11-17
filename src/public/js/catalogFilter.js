@@ -21,7 +21,7 @@
       shortLabel: 'Gói Dịch Vụ Vệ Sinh',
       badgeLabel: 'Dịch vụ vệ sinh',
       unitLabel: 'gói',
-      subtitle: 'Thực hiện trực tiếp tại Sảnh C ĐHKHTN · Lấy liền 25–45 phút'
+      subtitle: 'Thực hiện trực tiếp tại Sảnh I ĐHKHTN · Lấy liền 25–45 phút'
     },
     rental: {
       key: 'rental',

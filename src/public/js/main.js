@@ -728,7 +728,7 @@ function renderProductCardHtml(p, idx) {
             ${p.oldPrice && p.oldPrice > p.price ? `<span class="old-price">${fmt(p.oldPrice)}</span>` : ''}
           </div>
           <div class="price-sub-line">
-            <span>${p.duration ? `Thời gian: ${p.duration}` : 'Sảnh C ĐHKHTN'}</span>
+            <span>${p.duration ? `Thời gian: ${p.duration}` : 'Sảnh I ĐHKHTN'}</span>
             <span>${p.unit ? `Tính theo ${p.unit}` : 'Bảo hành 7 ngày'}</span>
           </div>
         </div>
@@ -1139,7 +1139,7 @@ async function openProductDetailModal(productId) {
     .join('');
 
   const review = p.aiReview || {
-    summary: p.description || `${p.name} là gói dịch vụ & thiết bị chuẩn sinh viên tại trạm GearHub Sảnh C ĐHKHTN.`,
+    summary: p.description || `${p.name} là gói dịch vụ & thiết bị chuẩn sinh viên tại trạm GearHub Sảnh I ĐHKHTN.`,
     pros: [
       `Mức giá sinh viên minh bạch ${fmt(p.price)}`,
       'Thực hiện trực tiếp / nhận gear nhanh với Thẻ Sinh Viên'
