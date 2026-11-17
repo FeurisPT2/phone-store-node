@@ -206,23 +206,23 @@
                         <textarea id="c-address" class="form-control" rows="2" placeholder="VD: Máy Dell Inspiron quạt kêu to, cần tra keo MX-4..." style="padding:0.65rem 0.85rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); font-size:0.875rem; resize:vertical;"></textarea>
                     </div>
 
-                    <!-- Payment Method Selector -->
+                    <!-- Payment Method Selector: Only COD -->
                     <div class="form-group" style="margin-top:1.1rem;">
                         <label style="font-size:0.8125rem; font-weight:600; color:var(--ink); display:block; margin-bottom:6px;">Phương thức thanh toán</label>
-                        <div class="pay-options-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                            <button type="button" class="pay-opt-btn active" id="pay-opt-qr" onclick="selectPaymentMethodUI('BANK_QR')" style="padding:10px 8px; border-radius:var(--radius-sm); border:1px solid var(--ink); background:var(--surface-raised); color:var(--ink); font-size:0.8125rem; font-weight:600; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                                <span>VietQR Tự Động</span>
-                            </button>
-                            <button type="button" class="pay-opt-btn" id="pay-opt-cod" onclick="selectPaymentMethodUI('COD')" style="padding:10px 8px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface); color:var(--muted); font-size:0.8125rem; font-weight:600; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                                <span>Tiền mặt Sảnh C</span>
-                            </button>
+                        <div class="pay-single-cod" style="padding:12px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--ink); background:var(--surface-raised); color:var(--ink); display:flex; align-items:center; gap:10px;">
+                            <span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:6px; background:var(--surface); border:1px solid var(--border); color:var(--ink); flex-shrink:0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                            </span>
+                            <div style="flex:1;">
+                                <div style="font-size:0.875rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:6px;">
+                                    <span>Thanh toán trực tiếp tại sảnh (COD)</span>
+                                    <span style="font-size:0.6875rem; font-weight:700; padding:2px 6px; border-radius:4px; background:#e0f2fe; color:#0369a1;">Mặc định</span>
+                                </div>
+                                <span style="font-size:0.75rem; color:var(--muted); line-height:1.4; display:block; margin-top:2px;">Kiểm tra máy hoàn tất, test thiết bị êm mượt mới thanh toán tiền mặt tại quầy</span>
+                            </div>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         </div>
-                        <div style="display:none;">
-                            <input type="radio" name="paymentMethod" value="BANK_QR" checked>
-                            <input type="radio" name="paymentMethod" value="COD">
-                        </div>
+                        <input type="hidden" name="paymentMethod" value="COD">
                     </div>
 
                     <!-- Order Total Summary Box -->
@@ -242,7 +242,7 @@
                     </div>
 
                     <button type="submit" id="btn-order-submit" class="btn-submit-order-page" style="width:100%; margin-top:1.15rem; padding:0.85rem 1rem; border-radius:var(--radius-sm); background:var(--ink); color:var(--surface); font-size:0.95rem; font-weight:700; border:1px solid var(--ink); cursor:pointer; box-shadow:0 4px 14px rgba(15, 23, 42, 0.16); transition:opacity 160ms ease, transform 160ms ease;">
-                        Xác Nhận Đặt Lịch &amp; Mở Mã VietQR &rarr;
+                        Xác Nhận Đặt Lịch Hẹn Tại Sảnh (COD) &rarr;
                     </button>
                 </form>
             </aside>

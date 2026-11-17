@@ -527,26 +527,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label> Chọn phương thức thanh toán thử nghiệm</label>
-                            <div class="payment-methods-grid">
-                                <label class="payment-method-card active" id="pay-opt-cod" onclick="selectPaymentMethodUI('COD')">
+                            <label>Phương thức thanh toán</label>
+                            <div class="payment-methods-grid" style="grid-template-columns: 1fr;">
+                                <label class="payment-method-card active" id="pay-opt-cod" style="cursor:default;">
                                     <input type="radio" name="paymentMethod" value="COD" checked>
                                     <div class="pm-info">
                                         <div class="pm-title-row">
-                                            <strong> Thanh toán tại sảnh (Demo COD)</strong>
+                                            <strong>Thanh toán trực tiếp tại sảnh (COD)</strong>
                                             <span class="pm-tag">Tiền mặt</span>
                                         </div>
-                                        <span>Kiểm tra máy mát, test phím êm rồi mới thanh toán</span>
-                                    </div>
-                                </label>
-                                <label class="payment-method-card" id="pay-opt-qr" onclick="selectPaymentMethodUI('BANK_QR')">
-                                    <input type="radio" name="paymentMethod" value="BANK_QR">
-                                    <div class="pm-info">
-                                        <div class="pm-title-row">
-                                            <strong> Chuyển khoản VietQR Sinh Viên</strong>
-                                            <span class="pm-tag pm-tag--fast">Mô phỏng 3s</span>
-                                        </div>
-                                        <span>Quét mã QR giả lập, đối soát webhook tự động không mất tiền</span>
+                                        <span>Kiểm tra máy mát, test phím êm rồi mới thanh toán tiền mặt tại quầy</span>
                                     </div>
                                 </label>
                             </div>

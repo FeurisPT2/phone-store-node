@@ -344,10 +344,7 @@ function renderCartPage(cart, total) {
     submitBtn.disabled = false;
     submitBtn.style.opacity = '1';
     submitBtn.style.cursor = 'pointer';
-    const isQr = document.getElementById('pay-opt-qr')?.classList.contains('active');
-    submitBtn.innerText = isQr
-      ? 'Xác Nhận Đặt Lịch & Mở Mã VietQR →'
-      : 'Xác Nhận Đặt Lịch Tại Sảnh C (COD) →';
+    submitBtn.innerText = 'Xác Nhận Đặt Lịch Hẹn Tại Sảnh (COD) →';
   }
 
   // Pre-fill user info if logged in
@@ -393,22 +390,17 @@ async function updateCart() {
 
 function selectPaymentMethodUI(method) {
   if (typeof document === 'undefined') return;
-  const norm = String(method || 'COD').toUpperCase();
-  const isQr = norm === 'QR' || norm === 'BANK_QR';
-  document.getElementById('pay-opt-cod')?.classList.toggle('active', !isQr);
-  document.getElementById('pay-opt-qr')?.classList.toggle('active', isQr);
+  document.getElementById('pay-opt-cod')?.classList.add('active');
+  document.getElementById('pay-opt-qr')?.classList.remove('active');
 
   const radios = document.querySelectorAll('input[name="paymentMethod"]');
   radios.forEach((r) => {
-    const val = r.value.toUpperCase();
-    r.checked = isQr ? val === 'BANK_QR' || val === 'QR' : val === 'COD';
+    r.checked = true;
   });
 
   const btn = document.getElementById('btn-order-submit');
   if (btn && !btn.disabled) {
-    btn.innerText = isQr
-      ? 'Xác Nhận Đặt Lịch & Mở Mã VietQR →'
-      : 'Xác Nhận Đặt Lịch Tại Sảnh C (COD) →';
+    btn.innerText = 'Xác Nhận Đặt Lịch Hẹn Tại Sảnh (COD) →';
   }
 }
 
