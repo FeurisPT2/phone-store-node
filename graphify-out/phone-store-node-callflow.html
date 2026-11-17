@@ -60,11 +60,12 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>phone-store-node — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 739 nodes, 1277 edges, 44 communities. Commit: 3179079</p>
+<p class="subtitle">Generated from graphify knowledge graph: 740 nodes, 1275 edges, 49 communities. Commit: d1d5289</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
     <a href="#build-graph">Graph Build</a>
+    <a href="#analysis-clustering">Analysis &amp; Clustering</a>
     <a href="#outputs-docs">Outputs &amp; Docs</a>
     <a href="#cli-skills">CLI &amp; Skill Installers</a>
     <a href="#ingest-cache-update">Ingestion &amp; Updates</a>
@@ -77,7 +78,6 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#catalog-filter-spec-extractor">Catalog Filter &amp; Spec Extractor</a>
     <a href="#productjs-public-consultaiabout">Productjs Public Consultaiabout</a>
     <a href="#getting-started-runbooks">Getting Started &amp; Runbooks</a>
-    <a href="#system-design-rulesmd">System Design Rulesmd</a>
     <a href="#other">Other</a>
 </div>
 
@@ -88,19 +88,21 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    BUILD_GRAPH_321CBB04("Graph Build<br/><small>42 nodes</small>")
+    BUILD_GRAPH_321CBB04("Graph Build<br/><small>43 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>60 nodes</small>")
+    class ANALYSIS_CLUSTERING_C79796DA module;
     OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>60 nodes</small>")
     class OUTPUTS_DOCS_ED82387C module;
     CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>52 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>71 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>24 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
-    SERVE_API_35EC8E86("Serving API<br/><small>27 nodes</small>")
+    SERVE_API_35EC8E86("Serving API<br/><small>14 nodes</small>")
     class SERVE_API_35EC8E86 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>176 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>142 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
-    CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60("Controllers Models Admincontrollerjs<br/><small>67 nodes</small>")
+    CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60("Controllers Models Admincontrollerjs<br/><small>71 nodes</small>")
     class CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60 module;
     ADMIN_CRM_INVENTORY_CLIENT_112ADFE4("Admin CRM &amp; Inventory Client<br/><small>56 nodes</small>")
     class ADMIN_CRM_INVENTORY_CLIENT_112ADFE4 module;
@@ -114,22 +116,20 @@ flowchart LR
     class PRODUCTJS_PUBLIC_CONSULTAIABOUT_780482D4 module;
     GETTING_STARTED_RUNBOOKS_70FD7FCB("Getting Started &amp; Runbooks<br/><small>13 nodes</small>")
     class GETTING_STARTED_RUNBOOKS_70FD7FCB module;
-    SYSTEM_DESIGN_RULESMD_749E9DFF("System Design Rulesmd<br/><small>12 nodes</small>")
-    class SYSTEM_DESIGN_RULESMD_749E9DFF module;
-    OTHER_D0941E68("Other<br/><small>83 nodes</small>")
+    OTHER_D0941E68("Other<br/><small>125 nodes</small>")
     class OTHER_D0941E68 module;
-    CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60 -->|imports x24| TESTS_FIXTURES_B84B1DCC
-    TESTS_FIXTURES_B84B1DCC -->|imports x13| CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60
-    TESTS_FIXTURES_B84B1DCC -->|imports x10| OTHER_D0941E68
+    CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60 -->|imports x20| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|imports x13| OTHER_D0941E68
+    TESTS_FIXTURES_B84B1DCC -->|imports x11| CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60
     OTHER_D0941E68 -->|imports x6| TESTS_FIXTURES_B84B1DCC
-    SERVE_API_35EC8E86 -->|imports x5| TESTS_FIXTURES_B84B1DCC
-    INGEST_CACHE_UPDATE_FF457338 -->|imports x4| TESTS_FIXTURES_B84B1DCC
+    ANALYSIS_CLUSTERING_C79796DA -->|imports x5| TESTS_FIXTURES_B84B1DCC
+    ANALYSIS_CLUSTERING_C79796DA -->|imports x4| INGEST_CACHE_UPDATE_FF457338
+    OTHER_D0941E68 -->|imports x4| CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60
+    CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60 -->|imports x4| OTHER_D0941E68
+    OTHER_D0941E68 -->|imports x4| SERVE_API_35EC8E86
+    TESTS_FIXTURES_B84B1DCC -->|imports x4| ANALYSIS_CLUSTERING_C79796DA
     TESTS_FIXTURES_B84B1DCC -->|imports x3| CATALOG_FILTER_SPEC_EXTRACTOR_8DD5713D
     OTHER_D0941E68 -->|imports x3| BUILD_GRAPH_321CBB04
-    SERVE_API_35EC8E86 -->|imports x3| CONTROLLERS_MODELS_ADMINCONTROLLERJS_C1829F60
-    TESTS_FIXTURES_B84B1DCC -->|imports x2| BUILD_GRAPH_321CBB04
-    OTHER_D0941E68 -->|imports x2| SERVE_API_35EC8E86
-    BUILD_GRAPH_321CBB04 -->|imports x2| SERVE_API_35EC8E86
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,19 +146,19 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Graph Build</td><td>42</td><td><code>3, 42, 43</code></td></tr><tr><td>Outputs &amp; Docs</td><td>60</td><td><code>5, 22, 29, 30, 39</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>52</td><td><code>0, 31, 32</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>71</td><td><code>14, 44</code></td></tr><tr><td>Serving API</td><td>27</td><td><code>24</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>176</td><td><code>11, 20, 35, 6, 16, 28, 13, 19, 21, 9</code></td></tr><tr><td>Controllers Models Admincontrollerjs</td><td>67</td><td><code>1</code></td></tr><tr><td>Admin CRM &amp; Inventory Client</td><td>56</td><td><code>2</code></td></tr><tr><td>Customerportaljs Public Cancelcustomerorderui</td><td>24</td><td><code>10</code></td></tr><tr><td>Cartjs Public 0013</td><td>21</td><td><code>36</code></td></tr><tr><td>Catalog Filter &amp; Spec Extractor</td><td>18</td><td><code>7</code></td></tr><tr><td>Productjs Public Consultaiabout</td><td>17</td><td><code>8</code></td></tr><tr><td>Getting Started &amp; Runbooks</td><td>13</td><td><code>15</code></td></tr><tr><td>System Design Rulesmd</td><td>12</td><td><code>12</code></td></tr><tr><td>Other</td><td>83</td><td><code>17, 18, 40, 26, 27, 4, 41, 33, 34, 38, 45, 47</code></td></tr>
+      <tr><td>Graph Build</td><td>43</td><td><code>3, 42, 43</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>60</td><td><code>14</code></td></tr><tr><td>Outputs &amp; Docs</td><td>60</td><td><code>5, 22, 29, 30, 39</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>52</td><td><code>0, 31, 32</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>24</td><td><code>9, 44</code></td></tr><tr><td>Serving API</td><td>14</td><td><code>24</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>142</td><td><code>11, 20, 35, 6, 16, 28, 13, 21, 37, 46</code></td></tr><tr><td>Controllers Models Admincontrollerjs</td><td>71</td><td><code>1</code></td></tr><tr><td>Admin CRM &amp; Inventory Client</td><td>56</td><td><code>2</code></td></tr><tr><td>Customerportaljs Public Cancelcustomerorderui</td><td>24</td><td><code>10</code></td></tr><tr><td>Cartjs Public 0013</td><td>21</td><td><code>36</code></td></tr><tr><td>Catalog Filter &amp; Spec Extractor</td><td>18</td><td><code>7</code></td></tr><tr><td>Productjs Public Consultaiabout</td><td>17</td><td><code>8</code></td></tr><tr><td>Getting Started &amp; Runbooks</td><td>13</td><td><code>15</code></td></tr><tr><td>Other</td><td>125</td><td><code>12, 17, 19, 18, 23, 40, 25, 26, 27, 4, 41, 33, 34, 38, 45, 48, 47</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Outputs &amp; Docs -&gt; Graph Build -&gt; Serving API -&gt; Tests &amp; Fixtures -&gt; Controllers Models Admincontrollerjs -&gt; CLI &amp; Skill Installers -&gt; Cartjs Public 0013</div>
+    <div class="arrow-chain">Outputs &amp; Docs -&gt; Graph Build -&gt; Serving API -&gt; Controllers Models Admincontrollerjs -&gt; Tests &amp; Fixtures -&gt; Other -&gt; Analysis &amp; Clustering</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>739 nodes · 1277 edges · 44 communities (37 shown, 7 thin omitted)</li>
+      <li>740 nodes · 1275 edges · 49 communities (39 shown, 10 thin omitted)</li>
       <li>Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 56 edges (avg confidence: 0.85)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `ProductModel` - 27 edges</li>
@@ -170,12 +170,12 @@ flowchart LR
 <hr>
 <!-- ====== 2. Graph Build ====== -->
 <h2 id="build-graph">2. Graph Build</h2>
-<p>Graph Build groups implementation around packagejson, verceljson, 0002, schema, mostly in package.json, vercel.json, docs/adr/0002-product-schema-expansion-and-grounding.md. This section covers 42 nodes and 47 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Graph Build groups implementation around packagejson, verceljson, 0002, schema, mostly in package.json, vercel.json, docs/adr/0002-product-schema-expansion-and-grounding.md. This section covers 43 nodes and 48 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Graph Build (42 nodes, 47 edges)
+    %% Section: Graph Build (43 nodes, 48 edges)
     subgraph build_graph_package_json_4e40bfbd["package.json"]
         package_582681c2("package.json")
         ref_google_genai_bf91b9a0("@google/genai<br/><small>package.json</small>")
@@ -205,7 +205,7 @@ flowchart LR
     package_582681c2 -->|imports| ref_nodemon_b894c198
     package_582681c2 -->|imports| ref_vercel_97b1b7fe
     src_config_sessionconfig_4b88e8df -->|imports| ref_express_session_a978e120
-    %% Omitted for readability: 24 nodes, 0 edges
+    %% Omitted for readability: 25 nodes, 0 edges
     class package_582681c2 function;
     class ref_google_genai_bf91b9a0 function;
     class ref_cookie_parser_10897c43 function;
@@ -287,6 +287,14 @@ flowchart LR
 </tr>
 <tr>
   <td>6</td>
+  <td><code>express@^4.19.2</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>express@^4.19.2 node in package.json.</td>
+</tr>
+<tr>
+  <td>7</td>
   <td><code>express-session@^1.18.0</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -294,7 +302,7 @@ flowchart LR
   <td>express-session@^1.18.0 node in package.json.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>8</td>
   <td><code>@google/genai@^3.0.0</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -302,7 +310,7 @@ flowchart LR
   <td>@google/genai@^3.0.0 node in package.json.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>9</td>
   <td><code>pg@^8.23.1</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -310,7 +318,7 @@ flowchart LR
   <td>pg@^8.23.1 node in package.json.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>10</td>
   <td><code>devDependencies</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -318,7 +326,7 @@ flowchart LR
   <td>devDependencies node in package.json.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>11</td>
   <td><code>nodemon@^3.1.14</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -326,7 +334,7 @@ flowchart LR
   <td>nodemon@^3.1.14 node in package.json.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>12</td>
   <td><code>vercel@^63.1.2</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -334,7 +342,7 @@ flowchart LR
   <td>vercel@^63.1.2 node in package.json.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>13</td>
   <td><code>main</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -342,7 +350,7 @@ flowchart LR
   <td>main node in package.json.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>14</td>
   <td><code>name</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -350,7 +358,7 @@ flowchart LR
   <td>name node in package.json.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>15</td>
   <td><code>scripts</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -358,7 +366,7 @@ flowchart LR
   <td>scripts node in package.json.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>16</td>
   <td><code>build</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -366,7 +374,7 @@ flowchart LR
   <td>build node in package.json.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>17</td>
   <td><code>crawl</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -374,7 +382,7 @@ flowchart LR
   <td>crawl node in package.json.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>18</td>
   <td><code>db:seed</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -382,7 +390,7 @@ flowchart LR
   <td>db:seed node in package.json.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>19</td>
   <td><code>dev</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -390,7 +398,7 @@ flowchart LR
   <td>dev node in package.json.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>20</td>
   <td><code>lint</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -398,7 +406,7 @@ flowchart LR
   <td>lint node in package.json.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>21</td>
   <td><code>start</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -406,7 +414,7 @@ flowchart LR
   <td>start node in package.json.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>22</td>
   <td><code>test</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -414,7 +422,7 @@ flowchart LR
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>23</td>
   <td><code>vercel:deploy</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -422,7 +430,7 @@ flowchart LR
   <td>vercel:deploy node in package.json.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>24</td>
   <td><code>vercel:dev</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -430,7 +438,7 @@ flowchart LR
   <td>vercel:dev node in package.json.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>25</td>
   <td><code>watch</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -438,7 +446,7 @@ flowchart LR
   <td>watch node in package.json.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>26</td>
   <td><code>version</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -446,7 +454,7 @@ flowchart LR
   <td>version node in package.json.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>27</td>
   <td><code>sessionConfig.js</code><br><small style="color:var(--muted)">src/config/sessionConfig.js</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
@@ -454,7 +462,7 @@ flowchart LR
   <td>Reads, resolves, or persists project configuration.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>28</td>
   <td><code>session</code><br><small style="color:var(--muted)">src/config/sessionConfig.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -462,7 +470,7 @@ flowchart LR
   <td>session node in src/config/sessionConfig.js.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>29</td>
   <td><code>cookie-parser</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>package.json</code><br><small style="color:var(--muted)">package.json</small><br><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
@@ -470,20 +478,12 @@ flowchart LR
   <td>cookie-parser node in package.json.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>30</td>
   <td><code>cors</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>package.json</code><br><small style="color:var(--muted)">package.json</small><br><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
   <td>No direct outbound edge</td>
   <td>cors node in package.json.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>dotenv</code><br><small style="color:var(--muted)">package.json</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>package.json</code><br><small style="color:var(--muted)">package.json</small></td>
-  <td>No direct outbound edge</td>
-  <td>dotenv node in package.json.</td>
 </tr>
 </table>
 
@@ -492,7 +492,7 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>package.json</code></td><td>33 nodes</td></tr>
+      <tr><td><code>package.json</code></td><td>34 nodes</td></tr>
 <tr><td><code>vercel.json</code></td><td>4 nodes</td></tr>
 <tr><td><code>docs/adr/0002-product-schema-expansion-and-grounding.md</code></td><td>3 nodes</td></tr>
 <tr><td><code>src/config/sessionConfig.js</code></td><td>2 nodes</td></tr>
@@ -500,13 +500,366 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x28, imports x8, declares x8, references x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x29, imports x8, declares x8, references x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 3. Outputs & Docs ====== -->
-<h2 id="outputs-docs">3. Outputs &amp; Docs</h2>
+<!-- ====== 3. Analysis & Clustering ====== -->
+<h2 id="analysis-clustering">3. Analysis &amp; Clustering</h2>
+<p>Analysis &amp; Clustering groups implementation around storage, models, postgresstorageadapterjs, schemasjs, mostly in models/storage/PostgresStorageAdapter.js, models/storage/schemas.js, models/storage/StorageCollection.js. This section covers 60 nodes and 90 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Analysis &amp; Clustering (60 nodes, 90 edges)
+    subgraph analysis_clustering_models_storage_StorageCollec_5272853e["models/storage/StorageCollection.js"]
+        src_models_storage_storagecollection_storagecoll_830bd01a("StorageCollection<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_d9c6d3ab("StorageCollection.js")
+        src_models_storage_storagecollection_storagecoll_1913f373("adapter()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_60056dec("find()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_05fff1b4("findById()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_d06a95ee("findOne()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_ab304a8b("insert()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_536ff690("update()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_28d9fb68("delete()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_9fb1d3ea("count()<br/><small>models/storage/StorageCollection.js</small>")
+        src_models_storage_storagecollection_storagecoll_a61684c5("constructor()<br/><small>models/storage/StorageCollection.js</small>")
+    end
+    subgraph analysis_clustering_models_storage_PostgresStora_32ea0ced["models/storage/PostgresStorageAdapter.js"]
+        src_models_storage_postgresstorageadapter_postgr_5c0c4032("PostgresStorageAdapter<br/><small>models/storage/PostgresStorageAdapter.js</small>")
+        src_models_storage_postgresstorageadapter_cbaec2f9("PostgresStorageAdapter.js")
+        src_models_storage_postgresstorageadapter_postgr_7a73f6e5("findOne()<br/><small>models/storage/PostgresStorageAdapter.js</small>")
+        src_models_storage_postgresstorageadapter_postgr_de8733e7("_serializeField()<br/><small>models/storage/PostgresStorageAdapter.js</small>")
+        src_models_storage_postgresstorageadapter_postgr_807ef3f5("find()<br/><small>models/storage/PostgresStorageAdapter.js</small>")
+    end
+    src_models_storage_storageseam_d135a8f7("storageSeam.js")
+    scripts_seed_db_6f2cdee7("seed-db.js")
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_1913f373
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_60056dec
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_05fff1b4
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_d06a95ee
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_ab304a8b
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_536ff690
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_28d9fb68
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_9fb1d3ea
+    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_a61684c5
+    src_models_storage_postgresstorageadapter_postgr_5c0c4032 -->|method| src_models_storage_postgresstorageadapter_postgr_7a73f6e5
+    src_models_storage_postgresstorageadapter_postgr_5c0c4032 -->|method| src_models_storage_postgresstorageadapter_postgr_de8733e7
+    src_models_storage_postgresstorageadapter_postgr_5c0c4032 -->|method| src_models_storage_postgresstorageadapter_postgr_807ef3f5
+    src_models_storage_postgresstorageadapter_postgr_807ef3f5 -->|calls| src_models_storage_postgresstorageadapter_postgr_807ef3f5
+    src_models_storage_postgresstorageadapter_postgr_7a73f6e5 -->|calls| src_models_storage_postgresstorageadapter_postgr_807ef3f5
+    src_models_storage_storagecollection_storagecoll_a61684c5 -->|calls| src_models_storage_postgresstorageadapter_postgr_5c0c4032
+    src_models_storage_storagecollection_d9c6d3ab -->|imports| src_models_storage_postgresstorageadapter_postgr_5c0c4032
+    src_models_storage_storagecollection_d9c6d3ab -->|imports| src_models_storage_postgresstorageadapter_cbaec2f9
+    src_models_storage_storageseam_d135a8f7 -->|imports| src_models_storage_storagecollection_storagecoll_830bd01a
+    src_models_storage_storageseam_d135a8f7 -->|imports| src_models_storage_postgresstorageadapter_postgr_5c0c4032
+    %% Omitted for readability: 42 nodes, 0 edges
+    class src_models_storage_storagecollection_storagecoll_830bd01a klass;
+    class src_models_storage_storagecollection_d9c6d3ab klass;
+    class src_models_storage_storagecollection_storagecoll_1913f373 function;
+    class src_models_storage_storagecollection_storagecoll_60056dec function;
+    class src_models_storage_storagecollection_storagecoll_05fff1b4 function;
+    class src_models_storage_storagecollection_storagecoll_d06a95ee function;
+    class src_models_storage_storagecollection_storagecoll_ab304a8b function;
+    class src_models_storage_storagecollection_storagecoll_536ff690 function;
+    class src_models_storage_storagecollection_storagecoll_28d9fb68 function;
+    class src_models_storage_storagecollection_storagecoll_9fb1d3ea function;
+    class src_models_storage_storagecollection_storagecoll_a61684c5 function;
+    class src_models_storage_postgresstorageadapter_postgr_5c0c4032 klass;
+    class src_models_storage_postgresstorageadapter_cbaec2f9 klass;
+    class src_models_storage_postgresstorageadapter_postgr_7a73f6e5 function;
+    class src_models_storage_postgresstorageadapter_postgr_de8733e7 function;
+    class src_models_storage_postgresstorageadapter_postgr_807ef3f5 function;
+    class src_models_storage_storageseam_d135a8f7 module;
+    class scripts_seed_db_6f2cdee7 module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>storageSeam.js</code><br><small style="color:var(--muted)">models/storage/storageSeam.js</small></td>
+  <td><code>adapter()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>count()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br>+6 more</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>constructor()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>StorageCollection.js</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>storageSeam.js</code><br><small style="color:var(--muted)">models/storage/storageSeam.js</small></td>
+  <td><code>_serializeField()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br>+7 more</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>seed()</code><br><small style="color:var(--muted)">scripts/seed-db.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>seed() node in scripts/seed-db.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>ensureReady()</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td><code>initDatabase()</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td>ensureReady() node in src/config/db.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>initDatabase()</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small><br><code>ensureReady()</code><br><small style="color:var(--muted)">src/config/db.js</small><br><code>seed-db.js</code><br><small style="color:var(--muted)">scripts/seed-db.js</small></td>
+  <td><code>ref_crypto</code><br><code>src_data_products</code></td>
+  <td>initDatabase() node in src/config/db.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>query()</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>query() node in src/config/db.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>count()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><code>_serializeField()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findFieldDef()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>.buildWhere() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.count()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td>.count() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.delete()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.delete() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>count()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findOne()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br>+1 more</td>
+  <td><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findFieldDef()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>.find() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>.findById()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>update()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.findById() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>.findOne()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td>.findOne() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>.insert()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><code>_serializeField()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td>.insert() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>._serializeField()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>insert()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>._serializeField() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>.update()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><code>_serializeField()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findById()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findFieldDef()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>.update() node in models/storage/PostgresStorageAdapter.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>findFieldDef()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_matchesQuery()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br>+4 more</td>
+  <td>No direct outbound edge</td>
+  <td>findFieldDef() node in models/storage/schemas.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>mapRowToAdmin()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>schemas.js</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>mapRowToAdmin() node in models/storage/schemas.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>mapRowToCustomer()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>schemas.js</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>mapRowToCustomer() node in models/storage/schemas.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>mapRowToOrder()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>schemas.js</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><code>normalizeOrderHistoryEntry()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small><br><code>parseJsonField()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>mapRowToOrder() node in models/storage/schemas.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>mapRowToProduct()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>schemas.js</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><code>parseJsonField()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>mapRowToProduct() node in models/storage/schemas.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>normalizeOrderHistoryEntry()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>mapRowToOrder()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>normalizeOrderHistoryEntry() node in models/storage/schemas.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>parseJsonField()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>mapRowToOrder()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small><br><code>mapRowToProduct()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small><br><code>schemas.js</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>parseJsonField() node in models/storage/schemas.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>.adapter()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.adapter() node in models/storage/StorageCollection.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td>.constructor() node in models/storage/StorageCollection.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>.count()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.count() node in models/storage/StorageCollection.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>.delete()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.delete() node in models/storage/StorageCollection.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>.find()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.find() node in models/storage/StorageCollection.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>.findById()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.findById() node in models/storage/StorageCollection.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>.findOne()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.findOne() node in models/storage/StorageCollection.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>models/storage/PostgresStorageAdapter.js</code></td><td>12 nodes</td></tr>
+<tr><td><code>models/storage/schemas.js</code></td><td>12 nodes</td></tr>
+<tr><td><code>models/storage/StorageCollection.js</code></td><td>11 nodes</td></tr>
+<tr><td><code>models/storage/storageSeam.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>scripts/seed-db.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/config/db.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>docs/adr/0005-storage-seam-and-adapters.md</code></td><td>3 nodes</td></tr>
+<tr><td><code>models/storage/JsonStorageAdapter.js</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x19, contains x19, calls x17, imports x11. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. Outputs & Docs ====== -->
+<h2 id="outputs-docs">4. Outputs &amp; Docs</h2>
 <p>Outputs &amp; Docs groups implementation around public, indexhtml, modal, adminhtml, mostly in src/public/index.html, src/public/admin.html, docs/adr/0009-synchronized-luxury-light-dark-themes-and-svg-system.md. This section covers 60 nodes and 55 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -849,8 +1202,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 4. CLI & Skill Installers ====== -->
-<h2 id="cli-skills">4. CLI &amp; Skill Installers</h2>
+<!-- ====== 5. CLI & Skill Installers ====== -->
+<h2 id="cli-skills">5. CLI &amp; Skill Installers</h2>
 <p>CLI &amp; Skill Installers groups implementation around mainjs, public, issue, docs, mostly in public/js/main.js, docs/agents/issue-tracker.md, AGENTS.md. This section covers 52 nodes and 85 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1198,36 +1551,36 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 5. Ingestion & Updates ====== -->
-<h2 id="ingest-cache-update">5. Ingestion &amp; Updates</h2>
-<p>Ingestion &amp; Updates groups implementation around models, storage, jsonstorageadapterjs, postgresstorageadapterjs, mostly in models/storage/JsonStorageAdapter.js, models/storage/PostgresStorageAdapter.js, models/storage/schemas.js. This section covers 71 nodes and 126 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 6. Ingestion & Updates ====== -->
+<h2 id="ingest-cache-update">6. Ingestion &amp; Updates</h2>
+<p>Ingestion &amp; Updates groups implementation around models, storage, jsonstorageadapterjs, databasejs, mostly in models/storage/JsonStorageAdapter.js, src/models/database.js, docs/adr/0004-qr-payment-state-machine-and-catalog-caching.md. This section covers 24 nodes and 50 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Ingestion &amp; Updates (71 nodes, 126 edges)
+    %% Section: Ingestion &amp; Updates (24 nodes, 50 edges)
     subgraph ingest_cache_update_models_storage_JsonStorageAd_8482b518["models/storage/JsonStorageAdapter.js"]
         src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c("JsonStorageAdapter<br/><small>models/storage/JsonStorageAdapter.js</small>")
         src_models_storage_jsonstorageadapter_jsonstorag_94267473("findOne()<br/><small>models/storage/JsonStorageAdapter.js</small>")
+        src_models_storage_jsonstorageadapter_jsonstorag_444ff68b("update()<br/><small>models/storage/JsonStorageAdapter.js</small>")
+        src_models_storage_jsonstorageadapter_jsonstorag_820cdf70("find()<br/><small>models/storage/JsonStorageAdapter.js</small>")
+        src_models_storage_jsonstorageadapter_jsonstorag_86ddce5e("findById()<br/><small>models/storage/JsonStorageAdapter.js</small>")
         src_models_storage_jsonstorageadapter_jsonstorag_250784be("_clone()<br/><small>models/storage/JsonStorageAdapter.js</small>")
         src_models_storage_jsonstorageadapter_jsonstorag_916f656f("insert()<br/><small>models/storage/JsonStorageAdapter.js</small>")
-        src_models_storage_jsonstorageadapter_jsonstorag_444ff68b("update()<br/><small>models/storage/JsonStorageAdapter.js</small>")
         src_models_storage_jsonstorageadapter_jsonstorag_5a8704c8("delete()<br/><small>models/storage/JsonStorageAdapter.js</small>")
         src_models_storage_jsonstorageadapter_jsonstorag_2011cbdb("count()<br/><small>models/storage/JsonStorageAdapter.js</small>")
         src_models_storage_jsonstorageadapter_jsonstorag_ba477cb0("_matchesQuery()<br/><small>models/storage/JsonStorageAdapter.js</small>")
         src_models_storage_jsonstorageadapter_jsonstorag_980d93ea("constructor()<br/><small>models/storage/JsonStorageAdapter.js</small>")
-        src_models_storage_jsonstorageadapter_jsonstorag_86ddce5e("findById()<br/><small>models/storage/JsonStorageAdapter.js</small>")
-        src_models_storage_jsonstorageadapter_jsonstorag_820cdf70("find()<br/><small>models/storage/JsonStorageAdapter.js</small>")
     end
-    subgraph ingest_cache_update_models_storage_StorageCollec_da6abee6["models/storage/StorageCollection.js"]
-        src_models_storage_storagecollection_storagecoll_830bd01a("StorageCollection<br/><small>models/storage/StorageCollection.js</small>")
-        src_models_storage_storagecollection_d9c6d3ab("StorageCollection.js")
-        src_models_storage_storagecollection_storagecoll_1913f373("adapter()<br/><small>models/storage/StorageCollection.js</small>")
-        src_models_storage_storagecollection_storagecoll_60056dec("find()<br/><small>models/storage/StorageCollection.js</small>")
-        src_models_storage_storagecollection_storagecoll_05fff1b4("findById()<br/><small>models/storage/StorageCollection.js</small>")
+    subgraph ingest_cache_update_src_models_database_js_f56ea106["src/models/database.js"]
+        src_models_database_jsondb_fcd0d9f0("JsonDB<br/><small>src/models/database.js</small>")
+        src_models_database_jsondb_update_80a73e15("update()<br/><small>src/models/database.js</small>")
+        src_models_database_jsondb_delete_8f0dae4d("delete()<br/><small>src/models/database.js</small>")
+        src_models_database_jsondb_constructor_ab209aec("constructor()<br/><small>src/models/database.js</small>")
+        src_models_database_jsondb_read_64484104("read()<br/><small>src/models/database.js</small>")
+        src_models_database_jsondb_write_48f6ef89("write()<br/><small>src/models/database.js</small>")
+        src_models_database_jsondb_findall_a8d3c7b7("findAll()<br/><small>src/models/database.js</small>")
     end
-    src_models_storage_postgresstorageadapter_postgr_5c0c4032("PostgresStorageAdapter<br/><small>models/storage/PostgresStorageAdapter.js</small>")
-    src_models_database_jsondb_fcd0d9f0("JsonDB<br/><small>src/models/database.js</small>")
     src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c -->|method| src_models_storage_jsonstorageadapter_jsonstorag_250784be
     src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c -->|method| src_models_storage_jsonstorageadapter_jsonstorag_916f656f
     src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c -->|method| src_models_storage_jsonstorageadapter_jsonstorag_444ff68b
@@ -1238,39 +1591,39 @@ flowchart LR
     src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c -->|method| src_models_storage_jsonstorageadapter_jsonstorag_86ddce5e
     src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c -->|method| src_models_storage_jsonstorageadapter_jsonstorag_94267473
     src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c -->|method| src_models_storage_jsonstorageadapter_jsonstorag_820cdf70
-    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_1913f373
-    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_60056dec
-    src_models_storage_storagecollection_storagecoll_830bd01a -->|method| src_models_storage_storagecollection_storagecoll_05fff1b4
+    src_models_database_jsondb_fcd0d9f0 -->|method| src_models_database_jsondb_update_80a73e15
+    src_models_database_jsondb_fcd0d9f0 -->|method| src_models_database_jsondb_delete_8f0dae4d
+    src_models_database_jsondb_fcd0d9f0 -->|method| src_models_database_jsondb_constructor_ab209aec
+    src_models_database_jsondb_fcd0d9f0 -->|method| src_models_database_jsondb_read_64484104
+    src_models_database_jsondb_fcd0d9f0 -->|method| src_models_database_jsondb_write_48f6ef89
+    src_models_database_jsondb_fcd0d9f0 -->|method| src_models_database_jsondb_findall_a8d3c7b7
+    src_models_database_jsondb_constructor_ab209aec -->|calls| src_models_database_jsondb_write_48f6ef89
+    src_models_database_jsondb_constructor_ab209aec -->|calls| src_models_database_jsondb_read_64484104
+    src_models_database_jsondb_delete_8f0dae4d -->|calls| src_models_database_jsondb_read_64484104
+    src_models_database_jsondb_delete_8f0dae4d -->|calls| src_models_database_jsondb_write_48f6ef89
+    src_models_database_jsondb_findall_a8d3c7b7 -->|calls| src_models_database_jsondb_read_64484104
+    src_models_database_jsondb_update_80a73e15 -->|calls| src_models_database_jsondb_read_64484104
+    src_models_database_jsondb_update_80a73e15 -->|calls| src_models_database_jsondb_write_48f6ef89
     src_models_storage_jsonstorageadapter_jsonstorag_980d93ea -->|calls| src_models_database_jsondb_fcd0d9f0
-    src_models_storage_jsonstorageadapter_jsonstorag_2011cbdb -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_820cdf70
-    src_models_storage_jsonstorageadapter_jsonstorag_820cdf70 -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_250784be
-    src_models_storage_jsonstorageadapter_jsonstorag_820cdf70 -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_ba477cb0
-    src_models_storage_jsonstorageadapter_jsonstorag_86ddce5e -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_250784be
-    src_models_storage_jsonstorageadapter_jsonstorag_94267473 -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_250784be
-    src_models_storage_jsonstorageadapter_jsonstorag_94267473 -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_ba477cb0
-    src_models_storage_jsonstorageadapter_jsonstorag_916f656f -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_250784be
-    src_models_storage_jsonstorageadapter_jsonstorag_444ff68b -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_86ddce5e
-    src_models_storage_jsonstorageadapter_jsonstorag_444ff68b -->|calls| src_models_storage_jsonstorageadapter_jsonstorag_250784be
-    src_models_storage_storagecollection_d9c6d3ab -->|imports| src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c
-    %% Omitted for readability: 53 nodes, 1 edges
+    %% Omitted for readability: 6 nodes, 13 edges
     class src_models_storage_jsonstorageadapter_jsonstorag_2fecc08c klass;
     class src_models_storage_jsonstorageadapter_jsonstorag_94267473 function;
+    class src_models_storage_jsonstorageadapter_jsonstorag_444ff68b function;
+    class src_models_storage_jsonstorageadapter_jsonstorag_820cdf70 function;
+    class src_models_storage_jsonstorageadapter_jsonstorag_86ddce5e function;
     class src_models_storage_jsonstorageadapter_jsonstorag_250784be function;
     class src_models_storage_jsonstorageadapter_jsonstorag_916f656f function;
-    class src_models_storage_jsonstorageadapter_jsonstorag_444ff68b function;
     class src_models_storage_jsonstorageadapter_jsonstorag_5a8704c8 function;
     class src_models_storage_jsonstorageadapter_jsonstorag_2011cbdb function;
     class src_models_storage_jsonstorageadapter_jsonstorag_ba477cb0 function;
     class src_models_storage_jsonstorageadapter_jsonstorag_980d93ea function;
-    class src_models_storage_jsonstorageadapter_jsonstorag_86ddce5e function;
-    class src_models_storage_jsonstorageadapter_jsonstorag_820cdf70 function;
-    class src_models_storage_storagecollection_storagecoll_830bd01a klass;
-    class src_models_storage_storagecollection_d9c6d3ab klass;
-    class src_models_storage_storagecollection_storagecoll_1913f373 function;
-    class src_models_storage_storagecollection_storagecoll_60056dec function;
-    class src_models_storage_storagecollection_storagecoll_05fff1b4 function;
-    class src_models_storage_postgresstorageadapter_postgr_5c0c4032 klass;
     class src_models_database_jsondb_fcd0d9f0 klass;
+    class src_models_database_jsondb_update_80a73e15 function;
+    class src_models_database_jsondb_delete_8f0dae4d function;
+    class src_models_database_jsondb_constructor_ab209aec function;
+    class src_models_database_jsondb_read_64484104 function;
+    class src_models_database_jsondb_write_48f6ef89 function;
+    class src_models_database_jsondb_findall_a8d3c7b7 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1302,14 +1655,6 @@ flowchart LR
 </tr>
 <tr>
   <td>2</td>
-  <td><code>StorageCollection</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>storageSeam.js</code><br><small style="color:var(--muted)">models/storage/storageSeam.js</small></td>
-  <td><code>adapter()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>count()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br>+6 more</td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
-</tr>
-<tr>
-  <td>3</td>
   <td><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>constructor()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1317,15 +1662,7 @@ flowchart LR
   <td>JsonDB node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>4</td>
-  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>constructor()</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>StorageCollection.js</code><br><small style="color:var(--muted)">models/storage/StorageCollection.js</small><br><code>storageSeam.js</code><br><small style="color:var(--muted)">models/storage/storageSeam.js</small></td>
-  <td><code>_serializeField()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br>+7 more</td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
-</tr>
-<tr>
-  <td>5</td>
+  <td>3</td>
   <td><code>.constructor()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
@@ -1333,7 +1670,7 @@ flowchart LR
   <td>.constructor() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>4</td>
   <td><code>.delete()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>delete()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
@@ -1341,7 +1678,7 @@ flowchart LR
   <td>.delete() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>5</td>
   <td><code>.findAll()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>find()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>findOne()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
@@ -1349,7 +1686,7 @@ flowchart LR
   <td>.findAll() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>6</td>
   <td><code>.findById()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>findById()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
@@ -1357,7 +1694,7 @@ flowchart LR
   <td>.findById() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>7</td>
   <td><code>.findOne()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>findById()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>findOne()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
@@ -1365,7 +1702,7 @@ flowchart LR
   <td>.findOne() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>8</td>
   <td><code>.insert()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>insert()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
@@ -1373,7 +1710,7 @@ flowchart LR
   <td>.insert() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>9</td>
   <td><code>.read()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>constructor()</code><br><small style="color:var(--muted)">src/models/database.js</small><br><code>delete()</code><br><small style="color:var(--muted)">src/models/database.js</small><br><code>findAll()</code><br><small style="color:var(--muted)">src/models/database.js</small><br>+5 more</td>
@@ -1381,7 +1718,7 @@ flowchart LR
   <td>.read() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>10</td>
   <td><code>.update()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonDB</code><br><small style="color:var(--muted)">src/models/database.js</small><br><code>update()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1389,7 +1726,7 @@ flowchart LR
   <td>.update() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>11</td>
   <td><code>.write()</code><br><small style="color:var(--muted)">src/models/database.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>constructor()</code><br><small style="color:var(--muted)">src/models/database.js</small><br><code>delete()</code><br><small style="color:var(--muted)">src/models/database.js</small><br><code>insert()</code><br><small style="color:var(--muted)">src/models/database.js</small><br>+2 more</td>
@@ -1397,7 +1734,7 @@ flowchart LR
   <td>.write() node in src/models/database.js.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>12</td>
   <td><code>._clone()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>find()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>findById()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>findOne()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br>+3 more</td>
@@ -1405,7 +1742,7 @@ flowchart LR
   <td>Turns a local path or remote repository into analysis context.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>13</td>
   <td><code>.constructor()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1413,7 +1750,7 @@ flowchart LR
   <td>.constructor() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>14</td>
   <td><code>.count()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1421,7 +1758,7 @@ flowchart LR
   <td>.count() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>15</td>
   <td><code>.delete()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1429,7 +1766,7 @@ flowchart LR
   <td>.delete() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>16</td>
   <td><code>.find()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>count()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1437,7 +1774,7 @@ flowchart LR
   <td>.find() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>17</td>
   <td><code>.findById()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>update()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1445,7 +1782,7 @@ flowchart LR
   <td>.findById() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>18</td>
   <td><code>.findOne()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1453,7 +1790,7 @@ flowchart LR
   <td>.findOne() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>19</td>
   <td><code>.insert()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1461,7 +1798,7 @@ flowchart LR
   <td>.insert() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>20</td>
   <td><code>._matchesQuery()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>find()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>findOne()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small><br><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1469,7 +1806,7 @@ flowchart LR
   <td>._matchesQuery() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>21</td>
   <td><code>.update()</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>JsonStorageAdapter</code><br><small style="color:var(--muted)">models/storage/JsonStorageAdapter.js</small></td>
@@ -1477,60 +1814,28 @@ flowchart LR
   <td>.update() node in models/storage/JsonStorageAdapter.js.</td>
 </tr>
 <tr>
+  <td>22</td>
+  <td><code>0004-qr-payment-state-machine-and-catalog-caching.md</code><br><small style="color:var(--muted)">docs/adr/0004-qr-payment-state-machine-and-catalog-caching.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 0004-qr-payment-state-machine-and-catalog-caching.md.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache)</code><br><small style="color:var(--muted)">docs/adr/0004-qr-payment-state-machine-and-catalog-caching.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for 0004. Máy Trạng Thái Thanh Toán QR (Lazy TTL) Và Bộ Nhớ Đệm Danh Mục Sản Phẩm (In-Memory TTL Cache).</td>
+</tr>
+<tr>
   <td>24</td>
-  <td><code>.buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>count()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><code>_serializeField()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findFieldDef()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
-  <td>.buildWhere() node in models/storage/PostgresStorageAdapter.js.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>.constructor()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
+  <td><code>Bối cảnh &amp; Lý do lựa chọn</code><br><small style="color:var(--muted)">docs/adr/0004-qr-payment-state-machine-and-catalog-caching.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>.constructor() node in models/storage/PostgresStorageAdapter.js.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>.count()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td>.count() node in models/storage/PostgresStorageAdapter.js.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>.delete()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>.delete() node in models/storage/PostgresStorageAdapter.js.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>.find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>count()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findOne()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br>+1 more</td>
-  <td><code>buildWhere()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>findFieldDef()</code><br><small style="color:var(--muted)">models/storage/schemas.js</small></td>
-  <td>.find() node in models/storage/PostgresStorageAdapter.js.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>.findById()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small><br><code>update()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>.findById() node in models/storage/PostgresStorageAdapter.js.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>.findOne()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>PostgresStorageAdapter</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td><code>find()</code><br><small style="color:var(--muted)">models/storage/PostgresStorageAdapter.js</small></td>
-  <td>.findOne() node in models/storage/PostgresStorageAdapter.js.</td>
+  <td>Design note for Bối cảnh &amp; Lý do lựa chọn.</td>
 </tr>
 </table>
 
@@ -1539,40 +1844,30 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>models/storage/JsonStorageAdapter.js</code></td><td>12 nodes</td></tr>
-<tr><td><code>models/storage/PostgresStorageAdapter.js</code></td><td>12 nodes</td></tr>
-<tr><td><code>models/storage/schemas.js</code></td><td>12 nodes</td></tr>
-<tr><td><code>models/storage/StorageCollection.js</code></td><td>11 nodes</td></tr>
+      <tr><td><code>models/storage/JsonStorageAdapter.js</code></td><td>11 nodes</td></tr>
 <tr><td><code>src/models/database.js</code></td><td>10 nodes</td></tr>
-<tr><td><code>models/storage/storageSeam.js</code></td><td>8 nodes</td></tr>
 <tr><td><code>docs/adr/0004-qr-payment-state-machine-and-catalog-caching.md</code></td><td>3 nodes</td></tr>
-<tr><td><code>docs/adr/0005-storage-seam-and-adapters.md</code></td><td>3 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x47, method x38, contains x15, imports x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x29, method x19, references x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 6. Serving API ====== -->
-<h2 id="serve-api">6. Serving API</h2>
-<p>Serving API groups implementation around routes, unified, auth, portal, mostly in docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md, src/routes/adminRoutes.js, src/routes/authRoutes.js. This section covers 27 nodes and 26 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 7. Serving API ====== -->
+<h2 id="serve-api">7. Serving API</h2>
+<p>Serving API groups implementation around routes, express, adminroutesjs, router, mostly in src/routes/adminRoutes.js, src/routes/cartRoutes.js, src/routes/customerRoutes.js. This section covers 14 nodes and 13 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Serving API (27 nodes, 26 edges)
+    %% Section: Serving API (14 nodes, 13 edges)
     subgraph serve_api_src_routes_adminRoutes_js_f34ac75b["src/routes/adminRoutes.js"]
         src_routes_adminroutes_1b2b7a96("adminRoutes.js")
         src_routes_adminroutes_express_14819345("express<br/><small>src/routes/adminRoutes.js</small>")
         src_routes_adminroutes_router_b0348ad6("router<br/><small>src/routes/adminRoutes.js</small>")
-    end
-    subgraph serve_api_src_routes_authRoutes_js_848e2cf0["src/routes/authRoutes.js"]
-        src_routes_authroutes_1af0e51b("authRoutes.js")
-        src_routes_authroutes_express_e2c3b691("express<br/><small>src/routes/authRoutes.js</small>")
-        src_routes_authroutes_router_5147e829("router<br/><small>src/routes/authRoutes.js</small>")
     end
     subgraph serve_api_src_routes_cartRoutes_js_452f03a9["src/routes/cartRoutes.js"]
         src_routes_cartroutes_87010cd4("cartRoutes.js")
@@ -1589,24 +1884,16 @@ flowchart LR
         src_routes_orderroutes_express_d07158c7("express<br/><small>src/routes/orderRoutes.js</small>")
         src_routes_orderroutes_router_4927e6a4("router<br/><small>src/routes/orderRoutes.js</small>")
     end
-    subgraph serve_api_package_json_de2396b5["package.json"]
-        ref_express_54e0f975("express<br/><small>package.json</small>")
-        package_dependencies_express_ada56cce("express@^4.19.2<br/><small>package.json</small>")
-    end
-    src_routes_productroutes_3cf8ac94("productRoutes.js")
+    ref_express_54e0f975("express<br/><small>package.json</small>")
+    src_middlewares_adminauth_2bb27060("adminAuth.js")
     src_routes_adminroutes_1b2b7a96 -->|imports| ref_express_54e0f975
-    src_routes_authroutes_1af0e51b -->|imports| ref_express_54e0f975
+    src_routes_adminroutes_1b2b7a96 -->|imports| src_middlewares_adminauth_2bb27060
     src_routes_cartroutes_87010cd4 -->|imports| ref_express_54e0f975
     src_routes_customerroutes_46dec54e -->|imports| ref_express_54e0f975
     src_routes_orderroutes_1749495a -->|imports| ref_express_54e0f975
-    src_routes_productroutes_3cf8ac94 -->|imports| ref_express_54e0f975
-    %% Omitted for readability: 9 nodes, 0 edges
     class src_routes_adminroutes_1b2b7a96 api;
     class src_routes_adminroutes_express_14819345 function;
     class src_routes_adminroutes_router_b0348ad6 api;
-    class src_routes_authroutes_1af0e51b api;
-    class src_routes_authroutes_express_e2c3b691 function;
-    class src_routes_authroutes_router_5147e829 api;
     class src_routes_cartroutes_87010cd4 api;
     class src_routes_cartroutes_express_062b3d33 function;
     class src_routes_cartroutes_router_a9541347 api;
@@ -1617,8 +1904,7 @@ flowchart LR
     class src_routes_orderroutes_express_d07158c7 function;
     class src_routes_orderroutes_router_4927e6a4 api;
     class ref_express_54e0f975 function;
-    class package_dependencies_express_ada56cce function;
-    class src_routes_productroutes_3cf8ac94 api;
+    class src_middlewares_adminauth_2bb27060 module;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1642,11 +1928,11 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>express@^4.19.2</code><br><small style="color:var(--muted)">package.json</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express@^4.19.2 node in package.json.</td>
+  <td><code>adminAuth.js</code><br><small style="color:var(--muted)">src/middlewares/adminAuth.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>adminRoutes.js</code><br><small style="color:var(--muted)">src/routes/adminRoutes.js</small></td>
+  <td><code>Admin.js</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td>adminAuth.js node in src/middlewares/adminAuth.js.</td>
 </tr>
 <tr>
   <td>2</td>
@@ -1674,30 +1960,6 @@ flowchart LR
 </tr>
 <tr>
   <td>5</td>
-  <td><code>authRoutes.js</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>authController.js</code><br><small style="color:var(--muted)">src/controllers/authController.js</small><br><code>express</code><br><small style="color:var(--muted)">package.json</small></td>
-  <td>authRoutes.js node in src/routes/authRoutes.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>express</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in src/routes/authRoutes.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>router</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>router node in src/routes/authRoutes.js.</td>
-</tr>
-<tr>
-  <td>8</td>
   <td><code>cartRoutes.js</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1705,7 +1967,7 @@ flowchart LR
   <td>cartRoutes.js node in src/routes/cartRoutes.js.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>6</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1713,7 +1975,7 @@ flowchart LR
   <td>express node in src/routes/cartRoutes.js.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>7</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1721,7 +1983,7 @@ flowchart LR
   <td>router node in src/routes/cartRoutes.js.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>8</td>
   <td><code>customerRoutes.js</code><br><small style="color:var(--muted)">src/routes/customerRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1729,7 +1991,7 @@ flowchart LR
   <td>customerRoutes.js node in src/routes/customerRoutes.js.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>9</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/customerRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1737,7 +1999,7 @@ flowchart LR
   <td>express node in src/routes/customerRoutes.js.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>10</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/customerRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1745,7 +2007,7 @@ flowchart LR
   <td>router node in src/routes/customerRoutes.js.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>11</td>
   <td><code>orderRoutes.js</code><br><small style="color:var(--muted)">src/routes/orderRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1753,7 +2015,7 @@ flowchart LR
   <td>orderRoutes.js node in src/routes/orderRoutes.js.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>12</td>
   <td><code>express</code><br><small style="color:var(--muted)">src/routes/orderRoutes.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1761,7 +2023,7 @@ flowchart LR
   <td>express node in src/routes/orderRoutes.js.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>13</td>
   <td><code>router</code><br><small style="color:var(--muted)">src/routes/orderRoutes.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
@@ -1769,92 +2031,12 @@ flowchart LR
   <td>router node in src/routes/orderRoutes.js.</td>
 </tr>
 <tr>
-  <td>17</td>
-  <td><code>productRoutes.js</code><br><small style="color:var(--muted)">src/routes/productRoutes.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>express</code><br><small style="color:var(--muted)">package.json</small><br><code>Product.js</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
-  <td>productRoutes.js node in src/routes/productRoutes.js.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>express</code><br><small style="color:var(--muted)">src/routes/productRoutes.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in src/routes/productRoutes.js.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>router</code><br><small style="color:var(--muted)">src/routes/productRoutes.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>router node in src/routes/productRoutes.js.</td>
-</tr>
-<tr>
-  <td>20</td>
+  <td>14</td>
   <td><code>express</code><br><small style="color:var(--muted)">package.json</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>adminRoutes.js</code><br><small style="color:var(--muted)">src/routes/adminRoutes.js</small><br><code>authRoutes.js</code><br><small style="color:var(--muted)">src/routes/authRoutes.js</small><br><code>cartRoutes.js</code><br><small style="color:var(--muted)">src/routes/cartRoutes.js</small><br>+7 more</td>
   <td>No direct outbound edge</td>
   <td>express node in package.json.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>0010-unified-auth-portal-and-serverless-session-persistence.md</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 0010-unified-auth-portal-and-serverless-session-persistence.md.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>1. Cổng Đăng Nhập Thống Nhất &amp; Phân Luồng Thông Minh (Unified Auth Portal &amp; Smart Role Routing)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for 1. Cổng Đăng Nhập Thống Nhất &amp; Phân Luồng Thông Minh (Unified Auth Portal &amp; Smart Role Routing).</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>2. Duy Trì Phiên Quản Trị Serverless Bằng Chữ Ký Số HMAC-SHA256 (`admin_token`)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for 2. Duy Trì Phiên Quản Trị Serverless Bằng Chữ Ký Số HMAC-SHA256 (`admin_token`).</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>ADR 0010: Unified Auth Portal, Smart Role Routing and Serverless Admin Session Recovery</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for ADR 0010: Unified Auth Portal, Smart Role Routing and Serverless Admin Session Recovery.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>Bối cảnh &amp; Vấn đề (Context)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Bối cảnh &amp; Vấn đề (Context).</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>Kết Quả &amp; Đánh Giá (Consequences)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Kết Quả &amp; Đánh Giá (Consequences).</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>Quyết Định Kiến Trúc (Decision)</code><br><small style="color:var(--muted)">docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Quyết Định Kiến Trúc (Decision).</td>
 </tr>
 </table>
 
@@ -1863,31 +2045,29 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</code></td><td>7 nodes</td></tr>
-<tr><td><code>src/routes/adminRoutes.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/routes/authRoutes.js</code></td><td>3 nodes</td></tr>
+      <tr><td><code>src/routes/adminRoutes.js</code></td><td>3 nodes</td></tr>
 <tr><td><code>src/routes/cartRoutes.js</code></td><td>3 nodes</td></tr>
 <tr><td><code>src/routes/customerRoutes.js</code></td><td>3 nodes</td></tr>
 <tr><td><code>src/routes/orderRoutes.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/routes/productRoutes.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>package.json</code></td><td>2 nodes</td></tr>
+<tr><td><code>package.json</code></td><td>1 nodes</td></tr>
+<tr><td><code>src/middlewares/adminAuth.js</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x12, imports x6, references x6, declares x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x8, imports x5. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 7. Tests & Fixtures ====== -->
-<h2 id="tests-fixtures">7. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around tests, models, services, assert, mostly in src/models/Product.js, src/services/geminiService.js, src/services/crawlerService.js. This section covers 176 nodes and 320 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 8. Tests & Fixtures ====== -->
+<h2 id="tests-fixtures">8. Tests &amp; Fixtures</h2>
+<p>Tests &amp; Fixtures groups implementation around tests, models, services, assert, mostly in src/models/Product.js, src/services/geminiService.js, src/services/crawlerService.js. This section covers 142 nodes and 250 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (176 nodes, 320 edges)
+    %% Section: Tests &amp; Fixtures (142 nodes, 250 edges)
     subgraph tests_fixtures_src_models_Product_js_22f580ff["src/models/Product.js"]
         src_models_product_productmodel_bc31b71c("ProductModel<br/><small>src/models/Product.js</small>")
         src_models_product_productmodel_update_fae4d254("update()<br/><small>src/models/Product.js</small>")
@@ -1901,11 +2081,11 @@ flowchart LR
         src_models_product_productmodel_getunenriched_ff366704("getUnenriched()<br/><small>src/models/Product.js</small>")
         src_models_product_productmodel_create_c5dbba84("create()<br/><small>src/models/Product.js</small>")
     end
-    scripts_seed_db_6f2cdee7("seed-db.js")
     src_services_crawlerservice_crawlerservice_84050c18("CrawlerService<br/><small>src/services/crawlerService.js</small>")
     tests_adminai_test_7207e87d("adminAI.test.js")
+    tests_adminupdateai_test_fabb3891("adminUpdateAI.test.js")
     tests_catalogcacheandfilter_test_507b7745("catalogCacheAndFilter.test.js")
-    tests_customerportal_test_085bfb75("customerPortal.test.js")
+    tests_chatroute_test_f39a29df("chatRoute.test.js")
     tests_geminiservice_test_23325fd0("geminiService.test.js")
     tests_storageseam_test_a9231a33("storageSeam.test.js")
     src_models_product_productmodel_bc31b71c -->|method| src_models_product_productmodel_update_fae4d254
@@ -1929,7 +2109,8 @@ flowchart LR
     tests_catalogcacheandfilter_test_507b7745 -->|imports| src_models_product_productmodel_bc31b71c
     tests_geminiservice_test_23325fd0 -->|imports| src_models_product_productmodel_bc31b71c
     tests_adminai_test_7207e87d -->|imports| src_models_product_productmodel_bc31b71c
-    %% Omitted for readability: 158 nodes, 0 edges
+    tests_adminupdateai_test_fabb3891 -->|imports| src_models_product_productmodel_bc31b71c
+    %% Omitted for readability: 124 nodes, 0 edges
     class src_models_product_productmodel_bc31b71c klass;
     class src_models_product_productmodel_update_fae4d254 function;
     class src_models_product_productmodel_invalidatecache_258baece function;
@@ -1941,11 +2122,11 @@ flowchart LR
     class src_models_product_productmodel_getbyid_8619a4f9 function;
     class src_models_product_productmodel_getunenriched_ff366704 function;
     class src_models_product_productmodel_create_c5dbba84 function;
-    class scripts_seed_db_6f2cdee7 module;
     class src_services_crawlerservice_crawlerservice_84050c18 klass;
     class tests_adminai_test_7207e87d test;
+    class tests_adminupdateai_test_fabb3891 test;
     class tests_catalogcacheandfilter_test_507b7745 test;
-    class tests_customerportal_test_085bfb75 test;
+    class tests_chatroute_test_f39a29df test;
     class tests_geminiservice_test_23325fd0 test;
     class tests_storageseam_test_a9231a33 test;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
@@ -2011,6 +2192,14 @@ flowchart LR
 </tr>
 <tr>
   <td>6</td>
+  <td><code>updateProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
+  <td>updateProduct() node in src/controllers/adminController.js.</td>
+</tr>
+<tr>
+  <td>7</td>
   <td><code>addToCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2018,7 +2207,7 @@ flowchart LR
   <td>addToCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>8</td>
   <td><code>clearCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2026,7 +2215,7 @@ flowchart LR
   <td>clearCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>9</td>
   <td><code>getCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2034,7 +2223,7 @@ flowchart LR
   <td>getCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>10</td>
   <td><code>removeFromCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2042,7 +2231,7 @@ flowchart LR
   <td>removeFromCart() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>11</td>
   <td><code>updateCartItem()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2050,7 +2239,7 @@ flowchart LR
   <td>updateCartItem() node in src/controllers/cartController.js.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>12</td>
   <td><code>._cloneItem()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>getAll()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>getById()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2058,7 +2247,7 @@ flowchart LR
   <td>Turns a local path or remote repository into analysis context.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>13</td>
   <td><code>.create()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>addFlagships()</code><br><small style="color:var(--muted)">scripts/add-flagships.js</small><br><code>addProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br>+2 more</td>
@@ -2066,7 +2255,7 @@ flowchart LR
   <td>.create() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>14</td>
   <td><code>.delete()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>deleteProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2074,7 +2263,7 @@ flowchart LR
   <td>.delete() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>15</td>
   <td><code>.getAll()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>addFlagships()</code><br><small style="color:var(--muted)">scripts/add-flagships.js</small><br><code>consultWithCatalog()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br>+5 more</td>
@@ -2082,7 +2271,7 @@ flowchart LR
   <td>.getAll() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>16</td>
   <td><code>.getById()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>addToCart()</code><br><small style="color:var(--muted)">src/controllers/cartController.js</small><br><code>enrichAndPersistProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br>+1 more</td>
@@ -2090,7 +2279,7 @@ flowchart LR
   <td>.getById() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>17</td>
   <td><code>.getCacheStats()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2098,7 +2287,7 @@ flowchart LR
   <td>Caches analysis results or computes cache keys.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>18</td>
   <td><code>.getUnenriched()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>selfHealCatalog()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
@@ -2106,7 +2295,7 @@ flowchart LR
   <td>.getUnenriched() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>19</td>
   <td><code>.invalidateCache()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>create()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>delete()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br>+1 more</td>
@@ -2114,7 +2303,7 @@ flowchart LR
   <td>Caches analysis results or computes cache keys.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>20</td>
   <td><code>._loadFullCatalog()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>getAll()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
@@ -2122,7 +2311,7 @@ flowchart LR
   <td>._loadFullCatalog() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>21</td>
   <td><code>.update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>enrichAndPersistProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>ProductModel</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>updateProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
@@ -2130,7 +2319,7 @@ flowchart LR
   <td>.update() node in src/models/Product.js.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>22</td>
   <td><code>cleanProductName()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
@@ -2138,7 +2327,7 @@ flowchart LR
   <td>cleanProductName() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>23</td>
   <td><code>.crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>CrawlerService</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlProducts()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>run()</code><br><small style="color:var(--muted)">scripts/crawl-products.js</small></td>
@@ -2146,7 +2335,7 @@ flowchart LR
   <td>.crawlFromDummyJson() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>24</td>
   <td><code>.crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>CrawlerService</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlProducts()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>run()</code><br><small style="color:var(--muted)">scripts/crawl-products.js</small></td>
@@ -2154,7 +2343,7 @@ flowchart LR
   <td>.crawlFromTiki() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>25</td>
   <td><code>.generateSpecs()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>CrawlerService</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br>+1 more</td>
@@ -2162,7 +2351,7 @@ flowchart LR
   <td>.generateSpecs() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>26</td>
   <td><code>generateSpecs()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2170,7 +2359,7 @@ flowchart LR
   <td>generateSpecs() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>27</td>
   <td><code>normalizeBrand()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>crawlFromDummyJson()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>crawlFromTiki()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small><br><code>generateSpecs()</code><br><small style="color:var(--muted)">src/services/crawlerService.js</small></td>
@@ -2178,7 +2367,7 @@ flowchart LR
   <td>normalizeBrand() node in src/services/crawlerService.js.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>28</td>
   <td><code>consultCustomer()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
@@ -2186,7 +2375,7 @@ flowchart LR
   <td>consultCustomer() node in src/services/geminiService.js.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>29</td>
   <td><code>consultWithCatalog()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
@@ -2194,20 +2383,12 @@ flowchart LR
   <td>consultWithCatalog() node in src/services/geminiService.js.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>30</td>
   <td><code>enrichAndPersistProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
   <td><code>getById()</code><br><small style="color:var(--muted)">src/models/Product.js</small><br><code>update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
   <td>enrichAndPersistProduct() node in src/services/geminiService.js.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>enrichProduct()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>geminiService.js</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
-  <td><code>getClient()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small><br><code>normalizeEnrichArgs()</code><br><small style="color:var(--muted)">src/services/geminiService.js</small></td>
-  <td>enrichProduct() node in src/services/geminiService.js.</td>
 </tr>
 </table>
 
@@ -2218,29 +2399,29 @@ flowchart LR
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>src/models/Product.js</code></td><td>13 nodes</td></tr>
 <tr><td><code>src/services/geminiService.js</code></td><td>12 nodes</td></tr>
-<tr><td><code>src/models/Admin.js</code></td><td>9 nodes</td></tr>
 <tr><td><code>src/services/crawlerService.js</code></td><td>9 nodes</td></tr>
 <tr><td><code>src/controllers/cartController.js</code></td><td>6 nodes</td></tr>
-<tr><td><code>scripts/seed-db.js</code></td><td>5 nodes</td></tr>
-<tr><td><code>src/config/db.js</code></td><td>5 nodes</td></tr>
 <tr><td><code>tests/catalogCacheAndFilter.test.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>tests/designTokensContract.test.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>tests/storageSeam.test.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/models/database.js</code></td><td>4 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: imports x105, contains x82, imports x50, calls x45. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: imports x77, contains x71, imports x39, calls x36. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 8. Controllers Models Admincontrollerjs ====== -->
-<h2 id="controllers-models-admincontrollerjs">8. Controllers Models Admincontrollerjs</h2>
-<p>Controllers Models Admincontrollerjs groups implementation around controllers, models, admincontrollerjs, customerjs, mostly in src/controllers/adminController.js, src/models/Customer.js, src/models/Order.js. This section covers 67 nodes and 135 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 9. Controllers Models Admincontrollerjs ====== -->
+<h2 id="controllers-models-admincontrollerjs">9. Controllers Models Admincontrollerjs</h2>
+<p>Controllers Models Admincontrollerjs groups implementation around controllers, models, admincontrollerjs, customerjs, mostly in src/controllers/adminController.js, src/models/Customer.js, src/models/Order.js. This section covers 71 nodes and 152 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Controllers Models Admincontrollerjs (67 nodes, 135 edges)
+    %% Section: Controllers Models Admincontrollerjs (71 nodes, 152 edges)
     subgraph controllers_models_admincontrollerjs_src_models_9c9b2c87["src/models/Customer.js"]
         src_models_customer_customermodel_c8e5e671("CustomerModel<br/><small>src/models/Customer.js</small>")
         src_models_customer_customermodel_remembercustom_1983a33b("rememberCustomer()<br/><small>src/models/Customer.js</small>")
@@ -2256,13 +2437,13 @@ flowchart LR
         src_models_customer_customermodel_findbyphone_d932da5e("findByPhone()<br/><small>src/models/Customer.js</small>")
         src_models_customer_customermodel_register_cbcce421("register()<br/><small>src/models/Customer.js</small>")
     end
-    subgraph controllers_models_admincontrollerjs_src_models_ecd14342["src/models/Order.js"]
-        src_models_order_ordermodel_35e15dcb("OrderModel<br/><small>src/models/Order.js</small>")
-        src_models_order_ordermodel_updatestatus_0d169e1b("updateStatus()<br/><small>src/models/Order.js</small>")
-        src_models_order_ordermodel_processpaymentwebhoo_e067a491("processPaymentWebhook()<br/><small>src/models/Order.js</small>")
+    subgraph controllers_models_admincontrollerjs_src_control_60631305["src/controllers/customerController.js"]
+        src_controllers_customercontroller_4d289053("customerController.js")
+        src_controllers_customercontroller_getprofile_156856e1("getProfile()<br/><small>src/controllers/customerController.js</small>")
     end
     src_controllers_admincontroller_bd08196e("adminController.js")
-    src_controllers_customercontroller_getprofile_156856e1("getProfile()<br/><small>src/controllers/customerController.js</small>")
+    src_controllers_ordercontroller_ed0cb2f1("orderController.js")
+    src_models_order_ordermodel_35e15dcb("OrderModel<br/><small>src/models/Order.js</small>")
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_remembercustom_1983a33b
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_createcustomer_e975c362
@@ -2275,8 +2456,6 @@ flowchart LR
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_findbyid_3803b3dd
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_findbyphone_d932da5e
     src_models_customer_customermodel_c8e5e671 -->|method| src_models_customer_customermodel_register_cbcce421
-    src_models_order_ordermodel_35e15dcb -->|method| src_models_order_ordermodel_processpaymentwebhoo_e067a491
-    src_models_order_ordermodel_35e15dcb -->|method| src_models_order_ordermodel_updatestatus_0d169e1b
     src_controllers_customercontroller_getprofile_156856e1 -->|calls| src_models_customer_customermodel_findbyid_3803b3dd
     src_controllers_customercontroller_getprofile_156856e1 -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_controllers_customercontroller_getprofile_156856e1 -->|calls| src_models_customer_customermodel_findbyphone_d932da5e
@@ -2287,7 +2466,9 @@ flowchart LR
     src_models_customer_customermodel_findbyphone_d932da5e -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_models_customer_customermodel_getall_ae6c6de3 -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
     src_models_customer_customermodel_register_cbcce421 -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
-    %% Omitted for readability: 49 nodes, 13 edges
+    src_models_customer_customermodel_remembercustom_1983a33b -->|calls| src_models_customer_customermodel_findbyphone_d932da5e
+    src_models_customer_customermodel_remembercustom_1983a33b -->|calls| src_models_customer_customermodel_tosafecustomer_266a0b2b
+    %% Omitted for readability: 53 nodes, 13 edges
     class src_models_customer_customermodel_c8e5e671 klass;
     class src_models_customer_customermodel_remembercustom_1983a33b function;
     class src_models_customer_customermodel_tosafecustomer_266a0b2b function;
@@ -2301,11 +2482,11 @@ flowchart LR
     class src_models_customer_customermodel_findbyid_3803b3dd function;
     class src_models_customer_customermodel_findbyphone_d932da5e function;
     class src_models_customer_customermodel_register_cbcce421 function;
-    class src_models_order_ordermodel_35e15dcb klass;
-    class src_models_order_ordermodel_updatestatus_0d169e1b function;
-    class src_models_order_ordermodel_processpaymentwebhoo_e067a491 ui;
-    class src_controllers_admincontroller_bd08196e module;
+    class src_controllers_customercontroller_4d289053 module;
     class src_controllers_customercontroller_getprofile_156856e1 function;
+    class src_controllers_admincontroller_bd08196e module;
+    class src_controllers_ordercontroller_ed0cb2f1 module;
+    class src_models_order_ordermodel_35e15dcb klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -2489,14 +2670,6 @@ flowchart LR
 </tr>
 <tr>
   <td>21</td>
-  <td><code>updateProduct()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>update()</code><br><small style="color:var(--muted)">src/models/Product.js</small></td>
-  <td>updateProduct() node in src/controllers/adminController.js.</td>
-</tr>
-<tr>
-  <td>22</td>
   <td><code>changePassword()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2504,7 +2677,7 @@ flowchart LR
   <td>changePassword() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>22</td>
   <td><code>forget()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2512,7 +2685,7 @@ flowchart LR
   <td>forget() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>23</td>
   <td><code>getMyOrders()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2520,7 +2693,7 @@ flowchart LR
   <td>getMyOrders() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>24</td>
   <td><code>getProfile()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2528,7 +2701,7 @@ flowchart LR
   <td>getProfile() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>25</td>
   <td><code>getWishlist()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2536,7 +2709,7 @@ flowchart LR
   <td>getWishlist() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>26</td>
   <td><code>login()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2544,7 +2717,7 @@ flowchart LR
   <td>login() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>27</td>
   <td><code>logout()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2552,7 +2725,7 @@ flowchart LR
   <td>logout() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>28</td>
   <td><code>lookup()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2560,12 +2733,20 @@ flowchart LR
   <td>lookup() node in src/controllers/customerController.js.</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>29</td>
   <td><code>register()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td><code>register()</code><br><small style="color:var(--muted)">src/models/Customer.js</small></td>
   <td>register() node in src/controllers/customerController.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>toggleWishlist()</code><br><small style="color:var(--muted)">src/controllers/customerController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>toggleWishlist()</code><br><small style="color:var(--muted)">src/models/Customer.js</small></td>
+  <td>toggleWishlist() node in src/controllers/customerController.js.</td>
 </tr>
 </table>
 
@@ -2574,22 +2755,23 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>src/controllers/adminController.js</code></td><td>20 nodes</td></tr>
-<tr><td><code>src/models/Customer.js</code></td><td>16 nodes</td></tr>
-<tr><td><code>src/models/Order.js</code></td><td>13 nodes</td></tr>
+      <tr><td><code>src/controllers/adminController.js</code></td><td>19 nodes</td></tr>
+<tr><td><code>src/models/Customer.js</code></td><td>18 nodes</td></tr>
+<tr><td><code>src/models/Order.js</code></td><td>15 nodes</td></tr>
 <tr><td><code>src/controllers/customerController.js</code></td><td>12 nodes</td></tr>
 <tr><td><code>src/controllers/orderController.js</code></td><td>6 nodes</td></tr>
+<tr><td><code>src/middlewares/customerMemory.js</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x71, contains x35, method x23, imports x6. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x71, contains x42, method x23, imports x8. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 9. Admin CRM & Inventory Client ====== -->
-<h2 id="admin-crm-inventory-client">9. Admin CRM &amp; Inventory Client</h2>
+<!-- ====== 10. Admin CRM & Inventory Client ====== -->
+<h2 id="admin-crm-inventory-client">10. Admin CRM &amp; Inventory Client</h2>
 <p>Admin CRM &amp; Inventory Client groups implementation around adminjs, public, closeadminmodal, deletecustomer, mostly in public/js/admin.js. This section covers 56 nodes and 139 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2935,8 +3117,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 10. Customerportaljs Public Cancelcustomerorderui ====== -->
-<h2 id="customerportaljs-public-cancelcustomerorderui">10. Customerportaljs Public Cancelcustomerorderui</h2>
+<!-- ====== 11. Customerportaljs Public Cancelcustomerorderui ====== -->
+<h2 id="customerportaljs-public-cancelcustomerorderui">11. Customerportaljs Public Cancelcustomerorderui</h2>
 <p>Customerportaljs Public Cancelcustomerorderui groups implementation around customerportaljs, public, cancelcustomerorderui, checkauthstate, mostly in public/js/customerPortal.js. This section covers 24 nodes and 46 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3230,8 +3412,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 11. Cartjs Public 0013 ====== -->
-<h2 id="cartjs-public-0013">11. Cartjs Public 0013</h2>
+<!-- ====== 12. Cartjs Public 0013 ====== -->
+<h2 id="cartjs-public-0013">12. Cartjs Public 0013</h2>
 <p>Cartjs Public 0013 groups implementation around cartjs, public, 0013, dedicated, mostly in public/js/cart.js, docs/adr/0013-dedicated-product-detail-page-and-commercial-actions.md. This section covers 21 nodes and 36 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3500,8 +3682,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 12. Catalog Filter & Spec Extractor ====== -->
-<h2 id="catalog-filter-spec-extractor">12. Catalog Filter &amp; Spec Extractor</h2>
+<!-- ====== 13. Catalog Filter & Spec Extractor ====== -->
+<h2 id="catalog-filter-spec-extractor">13. Catalog Filter &amp; Spec Extractor</h2>
 <p>Catalog Filter &amp; Spec Extractor groups implementation around catalogfilterjs, public, buildproducttexthaystack, escaperegexp, mostly in public/js/catalogFilter.js. This section covers 18 nodes and 36 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3745,8 +3927,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 13. Productjs Public Consultaiabout ====== -->
-<h2 id="productjs-public-consultaiabout">13. Productjs Public Consultaiabout</h2>
+<!-- ====== 14. Productjs Public Consultaiabout ====== -->
+<h2 id="productjs-public-consultaiabout">14. Productjs Public Consultaiabout</h2>
 <p>Productjs Public Consultaiabout groups implementation around productjs, public, consultaiabout, formatvnd, mostly in public/js/product.js. This section covers 17 nodes and 29 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3974,8 +4156,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 14. Getting Started & Runbooks ====== -->
-<h2 id="getting-started-runbooks">14. Getting Started &amp; Runbooks</h2>
+<!-- ====== 15. Getting Started & Runbooks ====== -->
+<h2 id="getting-started-runbooks">15. Getting Started &amp; Runbooks</h2>
 <p>Getting Started &amp; Runbooks groups implementation around readmemd, chạy, cài, đặt, mostly in README.md. This section covers 13 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -4162,49 +4344,75 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 15. System Design Rulesmd ====== -->
-<h2 id="system-design-rulesmd">15. System Design Rulesmd</h2>
-<p>System Design Rulesmd groups implementation around system, design, rulesmd, docs, mostly in docs/design-system-rules.md. This section covers 12 nodes and 11 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around docs, adr, public, storefront, mostly in docs/design-system-rules.md, public/js/utils.js, public/js/qrPayment.js. This section covers 125 nodes and 136 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: System Design Rulesmd (12 nodes, 11 edges)
-    docs_design_system_rules_gearhub_design_system_r_1e233061("GearHub Design System Rules &amp; Architecture<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_1_token_definitions_cd0c7c25("1. Token Definitions<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_8e94576f("design-system-rules.md")
-    docs_design_system_rules_color_tokens_7b92d252("Color Tokens<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_typography_scale_aff6fdd5("Typography Scale<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_geometry_elevation_c7c2cb8d("Geometry &amp; Elevation<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_2_component_library_ac40bea5("2. Component Library<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_3_frameworks_libraries_02245a8e("3. Frameworks &amp; Libraries<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_4_asset_management_64328fda("4. Asset Management<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_5_icon_system_febbd102("5. Icon System<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_6_styling_approach_a0347a3f("6. Styling Approach<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_7_project_structure_32fb95cf("7. Project Structure<br/><small>docs/design-system-rules.md</small>")
-    docs_design_system_rules_8e94576f -->|contains| docs_design_system_rules_gearhub_design_system_r_1e233061
-    docs_design_system_rules_1_token_definitions_cd0c7c25 -->|contains| docs_design_system_rules_color_tokens_7b92d252
-    docs_design_system_rules_1_token_definitions_cd0c7c25 -->|contains| docs_design_system_rules_typography_scale_aff6fdd5
-    docs_design_system_rules_1_token_definitions_cd0c7c25 -->|contains| docs_design_system_rules_geometry_elevation_c7c2cb8d
-    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_6_styling_approach_a0347a3f
-    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_7_project_structure_32fb95cf
-    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_2_component_library_ac40bea5
-    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_1_token_definitions_cd0c7c25
-    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_3_frameworks_libraries_02245a8e
-    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_4_asset_management_64328fda
-    docs_design_system_rules_gearhub_design_system_r_1e233061 -->|contains| docs_design_system_rules_5_icon_system_febbd102
-    class docs_design_system_rules_gearhub_design_system_r_1e233061 concept;
-    class docs_design_system_rules_1_token_definitions_cd0c7c25 concept;
-    class docs_design_system_rules_8e94576f concept;
-    class docs_design_system_rules_color_tokens_7b92d252 concept;
-    class docs_design_system_rules_typography_scale_aff6fdd5 concept;
-    class docs_design_system_rules_geometry_elevation_c7c2cb8d concept;
-    class docs_design_system_rules_2_component_library_ac40bea5 concept;
-    class docs_design_system_rules_3_frameworks_libraries_02245a8e concept;
-    class docs_design_system_rules_4_asset_management_64328fda concept;
-    class docs_design_system_rules_5_icon_system_febbd102 concept;
-    class docs_design_system_rules_6_styling_approach_a0347a3f concept;
-    class docs_design_system_rules_7_project_structure_32fb95cf concept;
+    %% Section: Other (125 nodes, 136 edges)
+    subgraph other_public_js_utils_js_008d2e44["public/js/utils.js"]
+        src_public_js_utils_copytexttoclipboard_f4da52e8("copyTextToClipboard()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_showtoast_2479635a("showToast()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_settheme_02cdde90("setTheme()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_updatethemeui_8b9834af("updateThemeUI()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_toggletheme_80ba2c4b("toggleTheme()<br/><small>public/js/utils.js</small>")
+        src_public_js_utils_getstoredtheme_76eb13c2("getStoredTheme()<br/><small>public/js/utils.js</small>")
+    end
+    subgraph other_src_models_Admin_js_60bd3a36["src/models/Admin.js"]
+        src_models_admin_adminmodel_5bc3472b("AdminModel<br/><small>src/models/Admin.js</small>")
+        src_models_admin_adminmodel_verify_bf1de854("verify()<br/><small>src/models/Admin.js</small>")
+        src_models_admin_adminmodel_changepassword_628422b8("changePassword()<br/><small>src/models/Admin.js</small>")
+        src_models_admin_adminmodel_generatetoken_51308a9e("generateToken()<br/><small>src/models/Admin.js</small>")
+        src_models_admin_adminmodel_verifytoken_77f10c84("verifyToken()<br/><small>src/models/Admin.js</small>")
+        src_models_admin_adminmodel_findbyusername_bb33cb3a("findByUsername()<br/><small>src/models/Admin.js</small>")
+    end
+    subgraph other_public_js_qrPayment_js_4645124a["public/js/qrPayment.js"]
+        src_public_js_qrpayment_openqrpaymentmodal_97e891eb("openQrPaymentModal()<br/><small>public/js/qrPayment.js</small>")
+        src_public_js_qrpayment_simulateqrwebhook_d5255b2b("simulateQrWebhook()<br/><small>public/js/qrPayment.js</small>")
+    end
+    subgraph other_src_controllers_adminController_js_6cfc5766["src/controllers/adminController.js"]
+        src_controllers_admincontroller_login_478e6a72("login()<br/><small>src/controllers/adminController.js</small>")
+        src_controllers_admincontroller_changepassword_75c95f39("changePassword()<br/><small>src/controllers/adminController.js</small>")
+    end
+    server_3de4f901("server.js")
+    src_controllers_authcontroller_unifiedlogin_2a759329("unifiedLogin()<br/><small>src/controllers/authController.js</small>")
+    src_models_admin_adminmodel_5bc3472b -->|method| src_models_admin_adminmodel_verify_bf1de854
+    src_models_admin_adminmodel_5bc3472b -->|method| src_models_admin_adminmodel_changepassword_628422b8
+    src_models_admin_adminmodel_5bc3472b -->|method| src_models_admin_adminmodel_generatetoken_51308a9e
+    src_models_admin_adminmodel_5bc3472b -->|method| src_models_admin_adminmodel_verifytoken_77f10c84
+    src_models_admin_adminmodel_5bc3472b -->|method| src_models_admin_adminmodel_findbyusername_bb33cb3a
+    src_public_js_utils_copytexttoclipboard_f4da52e8 -->|calls| src_public_js_utils_showtoast_2479635a
+    src_public_js_utils_settheme_02cdde90 -->|calls| src_public_js_utils_updatethemeui_8b9834af
+    src_public_js_utils_toggletheme_80ba2c4b -->|calls| src_public_js_utils_getstoredtheme_76eb13c2
+    src_public_js_utils_toggletheme_80ba2c4b -->|calls| src_public_js_utils_settheme_02cdde90
+    src_controllers_admincontroller_changepassword_75c95f39 -->|calls| src_models_admin_adminmodel_changepassword_628422b8
+    src_controllers_admincontroller_login_478e6a72 -->|calls| src_models_admin_adminmodel_verify_bf1de854
+    src_controllers_admincontroller_login_478e6a72 -->|calls| src_models_admin_adminmodel_generatetoken_51308a9e
+    src_controllers_authcontroller_unifiedlogin_2a759329 -->|calls| src_models_admin_adminmodel_verify_bf1de854
+    src_controllers_authcontroller_unifiedlogin_2a759329 -->|calls| src_models_admin_adminmodel_generatetoken_51308a9e
+    src_models_admin_adminmodel_changepassword_628422b8 -->|calls| src_models_admin_adminmodel_findbyusername_bb33cb3a
+    src_models_admin_adminmodel_verify_bf1de854 -->|calls| src_models_admin_adminmodel_findbyusername_bb33cb3a
+    %% Omitted for readability: 107 nodes, 0 edges
+    class src_public_js_utils_copytexttoclipboard_f4da52e8 entry;
+    class src_public_js_utils_showtoast_2479635a function;
+    class src_public_js_utils_settheme_02cdde90 function;
+    class src_public_js_utils_updatethemeui_8b9834af function;
+    class src_public_js_utils_toggletheme_80ba2c4b function;
+    class src_public_js_utils_getstoredtheme_76eb13c2 ui;
+    class src_models_admin_adminmodel_5bc3472b klass;
+    class src_models_admin_adminmodel_verify_bf1de854 function;
+    class src_models_admin_adminmodel_changepassword_628422b8 function;
+    class src_models_admin_adminmodel_generatetoken_51308a9e function;
+    class src_models_admin_adminmodel_verifytoken_77f10c84 function;
+    class src_models_admin_adminmodel_findbyusername_bb33cb3a function;
+    class src_public_js_qrpayment_openqrpaymentmodal_97e891eb function;
+    class src_public_js_qrpayment_simulateqrwebhook_d5255b2b ui;
+    class src_controllers_admincontroller_login_478e6a72 function;
+    class src_controllers_admincontroller_changepassword_75c95f39 function;
+    class server_3de4f901 module;
+    class src_controllers_authcontroller_unifiedlogin_2a759329 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -4322,6 +4530,150 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>Documentation node describing Typography Scale.</td>
 </tr>
+<tr>
+  <td>13</td>
+  <td><code>closeModal()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>closeModal() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>copyTextToClipboard()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>showToast()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td>copyTextToClipboard() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>formatMoney()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>formatMoney() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>getStoredTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>toggleTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>getStoredTheme() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>openModal()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>openModal() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>setTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>toggleTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><code>updateThemeUI()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td>setTheme() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>showToast()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>copyTextToClipboard()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>showToast() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>toggleMobileDrawer()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>toggleMobileDrawer() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>toggleTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>getStoredTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small><br><code>setTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td>toggleTheme() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>twoDigits()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Turns a local path or remote repository into analysis context.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>updateThemeUI()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>setTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>updateThemeUI() node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>utils.js</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>utils.js node in public/js/utils.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>adminAuth.js</code><br><small style="color:var(--muted)">src/middlewares/adminAuth.js</small><br><code>adminController.js</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small><br><code>authController.js</code><br><small style="color:var(--muted)">src/controllers/authController.js</small><br>+2 more</td>
+  <td><code>changePassword()</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>findByUsername()</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>generateToken()</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br>+2 more</td>
+  <td>AdminModel node in src/models/Admin.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>changePassword()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>changePassword()</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td>changePassword() node in src/controllers/adminController.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>login()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>generateToken()</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>verify()</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td>login() node in src/controllers/adminController.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>unifiedLogin()</code><br><small style="color:var(--muted)">src/controllers/authController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>generateToken()</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>login()</code><br><small style="color:var(--muted)">src/models/Customer.js</small><br><code>verify()</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td>unifiedLogin() node in src/controllers/authController.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>.changePassword()</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>changePassword()</code><br><small style="color:var(--muted)">src/controllers/adminController.js</small></td>
+  <td><code>findByUsername()</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>hashPassword()</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td>.changePassword() node in src/models/Admin.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>.findByUsername()</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>changePassword()</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>verify()</code><br><small style="color:var(--muted)">src/models/Admin.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.findByUsername() node in src/models/Admin.js.</td>
+</tr>
 </table>
 
 <div class="grid">
@@ -4330,366 +4682,18 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>docs/design-system-rules.md</code></td><td>12 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x11. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 16. Other ====== -->
-<h2 id="other">16. Other</h2>
-<p>Other groups implementation around docs, public, adr, storefront, mostly in public/js/utils.js, public/js/qrPayment.js, docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md. This section covers 83 nodes and 92 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Other (83 nodes, 92 edges)
-    subgraph other_public_js_qrPayment_js_4645124a["public/js/qrPayment.js"]
-        src_public_js_qrpayment_openqrpaymentmodal_97e891eb("openQrPaymentModal()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_simulateqrwebhook_d5255b2b("simulateQrWebhook()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b("updateQrCountdownDisplay()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_closeqrpaymentmodal_591ec89e("closeQrPaymentModal()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_clearqrsessiontimers_10e78784("clearQrSessionTimers()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd("openQrModalByOrderMeta()<br/><small>public/js/qrPayment.js</small>")
-        src_public_js_qrpayment_pollqrpaymentstatus_d973578c("pollQrPaymentStatus()<br/><small>public/js/qrPayment.js</small>")
-    end
-    subgraph other_public_js_utils_js_008d2e44["public/js/utils.js"]
-        src_public_js_utils_toggletheme_80ba2c4b("toggleTheme()<br/><small>public/js/utils.js</small>")
-        src_public_js_utils_copytexttoclipboard_f4da52e8("copyTextToClipboard()<br/><small>public/js/utils.js</small>")
-        src_public_js_utils_showtoast_2479635a("showToast()<br/><small>public/js/utils.js</small>")
-        src_public_js_utils_settheme_02cdde90("setTheme()<br/><small>public/js/utils.js</small>")
-        src_public_js_utils_updatethemeui_8b9834af("updateThemeUI()<br/><small>public/js/utils.js</small>")
-        src_public_js_utils_getstoredtheme_76eb13c2("getStoredTheme()<br/><small>public/js/utils.js</small>")
-    end
-    subgraph other_public_js_aiChat_js_e8f92de5["public/js/aiChat.js"]
-        src_public_js_aichat_handleaichatsubmit_00ee6d21("handleAiChatSubmit()<br/><small>public/js/aiChat.js</small>")
-        src_public_js_aichat_appendchatbubble_1155f201("appendChatBubble()<br/><small>public/js/aiChat.js</small>")
-        src_public_js_aichat_scrollchattobottom_5de50c59("scrollChatToBottom()<br/><small>public/js/aiChat.js</small>")
-        src_public_js_aichat_sendquickprompt_38f02621("sendQuickPrompt()<br/><small>public/js/aiChat.js</small>")
-    end
-    server_3de4f901("server.js")
-    src_public_js_utils_copytexttoclipboard_f4da52e8 -->|calls| src_public_js_utils_showtoast_2479635a
-    src_public_js_utils_settheme_02cdde90 -->|calls| src_public_js_utils_updatethemeui_8b9834af
-    src_public_js_utils_toggletheme_80ba2c4b -->|calls| src_public_js_utils_getstoredtheme_76eb13c2
-    src_public_js_utils_toggletheme_80ba2c4b -->|calls| src_public_js_utils_settheme_02cdde90
-    src_public_js_qrpayment_closeqrpaymentmodal_591ec89e -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd -->|calls| src_public_js_qrpayment_openqrpaymentmodal_97e891eb
-    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b
-    src_public_js_qrpayment_openqrpaymentmodal_97e891eb -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
-    src_public_js_qrpayment_pollqrpaymentstatus_d973578c -->|calls| src_public_js_qrpayment_closeqrpaymentmodal_591ec89e
-    src_public_js_qrpayment_pollqrpaymentstatus_d973578c -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_simulateqrwebhook_d5255b2b -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
-    src_public_js_qrpayment_simulateqrwebhook_d5255b2b -->|calls| src_public_js_qrpayment_closeqrpaymentmodal_591ec89e
-    src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b -->|calls| src_public_js_qrpayment_clearqrsessiontimers_10e78784
-    src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b -->|calls| src_public_js_qrpayment_pollqrpaymentstatus_d973578c
-    src_public_js_aichat_appendchatbubble_1155f201 -->|calls| src_public_js_aichat_scrollchattobottom_5de50c59
-    src_public_js_aichat_handleaichatsubmit_00ee6d21 -->|calls| src_public_js_aichat_appendchatbubble_1155f201
-    src_public_js_aichat_handleaichatsubmit_00ee6d21 -->|calls| src_public_js_aichat_scrollchattobottom_5de50c59
-    src_public_js_aichat_sendquickprompt_38f02621 -->|calls| src_public_js_aichat_handleaichatsubmit_00ee6d21
-    %% Omitted for readability: 65 nodes, 0 edges
-    class src_public_js_qrpayment_openqrpaymentmodal_97e891eb function;
-    class src_public_js_qrpayment_simulateqrwebhook_d5255b2b ui;
-    class src_public_js_qrpayment_updateqrcountdowndisplay_78642f7b function;
-    class src_public_js_qrpayment_closeqrpaymentmodal_591ec89e function;
-    class src_public_js_qrpayment_clearqrsessiontimers_10e78784 function;
-    class src_public_js_qrpayment_openqrmodalbyordermeta_ae0349bd function;
-    class src_public_js_qrpayment_pollqrpaymentstatus_d973578c function;
-    class src_public_js_utils_toggletheme_80ba2c4b function;
-    class src_public_js_utils_copytexttoclipboard_f4da52e8 entry;
-    class src_public_js_utils_showtoast_2479635a function;
-    class src_public_js_utils_settheme_02cdde90 function;
-    class src_public_js_utils_updatethemeui_8b9834af function;
-    class src_public_js_utils_getstoredtheme_76eb13c2 ui;
-    class src_public_js_aichat_handleaichatsubmit_00ee6d21 function;
-    class src_public_js_aichat_appendchatbubble_1155f201 function;
-    class src_public_js_aichat_scrollchattobottom_5de50c59 function;
-    class src_public_js_aichat_sendquickprompt_38f02621 function;
-    class server_3de4f901 module;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>closeModal()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>closeModal() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>copyTextToClipboard()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-cmd">Entry</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>showToast()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td>copyTextToClipboard() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>formatMoney()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>formatMoney() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>getStoredTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-hook">UI</span></td>
-  <td><code>toggleTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>getStoredTheme() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>openModal()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>openModal() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>setTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>toggleTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><code>updateThemeUI()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td>setTheme() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>showToast()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>copyTextToClipboard()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>showToast() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>toggleMobileDrawer()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>toggleMobileDrawer() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>toggleTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>getStoredTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small><br><code>setTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td>toggleTheme() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>twoDigits()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Turns a local path or remote repository into analysis context.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>updateThemeUI()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>setTheme()</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>updateThemeUI() node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>utils.js</code><br><small style="color:var(--muted)">public/js/utils.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>utils.js node in public/js/utils.js.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>compressionMiddleware()</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>compressionMiddleware() node in src/middlewares/compression.js.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>adminAI.test.js</code><br><small style="color:var(--muted)">tests/adminAI.test.js</small><br><code>adminUpdateAI.test.js</code><br><small style="color:var(--muted)">tests/adminUpdateAI.test.js</small><br><code>catalogCacheAndFilter.test.js</code><br><small style="color:var(--muted)">tests/catalogCacheAndFilter.test.js</small><br>+6 more</td>
-  <td><code>Admin.js</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>AdminModel</code><br><small style="color:var(--muted)">src/models/Admin.js</small><br><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small><br>+10 more</td>
-  <td>server.js node in server.js.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>cookieParser</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>cookieParser node in server.js.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>cors</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>cors node in server.js.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>express</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in server.js.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>path</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>path node in server.js.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><code>ref_zlib</code></td>
-  <td>compression.js node in src/middlewares/compression.js.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>zlib</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>zlib node in src/middlewares/compression.js.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>routes/index.js</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td><code>express</code><br><small style="color:var(--muted)">package.json</small><br><code>orderController.js</code><br><small style="color:var(--muted)">src/controllers/orderController.js</small></td>
-  <td>routes/index.js node in src/routes/index.js.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>express</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in src/routes/index.js.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>router</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">server.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>router node in src/routes/index.js.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>ref_zlib</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>catalogCacheAndFilter.test.js</code><br><small style="color:var(--muted)">tests/catalogCacheAndFilter.test.js</small><br><code>compression.js</code><br><small style="color:var(--muted)">src/middlewares/compression.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>ref_zlib node in project.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br>+1 more</td>
-  <td>No direct outbound edge</td>
-  <td>clearQrSessionTimers() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>closeQrPaymentModal() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>openQrModalByOrderMeta()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>openQrModalByOrderMeta() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>openQrModalByOrderMeta()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>updateQrCountdownDisplay()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>openQrPaymentModal() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>openQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>updateQrCountdownDisplay()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><code>clearQrSessionTimers()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>pollQrPaymentStatus() node in public/js/qrPayment.js.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>simulateQrWebhook()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td><span class="tag tag-hook">UI</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>closeQrPaymentModal()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small><br><code>pollQrPaymentStatus()</code><br><small style="color:var(--muted)">public/js/qrPayment.js</small></td>
-  <td>simulateQrWebhook() node in public/js/qrPayment.js.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>public/js/utils.js</code></td><td>12 nodes</td></tr>
+<tr><td><code>public/js/utils.js</code></td><td>12 nodes</td></tr>
 <tr><td><code>public/js/qrPayment.js</code></td><td>9 nodes</td></tr>
 <tr><td><code>docs/adr/0012-dedicated-multi-page-routing-and-cart-redesign.md</code></td><td>8 nodes</td></tr>
+<tr><td><code>docs/adr/0010-unified-auth-portal-and-serverless-session-persistence.md</code></td><td>7 nodes</td></tr>
 <tr><td><code>docs/adr/0011-split-landing-about-and-storefront-routing.md</code></td><td>7 nodes</td></tr>
+<tr><td><code>src/models/Admin.js</code></td><td>7 nodes</td></tr>
 <tr><td><code>public/js/aiChat.js</code></td><td>7 nodes</td></tr>
-<tr><td><code>docs/adr/0008-storefront-redesign-split-stage-and-tasteskill.md</code></td><td>6 nodes</td></tr>
-<tr><td><code>docs/agents/domain.md</code></td><td>6 nodes</td></tr>
-<tr><td><code>server.js</code></td><td>5 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x48, calls x19, references x16, imports x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x65, calls x28, references x24, imports x10. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -4700,17 +4704,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>739</td></tr>
-      <tr><td>Edges</td><td>1277</td></tr>
+      <tr><td>Nodes</td><td>740</td></tr>
+      <tr><td>Edges</td><td>1275</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>44</td></tr>
+      <tr><td>Communities</td><td>49</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>1221</td></tr>
+      <tr><td>EXTRACTED</td><td>1219</td></tr>
       <tr><td>INFERRED</td><td>56</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -4719,7 +4723,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>phone-store-node — Architecture Documentation</p>
-  <p>Generated: 2026-11-17 15:22 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-11-17 15:49 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

@@ -134,11 +134,24 @@ app.use((req, res) => {
 // Chỉ listen port khi chạy cục bộ / standalone (Vercel tự quản lý serverless)
 if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
   app.listen(PORT, '0.0.0.0', () => {
+    const os = require('os');
+    const ifaces = os.networkInterfaces();
+    let lanIp = 'localhost';
+    for (const dev of Object.keys(ifaces)) {
+      for (const details of ifaces[dev]) {
+        if (details.family === 'IPv4' && !details.internal && (dev.toLowerCase().includes('wi-fi') || dev.toLowerCase().includes('wireless') || details.address.startsWith('192.168.') || details.address.startsWith('10.'))) {
+          lanIp = details.address;
+          break;
+        }
+      }
+    }
+
     console.log(`===================================================`);
-    console.log(`🚀 WEB BÁN ĐIỆN THOẠI CHẠY TẠI: http://localhost:${PORT}`);
-    console.log(`🔑 CỔNG ĐĂNG NHẬP (DUAL PORTAL): http://localhost:${PORT}/login`);
-    console.log(`🛡️  ADMIN PANEL: http://localhost:${PORT}/admin`);
-    console.log(`✨ Chế độ CSDL: [${db.isPostgres() ? 'Neon PostgreSQL' : 'Local JSON DB'}]`);
+    console.log(`🚀 MÁY CỤC BỘ (LOCAL):       http://localhost:${PORT}`);
+    console.log(`🌐 THIẾT BỊ CÙNG MẠNG WIFI:    http://${lanIp}:${PORT}`);
+    console.log(`🔑 CỔNG ĐĂNG NHẬP:            http://${lanIp}:${PORT}/login`);
+    console.log(`🛡️  ADMIN PANEL:               http://${lanIp}:${PORT}/admin`);
+    console.log(`✨ Chế độ CSDL:               [${db.isPostgres() ? 'Neon PostgreSQL' : 'Local JSON DB'}]`);
     console.log(`===================================================`);
   });
 }
