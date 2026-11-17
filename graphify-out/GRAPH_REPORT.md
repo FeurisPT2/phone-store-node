@@ -1,7 +1,7 @@
 # Graph Report - phone-store-node  (2026-11-17)
 
 ## Corpus Check
-- 94 files · ~85,197 words
+- 94 files · ~86,267 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: .css 4, .example 1, (none) 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a5ed817a`
+- Built from commit: `3179079a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

@@ -874,6 +874,11 @@ a {
     align-items: start;
 }
 
+.cart-page-grid.is-empty,
+.cart-page-grid:has(.cart-order-sidebar[style*="display: none"]) {
+    grid-template-columns: 1fr;
+}
+
 @media (max-width: 992px) {
     .cart-page-grid {
         grid-template-columns: 1fr;

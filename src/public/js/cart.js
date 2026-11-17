@@ -190,9 +190,11 @@ function renderCartPage(cart, total) {
   const bottomActions = document.getElementById('cart-bottom-actions');
   const sidebar = (typeof document.querySelector === 'function' && document.querySelector('.cart-order-sidebar')) ||
                   (typeof document.getElementById === 'function' && document.getElementById('cart-order-sidebar')) || null;
+  const grid = (typeof document.getElementById === 'function' && document.getElementById('cart-page-grid')) || null;
 
   if (!cart || cart.length === 0) {
     if (sidebar) sidebar.style.display = 'none';
+    if (grid && grid.classList) grid.classList.add('is-empty');
 
     container.innerHTML = `
       <div class="cart-empty-page" style="padding: 3.5rem 1.5rem; text-align: center; background: var(--surface-raised); border-radius: var(--radius-md); border: 1px dashed var(--border); color: var(--muted);">
@@ -226,6 +228,7 @@ function renderCartPage(cart, total) {
   }
 
   if (sidebar) sidebar.style.display = '';
+  if (grid && grid.classList) grid.classList.remove('is-empty');
   if (bottomActions) bottomActions.style.display = 'flex';
 
   const {
