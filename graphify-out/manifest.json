@@ -72,21 +72,21 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1794914599.3376603,
-    "seen": 1794918823.2957802,
+    "mtime": 1794920697.8063712,
+    "seen": 1794920709.7043047,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1794914599.6151795,
-    "seen": 1794918823.2957802,
+    "mtime": 1794920698.0841799,
+    "seen": 1794920709.7043047,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1794915000.556918,
-    "seen": 1794918823.2957802,
-    "ast_hash": "3e78134842b449d66600a5c0c34bac71",
+    "mtime": 1794920697.927549,
+    "seen": 1794920709.7043047,
+    "ast_hash": "c7919c1aa0764251eee41202951b5ab3",
     "semantic_hash": ""
   },
   "src/middlewares/adminAuth.js": {
@@ -204,9 +204,9 @@
     "semantic_hash": ""
   },
   "src/public/index.html": {
-    "mtime": 1794914992.1711514,
-    "seen": 1794918823.2957802,
-    "ast_hash": "051399eea82292644550dafa472430ba",
+    "mtime": 1794920689.3760836,
+    "seen": 1794920709.7043047,
+    "ast_hash": "45ea44f46e2d0326b1188446cf65b2a4",
     "semantic_hash": ""
   },
   "src/public/login.html": {
