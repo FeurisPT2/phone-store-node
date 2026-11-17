@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/product.css">
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
 
@@ -322,62 +323,30 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="commercial-footer">
-        <div class="container footer-grid">
-            <div class="footer-col footer-brand-col">
-                <div class="footer-logo">
-                    <span class="logo-mark" aria-hidden="true" style="background:var(--surface); color:var(--ink); border-radius:8px; display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="22" height="22"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M13 8l-4 5h3l-1 4 4-5h-3l1-4z" fill="currentColor"></path></svg>
+    <!-- FOOTER - Minimalist Unified Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-col footer-col--brand">
+                <div class="footer-brand-title">
+                    <span class="logo-mark" aria-hidden="true" style="background:#1d4ed8; color:#fff; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; margin-right:8px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="M13 8l-4 5h3l-1 4 4-5h-3l1-4z" fill="currentColor"></path>
+                        </svg>
                     </span>
-                    <span class="footer-logo-title">GearHub Station</span>
+                    <span>GearHub Technologies</span>
                 </div>
-                <p class="footer-mission">Trạm dịch vụ vệ sinh máy tính lấy liền và cho thuê thiết bị học tập chuyên biệt dành cho sinh viên tại ĐHKHTN ĐHQG-HCM.</p>
-                <div class="footer-badges">
-                    <span class="footer-badge">Sảnh C ĐHKHTN</span>
-                    <span class="footer-badge">Lấy liền 30–45p</span>
-                    <span class="footer-badge">0đ cọc thẻ SV</span>
+                <p class="footer-brand-desc">
+                    Hệ thống trạm chăm sóc thiết bị công nghệ &amp; cho thuê gear chuyên biệt tại trường đại học. Cam kết 100% linh kiện và keo tản nhiệt chính hãng, quy trình minh bạch quan sát trực tiếp, giải pháp tối ưu cho sinh viên và giới công nghệ.
+                </p>
+                <div class="footer-meta">
+                    <span>Sảnh C, 227 Nguyễn Văn Cừ, Quận 5, TP.HCM</span>
+                    <span>&bull;</span>
+                    <span>07:30 – 17:30 (T2 – T7)</span>
+                    <span>&bull;</span>
+                    <span>Hotline/Zalo: 0901.234.567</span>
                 </div>
-            </div>
-
-            <div class="footer-col">
-                <h4 class="footer-col-title">Dịch Vụ &amp; Thiết Bị</h4>
-                <ul class="footer-links">
-                    <li><a href="/shop?category=service">Vệ sinh &amp; Tra keo Laptop</a></li>
-                    <li><a href="/shop?category=rental">Thuê Bàn phím cơ &amp; Chuột</a></li>
-                    <li><a href="/shop?category=rental">Combo Thuyết trình Điểm A</a></li>
-                    <li><a href="/shop?category=accessory">Kit Tự Vệ Sinh 7-in-1</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4 class="footer-col-title">Hỗ Trợ Sinh Viên</h4>
-                <ul class="footer-links">
-                    <li><a href="/cart">Giỏ hàng &amp; Lịch đặt hẹn</a></li>
-                    <li><a href="#" onclick="openCustomerPortal('track'); return false;">Tra cứu tiến độ lịch hẹn</a></li>
-                    <li><a href="#" onclick="openCustomerPortal('wishlist'); return false;">Danh sách đã lưu</a></li>
-                    <li><a href="#" onclick="toggleAiChat(); return false;">Tư vấn kỹ thuật cùng AI</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4 class="footer-col-title">Địa Chỉ Trạm</h4>
-                <div class="footer-contact-block">
-                    <p><strong>Bàn Kỹ Thuật Sảnh C</strong></p>
-                    <p>Trường ĐH Khoa học Tự nhiên ĐHQG-HCM</p>
-                    <p>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM</p>
-                    <p>Thời gian trực: 07:30 – 17:30 (Thứ 2 – Thứ 7)</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container footer-bottom">
-            <p>&copy; 2026 GearHub. Trạm Gear &amp; Chăm Sóc Thiết Bị Sinh Viên.</p>
-            <div class="footer-bottom-links">
-                <a href="/">Giới thiệu</a>
-                <a href="/shop">Cửa hàng</a>
-                <a href="/cart">Lịch đặt</a>
-                <a href="/login">Đăng nhập</a>
+                <p class="footer-copy">&copy; 2026 GearHub Technologies. Giấy phép dịch vụ kỹ thuật số trạm trường ĐHKHTN ĐHQG-HCM.</p>
             </div>
         </div>
     </footer>

@@ -1157,6 +1157,16 @@ body.editorial-mode,
     margin-bottom: 1.25rem;
 }
 
+.footer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+}
+
 .footer-copy {
     font-size: 0.825rem;
     color: var(--muted);
