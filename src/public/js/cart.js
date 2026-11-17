@@ -188,14 +188,18 @@ function renderCartPage(cart, total) {
 
   const submitBtn = document.getElementById('btn-order-submit');
   const bottomActions = document.getElementById('cart-bottom-actions');
+  const sidebar = (typeof document.querySelector === 'function' && document.querySelector('.cart-order-sidebar')) ||
+                  (typeof document.getElementById === 'function' && document.getElementById('cart-order-sidebar')) || null;
 
   if (!cart || cart.length === 0) {
+    if (sidebar) sidebar.style.display = 'none';
+
     container.innerHTML = `
       <div class="cart-empty-page" style="padding: 3.5rem 1.5rem; text-align: center; background: var(--surface-raised); border-radius: var(--radius-md); border: 1px dashed var(--border); color: var(--muted);">
         <svg style="margin: 0 auto 1.25rem; color: var(--muted); opacity: 0.5;" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
         <h3 style="font-size: 1.2rem; color: var(--ink); margin-bottom: 0.5rem; font-weight: 700;">Giỏ hàng của bạn đang trống</h3>
         <p style="font-size: 0.875rem; margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-          Bạn chưa chọn gói dịch vụ vệ sinh laptop hay thiết bị mượn nào. Hãy khám phá các giải pháp học tập tại Trạm Sảnh C.
+          Bạn chưa chọn gói dịch vụ vệ sinh laptop hay thiết bị mượn nào. Hãy khám phá các giải pháp học tập tại Trạm Sảnh I.
         </p>
         <a href="/shop" class="cta-btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.6rem; text-decoration: none; border-radius: var(--radius-sm); font-weight: 700;">
           <span>Khám phá Cửa hàng ngay</span>
@@ -221,6 +225,7 @@ function renderCartPage(cart, total) {
     return;
   }
 
+  if (sidebar) sidebar.style.display = '';
   if (bottomActions) bottomActions.style.display = 'flex';
 
   const {
