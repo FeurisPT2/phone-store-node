@@ -27,6 +27,22 @@
     <!-- CSS Thiết Kế Hệ Thống & Landing Page -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/about.css">
+    <style>
+        /* Force reveal for capture when hash contains figmacapture */
+        :is(:root:has(:target), html) [data-reveal] {
+            will-change: auto;
+        }
+    </style>
+    <script>
+        if (window.location.hash.includes('figmacapture')) {
+            var figmaStyle = document.createElement('style');
+            figmaStyle.innerHTML = '[data-reveal], html.js [data-reveal] { opacity: 1 !important; transform: none !important; visibility: visible !important; } .about-section { display: block !important; opacity: 1 !important; visibility: visible !important; }';
+            document.head.appendChild(figmaStyle);
+            window.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('[data-reveal]').forEach(function(el) { el.classList.add('in'); });
+            });
+        }
+    </script>
     <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body class="editorial-mode">
