@@ -40,10 +40,6 @@ exports.createOrder = async (req, res) => {
       paymentMethod
     });
 
-    if (req.session) {
-      req.session.cart = [];
-    }
-
     res.json({
       success: true,
       orderId: order.id,
