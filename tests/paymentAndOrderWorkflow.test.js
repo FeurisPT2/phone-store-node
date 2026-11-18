@@ -379,4 +379,28 @@ describe('QR Payment Sandbox, Lazy TTL Expiration & Admin Order Tiering Workflow
     assert.equal(cartData.cart.length, 1);
     assert.equal(cartData.cart[0].id, 'gearhub_clean_cool');
   });
+
+  test('Signed cart cookie restores products without the in-memory session cookie', async () => {
+    const addToCartRes = await fetch(`${baseUrl}/api/cart/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId: 'gearhub_clean_cool', quantity: 1 })
+    });
+    assert.equal(addToCartRes.status, 200);
+
+    const setCookies = addToCartRes.headers.get('set-cookie') || '';
+    const cartCookie = setCookies
+      .split(/,\s*(?=[^;,]+=)/)
+      .map((cookie) => cookie.split(';', 1)[0].trim())
+      .find((cookie) => cookie.startsWith('gearhub_cart='));
+    assert.ok(cartCookie);
+
+    const cartRes = await fetch(`${baseUrl}/api/cart`, {
+      headers: { Cookie: cartCookie }
+    });
+    assert.equal(cartRes.status, 200);
+    const cartData = await cartRes.json();
+    assert.equal(cartData.cart.length, 1);
+    assert.equal(cartData.cart[0].id, 'gearhub_clean_cool');
+  });
 });

@@ -1,10 +1,12 @@
 const OrderModel = require('../models/Order');
 const CustomerModel = require('../models/Customer');
 const ProductModel = require('../models/Product');
+const { loadCart, saveCartCookie } = require('../services/cartPersistence');
 
 exports.createOrder = async (req, res) => {
   try {
-    const sessionCart = Array.isArray(req.session?.cart) ? req.session.cart : [];
+    const sessionCart = await loadCart(req);
+    saveCartCookie(req, res, sessionCart);
     const bodyItems = Array.isArray(req.body?.items) ? req.body.items : [];
     let cart;
     if (req.body?.checkoutMode === 'direct') {

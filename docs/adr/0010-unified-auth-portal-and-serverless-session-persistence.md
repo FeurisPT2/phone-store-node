@@ -38,6 +38,10 @@ Trong quá trình vận hành và kiểm thử thực tế trên nền tảng đ
   - Cập nhật middleware [`src/middlewares/customerMemory.js`](../../src/middlewares/customerMemory.js) và [`src/middlewares/adminAuth.js`](../../src/middlewares/adminAuth.js): Khi request đến một container serverless mới mà `req.session.admin` chưa có trong RAM, middleware tự động trích xuất `req.cookies.admin_token`, xác minh chữ ký số, tìm bản ghi Admin trong cơ sở dữ liệu và tái lập tức thì `req.session.admin`.
   - Cập nhật bộ định tuyến `/admin` trong [`server.js`](../../server.js) để bảo vệ trang HTML không bao giờ bị redirect nhầm sang `/login`.
 
+### 3. Duy Trì Giỏ Hàng Qua Serverless Bằng Cookie Ký Số (`gearhub_cart`)
+- Không dựa vào `MemoryStore` để giữ giỏ giữa các request. Cookie HTTP-only được ký số chỉ lưu mã sản phẩm và số lượng; thông tin sản phẩm và giá được nạp lại từ catalog phía máy chủ.
+- Các thao tác thêm, sửa, xóa và đặt hàng đồng bộ cookie giỏ. Checkout trực tiếp dùng mã sản phẩm đã chọn mà không thay đổi giỏ thường.
+
 ---
 
 ## Kết Quả & Đánh Giá (Consequences)
@@ -48,3 +52,4 @@ Trong quá trình vận hành và kiểm thử thực tế trên nền tảng đ
 4. **Kiểm Thử Tự Động Toàn Diện**:
    - Bổ sung test case kiểm tra tái lập phiên serverless độc lập: `Admin session recovery across serverless invocations via admin_token cookie`.
    - Toàn bộ **54/54 test cases** thuộc 11 test suites đều đạt kết quả PASS (100% xanh).
+5. **Giỏ Hàng Bền Vững**: Giỏ hàng vẫn được khôi phục khi request được xử lý bởi một serverless instance khác; giá trị đơn hàng tiếp tục được lấy từ catalog phía máy chủ.

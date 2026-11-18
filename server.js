@@ -22,7 +22,7 @@ app.use(cors());
 app.use(compressionMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.SESSION_SECRET || 'phone_store_secret_2026'));
 app.use(sessionConfig);
 app.use(customerMemoryMiddleware);
 
