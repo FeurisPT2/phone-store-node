@@ -245,7 +245,7 @@ function renderRentalPlanSelector(p, isRental) {
 
   box.innerHTML = `
     <div style="font-size:0.8rem; font-weight:700; color:var(--ink); margin-bottom:0.5rem;">Chọn nhanh gói thời gian thuê:</div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:8px;">
+    <div class="pdp-rental-plan-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:8px;">
       ${plans
         .map(
           (pl) => `

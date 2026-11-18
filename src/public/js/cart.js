@@ -276,14 +276,14 @@ function renderCartPage(cart, total) {
           </div>
 
           <!-- 4-step Station Progress -->
-          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:1.25rem; font-size:0.75rem;">
+          <div class="booking-ticket-steps" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:1.25rem; font-size:0.75rem;">
             <div style="padding:0.5rem 0.55rem; border-radius:6px; background:#dcfce7; color:#15803d; font-weight:700; text-align:center; border:1px solid #86efac;">1. Tiếp nhận hẹn ✓</div>
             <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--ink); font-weight:600; text-align:center; border:1px solid var(--border);">2. Vệ sinh / Soạn gear</div>
             <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--muted); text-align:center; border:1px solid var(--border);">3. Sẵn sàng Sảnh I</div>
             <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--muted); text-align:center; border:1px solid var(--border);">4. Bàn giao &amp; BH 7d</div>
           </div>
 
-          <div style="display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center; padding:1.1rem 1.15rem; background:var(--surface-raised); border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:1.25rem;">
+          <div class="booking-ticket-grid" style="display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center; padding:1.1rem 1.15rem; background:var(--surface-raised); border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:1.25rem;">
             <div style="display:grid; gap:0.55rem; font-size:0.9rem;">
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
                 <span style="color:var(--muted);">Mã check-in:</span>
@@ -301,20 +301,20 @@ function renderCartPage(cart, total) {
                 <strong style="color:var(--ink); text-align:right;">${escCart(info.address || 'Trạm Sảnh I ĐHKHTN')}</strong>
               </div>
               ${info.note ? `<div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;"><span style="color:var(--muted);">Ghi chú / MSSV:</span><span style="color:var(--ink); text-align:right;">${escCart(info.note)}</span></div>` : ''}
-              <div style="display:flex; justify-content:space-between; gap:1rem; padding-top:0.5rem; border-top:1px solid var(--border);">
+              <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; padding-top:0.5rem; border-top:1px solid var(--border);">
                 <span style="color:var(--muted);">Thanh toán tại Sảnh I (COD):</span>
                 <strong class="tabular" style="font-size:1.05rem; color:var(--ink);">${fmt(lastPlacedOrder.totalAmount || 0)}</strong>
               </div>
             </div>
 
-            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.75rem; background:#ffffff; border:1px solid var(--border); border-radius:var(--radius-sm); text-align:center; min-width:128px;">
+            <div class="booking-ticket-qr" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.75rem; background:#ffffff; border:1px solid var(--border); border-radius:var(--radius-sm); text-align:center; min-width:128px;">
               <img src="/images/qr-booking.svg" alt="Mã QR Check-in Sảnh I" width="96" height="96" style="display:block; border-radius:4px;">
               <span class="tabular" style="margin-top:6px; font-size:0.72rem; font-weight:800; color:#0f172a; letter-spacing:0.03em;">CHECK-IN #${safeId}</span>
               <span style="font-size:0.68rem; color:#475569;">Đưa tại bàn Sảnh I</span>
             </div>
           </div>
 
-          <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+          <div class="booking-ticket-actions" style="display:flex; flex-wrap:wrap; gap:0.75rem;">
             <a href="${trackHref}" class="cta-btn-primary" style="display:inline-flex; align-items:center; gap:8px; padding:0.75rem 1.35rem; text-decoration:none; border-radius:var(--radius-sm); font-weight:700;">
               <span>Tra cứu tiến trình lịch hẹn</span>
               <span aria-hidden="true">&rarr;</span>
@@ -414,8 +414,8 @@ function renderCartPage(cart, total) {
   if (serviceItems.length > 0) {
     html += `
       <div class="cart-tier-section" style="margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface);">
-        <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
-          <div class="cart-tier-title" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
+        <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem;">
+          <div class="cart-tier-title" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
             <span>🛠️ Lịch Hẹn Dịch Vụ Vệ Sinh &amp; Tản Nhiệt</span>
             <span class="cart-tier-badge" style="font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--muted);">${serviceItems.length} dịch vụ</span>
           </div>
@@ -423,7 +423,7 @@ function renderCartPage(cart, total) {
         <div class="cart-tier-body">
           ${serviceItems.map((it) => renderPageItemRow(it, false)).join('')}
         </div>
-        <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
+        <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: var(--muted);">
           <span>⏱️ Cam kết: Lấy liền 30-45 phút tại Sảnh I</span>
           <span>Tạm tính dịch vụ: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(serviceSubtotal)}</strong></span>
         </div>
@@ -434,8 +434,8 @@ function renderCartPage(cart, total) {
   if (rentalItems.length > 0) {
     html += `
       <div class="cart-tier-section" style="margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface);">
-        <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
-          <div class="cart-tier-title" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
+        <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem;">
+          <div class="cart-tier-title" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
             <span>📦 Thiết Bị Cho Thuê (Phím Cơ, Chuột, Hub)</span>
             <span class="cart-tier-badge" style="font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--muted);">${rentalItems.length} thiết bị</span>
           </div>
@@ -447,7 +447,7 @@ function renderCartPage(cart, total) {
         <div class="cart-tier-body">
           ${rentalItems.map((it) => renderPageItemRow(it, true)).join('')}
         </div>
-        <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
+        <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: var(--muted);">
           <span>🔌 Được mượn kèm cáp kết nối đầy đủ</span>
           <span>Tạm tính thuê: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(rentalSubtotal)}</strong></span>
         </div>
@@ -458,8 +458,8 @@ function renderCartPage(cart, total) {
   if (retailItems.length > 0) {
     html += `
       <div class="cart-tier-section" style="margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface);">
-        <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
-          <div class="cart-tier-title" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
+        <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem;">
+          <div class="cart-tier-title" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
             <span>🛍️ Phụ Kiện Mua Đứt &amp; Kit Chăm Sóc</span>
             <span class="cart-tier-badge" style="font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--muted);">${retailItems.length} sản phẩm</span>
           </div>
@@ -467,7 +467,7 @@ function renderCartPage(cart, total) {
         <div class="cart-tier-body">
           ${retailItems.map((it) => renderPageItemRow(it, false)).join('')}
         </div>
-        <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
+        <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: var(--muted);">
           <span>📍 Nhận ngay tại bàn kỹ thuật Sảnh I</span>
           <span>Tạm tính phụ kiện: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(retailSubtotal)}</strong></span>
         </div>

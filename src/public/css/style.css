@@ -4760,26 +4760,35 @@ html.js .faq-item[data-reveal].in:hover {
 
     /* 3. Floating AI Chat Widget on Mobile (Floating Action Button) */
     .ai-chat-widget {
-        bottom: 16px;
-        right: 16px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        right: 12px;
         z-index: 140;
     }
     .ai-chat-trigger {
-        width: 50px;
-        height: 50px;
-        min-width: 50px;
-        min-height: 50px;
+        position: relative;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
         padding: 0;
         border-radius: 50%;
         justify-content: center;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
     }
-    .ai-chat-trigger span:not(.live-indicator-dot) {
-        display: none; /* Hide label text on mobile, showing crisp FAB */
+    .ai-chat-trigger span:not(.ai-trigger-pulse):not(.live-indicator-dot) {
+        display: none !important; /* Hide label text on mobile, showing crisp FAB */
+    }
+    .ai-chat-trigger .ai-trigger-pulse {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 9px;
+        height: 9px;
+        border: 1.5px solid var(--surface);
     }
     .ai-chat-trigger svg {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
     }
     .ai-chat-window {
         position: fixed !important;
@@ -4869,9 +4878,30 @@ html.js .faq-item[data-reveal].in:hover {
     .payment-methods-grid,
     .ai-pros-cons-grid,
     .specs-sheet-grid,
-    .footer-contact-grid,
-    .order-stepper {
+    .footer-contact-grid {
         grid-template-columns: 1fr;
+    }
+    .problem-solution-grid,
+    .portals-gateway-grid,
+    .feature-spec-grid {
+        grid-template-columns: 1fr !important;
+        padding-inline: 0 !important;
+    }
+    .order-stepper {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.4rem !important;
+    }
+    .portal-tabs {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.4rem !important;
+    }
+    .portal-tab-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 0.55rem 0.4rem !important;
+        font-size: 0.8rem !important;
     }
 
     /* Full-Bleed Product Card Mobile Optimizations */
@@ -4920,7 +4950,68 @@ html.js .faq-item[data-reveal].in:hover {
 
     /* 5. Mobile Cart & Booking Page */
     .cart-page-section {
-        padding: 1rem 0.75rem 3.5rem !important;
+        padding: 1rem 0.75rem calc(5.25rem + env(safe-area-inset-bottom, 0px)) !important;
+    }
+    .cart-order-sidebar {
+        margin-bottom: 1rem;
+    }
+    .site-footer {
+        padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px)) !important;
+    }
+    .booking-day-pill {
+        font-size: 0.75rem !important;
+        padding: 0.5rem 0.25rem !important;
+        white-space: nowrap;
+    }
+    #slot-capacity-badge {
+        flex-wrap: wrap;
+        gap: 4px;
+        font-size: 0.75rem !important;
+    }
+    .pay-single-cod div {
+        min-width: 0;
+    }
+    .pay-single-cod > div > div:first-child {
+        flex-wrap: wrap;
+        gap: 4px 6px !important;
+    }
+    .pay-single-cod > div > div:first-child span:last-child {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    .cart-order-summary-box > div {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .cart-rental-plans button {
+        min-height: 32px;
+        padding: 4px 10px !important;
+        font-size: 0.75rem !important;
+    }
+    .cart-tier-subtotal-row {
+        flex-wrap: wrap !important;
+        gap: 0.35rem !important;
+    }
+    .cart-booking-success {
+        padding: 1.25rem 1rem !important;
+    }
+    .booking-ticket-steps {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.45rem !important;
+    }
+    .booking-ticket-grid {
+        grid-template-columns: 1fr !important;
+        padding: 0.9rem !important;
+    }
+    .booking-ticket-qr {
+        width: 100%;
+        max-width: 190px;
+        margin: 0.25rem auto 0;
+    }
+    .booking-ticket-actions a {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
     }
     .cart-page-header {
         margin-bottom: 1.25rem !important;
@@ -4990,6 +5081,7 @@ html.js .faq-item[data-reveal].in:hover {
     }
 
     /* 7. Mobile Modals (Bottom Sheet) */
+    .modal,
     .modal-backdrop {
         padding: 0.5rem 0 0 !important;
         align-items: flex-end !important;

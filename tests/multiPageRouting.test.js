@@ -122,4 +122,35 @@ describe('Seam 1: HTTP Streamlined Routing & Navigation Indicators', () => {
     assert.ok(adminHtml.includes('GearHub Station CRM'), 'Admin settings must reflect GearHub Station CRM');
     assert.ok(!adminHtml.includes('<option value="Apple">Apple</option>'), 'Admin must remove legacy smartphone brand filter options');
   });
+
+  test('Mobile responsive contracts prevent FAB overlap, overflowing tickets, and cramped PDP/Login layouts', async () => {
+    const fs = require('fs');
+    const path = require('path');
+
+    const styleCss = fs.readFileSync(path.join(__dirname, '../src/public/css/style.css'), 'utf8');
+    assert.ok(styleCss.includes('calc(5.25rem + env(safe-area-inset-bottom, 0px))'), 'style.css must reserve safe-area bottom clearance on mobile cart');
+    assert.ok(styleCss.includes('width: 44px;'), 'style.css must size mobile AI FAB trigger at 44px');
+    assert.ok(styleCss.includes('.booking-ticket-steps'), 'style.css must style 2x2 booking ticket steps on mobile');
+    assert.ok(styleCss.includes('.booking-ticket-grid'), 'style.css must stack QR ticket grid on mobile');
+    assert.ok(styleCss.includes('.portal-tabs'), 'style.css must lay out customer portal tabs cleanly on mobile');
+    assert.ok(styleCss.includes('.modal,\n    .modal-backdrop') || styleCss.includes('.modal,\r\n    .modal-backdrop'), 'style.css must target .modal as mobile bottom sheet');
+
+    const productCss = fs.readFileSync(path.join(__dirname, '../src/public/css/product.css'), 'utf8');
+    assert.ok(productCss.includes('.pdp-rental-plan-grid'), 'product.css must style rental plan grid on mobile');
+    assert.ok(productCss.includes('.pdp-btn-group-secondary'), 'product.css must lay out secondary PDP action buttons on mobile');
+
+    const aboutCss = fs.readFileSync(path.join(__dirname, '../src/public/css/about.css'), 'utf8');
+    assert.ok(aboutCss.includes('.team-grid > .team-card:last-child:nth-child(odd)'), 'about.css must center orphan 5th team card on mobile');
+
+    const cartJs = fs.readFileSync(path.join(__dirname, '../src/public/js/cart.js'), 'utf8');
+    assert.ok(cartJs.includes('booking-ticket-steps') && cartJs.includes('booking-ticket-grid') && cartJs.includes('booking-ticket-qr'), 'cart.js must apply responsive classes to appointment confirmation card');
+
+    const productJs = fs.readFileSync(path.join(__dirname, '../src/public/js/product.js'), 'utf8');
+    assert.ok(productJs.includes('pdp-rental-plan-grid'), 'product.js must apply pdp-rental-plan-grid class');
+
+    const res = await fetch(`${baseUrl}/login`);
+    assert.equal(res.status, 200);
+    const loginHtml = await res.text();
+    assert.ok(loginHtml.includes('mobile-login-topbar'), 'Login page must expose mobile-login-topbar above the form on narrow screens');
+  });
 });
