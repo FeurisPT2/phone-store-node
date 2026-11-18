@@ -88,20 +88,26 @@
         .login-stage {
             min-height: 100svh;
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
+            grid-template-columns: minmax(0, 1fr) minmax(380px, 480px);
+            width: min(1180px, 100%);
+            margin: 0 auto;
+            column-gap: 24px;
+            padding: 24px;
         }
 
         /* Left Visual Half (Columns 1-6) */
         .login-visual-col {
-            grid-column: 1 / 7;
+            grid-column: 1;
             background-color: var(--surface);
-            border-right: 1px solid var(--border);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: clamp(2rem, 4vw, 3.25rem);
             position: relative;
             overflow: hidden;
+            min-height: calc(100svh - 48px);
         }
 
         .brand-bar {
@@ -220,12 +226,12 @@
 
         /* Right Form Half (Columns 7-12) */
         .login-form-col {
-            grid-column: 7 / 13;
+            grid-column: 2;
             background-color: var(--bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: clamp(1.5rem, 4vw, 3.5rem);
+            padding: 0;
         }
 
         .portal-panel-box {
@@ -531,8 +537,10 @@
             .login-stage {
                 display: flex;
                 flex-direction: column;
+                width: 100%;
+                padding: 16px;
             }
-            .login-visual-col .brand-bar {
+            .login-visual-col {
                 display: none;
             }
             .mobile-login-topbar {
@@ -544,23 +552,21 @@
             .login-form-col {
                 order: 1;
                 flex-direction: column;
-                padding: clamp(1rem, 4vw, 2rem);
-            }
-            .login-visual-col {
-                order: 2;
-                padding: clamp(1rem, 4vw, 2rem);
-            }
-            .visual-object-frame {
-                height: 180px;
+                width: 100%;
+                min-height: calc(100svh - 32px);
+                padding: 0;
             }
         }
 
         @media (max-width: 600px) {
-            .login-form-col {
-                padding: 1rem 0.85rem;
+            .login-stage {
+                min-height: 100svh;
+                padding: 0;
             }
-            .login-visual-col {
-                padding: 1rem 0.85rem 1.5rem;
+            .login-form-col {
+                min-height: 100svh;
+                justify-content: flex-start;
+                padding: 12px;
             }
             .brand-bar {
                 flex-wrap: wrap;
@@ -581,7 +587,12 @@
                 grid-template-columns: 1fr;
             }
             .portal-panel-box {
-                padding: 1.25rem 1rem;
+                max-width: none;
+                min-height: calc(100svh - 82px);
+                padding: 20px 16px;
+                border-left: 0;
+                border-right: 0;
+                border-radius: 12px;
             }
             .login-headline {
                 font-size: 1.5rem;
@@ -671,7 +682,7 @@
         <aside class="login-visual-col">
             <div class="brand-bar">
                 <a href="/" class="brand-wordmark">
-                    <img class="brand-logo-icon" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub">
+                    <img class="brand-logo-icon" src="logo.png" data-theme-logo-light="logo.png" data-theme-logo-dark="logo2.png" alt="GearHub">
                     <span>GearHub · Trạm Gear SV</span>
                 </a>
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -703,7 +714,7 @@
         <main class="login-form-col">
             <div class="brand-bar mobile-login-topbar">
                 <a href="/" class="brand-wordmark">
-                    <img class="brand-logo-icon" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub">
+                    <img class="brand-logo-icon" src="logo.png" data-theme-logo-light="logo.png" data-theme-logo-dark="logo2.png" alt="GearHub">
                     <span>GearHub Sảnh I</span>
                 </a>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -739,7 +750,7 @@
                     <div class="form-group">
                         <label for="cust-login-phone">Số điện thoại hoặc Tên tài khoản</label>
                         <div class="input-wrapper">
-                            <input type="text" id="cust-login-phone" required placeholder="Nhập số điện thoại (VD: 0987654321) hoặc tài khoản admin" autocomplete="username">
+                            <input type="text" id="cust-login-phone" required placeholder="Nhập số điện thoại hoặc tên tài khoản" autocomplete="username">
                         </div>
                     </div>
 
