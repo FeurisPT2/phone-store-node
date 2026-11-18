@@ -722,8 +722,8 @@ function printOrderInvoice() {
     <div style="max-width:800px; margin:0 auto; padding:24px; color:#000; font-family:'Be Vietnam Pro',sans-serif;">
       <div style="display:flex; justify-content:space-between; border-bottom:2px solid #000; padding-bottom:12px; margin-bottom:20px;">
         <div>
-          <h2 style="margin:0;">TECHSTORE ATELIER · PHIẾU BÁN HÀNG</h2>
-          <p style="margin:4px 0 0; font-size:13px;">Hệ thống phân phối flagship chính hãng</p>
+          <h2 style="margin:0;">GEARHUB STATION · PHIẾU DỊCH VỤ &amp; THUÊ GEAR</h2>
+          <p style="margin:4px 0 0; font-size:13px;">Trạm Kỹ Thuật Sảnh I - Trường ĐH Khoa học Tự nhiên (227 Nguyễn Văn Cừ, Q.5)</p>
         </div>
         <div style="text-align:right;">
           <strong style="font-size:16px;">Mã đơn: #${o.id}</strong>

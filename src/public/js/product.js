@@ -26,8 +26,29 @@ const SPEC_DICTIONARY = {
   components: 'Thành phần trong bộ',
   material: 'Chất liệu chế tạo',
   size: 'Kích thước & Trọng lượng',
-  usage: 'Hướng dẫn sử dụng'
+  usage: 'Hướng dẫn sử dụng',
+  scope: 'Hệ điều hành hỗ trợ',
+  safety: 'Cam kết an toàn dữ liệu',
+  method: 'Phương pháp làm sạch',
+  lube: 'Dầu Lube chuyên dụng',
+  effect: 'Hiệu quả sau thực hiện',
+  weight: 'Trọng lượng thiết bị',
+  dpi: 'Độ nhạy cảm biến (DPI)',
+  hubPorts: 'Cổng kết nối tích hợp',
+  pointer: 'Bút trình chiếu đi kèm'
 };
+
+function resolveCategoryMeta(p) {
+  if (typeof window !== 'undefined' && window.CatalogFilter) {
+    const key = window.CatalogFilter.inferCategory(p);
+    const meta = window.CatalogFilter.getCategoryMeta(key);
+    return { key, label: meta?.badgeLabel || meta?.label || p?.categoryLabel || 'Dịch vụ' };
+  }
+  if (typeof getProductCategory === 'function') {
+    return getProductCategory(p);
+  }
+  return { key: p?.category || 'service', label: p?.categoryLabel || 'Dịch vụ' };
+}
 
 function formatVnd(val) {
   if (typeof val !== 'number') val = Number(val) || 0;
@@ -77,9 +98,7 @@ function renderProductDetails(p) {
   // 1. Meta & Title
   document.title = `${p.name} · GearHub Trạm Kỹ Thuật Sinh Viên`;
 
-  const catMeta = (typeof getProductCategory === 'function')
-    ? getProductCategory(p)
-    : { key: p.category || 'service', label: p.categoryLabel || 'Dịch vụ' };
+  const catMeta = resolveCategoryMeta(p);
 
   // 2. Breadcrumbs
   const bcCat = document.getElementById('pdp-bc-cat');
@@ -286,9 +305,7 @@ function renderRelatedProducts(currentP, catalog) {
   }
 
   container.innerHTML = pool.map(p => {
-    const cMeta = (typeof getProductCategory === 'function')
-      ? getProductCategory(p)
-      : { key: p.category, label: p.categoryLabel || 'Sản phẩm' };
+    const cMeta = resolveCategoryMeta(p);
 
     return `
       <article class="product-card" data-category="${cMeta.key}" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--shadow-sm); transition:transform 200ms ease, box-shadow 200ms ease;">
@@ -327,8 +344,9 @@ function syncWishlistBtn(productId) {
   const btn = document.getElementById('pdp-btn-wishlist');
   if (!btn) return;
 
+  const targetId = String(productId ?? '');
   const wishlist = getWishlistIds();
-  const isWished = wishlist.includes(productId);
+  const isWished = wishlist.includes(targetId);
   if (isWished) {
     btn.classList.add('active-wishlist');
     btn.innerHTML = `
@@ -345,29 +363,33 @@ function syncWishlistBtn(productId) {
 }
 
 function getWishlistIds() {
+  if (typeof userWishlist !== 'undefined' && Array.isArray(userWishlist)) {
+    return userWishlist.map(String);
+  }
   try {
-    return JSON.parse(localStorage.getItem('techstore_wishlist') || '[]');
+    return JSON.parse(localStorage.getItem('techstore_wishlist') || '[]').map(String);
   } catch (e) {
     return [];
   }
 }
 
-function handlePdpWishlistToggle() {
+async function handlePdpWishlistToggle() {
   if (!currentProduct) return;
   if (typeof toggleWishlistItem === 'function') {
-    toggleWishlistItem(currentProduct.id);
+    await toggleWishlistItem(currentProduct.id);
   } else {
     let list = getWishlistIds();
-    if (list.includes(currentProduct.id)) {
-      list = list.filter(id => id !== currentProduct.id);
+    const pid = String(currentProduct.id);
+    if (list.includes(pid)) {
+      list = list.filter(id => id !== pid);
       if (typeof showToast === 'function') showToast('Đã xóa khỏi danh sách yêu thích', 'info');
     } else {
-      list.push(currentProduct.id);
+      list.push(pid);
       if (typeof showToast === 'function') showToast('Đã lưu vào danh sách yêu thích!', 'success');
     }
     localStorage.setItem('techstore_wishlist', JSON.stringify(list));
   }
-  syncWishlistBtn(currentProduct.id);
+  syncWishlistBtn(String(currentProduct.id));
 }
 
 function handlePdpShare() {
@@ -415,6 +437,18 @@ function showProductNotFound() {
 // Global initialization on DOM ready
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
+    if (typeof updateThemeUI === 'function' && typeof getStoredTheme === 'function') {
+      updateThemeUI(getStoredTheme());
+    }
+    if (typeof checkAuthState === 'function') {
+      checkAuthState();
+    }
+    if (typeof loadWishlistState === 'function') {
+      loadWishlistState().then(() => {
+        if (currentProduct) syncWishlistBtn(String(currentProduct.id));
+      });
+    }
+
     loadProductDetailPage();
 
     const btnWish = document.getElementById('pdp-btn-wishlist');
@@ -429,5 +463,31 @@ if (typeof document !== 'undefined') {
         if (currentProduct) consultAiAbout(encodeURIComponent(currentProduct.name));
       });
     }
+
+    const searchInput = document.getElementById('input-search');
+    const searchKbd = document.getElementById('btn-search-kbd');
+    const focusSearch = () => {
+      if (!searchInput) return;
+      searchInput.focus();
+      searchInput.select?.();
+    };
+    if (searchKbd) {
+      searchKbd.addEventListener('click', focusSearch);
+      searchKbd.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          focusSearch();
+        }
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      const activeEl = document.activeElement;
+      const tagName = activeEl?.tagName;
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tagName) || activeEl?.isContentEditable) return;
+      if (e.key === '/' || e.code === 'Slash') {
+        e.preventDefault();
+        focusSearch();
+      }
+    });
   });
 }

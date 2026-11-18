@@ -4,13 +4,32 @@
 
 let chatHistory = [];
 
-function toggleAiChat() {
+function toggleAiChat(forceState) {
   if (typeof document === 'undefined') return;
   const win = document.getElementById('ai-chat-window');
   if (!win) return;
-  const isOpen = win.classList.toggle('open');
-  if (isOpen) {
+  const shouldOpen = typeof forceState === 'boolean' ? forceState : !win.classList.contains('open');
+  win.classList.toggle('open', shouldOpen);
+  if (shouldOpen) {
     document.getElementById('ai-chat-input')?.focus();
+  }
+}
+
+function sendAiMessage(event) {
+  return handleAiChatSubmit(event);
+}
+
+function viewSuggestedProduct(productId) {
+  if (
+    typeof openProductDetailModal === 'function' &&
+    typeof document !== 'undefined' &&
+    document.getElementById('product-detail-modal')
+  ) {
+    openProductDetailModal(productId);
+    return;
+  }
+  if (typeof window !== 'undefined') {
+    window.location.href = '/product?id=' + encodeURIComponent(productId);
   }
 }
 
@@ -74,7 +93,17 @@ function appendChatBubble(role, text, suggestedProducts = []) {
   const msgDiv = document.createElement('div');
   msgDiv.className = `chat-msg ${role === 'user' ? 'user' : 'bot'}`;
 
-  const formattedText = (text || '')
+  const esc = (v) =>
+    typeof escapeHtml === 'function'
+      ? escapeHtml(v)
+      : String(v ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+
+  const formattedText = esc(text || '')
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n/g, '<br>');
 
@@ -85,18 +114,21 @@ function appendChatBubble(role, text, suggestedProducts = []) {
       <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem;">
         ${suggestedProducts
           .map(
-            (p) => `
+            (p) => {
+              const safeId = String(p.id || '').replace(/'/g, "\\'");
+              return `
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.5rem; background-color: var(--surface);">
             <div>
-              <div style="font-weight: 600; font-size: 0.8125rem;">${p.name}</div>
+              <div style="font-weight: 600; font-size: 0.8125rem;">${esc(p.name)}</div>
               <div class="tabular" style="color: var(--accent-text); font-size: 0.8125rem;">${fmt(p.price)}</div>
             </div>
             <div style="display: flex; gap: 0.35rem;">
-              <button type="button" style="padding: 0.3rem 0.55rem; background-color: var(--bg); font-size: 0.8125rem;" onclick="openProductDetailModal('${p.id}')">Xem</button>
-              <button type="button" style="padding: 0.3rem 0.55rem; background-color: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 0.8125rem;" onclick="addToCart('${p.id}')">Mua</button>
+              <button type="button" style="padding: 0.3rem 0.55rem; background-color: var(--bg); font-size: 0.8125rem;" onclick="viewSuggestedProduct('${safeId}')">Xem</button>
+              <button type="button" style="padding: 0.3rem 0.55rem; background-color: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 0.8125rem;" onclick="addToCart('${safeId}')">Mua</button>
             </div>
           </div>
-        `
+        `;
+            }
           )
           .join('')}
       </div>

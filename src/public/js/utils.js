@@ -7,6 +7,15 @@ const formatMoney = (amount) =>
 
 const twoDigits = (n) => (n < 10 ? '0' + n : String(n));
 
+function escapeHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function copyTextToClipboard(text, label = 'Nội dung') {
   if (!text) return;
   const clean = String(text).trim();
@@ -70,8 +79,13 @@ function toggleMobileDrawer(forceState) {
 
 function showToast(message, type = 'success') {
   if (typeof document === 'undefined') return;
-  const container = document.getElementById('toast-container');
-  if (!container) return;
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    if (typeof document.createElement !== 'function' || !document.body) return;
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
 
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;

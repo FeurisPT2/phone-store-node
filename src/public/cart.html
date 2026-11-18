@@ -19,9 +19,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/about.css">
-    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/about.css">
 </head>
 <body class="editorial-mode">
 
@@ -50,8 +49,8 @@
             <div class="header-center">
                 <div class="search-box" role="search">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="input-search" placeholder="Tìm vệ sinh laptop, phím cơ, chuột, hub..." oninput="handleSearch(this.value)" aria-label="Tìm kiếm dịch vụ">
-                    <button type="button" id="btn-clear-search" class="search-clear-btn" style="display:none;" onclick="document.getElementById('input-search').value=''; handleSearch('');" title="Xóa từ khóa">&times;</button>
+                    <input type="text" id="input-search" placeholder="Tìm vệ sinh laptop, phím cơ, chuột, hub..." oninput="document.getElementById('btn-clear-search').style.display=this.value.trim()?'inline-flex':'none';" onkeydown="if(event.key==='Enter'){event.preventDefault(); const q=this.value.trim(); window.location.href=q?'/shop?q='+encodeURIComponent(q):'/shop';}" aria-label="Tìm kiếm dịch vụ">
+                    <button type="button" id="btn-clear-search" class="search-clear-btn" style="display:none;" onclick="const inp=document.getElementById('input-search'); inp.value=''; this.style.display='none'; inp.focus();" title="Xóa từ khóa">&times;</button>
                     <kbd class="search-kbd" id="btn-search-kbd" role="button" tabindex="0" title="Nhấn / để tìm nhanh" aria-label="Phím tắt tìm kiếm">/</kbd>
                 </div>
             </div>
@@ -105,7 +104,66 @@
             </div>
             <button class="close-btn" onclick="toggleMobileDrawer(false)" aria-label="Đóng menu">&times;</button>
         </div>
+        <div class="drawer-account-section">
+            <div class="drawer-account-card drawer-account-guest" id="drawer-guest-card">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title">Tài khoản sinh viên</span>
+                        <span class="drawer-account-sub">Đăng nhập để xem lịch hẹn &amp; ưu đãi</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <a href="/login" class="drawer-account-login-btn" onclick="toggleMobileDrawer(false);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                        <span>Đăng nhập / Đăng ký</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="drawer-account-card drawer-account-user" id="drawer-user-card" style="display:none;">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap drawer-avatar-initial" id="drawer-user-initial">K</div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title" id="drawer-user-name">Khách</span>
+                        <span class="drawer-account-sub" id="drawer-user-role">Sinh viên HCMUS</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <div class="drawer-account-actions-row">
+                        <a href="/settings" class="drawer-action-btn" title="Cài đặt tài khoản" onclick="toggleMobileDrawer(false);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            <span>Cài đặt</span>
+                        </a>
+                        <button type="button" class="drawer-action-btn drawer-action-btn-danger" onclick="logoutCustomer(); toggleMobileDrawer(false);" title="Đăng xuất">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>Thoát</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="mobile-drawer-body">
+            <button type="button" class="drawer-item" onclick="toggleTheme();">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <span>Chế độ giao diện:</span>
+                <strong id="theme-status-mobile" style="margin-left:auto; color:var(--accent-text);">Sáng</strong>
+            </button>
+
+            <p class="drawer-section-title">Các trang hệ thống</p>
             <a href="/" class="drawer-item" onclick="toggleMobileDrawer(false);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
                 <span>Giới Thiệu</span>
@@ -114,10 +172,18 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                 <span>Cửa Hàng</span>
             </a>
-            <a href="/cart" class="drawer-item" style="color:var(--ink); font-weight:700;" onclick="toggleMobileDrawer(false);">
+            <a href="/cart" class="drawer-item" style="color:var(--accent-text); font-weight:700;" onclick="toggleMobileDrawer(false);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 <span>Giỏ Hàng &amp; Lịch Hẹn</span>
             </a>
+            <button type="button" class="drawer-item" onclick="openCustomerPortal('track'); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Tra Cứu Lịch Hẹn</span>
+            </button>
+            <button type="button" class="drawer-item" onclick="toggleAiChat(true); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>Trợ Lý Kỹ Thuật AI</span>
+            </button>
         </div>
     </aside>
 
@@ -201,8 +267,8 @@
                     </div>
 
                     <div class="form-group" style="margin-top:0.85rem;">
-                        <label for="c-address" style="font-size:0.8125rem; font-weight:600; color:var(--ink);">Ghi chú tình trạng máy / Yêu cầu thêm</label>
-                        <textarea id="c-address" class="form-control" rows="2" placeholder="VD: Máy Dell Inspiron quạt kêu to, cần tra keo MX-4..." style="padding:0.65rem 0.85rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); font-size:0.875rem; resize:vertical;"></textarea>
+                        <label for="c-note" style="font-size:0.8125rem; font-weight:600; color:var(--ink);">Ghi chú tình trạng máy / Yêu cầu thêm</label>
+                        <textarea id="c-note" class="form-control" rows="2" placeholder="VD: Máy Dell Inspiron quạt kêu to, cần tra keo MX-4..." style="padding:0.65rem 0.85rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); font-size:0.875rem; resize:vertical;"></textarea>
                     </div>
 
                     <!-- Payment Method Selector: Only COD -->
@@ -274,87 +340,117 @@
     </footer>
 
     <!-- VIETQR PAYMENT MODAL -->
-    <div class="modal-overlay" id="qr-payment-modal" style="display:none;" onclick="if(event.target===this)closeQrPaymentModal();">
-        <div class="modal-container" style="max-width:540px;">
+    <div id="qr-payment-modal" class="modal" data-ui>
+        <div class="modal-content modal-lg">
             <div class="modal-header">
-                <div class="modal-title-row">
-                    <span class="logo-mark" style="width:28px; height:28px; font-size:0.75rem;">QR</span>
-                    <h3 class="modal-title">Cổng Thanh Toán VietQR Tự Động</h3>
+                <div>
+                    <h2>Thanh Toán Chuyển Khoản VietQR</h2>
                 </div>
-                <button type="button" class="modal-close-btn" onclick="closeQrPaymentModal()">&times;</button>
+                <button type="button" class="close-btn" onclick="closeQrPaymentModal()">&times;</button>
             </div>
-            <div class="modal-body qr-payment-box">
-                <div class="qr-status-banner" id="qr-status-banner">
-                    Đang chờ quét mã chuyển khoản · Hết hạn sau: <span id="qr-countdown" style="font-weight:700;">15:00</span>
-                </div>
-                <div class="qr-main-grid">
-                    <div class="qr-image-frame">
-                        <div class="qr-frame-header">VIETQR DEMO SANDBOX</div>
-                        <img id="qr-image" src="" alt="Mã thanh toán VietQR">
-                        <div class="qr-scan-hint">Mở App Ngân hàng bất kỳ để quét</div>
+            <div class="modal-body" id="qr-payment-body">
+                <div class="qr-payment-box">
+                    <div class="demo-warning-banner" style="margin: 0.5rem 1rem 0 1rem;">
+                        <strong>Môi trường mô phỏng thanh toán (Sandbox):</strong> Quét mã QR chỉ mang tính chất minh họa thao tác giao dịch. Nhấn nút <em>"Giả lập đã chuyển khoản"</em> để hệ thống tự động đối soát xác nhận sau 3 giây.
                     </div>
-                    <div class="qr-transfer-details">
-                        <div class="qr-detail-row">
-                            <span>Ngân hàng:</span>
-                            <strong id="qr-bank-name">MB Bank</strong>
+                    <div class="qr-status-banner" id="qr-status-banner">
+                        <span id="qr-status-text">Đang chờ quét mã QR thanh toán (tự động kiểm tra trạng thái mỗi 3 giây)...</span>
+                    </div>
+                    <div class="qr-main-grid">
+                        <div class="qr-image-frame">
+                            <div class="qr-frame-header">VIETQR · GEARHUB NAPAS247</div>
+                            <img id="qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="VietQR Payment Code">
+                            <div class="qr-scan-hint">Mở App Ngân hàng bất kỳ để quét mã demo</div>
                         </div>
-                        <div class="qr-detail-row">
-                            <span>Số tài khoản:</span>
-                            <strong id="qr-account-number" class="tabular">0987654321</strong>
-                        </div>
-                        <div class="qr-detail-row">
-                            <span>Số tiền:</span>
-                            <strong class="qr-amount-highlight" id="qr-amount">0 ₫</strong>
-                        </div>
-                        <div class="qr-detail-row">
-                            <span>Nội dung CK:</span>
-                            <div class="qr-copy-wrap">
-                                <strong id="qr-memo" style="letter-spacing:0.04em;">GEARHUB123</strong>
-                                <button type="button" class="btn-copy-mini" onclick="copyQrMemo()">Copy</button>
+                        <div class="qr-transfer-details">
+                            <div class="qr-detail-row">
+                                <span>Đơn vị tiếp nhận</span>
+                                <strong id="qr-bank-name">MB Bank (Ngân hàng Quân Đội)</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Số tài khoản trạm</span>
+                                <div class="qr-copy-wrap">
+                                    <strong id="qr-acc-no" class="tabular">0901234567</strong>
+                                    <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard(document.getElementById('qr-acc-no').innerText, 'Số tài khoản')">Sao chép</button>
+                                </div>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Chủ tài khoản</span>
+                                <strong id="qr-acc-name">GEARHUB STARTUP - DH KHOA HOC TU NHIEN</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Chi phí dịch vụ</span>
+                                <strong id="qr-amount-display" class="qr-amount-highlight">0 ₫</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Mã đơn đặt lịch</span>
+                                <strong id="qr-order-id-text" class="tabular">#GH-...</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Nội dung chuyển khoản demo</span>
+                                <div class="qr-copy-wrap">
+                                    <strong id="qr-ref-text" class="tabular">GH...</strong>
+                                    <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard(document.getElementById('qr-ref-text').innerText, 'Nội dung CK')">Sao chép</button>
+                                </div>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Thời gian giữ lịch hẹn (TTL)</span>
+                                <strong id="qr-countdown-timer" class="tabular qr-timer-badge">15:00</strong>
+                            </div>
+                            <div class="qr-sandbox-actions">
+                                <button type="button" class="btn-primary-sage" id="btn-simulate-qr-confirm" onclick="simulateQrWebhook()">Giả lập đã chuyển khoản (3s)</button>
+                                <button type="button" class="btn-secondary-tone" onclick="closeQrPaymentModal()">Đóng / Xem phiếu hẹn</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="qr-sandbox-actions">
-                    <button type="button" class="btn-buy-now" onclick="simulatePaymentSuccess()">Thử Nghiệm: Giả Lập Thanh Toán Thành Công</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- FLOATING AI CHAT WIDGET -->
-    <div class="ai-chat-widget">
-        <div class="ai-chat-window" id="ai-chat-window" role="dialog" aria-label="Khung trò chuyện tư vấn">
-            <div class="ai-chat-header">
-                <div class="ai-chat-title-wrap">
-                    <span class="ai-header-dot"></span>
-                    <span class="ai-header-title">Trợ Lý Kỹ Thuật GearHub AI</span>
-                </div>
-                <button class="ai-chat-close" onclick="toggleAiChat(false)" aria-label="Thu nhỏ chat">&times;</button>
-            </div>
-            <div class="ai-chat-messages" id="ai-chat-messages">
-                <div class="chat-msg chat-msg--bot">
-                    <div class="chat-bubble">Chào bạn! Mình có thể hỗ trợ kiểm tra thời gian vệ sinh laptop hoặc chính sách thuê gear sinh viên 0đ cọc nhé.</div>
-                </div>
-            </div>
-            <div class="ai-chat-input-bar">
-                <input type="text" id="ai-chat-input" placeholder="Hỏi về keo MX-4, phím cơ..." onkeydown="if(event.key==='Enter')sendAiMessage()">
-                <button type="button" class="ai-send-btn" onclick="sendAiMessage()">Gửi</button>
-            </div>
-        </div>
-        <button type="button" class="ai-chat-trigger" onclick="toggleAiChat()" aria-label="Mở khung tư vấn AI">
+    <div class="ai-chat-widget" id="ai-chat-widget" data-ui>
+        <button type="button" class="ai-chat-trigger" id="ai-chat-btn" onclick="toggleAiChat()" aria-label="Mở khung tư vấn AI" title="Trợ lý AI tư vấn thiết bị">
             <span class="ai-trigger-pulse"></span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             <span>Tư vấn GearHub AI</span>
         </button>
+
+        <div class="ai-chat-window" id="ai-chat-window" role="dialog" aria-label="Khung trò chuyện tư vấn">
+            <div class="ai-chat-header">
+                <div class="ai-chat-header-info">
+                    <span class="ai-avatar">GH</span>
+                    <div>
+                        <strong style="display:block; font-size:0.9375rem;">Trợ lý Kỹ thuật GearHub AI</strong>
+                        <span style="font-size:0.75rem; color:var(--accent-text);"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Đang trực tuyến · Tư vấn máy tính sinh viên</span>
+                    </div>
+                </div>
+                <button type="button" class="ai-chat-close" onclick="toggleAiChat(false)" aria-label="Thu nhỏ chat">&times;</button>
+            </div>
+            <div class="ai-chat-messages" id="ai-chat-messages">
+                <div class="chat-msg bot">
+                    <div class="msg-bubble">Chào bạn! Mình có thể hỗ trợ kiểm tra thời gian vệ sinh laptop hoặc chính sách thuê gear sinh viên 0đ cọc nhé.</div>
+                </div>
+            </div>
+            <div class="chat-typing" id="chat-typing-indicator" style="display: none; padding: 0.5rem 1rem; font-size: 0.8125rem; color: var(--accent-text);">
+                GearHub AI đang phân tích dữ liệu kỹ thuật...
+            </div>
+            <form class="ai-chat-input-area" id="ai-chat-form" onsubmit="handleAiChatSubmit(event)">
+                <input type="text" id="ai-chat-input" placeholder="Hỏi về keo MX-4, phím cơ..." autocomplete="off">
+                <button type="submit" id="ai-chat-send-btn">Gửi</button>
+            </form>
+        </div>
     </div>
 
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
     <!-- SCRIPTS -->
-    <script src="js/utils.js"></script>
-    <script src="js/qrPayment.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/customerPortal.js"></script>
-    <script src="js/aiChat.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/qrPayment.js"></script>
+    <script src="/js/cart.js"></script>
+    <script src="/js/customerPortal.js"></script>
+    <script src="/js/aiChat.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

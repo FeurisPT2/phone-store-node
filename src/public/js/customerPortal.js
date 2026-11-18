@@ -5,6 +5,16 @@
 let currentUser = null;
 let userWishlist = [];
 
+function escPortal(v) {
+  if (typeof escapeHtml === 'function') return escapeHtml(v);
+  return String(v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function updateDrawerAccountUI(user) {
   if (typeof document === 'undefined') return;
   const guestCard = document.getElementById('drawer-guest-card');
@@ -53,9 +63,14 @@ async function checkAuthState() {
       const cName = document.getElementById('c-name');
       const cPhone = document.getElementById('c-phone');
       const cAddress = document.getElementById('c-address');
+      const cNote = document.getElementById('c-note');
       if (cName && !cName.value) cName.value = data.fullName || '';
       if (cPhone && !cPhone.value) cPhone.value = data.phone || '';
-      if (cAddress && !cAddress.value) cAddress.value = data.address || '';
+      if (cAddress && !cAddress.value) {
+        const cleanAddr = String(data.address || '').replace(/^(?:\[Khung giờ:[^\]]*\]\s*-\s*)+/i, '').trim();
+        cAddress.value = cleanAddr;
+      }
+      if (cNote && !cNote.value) cNote.value = data.note || '';
       updateDrawerAccountUI(currentUser);
     } else {
       currentUser = null;
@@ -120,6 +135,18 @@ async function toggleWishlistItem(productId) {
 }
 
 function openAuthModal(tab = 'login') {
+  if (typeof document !== 'undefined' && !document.getElementById('auth-modal')) {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams();
+      if (tab === 'register') params.set('tab', 'register');
+      if (window.location.pathname && window.location.pathname !== '/login') {
+        params.set('redirect', window.location.pathname + window.location.search);
+      }
+      const qs = params.toString();
+      window.location.href = '/login' + (qs ? '?' + qs : '');
+    }
+    return;
+  }
   switchAuthTab(tab);
   if (typeof openModal === 'function') {
     openModal('auth-modal');
@@ -292,6 +319,16 @@ async function logoutCustomer() {
 }
 
 function openCustomerPortal(tab = 'track', prefill = null) {
+  if (typeof document !== 'undefined' && !document.getElementById('customer-portal-modal')) {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams();
+      params.set('tab', tab || 'track');
+      if (prefill && prefill.orderId) params.set('orderId', prefill.orderId);
+      if (prefill && prefill.phone) params.set('phone', prefill.phone);
+      window.location.href = '/customer-portal?' + params.toString();
+    }
+    return;
+  }
   if (typeof openModal === 'function') {
     openModal('customer-portal-modal');
   }
@@ -380,7 +417,7 @@ function renderOrderTimelineTracker(order) {
     <div class="cust-order-card" data-ui>
       <div class="cust-order-head">
         <div>
-          <span class="cust-order-id">#${order.id}</span>
+          <span class="cust-order-id">#${escPortal(order.id)}</span>
           <span style="font-size: 0.8125rem; color: var(--muted); margin-left: 0.5rem;">
             ${new Date(order.createdAt).toLocaleString('vi-VN')}
           </span>
@@ -411,7 +448,7 @@ function renderOrderTimelineTracker(order) {
                 .map((h) => {
                   const ts = h.timestamp || h.time;
                   return `<div style="display:flex; justify-content:space-between; gap:0.5rem; padding:0.15rem 0;">
-                      <span><strong style="color:var(--ink);">${h.note || h.title || h.status}</strong></span>
+                      <span><strong style="color:var(--ink);">${escPortal(h.note || h.title || h.status)}</strong></span>
                       <span class="tabular">${ts ? new Date(ts).toLocaleString('vi-VN') : ''}</span>
                     </div>`;
                 })
@@ -423,11 +460,11 @@ function renderOrderTimelineTracker(order) {
       <div style="margin-top: 0.75rem; padding: 0.85rem; background-color: var(--surface); font-size: 0.875rem;">
         <div style="margin-bottom: 0.5rem;">
           ${(order.items || [])
-            .map((i) => `<div>${i.name} (x${i.quantity}) · <strong class="tabular">${fmt(i.price * i.quantity)}</strong></div>`)
+            .map((i) => `<div>${escPortal(i.name)} (x${Number(i.quantity) || 1}) · <strong class="tabular">${fmt((i.price || 0) * (i.quantity || 1))}</strong></div>`)
             .join('')}
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.5rem; color: var(--muted);">
-          <span>Người nhận: ${order.customerInfo?.fullName || ''} (${order.customerInfo?.phone || ''}) · ${order.customerInfo?.address || ''}</span>
+          <span>Người nhận: ${escPortal(order.customerInfo?.fullName || '')} (${escPortal(order.customerInfo?.phone || '')}) · ${escPortal(order.customerInfo?.address || '')}</span>
           <strong class="tabular" style="font-size: 1rem; color: var(--accent-text);">Tổng: ${fmt(order.totalAmount)}</strong>
         </div>
       </div>
@@ -575,10 +612,10 @@ async function renderPortalProfileTab() {
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <div>
           <span style="font-size: 0.8125rem; color: var(--muted);">Hạng thành viên hiện tại</span>
-          <div style="font-size: 1.35rem; font-weight: 600; color: var(--accent-text);">${tag}</div>
+          <div style="font-size: 1.35rem; font-weight: 600; color: var(--accent-text);">${escPortal(tag)}</div>
         </div>
         <div class="tabular" style="font-size: 0.9375rem;">
-          Đã hoàn tất <strong>${currentUser.orderCount || 0} đơn</strong> · Chi tiêu tích lũy: <strong style="color: var(--accent-text);">${fmt(spent)}</strong>
+          Đã hoàn tất <strong>${Number(currentUser.orderCount) || 0} đơn</strong> · Chi tiêu tích lũy: <strong style="color: var(--accent-text);">${fmt(spent)}</strong>
         </div>
       </div>
     </div>
@@ -587,24 +624,24 @@ async function renderPortalProfileTab() {
       <div class="form-row">
         <div class="form-group">
           <label for="prof-fullname">Họ và tên người nhận</label>
-          <input type="text" id="prof-fullname" required value="${currentUser.fullName || ''}">
+          <input type="text" id="prof-fullname" required value="${escPortal(currentUser.fullName || '')}">
         </div>
         <div class="form-group">
           <label>Số điện thoại định danh</label>
-          <input type="tel" value="${currentUser.phone || ''}" disabled style="opacity: 0.65;">
+          <input type="tel" value="${escPortal(currentUser.phone || '')}" disabled style="opacity: 0.65;">
         </div>
       </div>
       <div class="form-group">
         <label for="prof-email">Email nhận hóa đơn</label>
-        <input type="email" id="prof-email" value="${currentUser.email || ''}" placeholder="example@email.com">
+        <input type="email" id="prof-email" value="${escPortal(currentUser.email || '')}" placeholder="example@email.com">
       </div>
       <div class="form-group">
         <label for="prof-address">Địa chỉ giao hàng mặc định</label>
-        <textarea id="prof-address" rows="2" required>${currentUser.address || ''}</textarea>
+        <textarea id="prof-address" rows="2" required>${escPortal(currentUser.address || '')}</textarea>
       </div>
       <div class="form-group">
         <label for="prof-note">Ghi chú giao hàng mặc định</label>
-        <input type="text" id="prof-note" value="${currentUser.note || ''}" placeholder="Giao giờ hành chính">
+        <input type="text" id="prof-note" value="${escPortal(currentUser.note || '')}" placeholder="Giao giờ hành chính">
       </div>
       <button type="submit" class="btn-submit" id="btn-save-profile">Lưu hồ sơ &amp; địa chỉ mặc định</button>
     </form>

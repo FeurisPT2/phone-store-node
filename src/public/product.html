@@ -21,10 +21,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/product.css">
-    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/product.css">
 </head>
 <body>
 
@@ -53,7 +52,7 @@
             <div class="header-center">
                 <div class="search-box" role="search">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="input-search" placeholder="Tìm vệ sinh laptop, phím cơ, chuột, hub..." onkeydown="if(event.key==='Enter') window.location.href='/shop?q='+encodeURIComponent(this.value);" aria-label="Tìm kiếm">
+                    <input type="text" id="input-search" placeholder="Tìm vệ sinh laptop, phím cơ, chuột, hub..." onkeydown="if(event.key==='Enter'){event.preventDefault(); const q=this.value.trim(); window.location.href=q?'/shop?q='+encodeURIComponent(q):'/shop';}" aria-label="Tìm kiếm">
                     <kbd class="search-kbd" id="btn-search-kbd" role="button" tabindex="0" title="Nhấn / để tìm nhanh" aria-label="Phím tắt tìm kiếm">/</kbd>
                 </div>
             </div>
@@ -78,7 +77,7 @@
                     <span class="nav-label">Đăng nhập</span>
                 </a>
 
-                <div class="user-profile-pill" id="user-profile-badge" style="display: none;" title="Tài khoản cá nhân / Cài đặt" role="button" tabindex="0">
+                <div class="user-profile-pill" id="user-profile-badge" style="display: none;" onclick="if(window.innerWidth<=640){window.location.href='/settings';}" title="Tài khoản cá nhân / Cài đặt" role="button" tabindex="0">
                     <span class="user-avatar-dot" id="user-avatar-initial">K</span>
                     <button class="user-name-btn" id="user-display-name" onclick="openCustomerPortal('profile')">Khách</button>
                     <a href="/settings" class="user-settings-btn" id="btn-user-settings" title="Cài đặt tài khoản sinh viên" style="display:inline-flex; align-items:center; color:var(--muted); padding: 0 4px;">
@@ -111,28 +110,96 @@
                 <span class="logo-mark" aria-hidden="true" style="background:#012550; border:1px solid rgba(6,247,251,0.28); border-radius:8px; display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; padding:2px; flex-shrink:0;">
                     <img src="/images/logo-emblem.svg" alt="GearHub" width="26" height="26" style="width:100%; height:100%; object-fit:contain;">
                 </span>
-                <span class="logo-brand" style="font-weight:800;">GearHub</span>
+                <span class="logo-brand">GearHub</span>
             </div>
-            <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)" aria-label="Đóng menu">&times;</button>
+            <button class="close-btn" onclick="toggleMobileDrawer(false)" aria-label="Đóng menu">&times;</button>
         </div>
-        <nav class="mobile-drawer-nav">
-            <a href="/" class="drawer-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+
+        <div class="drawer-account-section">
+            <div class="drawer-account-card drawer-account-guest" id="drawer-guest-card">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title">Tài khoản sinh viên</span>
+                        <span class="drawer-account-sub">Đăng nhập để xem lịch hẹn &amp; ưu đãi</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <a href="/login" class="drawer-account-login-btn" onclick="toggleMobileDrawer(false);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                        <span>Đăng nhập / Đăng ký</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="drawer-account-card drawer-account-user" id="drawer-user-card" style="display:none;">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap drawer-avatar-initial" id="drawer-user-initial">K</div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title" id="drawer-user-name">Khách</span>
+                        <span class="drawer-account-sub" id="drawer-user-role">Sinh viên HCMUS</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <div class="drawer-account-actions-row">
+                        <a href="/settings" class="drawer-action-btn" title="Cài đặt tài khoản" onclick="toggleMobileDrawer(false);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            <span>Cài đặt</span>
+                        </a>
+                        <button type="button" class="drawer-action-btn drawer-action-btn-danger" onclick="logoutCustomer(); toggleMobileDrawer(false);" title="Đăng xuất">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>Thoát</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-drawer-body">
+            <button type="button" class="drawer-item" onclick="toggleTheme();">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <span>Chế độ giao diện:</span>
+                <strong id="theme-status-mobile" style="margin-left:auto; color:var(--accent-text);">Sáng</strong>
+            </button>
+
+            <p class="drawer-section-title">Các trang hệ thống</p>
+            <a href="/" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
                 <span>Giới thiệu Trạm</span>
             </a>
-            <a href="/shop" class="drawer-nav-item active-nav">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <a href="/shop" class="drawer-item" style="color:var(--accent-text); font-weight:700;" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                 <span>Cửa hàng &amp; Thuê Gear</span>
             </a>
-            <a href="/cart" class="drawer-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <a href="/cart" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                 <span>Giỏ hàng &amp; Lịch hẹn</span>
             </a>
-            <a href="/settings" class="drawer-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <button type="button" class="drawer-item" onclick="openCustomerPortal('track'); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Tra cứu lịch hẹn</span>
+            </button>
+            <a href="/settings" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                 <span>Hồ sơ &amp; Cài đặt SV</span>
             </a>
-        </nav>
+            <button type="button" class="drawer-item" onclick="toggleAiChat(true); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>Trợ lý Kỹ thuật AI</span>
+            </button>
+        </div>
     </aside>
 
     <!-- PRODUCT DETAIL MAIN CONTAINER -->
@@ -345,27 +412,24 @@
         </div>
     </footer>
 
-    <!-- AI CHAT DRAWER -->
-    <button class="ai-fab-btn" id="ai-fab-btn" onclick="toggleAiChat()" title="Hỏi Trợ lý AI GearHub" aria-label="Mở Trợ lý AI">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-        <span class="ai-fab-label">Tư vấn GearHub AI</span>
-        <span class="ai-online-dot"></span>
-    </button>
+    <!-- FLOATING AI CONSULTANT WIDGET -->
+    <div class="ai-chat-widget" id="ai-chat-widget" data-ui>
+        <button type="button" class="ai-chat-trigger" id="ai-chat-btn" onclick="toggleAiChat()" title="Trợ lý AI tư vấn thiết bị" aria-label="Mở Trợ lý AI">
+            <span class="ai-trigger-pulse"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Tư vấn GearHub AI</span>
+        </button>
 
-    <div class="ai-chat-drawer-backdrop" id="ai-chat-backdrop" onclick="toggleAiChat(false)"></div>
-    <div class="ai-chat-drawer" id="ai-chat-drawer" aria-label="Hộp thoại tư vấn AI">
-        <div class="ai-chat-container">
+        <div class="ai-chat-window" id="ai-chat-window" role="dialog" aria-label="Hộp thoại tư vấn AI">
             <div class="ai-chat-header">
-                <div class="ai-chat-header-title">
-                    <span class="ai-avatar-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="20" height="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M13 8l-4 5h3l-1 4 4-5h-3l1-4z" fill="currentColor"></path></svg>
-                    </span>
+                <div class="ai-chat-header-info">
+                    <span class="ai-avatar">GH</span>
                     <div>
                         <strong style="display:block; font-size:0.9375rem;">Trợ lý Kỹ thuật GearHub AI</strong>
                         <span style="font-size:0.75rem; color:var(--accent-text);"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Đang trực tuyến · Tư vấn máy tính sinh viên</span>
                     </div>
                 </div>
-                <button class="ai-chat-close" onclick="toggleAiChat()">&times;</button>
+                <button type="button" class="ai-chat-close" onclick="toggleAiChat(false)" aria-label="Đóng chat">&times;</button>
             </div>
 
             <div class="ai-chat-messages" id="ai-chat-messages">
@@ -391,10 +455,11 @@
     <div id="toast-container"></div>
 
     <!-- SCRIPTS -->
-    <script src="js/utils.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/customerPortal.js"></script>
-    <script src="js/aiChat.js"></script>
-    <script src="js/product.js"></script>
+    <script src="/js/catalogFilter.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/cart.js"></script>
+    <script src="/js/customerPortal.js"></script>
+    <script src="/js/aiChat.js"></script>
+    <script src="/js/product.js"></script>
 </body>
 </html>

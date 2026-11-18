@@ -1183,37 +1183,50 @@ function clearQrSessionTimers() {
 
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', async () => {
+    const hasCatalog = Boolean(document.getElementById('product-list'));
     initScrollReveal();
-    hydrateFiltersFromUrl();
-    renderSkeletonCards();
 
-    await Promise.all([
-      loadProducts(),
-      typeof updateCart === 'function' ? updateCart() : Promise.resolve(),
-      typeof checkAuthState === 'function' ? checkAuthState() : Promise.resolve(),
-      typeof loadWishlistState === 'function' ? loadWishlistState() : Promise.resolve()
-    ]);
+    if (hasCatalog) {
+      hydrateFiltersFromUrl();
+      renderSkeletonCards();
 
-    // Sync bench basePrice with loaded catalog if present
-    BENCH_MODELS.forEach((m) => {
-      const found =
-        allProducts.find((p) => String(p.id) === String(m.id)) ||
-        allProducts.find((p) => p.name.toLowerCase().includes(m.name.toLowerCase()));
-      if (found && Number(found.price) > 0) {
-        m.id = found.id;
-        m.basePrice = Number(found.price);
-      }
-    });
-    updateBenchDisplay();
-    updateBrandCountBadges();
+      await Promise.all([
+        loadProducts(),
+        typeof updateCart === 'function' ? updateCart() : Promise.resolve(),
+        typeof checkAuthState === 'function' ? checkAuthState() : Promise.resolve(),
+        typeof loadWishlistState === 'function' ? loadWishlistState() : Promise.resolve()
+      ]);
+
+      // Sync bench basePrice with loaded catalog if present
+      BENCH_MODELS.forEach((m) => {
+        const found =
+          allProducts.find((p) => String(p.id) === String(m.id)) ||
+          allProducts.find((p) => p.name.toLowerCase().includes(m.name.toLowerCase()));
+        if (found && Number(found.price) > 0) {
+          m.id = found.id;
+          m.basePrice = Number(found.price);
+        }
+      });
+      updateBenchDisplay();
+      updateBrandCountBadges();
+    } else {
+      await Promise.all([
+        typeof updateCart === 'function' ? updateCart() : Promise.resolve(),
+        typeof checkAuthState === 'function' ? checkAuthState() : Promise.resolve(),
+        typeof loadWishlistState === 'function' ? loadWishlistState() : Promise.resolve()
+      ]);
+    }
 
     // Auto-open Customer Self-Service Portal when visiting /customer-portal or ?portal=1
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       if (window.location.pathname === '/customer-portal' || urlParams.get('portal') === '1') {
         const requestedTab = urlParams.get('tab') || 'track';
+        const orderId = urlParams.get('orderId');
+        const phone = urlParams.get('phone');
+        const prefill = orderId ? { orderId, phone: phone || '' } : null;
         if (typeof openCustomerPortal === 'function') {
-          openCustomerPortal(requestedTab);
+          openCustomerPortal(requestedTab, prefill);
         }
       }
     }
@@ -1261,7 +1274,12 @@ if (typeof document !== 'undefined') {
       searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
-          scrollToCatalog();
+          if (hasCatalog) {
+            scrollToCatalog();
+          } else if (typeof window !== 'undefined') {
+            const q = searchInput.value.trim();
+            window.location.href = q ? '/shop?q=' + encodeURIComponent(q) : '/shop';
+          }
         }
         if (e.key === 'Escape') {
           searchInput.blur();
@@ -1302,7 +1320,7 @@ if (typeof document !== 'undefined') {
       }
     });
 
-    if (typeof window !== 'undefined') {
+    if (hasCatalog && typeof window !== 'undefined') {
       window.addEventListener('popstate', () => {
         hydrateFiltersFromUrl();
         renderProductList();

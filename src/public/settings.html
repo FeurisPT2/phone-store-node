@@ -712,7 +712,6 @@
             }
         }
     </style>
-    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
 
@@ -823,7 +822,7 @@
                     <span>Giao Diện &amp; Theme</span>
                 </button>
                 <div class="nav-separator"></div>
-                <a href="/customer-portal" class="nav-tab-item">
+                <a href="/customer-portal?tab=orders" class="nav-tab-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                         <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -937,7 +936,7 @@
                     <div class="theme-options-grid">
                         <div class="theme-card" id="card-theme-light" onclick="chooseTheme('light')">
                             <div class="theme-card-header">
-                                <span>Theme Sáng ("Sang")</span>
+                                <span>Theme Sáng ("Sáng")</span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                                     <circle cx="12" cy="12" r="5"></circle>
                                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -1021,7 +1020,12 @@
         }
 
         function renderCustomerData(cust) {
-            document.getElementById('panel-guest-gate').style.display = 'none';
+            document.getElementById('section-settings-hero').style.display = '';
+            const gate = document.getElementById('panel-guest-gate');
+            if (gate) {
+                gate.classList.remove('active');
+                gate.style.display = '';
+            }
             document.getElementById('panel-profile').classList.add('active');
 
             // Render Hero
@@ -1053,19 +1057,26 @@
         function showGuestGate() {
             document.getElementById('section-settings-hero').style.display = 'none';
             document.querySelectorAll('.settings-panel-card').forEach(p => p.classList.remove('active'));
-            document.getElementById('panel-guest-gate').classList.add('active');
-            document.getElementById('panel-guest-gate').style.display = 'block';
+            const gate = document.getElementById('panel-guest-gate');
+            if (gate) {
+                gate.style.display = '';
+                gate.classList.add('active');
+            }
         }
 
         function switchSettingsTab(tabName) {
             document.querySelectorAll('.nav-tab-item').forEach(btn => {
-                if (btn.getAttribute('data-tab') === tabName) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+                btn.classList.toggle('active', btn.getAttribute('data-tab') === tabName);
             });
             document.querySelectorAll('.settings-panel-card').forEach(p => p.classList.remove('active'));
+            if (!currentCustomer && (tabName === 'profile' || tabName === 'security')) {
+                const gate = document.getElementById('panel-guest-gate');
+                if (gate) {
+                    gate.style.display = '';
+                    gate.classList.add('active');
+                }
+                return;
+            }
             const target = document.getElementById('panel-' + tabName);
             if (target) target.classList.add('active');
         }

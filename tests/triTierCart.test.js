@@ -121,4 +121,41 @@ describe('Seam 2: Tri-Tier Cart Partition, Subtotal & Zero-Deposit Policy', () =
     assert.equal(elements['cart-grand-total'].innerText, '104.000 ₫');
     delete global.document;
   });
+
+  test('buildBookingAddress and stripSlotPrefix prevent dangling separators and duplicate slot prefixes', () => {
+    assert.equal(
+      CartLogic.buildBookingAddress('Ca sáng: 08:30 – 10:00 (Sảnh I)', ''),
+      'Trạm Sảnh I ĐHKHTN (Ca sáng: 08:30 – 10:00 (Sảnh I))'
+    );
+    assert.equal(
+      CartLogic.buildBookingAddress(
+        'Ca chiều (Sảnh I)',
+        '[Khung giờ: Ca sáng (Sảnh I)] - [Khung giờ: Ca trưa] - KTX Khu B'
+      ),
+      '[Khung giờ: Ca chiều (Sảnh I)] - KTX Khu B'
+    );
+    assert.equal(CartLogic.stripSlotPrefix('[Khung giờ: Ca A] - Phòng I102'), 'Phòng I102');
+  });
+
+  test('renderCartPage renders empty cart message when cart is empty and no order was just placed', () => {
+    const elements = {
+      'cart-page-items': { innerHTML: '' },
+      'cart-page-count': { innerText: '' },
+      'btn-order-submit': { disabled: false, innerText: '', style: {} },
+      'cart-bottom-actions': { style: {} },
+      'summary-subtotal': { innerText: '' },
+      'cart-grand-total': { innerText: '' },
+      'cart-order-sidebar': { style: {} },
+      'cart-page-grid': { classList: { add: () => {}, remove: () => {} } }
+    };
+    global.document = {
+      getElementById: (id) => elements[id] || null,
+      querySelector: () => null,
+      querySelectorAll: () => []
+    };
+    CartLogic.renderCartPage([], 0);
+    assert.match(elements['cart-page-items'].innerHTML, /Giỏ hàng của bạn đang trống/);
+    assert.equal(elements['cart-page-count'].innerText, '0 mục');
+    delete global.document;
+  });
 });

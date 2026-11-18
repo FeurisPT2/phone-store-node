@@ -25,8 +25,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 
     <!-- CSS Thiết Kế Hệ Thống & Landing Page -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/about.css">
     <style>
         /* Force reveal for capture when hash contains figmacapture */
         :is(:root:has(:target), html) [data-reveal] {
@@ -43,7 +43,6 @@
             });
         }
     </script>
-    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body class="editorial-mode">
 
@@ -521,12 +520,15 @@
         </div>
     </div>
 
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
     <!-- CLIENT JAVASCRIPT MODULES -->
-    <script src="js/catalogFilter.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/customerPortal.js"></script>
-    <script src="js/aiChat.js"></script>
+    <script src="/js/catalogFilter.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/cart.js"></script>
+    <script src="/js/customerPortal.js"></script>
+    <script src="/js/aiChat.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof updateThemeUI === 'function') {

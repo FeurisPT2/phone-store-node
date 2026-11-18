@@ -3,6 +3,29 @@
 // Handles tri-tier partitions, mini-cart hover dropdown, and dedicated /cart page
 // ============================================================================
 
+let lastPlacedOrder = null;
+
+function escCart(v) {
+  if (typeof escapeHtml === 'function') return escapeHtml(v);
+  return String(v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function stripSlotPrefix(addr) {
+  return String(addr || '').replace(/^(?:\[Khung giờ:[^\]]*\]\s*-\s*)+/i, '').trim();
+}
+
+function buildBookingAddress(hallSlot, rawBaseAddress) {
+  const cleanBase = stripSlotPrefix(rawBaseAddress);
+  if (hallSlot && cleanBase) return `[Khung giờ: ${hallSlot}] - ${cleanBase}`;
+  if (hallSlot) return `Trạm Sảnh I ĐHKHTN (${hallSlot})`;
+  return cleanBase || 'Trạm Sảnh I ĐHKHTN (227 Nguyễn Văn Cừ, Q.5)';
+}
+
 async function addToCart(productId, openAfter = false) {
   try {
     const res = await fetch('/api/cart/add', {
@@ -12,6 +35,7 @@ async function addToCart(productId, openAfter = false) {
     });
     const data = await res.json();
     if (data.success) {
+      lastPlacedOrder = null;
       await updateCart();
       if (typeof showToast === 'function') {
         showToast('Đã thêm sản phẩm vào giỏ hàng', 'success');
@@ -196,19 +220,71 @@ function renderCartPage(cart, total) {
     if (sidebar) sidebar.style.display = 'none';
     if (grid && grid.classList) grid.classList.add('is-empty');
 
-    container.innerHTML = `
-      <div class="cart-empty-page" style="padding: 3.5rem 1.5rem; text-align: center; background: var(--surface-raised); border-radius: var(--radius-md); border: 1px dashed var(--border); color: var(--muted);">
-        <svg style="margin: 0 auto 1.25rem; color: var(--muted); opacity: 0.5;" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        <h3 style="font-size: 1.2rem; color: var(--ink); margin-bottom: 0.5rem; font-weight: 700;">Giỏ hàng của bạn đang trống</h3>
-        <p style="font-size: 0.875rem; margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-          Bạn chưa chọn gói dịch vụ vệ sinh laptop hay thiết bị mượn nào. Hãy khám phá các giải pháp học tập tại Trạm Sảnh I.
-        </p>
-        <a href="/shop" class="cta-btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.6rem; text-decoration: none; border-radius: var(--radius-sm); font-weight: 700;">
-          <span>Khám phá Cửa hàng ngay</span>
-          <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-    `;
+    if (lastPlacedOrder && lastPlacedOrder.id) {
+      const info = lastPlacedOrder.customerInfo || {};
+      const safeId = escCart(lastPlacedOrder.id);
+      const trackHref = `/customer-portal?tab=track&orderId=${encodeURIComponent(lastPlacedOrder.id)}&phone=${encodeURIComponent(info.phone || '')}`;
+      container.innerHTML = `
+        <div class="cart-booking-success" style="padding: 2.25rem 1.75rem; background: var(--surface); border: 1.5px solid #16a34a; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+          <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1.25rem;">
+            <span style="width:44px; height:44px; border-radius:999px; background:#dcfce7; color:#15803d; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+            <div>
+              <h3 style="font-size:1.2rem; font-weight:800; color:var(--ink); margin:0;">Đặt Lịch Hẹn Tại Sảnh I Thành Công!</h3>
+              <p style="font-size:0.875rem; color:var(--muted); margin-top:2px;">Vui lòng mang máy và Thẻ Sinh Viên đến quầy kỹ thuật đúng khung giờ đã hẹn.</p>
+            </div>
+          </div>
+
+          <div style="padding:1rem 1.15rem; background:var(--surface-raised); border:1px solid var(--border); border-radius:var(--radius-sm); display:grid; gap:0.55rem; font-size:0.9rem; margin-bottom:1.25rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <span style="color:var(--muted);">Mã đơn hẹn:</span>
+              <div style="display:inline-flex; align-items:center; gap:0.5rem;">
+                <strong class="tabular" style="font-size:1.05rem; color:var(--accent-text);">#${safeId}</strong>
+                <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard('${String(lastPlacedOrder.id).replace(/'/g, "\\'")}', 'Mã đơn')">Sao chép</button>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+              <span style="color:var(--muted);">Sinh viên:</span>
+              <strong style="color:var(--ink);">${escCart(info.fullName || '')} (${escCart(info.phone || '')})</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+              <span style="color:var(--muted);">Địa điểm &amp; Ca hẹn:</span>
+              <strong style="color:var(--ink); text-align:right;">${escCart(info.address || 'Trạm Sảnh I ĐHKHTN')}</strong>
+            </div>
+            ${info.note ? `<div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;"><span style="color:var(--muted);">Ghi chú / MSSV:</span><span style="color:var(--ink); text-align:right;">${escCart(info.note)}</span></div>` : ''}
+            <div style="display:flex; justify-content:space-between; gap:1rem; padding-top:0.5rem; border-top:1px solid var(--border);">
+              <span style="color:var(--muted);">Thanh toán khi hoàn tất (COD):</span>
+              <strong class="tabular" style="font-size:1.05rem; color:var(--ink);">${fmt(lastPlacedOrder.totalAmount || 0)}</strong>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+            <a href="${trackHref}" class="cta-btn-primary" style="display:inline-flex; align-items:center; gap:8px; padding:0.75rem 1.35rem; text-decoration:none; border-radius:var(--radius-sm); font-weight:700;">
+              <span>Tra cứu tiến trình lịch hẹn</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a href="/shop" class="btn-continue-shopping" style="display:inline-flex; align-items:center; gap:6px; font-size:0.875rem; font-weight:600; color:var(--ink); text-decoration:none; padding:0.75rem 1.25rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface);">
+              Tiếp tục khám phá Cửa hàng
+            </a>
+          </div>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `
+        <div class="cart-empty-page" style="padding: 3.5rem 1.5rem; text-align: center; background: var(--surface-raised); border-radius: var(--radius-md); border: 1px dashed var(--border); color: var(--muted);">
+          <svg style="margin: 0 auto 1.25rem; color: var(--muted); opacity: 0.5;" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <h3 style="font-size: 1.2rem; color: var(--ink); margin-bottom: 0.5rem; font-weight: 700;">Giỏ hàng của bạn đang trống</h3>
+          <p style="font-size: 0.875rem; margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+            Bạn chưa chọn gói dịch vụ vệ sinh laptop hay thiết bị mượn nào. Hãy khám phá các giải pháp học tập tại Trạm Sảnh I.
+          </p>
+          <a href="/shop" class="cta-btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.6rem; text-decoration: none; border-radius: var(--radius-sm); font-weight: 700;">
+            <span>Khám phá Cửa hàng ngay</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      `;
+    }
 
     if (bottomActions) bottomActions.style.display = 'none';
 
@@ -337,7 +413,7 @@ function renderCartPage(cart, total) {
   const grandTotalEl = document.getElementById('cart-grand-total');
   if (grandTotalEl) grandTotalEl.innerText = fmt(grandTotal);
 
-  const qrAmountEl = document.getElementById('qr-amount');
+  const qrAmountEl = document.getElementById('qr-amount') || document.getElementById('qr-amount-display');
   if (qrAmountEl) qrAmountEl.innerText = fmt(grandTotal);
 
   if (submitBtn) {
@@ -353,9 +429,11 @@ function renderCartPage(cart, total) {
     const cName = document.getElementById('c-name');
     const cPhone = document.getElementById('c-phone');
     const cAddr = document.getElementById('c-address');
+    const cNote = document.getElementById('c-note');
     if (cName && !cName.value) cName.value = user.fullName || '';
     if (cPhone && !cPhone.value) cPhone.value = user.phone || '';
-    if (cAddr && !cAddr.value) cAddr.value = user.address || '';
+    if (cAddr && !cAddr.value) cAddr.value = stripSlotPrefix(user.address);
+    if (cNote && !cNote.value) cNote.value = user.note || '';
   }
 
   const orderForm = document.getElementById('order-form');
@@ -572,9 +650,11 @@ async function openCartModal() {
       const cName = document.getElementById('c-name');
       const cPhone = document.getElementById('c-phone');
       const cAddr = document.getElementById('c-address');
+      const cNote = document.getElementById('c-note');
       if (cName) cName.value = user.fullName || '';
       if (cPhone) cPhone.value = user.phone || '';
-      if (cAddr) cAddr.value = user.address || '';
+      if (cAddr) cAddr.value = stripSlotPrefix(user.address);
+      if (cNote && !cNote.value) cNote.value = user.note || '';
       const hint = document.getElementById('remember-hint');
       if (hint) hint.style.display = 'inline';
     }
@@ -622,7 +702,7 @@ async function handlePlaceOrder(e) {
   const baseAddress = document.getElementById('c-address')?.value.trim() || '';
   const baseNote = document.getElementById('c-note')?.value.trim() || '';
 
-  const combinedAddress = hallSlot ? `[Khung giờ: ${hallSlot}] - ${baseAddress}` : baseAddress;
+  const combinedAddress = buildBookingAddress(hallSlot, baseAddress);
   const combinedNote = studentId ? `MSSV: ${studentId}${baseNote ? ' · ' + baseNote : ''}` : baseNote;
 
   const payload = {
@@ -643,6 +723,19 @@ async function handlePlaceOrder(e) {
     const data = await res.json();
 
     if (data.success) {
+      if (data.paymentMethod !== 'qr') {
+        lastPlacedOrder = data.order || {
+          id: data.orderId,
+          totalAmount: Number(data.totalAmount) || 0,
+          paymentMethod: 'cod',
+          customerInfo: {
+            fullName: payload.fullName,
+            phone: payload.phone,
+            address: payload.address,
+            note: payload.note
+          }
+        };
+      }
       if (typeof closeModal === 'function') {
         closeModal('cart-modal');
       }
@@ -667,7 +760,7 @@ async function handlePlaceOrder(e) {
         if (typeof showToast === 'function') {
           showToast('Đặt lịch hẹn GearHub thành công! Mã đơn: #' + data.orderId, 'success');
         }
-        if (typeof openCustomerPortal === 'function') {
+        if (typeof openCustomerPortal === 'function' && document.getElementById('customer-portal-modal')) {
           openCustomerPortal('track', { orderId: data.orderId, phone: payload.phone });
         }
       }
@@ -703,6 +796,8 @@ if (typeof module !== 'undefined' && module.exports) {
     selectPaymentMethodUI,
     renderCartDropdownFlyout,
     renderCartPage,
-    clearFullCart
+    clearFullCart,
+    stripSlotPrefix,
+    buildBookingAddress
   };
 }

@@ -88,4 +88,27 @@ describe('Seam 1: HTTP Streamlined Routing & Navigation Indicators', () => {
     assert.ok(body.includes('pdp-tabs-section'), 'Product page must contain pdp-tabs-section');
     assert.match(body, /<a href="\/shop" class="top-nav-link active-nav">Cửa hàng<\/a>/);
   });
+
+  test('GET /product/:id uses root-relative assets, synced AI chat window, and no external capture script', async () => {
+    const res = await fetch(`${baseUrl}/product/gearhub_clean_cool`);
+    assert.equal(res.status, 200);
+    const body = await res.text();
+    assert.ok(body.includes('href="/css/product.css"'), 'Must use root-relative /css/product.css');
+    assert.ok(body.includes('src="/js/product.js"'), 'Must use root-relative /js/product.js');
+    assert.ok(body.includes('id="ai-chat-window"'), 'Must use standard #ai-chat-window widget');
+    assert.ok(body.includes('id="toast-container"'), 'Must include #toast-container');
+    assert.ok(!body.includes('mcp.figma.com'), 'Must not include external Figma capture script');
+  });
+
+  test('GET /cart uses id="c-note" for machine notes, toast container, and valid AI chat form', async () => {
+    const res = await fetch(`${baseUrl}/cart`);
+    assert.equal(res.status, 200);
+    const body = await res.text();
+    assert.ok(body.includes('id="c-note"'), 'Notes textarea must use id="c-note"');
+    assert.ok(!body.includes('<textarea id="c-address"'), 'Must not reuse id="c-address" on machine notes textarea');
+    assert.ok(body.includes('id="toast-container"'), 'Cart page must include #toast-container');
+    assert.ok(body.includes('id="ai-chat-form"'), 'Cart page must include #ai-chat-form');
+    assert.ok(!body.includes('sendAiMessage()'), 'Cart page must not call undefined sendAiMessage()');
+    assert.ok(!body.includes('mcp.figma.com'), 'Cart page must not include external Figma capture script');
+  });
 });
