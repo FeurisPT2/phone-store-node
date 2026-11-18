@@ -4,6 +4,7 @@
 
 let currentProduct = null;
 let allCatalog = [];
+let selectedRentalQty = 1;
 
 const SPEC_DICTIONARY = {
   type: 'Hạng mục thực hiện',
@@ -164,6 +165,9 @@ function renderProductDetails(p) {
     unitEl.textContent = p.unit ? `Đơn vị tính: Theo ${p.unit}` : 'Bảo hành 7 ngày';
   }
 
+  selectedRentalQty = 1;
+  renderRentalPlanSelector(p, catMeta.key === 'rental');
+
   // 6. Action Button Wiring
   const btnBuy = document.getElementById('pdp-btn-buy');
   const btnCart = document.getElementById('pdp-btn-cart');
@@ -189,7 +193,7 @@ function renderProductDetails(p) {
     }
     btnBuy.onclick = () => {
       if (typeof buyNow === 'function') {
-        buyNow(p.id);
+        buyNow(p.id, selectedRentalQty);
       } else {
         window.location.href = `/cart?buyNow=${p.id}`;
       }
@@ -199,7 +203,7 @@ function renderProductDetails(p) {
   if (btnCart) {
     btnCart.onclick = () => {
       if (typeof addToCart === 'function') {
-        addToCart(p.id);
+        addToCart(p.id, false, selectedRentalQty);
       }
     };
   }
@@ -212,6 +216,88 @@ function renderProductDetails(p) {
 
   // 9. Sync Wishlist Button State
   syncWishlistBtn(p.id);
+}
+
+function renderRentalPlanSelector(p, isRental) {
+  const existing = document.getElementById('pdp-rental-plan-box');
+  if (!isRental) {
+    if (existing) existing.remove();
+    return;
+  }
+
+  const pricingCard = document.querySelector('.pdp-pricing-card');
+  if (!pricingCard) return;
+
+  let box = existing;
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'pdp-rental-plan-box';
+    box.style.cssText = 'margin-top:0.9rem; padding-top:0.85rem; border-top:1px dashed var(--border);';
+    pricingCard.appendChild(box);
+  }
+
+  const unitPrice = Number(p.price) || 0;
+  const plans = [
+    { qty: 1, title: 'Thuê 1 ngày', sub: formatVnd(unitPrice) },
+    { qty: 3, title: 'Combo 3 ngày', sub: formatVnd(unitPrice * 3) },
+    { qty: 5, title: 'Gói 1 Tuần (-28%)', sub: `${formatVnd(unitPrice * 5)} · Tặng 2 ngày T7-CN` }
+  ];
+
+  box.innerHTML = `
+    <div style="font-size:0.8rem; font-weight:700; color:var(--ink); margin-bottom:0.5rem;">Chọn nhanh gói thời gian thuê:</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:8px;">
+      ${plans
+        .map(
+          (pl) => `
+        <button type="button" class="pdp-rental-plan-btn" data-qty="${pl.qty}" onclick="selectPdpRentalPlan(${pl.qty})" style="padding:0.55rem 0.65rem; border-radius:8px; text-align:left; cursor:pointer; border:1.5px solid ${pl.qty === 1 ? '#2563eb' : 'var(--border-strong)'}; background:${pl.qty === 1 ? 'rgba(37,99,235,0.08)' : 'var(--surface)'}; color:var(--ink);">
+          <div style="font-size:0.8rem; font-weight:700;">${pl.title}</div>
+          <div style="font-size:0.72rem; color:${pl.qty === 5 ? '#15803d' : 'var(--muted)'}; font-weight:${pl.qty === 5 ? '700' : '500'};">${pl.sub}</div>
+        </button>
+      `
+        )
+        .join('')}
+    </div>
+  `;
+}
+
+function selectPdpRentalPlan(qty) {
+  selectedRentalQty = Math.max(1, parseInt(qty, 10) || 1);
+  if (!currentProduct) return;
+
+  document.querySelectorAll('#pdp-rental-plan-box .pdp-rental-plan-btn').forEach((btn) => {
+    const active = Number(btn.getAttribute('data-qty')) === selectedRentalQty;
+    btn.style.border = active ? '1.5px solid #2563eb' : '1px solid var(--border-strong)';
+    btn.style.background = active ? 'rgba(37,99,235,0.08)' : 'var(--surface)';
+  });
+
+  const priceEl = document.getElementById('pdp-price');
+  const oldPriceEl = document.getElementById('pdp-old-price');
+  const discountPill = document.getElementById('pdp-discount-pill');
+  const totalPay = (Number(currentProduct.price) || 0) * selectedRentalQty;
+
+  if (priceEl) priceEl.textContent = formatVnd(totalPay);
+  if (selectedRentalQty >= 5) {
+    const fullWeek = (Number(currentProduct.price) || 0) * 7;
+    if (oldPriceEl) {
+      oldPriceEl.textContent = formatVnd(fullWeek);
+      oldPriceEl.style.display = 'inline-block';
+    }
+    if (discountPill) {
+      discountPill.textContent = `Tiết kiệm ${formatVnd(fullWeek - totalPay)} (Ưu đãi Tuần SV)`;
+      discountPill.style.display = 'inline-block';
+    }
+  } else if (currentProduct.oldPrice && currentProduct.oldPrice > currentProduct.price) {
+    const scaledOld = Number(currentProduct.oldPrice) * selectedRentalQty;
+    const discount = Math.round((1 - currentProduct.price / currentProduct.oldPrice) * 100);
+    if (oldPriceEl) {
+      oldPriceEl.textContent = formatVnd(scaledOld);
+      oldPriceEl.style.display = 'inline-block';
+    }
+    if (discountPill) {
+      discountPill.textContent = `Tiết kiệm ${formatVnd(scaledOld - totalPay)} (-${discount}%)`;
+      discountPill.style.display = 'inline-block';
+    }
+  }
 }
 
 function renderSpecsGrid(specs) {

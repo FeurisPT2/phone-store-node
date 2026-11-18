@@ -26,19 +26,58 @@ function buildBookingAddress(hallSlot, rawBaseAddress) {
   return cleanBase || 'Trạm Sảnh I ĐHKHTN (227 Nguyễn Văn Cừ, Q.5)';
 }
 
-async function addToCart(productId, openAfter = false) {
+function selectBookingDay(dayLabel, btnEl) {
+  if (typeof document === 'undefined') return;
+  const hidden = document.getElementById('c-booking-date');
+  if (hidden) hidden.value = dayLabel;
+
+  document.querySelectorAll('#booking-day-pills .booking-day-pill').forEach((btn) => {
+    const isActive = btn === btnEl || btn.getAttribute('data-day') === dayLabel;
+    btn.classList.toggle('active', isActive);
+    btn.style.border = isActive ? '1.5px solid var(--ink)' : '1px solid var(--border-strong)';
+    btn.style.background = isActive ? 'var(--ink)' : 'var(--surface)';
+    btn.style.color = isActive ? 'var(--surface)' : 'var(--ink)';
+    btn.style.fontWeight = isActive ? '700' : '600';
+  });
+
+  updateSlotAvailabilityUI();
+}
+
+function updateSlotAvailabilityUI() {
+  if (typeof document === 'undefined') return;
+  const slotEl = document.getElementById('c-hall-slot');
+  const badge = document.getElementById('slot-capacity-badge');
+  if (!slotEl || !badge) return;
+
+  const day = document.getElementById('c-booking-date')?.value || 'Hôm nay';
+  const slotVal = slotEl.value || '';
+  if (slotVal.includes('10:00') || slotVal.toLowerCase().includes('trưa')) {
+    badge.style.background = '#fffbeb';
+    badge.style.borderColor = '#fde68a';
+    badge.style.color = '#b45309';
+    badge.innerHTML = `<span>⚡ Ca trưa ${escCart(day)} sắp đầy (Còn 1/5 chỗ)</span><span class="tabular">Đặt sớm giữ bàn</span>`;
+  } else {
+    badge.style.background = '#f0fdf4';
+    badge.style.borderColor = '#bbf7d0';
+    badge.style.color = '#15803d';
+    badge.innerHTML = `<span>🟢 Bàn kỹ thuật Sảnh I sẵn sàng (${escCart(day)})</span><span class="tabular">2 KTV trực</span>`;
+  }
+}
+
+async function addToCart(productId, openAfter = false, quantity = 1) {
   try {
+    const qty = Math.max(1, parseInt(quantity, 10) || 1);
     const res = await fetch('/api/cart/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ productId })
+      body: JSON.stringify({ productId, quantity: qty })
     });
     const data = await res.json();
     if (data.success) {
       lastPlacedOrder = null;
       await updateCart();
       if (typeof showToast === 'function') {
-        showToast('Đã thêm sản phẩm vào giỏ hàng', 'success');
+        showToast(qty > 1 ? `Đã thêm gói ${qty} ngày vào lịch hẹn` : 'Đã thêm sản phẩm vào giỏ hàng', 'success');
       }
       if (openAfter) {
         window.location.href = '/cart';
@@ -51,8 +90,8 @@ async function addToCart(productId, openAfter = false) {
   }
 }
 
-async function buyNow(productId) {
-  await addToCart(productId, true);
+async function buyNow(productId, quantity = 1) {
+  await addToCart(productId, true, quantity);
 }
 
 async function updateCartQty(productId, newQty) {
@@ -225,37 +264,53 @@ function renderCartPage(cart, total) {
       const safeId = escCart(lastPlacedOrder.id);
       const trackHref = `/customer-portal?tab=track&orderId=${encodeURIComponent(lastPlacedOrder.id)}&phone=${encodeURIComponent(info.phone || '')}`;
       container.innerHTML = `
-        <div class="cart-booking-success" style="padding: 2.25rem 1.75rem; background: var(--surface); border: 1.5px solid #16a34a; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+        <div class="cart-booking-success" style="padding: 2rem 1.75rem; background: var(--surface); border: 1.5px solid #16a34a; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
           <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1.25rem;">
             <span style="width:44px; height:44px; border-radius:999px; background:#dcfce7; color:#15803d; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </span>
             <div>
-              <h3 style="font-size:1.2rem; font-weight:800; color:var(--ink); margin:0;">Đặt Lịch Hẹn Tại Sảnh I Thành Công!</h3>
+              <h3 style="font-size:1.2rem; font-weight:800; color:var(--ink); margin:0;">Phiếu Hẹn Điện Tử GearHub Sảnh I</h3>
               <p style="font-size:0.875rem; color:var(--muted); margin-top:2px;">Vui lòng mang máy và Thẻ Sinh Viên đến quầy kỹ thuật đúng khung giờ đã hẹn.</p>
             </div>
           </div>
 
-          <div style="padding:1rem 1.15rem; background:var(--surface-raised); border:1px solid var(--border); border-radius:var(--radius-sm); display:grid; gap:0.55rem; font-size:0.9rem; margin-bottom:1.25rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-              <span style="color:var(--muted);">Mã đơn hẹn:</span>
-              <div style="display:inline-flex; align-items:center; gap:0.5rem;">
-                <strong class="tabular" style="font-size:1.05rem; color:var(--accent-text);">#${safeId}</strong>
-                <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard('${String(lastPlacedOrder.id).replace(/'/g, "\\'")}', 'Mã đơn')">Sao chép</button>
+          <!-- 4-step Station Progress -->
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:1.25rem; font-size:0.75rem;">
+            <div style="padding:0.5rem 0.55rem; border-radius:6px; background:#dcfce7; color:#15803d; font-weight:700; text-align:center; border:1px solid #86efac;">1. Tiếp nhận hẹn ✓</div>
+            <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--ink); font-weight:600; text-align:center; border:1px solid var(--border);">2. Vệ sinh / Soạn gear</div>
+            <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--muted); text-align:center; border:1px solid var(--border);">3. Sẵn sàng Sảnh I</div>
+            <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--muted); text-align:center; border:1px solid var(--border);">4. Bàn giao &amp; BH 7d</div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center; padding:1.1rem 1.15rem; background:var(--surface-raised); border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:1.25rem;">
+            <div style="display:grid; gap:0.55rem; font-size:0.9rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                <span style="color:var(--muted);">Mã check-in:</span>
+                <div style="display:inline-flex; align-items:center; gap:0.5rem;">
+                  <strong class="tabular" style="font-size:1.05rem; color:var(--accent-text);">#${safeId}</strong>
+                  <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard('${String(lastPlacedOrder.id).replace(/'/g, "\\'")}', 'Mã đơn')">Sao chép</button>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+                <span style="color:var(--muted);">Sinh viên:</span>
+                <strong style="color:var(--ink);">${escCart(info.fullName || '')} (${escCart(info.phone || '')})</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+                <span style="color:var(--muted);">Ngày &amp; Ca hẹn:</span>
+                <strong style="color:var(--ink); text-align:right;">${escCart(info.address || 'Trạm Sảnh I ĐHKHTN')}</strong>
+              </div>
+              ${info.note ? `<div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;"><span style="color:var(--muted);">Ghi chú / MSSV:</span><span style="color:var(--ink); text-align:right;">${escCart(info.note)}</span></div>` : ''}
+              <div style="display:flex; justify-content:space-between; gap:1rem; padding-top:0.5rem; border-top:1px solid var(--border);">
+                <span style="color:var(--muted);">Thanh toán tại Sảnh I (COD):</span>
+                <strong class="tabular" style="font-size:1.05rem; color:var(--ink);">${fmt(lastPlacedOrder.totalAmount || 0)}</strong>
               </div>
             </div>
-            <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-              <span style="color:var(--muted);">Sinh viên:</span>
-              <strong style="color:var(--ink);">${escCart(info.fullName || '')} (${escCart(info.phone || '')})</strong>
-            </div>
-            <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-              <span style="color:var(--muted);">Địa điểm &amp; Ca hẹn:</span>
-              <strong style="color:var(--ink); text-align:right;">${escCart(info.address || 'Trạm Sảnh I ĐHKHTN')}</strong>
-            </div>
-            ${info.note ? `<div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;"><span style="color:var(--muted);">Ghi chú / MSSV:</span><span style="color:var(--ink); text-align:right;">${escCart(info.note)}</span></div>` : ''}
-            <div style="display:flex; justify-content:space-between; gap:1rem; padding-top:0.5rem; border-top:1px solid var(--border);">
-              <span style="color:var(--muted);">Thanh toán khi hoàn tất (COD):</span>
-              <strong class="tabular" style="font-size:1.05rem; color:var(--ink);">${fmt(lastPlacedOrder.totalAmount || 0)}</strong>
+
+            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.75rem; background:#ffffff; border:1px solid var(--border); border-radius:var(--radius-sm); text-align:center; min-width:128px;">
+              <img src="/images/qr-booking.svg" alt="Mã QR Check-in Sảnh I" width="96" height="96" style="display:block; border-radius:4px;">
+              <span class="tabular" style="margin-top:6px; font-size:0.72rem; font-weight:800; color:#0f172a; letter-spacing:0.03em;">CHECK-IN #${safeId}</span>
+              <span style="font-size:0.68rem; color:#475569;">Đưa tại bàn Sảnh I</span>
             </div>
           </div>
 
@@ -317,27 +372,42 @@ function renderCartPage(cart, total) {
     grandTotal
   } = partitionCartTiers(cart);
 
-  const renderPageItemRow = (i) => `
-    <div class="cart-item">
-      <div class="cart-item-info">
-        <img class="cart-item-img" src="${i.image || ''}" alt="${i.name}" loading="lazy">
-        <div class="cart-item-body">
-          <div class="cart-item-title">${i.name}</div>
-          <div class="cart-item-price">
-            ${fmt(i.price)} &times; ${i.quantity} = <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(i.price * i.quantity)}</strong>
+  const renderPageItemRow = (i, isRental = false) => {
+    const qty = Number(i.quantity) || 1;
+    const rentalPills = isRental
+      ? `
+        <div class="cart-rental-plans" style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-top:6px;">
+          <button type="button" onclick="updateCartQty('${i.id}', 1)" style="padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; cursor:pointer; border:1px solid ${qty === 1 ? 'var(--ink)' : 'var(--border-strong)'}; background:${qty === 1 ? 'var(--ink)' : 'var(--surface)'}; color:${qty === 1 ? 'var(--surface)' : 'var(--ink)'};">1 ngày</button>
+          <button type="button" onclick="updateCartQty('${i.id}', 3)" style="padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; cursor:pointer; border:1px solid ${qty === 3 ? 'var(--ink)' : 'var(--border-strong)'}; background:${qty === 3 ? 'var(--ink)' : 'var(--surface)'}; color:${qty === 3 ? 'var(--surface)' : 'var(--ink)'};">3 ngày</button>
+          <button type="button" onclick="updateCartQty('${i.id}', 5)" style="padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:700; cursor:pointer; border:1px solid ${qty >= 5 ? '#15803d' : 'var(--border-strong)'}; background:${qty >= 5 ? '#dcfce7' : 'var(--surface)'}; color:${qty >= 5 ? '#15803d' : 'var(--ink)'};">Gói 1 Tuần (-28%)</button>
+          ${qty >= 5 ? '<span style="font-size:0.72rem; font-weight:600; color:#15803d;">🎁 Tính 5 ngày, miễn phí 2 ngày cuối tuần</span>' : ''}
+        </div>
+      `
+      : '';
+
+    return `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <img class="cart-item-img" src="${i.image || ''}" alt="${i.name}" loading="lazy">
+          <div class="cart-item-body">
+            <div class="cart-item-title">${i.name}</div>
+            <div class="cart-item-price">
+              ${fmt(i.price)} &times; ${qty}${isRental ? ' ngày' : ''} = <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(i.price * qty)}</strong>
+            </div>
+            ${rentalPills}
           </div>
         </div>
-      </div>
-      <div class="cart-item-controls">
-        <div class="cart-qty-stepper">
-          <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${i.quantity - 1})" title="Giảm số lượng" aria-label="Giảm số lượng">-</button>
-          <span class="tabular qty-count">${i.quantity}</span>
-          <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${i.quantity + 1})" title="Tăng số lượng" aria-label="Tăng số lượng">+</button>
+        <div class="cart-item-controls">
+          <div class="cart-qty-stepper">
+            <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${qty - 1})" title="${isRental ? 'Giảm số ngày' : 'Giảm số lượng'}" aria-label="Giảm">-</button>
+            <span class="tabular qty-count">${qty}</span>
+            <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${qty + 1})" title="${isRental ? 'Tăng số ngày' : 'Tăng số lượng'}" aria-label="Tăng">+</button>
+          </div>
+          <button type="button" class="btn-remove" onclick="removeCartItem('${i.id}')" title="Xóa khỏi giỏ" aria-label="Xóa sản phẩm">Xóa</button>
         </div>
-        <button type="button" class="btn-remove" onclick="removeCartItem('${i.id}')" title="Xóa khỏi giỏ" aria-label="Xóa sản phẩm">Xóa</button>
       </div>
-    </div>
-  `;
+    `;
+  };
 
   let html = '';
 
@@ -351,7 +421,7 @@ function renderCartPage(cart, total) {
           </div>
         </div>
         <div class="cart-tier-body">
-          ${serviceItems.map(renderPageItemRow).join('')}
+          ${serviceItems.map((it) => renderPageItemRow(it, false)).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
           <span>⏱️ Cam kết: Lấy liền 30-45 phút tại Sảnh I</span>
@@ -375,7 +445,7 @@ function renderCartPage(cart, total) {
           <span>Chính sách đặc quyền: <strong>0đ tiền cọc</strong> · Chỉ cần xuất trình Thẻ Sinh Viên (MSSV)</span>
         </div>
         <div class="cart-tier-body">
-          ${rentalItems.map(renderPageItemRow).join('')}
+          ${rentalItems.map((it) => renderPageItemRow(it, true)).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
           <span>🔌 Được mượn kèm cáp kết nối đầy đủ</span>
@@ -395,7 +465,7 @@ function renderCartPage(cart, total) {
           </div>
         </div>
         <div class="cart-tier-body">
-          ${retailItems.map(renderPageItemRow).join('')}
+          ${retailItems.map((it) => renderPageItemRow(it, false)).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--muted);">
           <span>📍 Nhận ngay tại bàn kỹ thuật Sảnh I</span>
@@ -441,6 +511,7 @@ function renderCartPage(cart, total) {
     orderForm.__cartBound = true;
     orderForm.addEventListener('submit', handlePlaceOrder);
   }
+  updateSlotAvailabilityUI();
 }
 
 async function updateCart() {
@@ -698,11 +769,13 @@ async function handlePlaceOrder(e) {
   const paymentMethod = rawMethod.toUpperCase() === 'BANK_QR' || rawMethod.toLowerCase() === 'qr' ? 'qr' : 'cod';
 
   const studentId = document.getElementById('c-student-id')?.value.trim() || '';
+  const bookingDate = document.getElementById('c-booking-date')?.value.trim() || '';
   const hallSlot = document.getElementById('c-hall-slot')?.value.trim() || '';
+  const effectiveSlot = bookingDate && hallSlot ? `${bookingDate} - ${hallSlot}` : (hallSlot || bookingDate);
   const baseAddress = document.getElementById('c-address')?.value.trim() || '';
   const baseNote = document.getElementById('c-note')?.value.trim() || '';
 
-  const combinedAddress = buildBookingAddress(hallSlot, baseAddress);
+  const combinedAddress = buildBookingAddress(effectiveSlot, baseAddress);
   const combinedNote = studentId ? `MSSV: ${studentId}${baseNote ? ' · ' + baseNote : ''}` : baseNote;
 
   const payload = {

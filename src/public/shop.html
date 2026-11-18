@@ -506,13 +506,18 @@
                                 <input type="text" id="c-student-id" required placeholder="VD: 22120001 (Để thuê gear hoặc nhận ưu đãi)" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <label for="c-hall-slot">Khung giờ hẹn tại sảnh trường *</label>
-                                <select id="c-hall-slot" required>
-                                    <option value="Sảnh I (227 NVC) - Ca sáng: 09:00 - 11:30">Sảnh I (227 NVC) · Ca sáng: 09:00 - 11:30</option>
-                                    <option value="Sảnh I (227 NVC) - Nghỉ trưa: 11:30 - 13:00">Sảnh I (227 NVC) · Nghỉ trưa: 11:30 - 13:00</option>
-                                    <option value="Sảnh I (227 NVC) - Ca chiều: 13:30 - 17:00">Sảnh I (227 NVC) · Ca chiều: 13:30 - 17:00</option>
-                                    <option value="KTX Khu B (ĐHQG) - Tối hẹn trước: 18:00 - 20:00">KTX Khu B (ĐHQG) · Tối hẹn trước: 18:00 - 20:00</option>
+                                <label for="c-hall-slot">Khung giờ hẹn tại Sảnh I *</label>
+                                <select id="c-hall-slot" required onchange="if(typeof updateSlotAvailabilityUI==='function')updateSlotAvailabilityUI()">
+                                    <option value="Ca sáng: 08:30 – 10:00 (Sảnh I)">Ca sáng: 08:30 – 10:00 (Sảnh I) · Còn 2/5 chỗ</option>
+                                    <option value="Ca trưa: 10:00 – 11:30 (Sảnh I)">Ca trưa: 10:00 – 11:30 (Sảnh I) · Còn 1/5 chỗ (Sắp đầy)</option>
+                                    <option value="Ca chiều: 13:30 – 15:00 (Sảnh I)">Ca chiều: 13:30 – 15:00 (Sảnh I) · Còn 4/5 chỗ</option>
+                                    <option value="Ca chiều muộn: 15:00 – 16:30 (Sảnh I)">Ca chiều muộn: 15:00 – 16:30 (Sảnh I) · Còn 3/5 chỗ</option>
+                                    <option value="Giờ tự do trong ngày (07:30 – 17:30)">Giờ tự do linh hoạt (07:30 – 17:30) · Luôn sẵn sàng</option>
                                 </select>
+                                <div id="slot-capacity-badge" style="margin-top:6px; padding:6px 10px; border-radius:6px; background:#f0fdf4; border:1px solid #bbf7d0; color:#15803d; font-size:0.75rem; font-weight:600; display:flex; align-items:center; justify-content:space-between;">
+                                    <span>🟢 Bàn kỹ thuật Sảnh I sẵn sàng tiếp nhận</span>
+                                    <span class="tabular">2 KTV trực</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

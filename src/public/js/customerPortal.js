@@ -376,10 +376,10 @@ function renderOrderTimelineTracker(order) {
   const isCancelled = status === 'cancelled';
 
   const steps = [
-    { key: 'pending', label: order.paymentMethod === 'qr' ? 'Chờ TT QR / Xác nhận' : 'Chờ xác nhận' },
-    { key: 'confirmed', label: 'Đã xác nhận' },
-    { key: 'shipping', label: 'Đang giao hàng' },
-    { key: 'completed', label: 'Hoàn thành' }
+    { key: 'pending', label: order.paymentMethod === 'qr' ? 'Chờ TT QR / Tiếp nhận' : 'Tiếp nhận lịch hẹn' },
+    { key: 'confirmed', label: 'Đang vệ sinh / Chuẩn bị gear' },
+    { key: 'shipping', label: 'Sẵn sàng tại Sảnh I' },
+    { key: 'completed', label: 'Hoàn tất &amp; BH 7 ngày' }
   ];
 
   const rankMap = {
@@ -466,6 +466,9 @@ function renderOrderTimelineTracker(order) {
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.5rem; color: var(--muted);">
           <span>Người nhận: ${escPortal(order.customerInfo?.fullName || '')} (${escPortal(order.customerInfo?.phone || '')}) · ${escPortal(order.customerInfo?.address || '')}</span>
           <strong class="tabular" style="font-size: 1rem; color: var(--accent-text);">Tổng: ${fmt(order.totalAmount)}</strong>
+        </div>
+        <div style="margin-top: 0.55rem; padding-top: 0.55rem; border-top: 1px dashed var(--border); font-size: 0.8125rem; color: var(--accent-text);">
+          📍 Check-in tại bàn kỹ thuật Sảnh I ĐHKHTN · Mang theo Thẻ SV + Mã <strong>#${escPortal(order.id)}</strong>
         </div>
       </div>
 

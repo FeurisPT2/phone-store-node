@@ -117,6 +117,7 @@ describe('Seam 2: Tri-Tier Cart Partition, Subtotal & Zero-Deposit Policy', () =
     CartLogic.renderCartPage(sampleCart, 104000);
     assert.match(elements['cart-page-items'].innerHTML, /Lịch Hẹn Dịch Vụ Vệ Sinh/);
     assert.match(elements['cart-page-items'].innerHTML, /Thiết Bị Cho Thuê/);
+    assert.match(elements['cart-page-items'].innerHTML, /Gói 1 Tuần \(-28%\)/);
     assert.equal(elements['cart-page-count'].innerText, '2 mục');
     assert.equal(elements['cart-grand-total'].innerText, '104.000 ₫');
     delete global.document;

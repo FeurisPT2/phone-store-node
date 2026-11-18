@@ -26,8 +26,8 @@ async function verifyAdminAuth() {
   try {
     const res = await fetch('/api/admin/me');
     if (res.status === 404) {
-      renderRevenueChart(['01/11', '02/11', '03/11', '04/11', '05/11', '06/11'], [28000000, 34000000, 29000000, 41000000, 32460000, 33990000]);
-      renderStatusChart([1, 2, 3, 2, 5, 1]);
+      renderRevenueChart(['13/11', '14/11', '15/11', '16/11', '17/11', '18/11'], [320000, 480000, 390000, 560000, 640000, 790000]);
+      renderStatusChart([0, 2, 1, 2, 6, 0]);
       return false;
     }
     const data = await res.json();
@@ -47,8 +47,8 @@ async function verifyAdminAuth() {
     if (avEl) avEl.innerText = name.charAt(0).toUpperCase();
     return true;
   } catch {
-    renderRevenueChart(['01/11', '02/11', '03/11', '04/11', '05/11', '06/11'], [28000000, 34000000, 29000000, 41000000, 32460000, 33990000]);
-    renderStatusChart([1, 2, 3, 2, 5, 1]);
+    renderRevenueChart(['13/11', '14/11', '15/11', '16/11', '17/11', '18/11'], [320000, 480000, 390000, 560000, 640000, 790000]);
+    renderStatusChart([0, 2, 1, 2, 6, 0]);
     return false;
   }
 }
@@ -70,10 +70,10 @@ function switchNavTab(tabName, event) {
   });
 
   const titles = {
-    dashboard: 'Tổng quan hoạt động',
-    customers: 'Khách hàng (CRM)',
-    orders: 'Đơn đặt hàng',
-    products: 'Kho sản phẩm',
+    dashboard: 'Tổng quan hoạt động Trạm Sảnh I',
+    customers: 'Hồ sơ sinh viên (CRM)',
+    orders: 'Lịch hẹn & Đơn đặt Sảnh I',
+    products: 'Dịch vụ & Thiết bị GearHub',
     settings: 'Bảo mật & Cấu hình'
   };
   const headingEl = document.getElementById('page-heading');
@@ -107,7 +107,7 @@ async function loadDashboard() {
 
     document.getElementById('kpi-revenue').innerText = formatMoney(k.totalRevenue);
     document.getElementById('kpi-orders').innerText = k.totalOrders || 0;
-    document.getElementById('kpi-pending-sub').innerText = `${pendingCount} đơn chờ xử lý`;
+    document.getElementById('kpi-pending-sub').innerText = `${pendingCount} lịch hẹn chờ xử lý`;
     document.getElementById('kpi-customers').innerText = k.totalCustomers || 0;
     document.getElementById('kpi-products').innerText = k.totalProducts || 0;
 
@@ -247,7 +247,7 @@ function renderStatusChart(counts) {
   statusChartInstance = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['Chờ TT QR', 'Chờ xác nhận', 'Đã xác nhận', 'Đang giao', 'Hoàn thành', 'Đã hủy'],
+      labels: ['Chờ TT QR', 'Tiếp nhận hẹn', 'Đang xử lý', 'Sẵn sàng Sảnh I', 'Hoàn thành', 'Đã hủy'],
       datasets: [
         {
           data: counts,
@@ -489,9 +489,9 @@ function filterOrderStatus(status) {
 function renderQuickNextActionBtn(order) {
   const map = {
     awaiting_payment: { next: 'confirmed', label: 'Xác nhận TT' },
-    pending: { next: 'confirmed', label: 'Xác nhận' },
-    confirmed: { next: 'shipping', label: 'Giao hàng' },
-    shipping: { next: 'completed', label: 'Hoàn tất' }
+    pending: { next: 'confirmed', label: 'Nhận lịch' },
+    confirmed: { next: 'shipping', label: 'Sẵn sàng Sảnh I' },
+    shipping: { next: 'completed', label: 'Bàn giao & Thu COD' }
   };
   const cfg = map[order.status];
   if (!cfg) return '';
@@ -507,7 +507,7 @@ async function quickAdvanceOrderStatus(id, nextStatus) {
     const res = await fetch(`/api/admin/orders/${id}/status`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: nextStatus, note: 'Admin chuyển nhanh trạng thái' })
+      body: JSON.stringify({ status: nextStatus, note: 'Admin cập nhật tiến độ tại Sảnh I' })
     });
     const data = await res.json();
     if (data.success) {
@@ -865,8 +865,8 @@ function handleCrawlSourceChange() {
   if (kwInput) {
     kwInput.placeholder =
       source === 'dummy'
-        ? 'DummyJSON tự động lấy danh mục smartphones quốc tế'
-        : 'VD: Ultra, Pro Max, Pixel 9...';
+        ? 'DummyJSON tự động lấy mẫu thiết bị tham khảo'
+        : 'VD: MX-4, EK75, Type-C, Chuột công thái học...';
   }
 }
 
@@ -1091,9 +1091,9 @@ function renderCustomerTag(tag) {
 function renderStatusBadge(status) {
   const map = {
     awaiting_payment: '<span class="status-badge status-awaiting_payment">Chờ TT QR</span>',
-    pending: '<span class="status-badge status-pending">Chờ xác nhận</span>',
-    confirmed: '<span class="status-badge status-confirmed">Đã xác nhận</span>',
-    shipping: '<span class="status-badge status-shipping">Đang giao</span>',
+    pending: '<span class="status-badge status-pending">Tiếp nhận hẹn</span>',
+    confirmed: '<span class="status-badge status-confirmed">Đang xử lý</span>',
+    shipping: '<span class="status-badge status-shipping">Sẵn sàng Sảnh I</span>',
     completed: '<span class="status-badge status-completed">Hoàn thành</span>',
     cancelled: '<span class="status-badge status-cancelled">Đã hủy</span>'
   };

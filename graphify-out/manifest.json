@@ -72,20 +72,20 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1794968238.2482023,
-    "seen": 1794968248.9279037,
+    "mtime": 1794969875.3861568,
+    "seen": 1794969884.8843415,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1794968238.5110104,
-    "seen": 1794968248.9279037,
+    "mtime": 1794969875.6508863,
+    "seen": 1794969884.8843415,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1794968238.3696468,
-    "seen": 1794968248.9279037,
+    "mtime": 1794969875.5180576,
+    "seen": 1794969884.8843415,
     "ast_hash": "c7919c1aa0764251eee41202951b5ab3",
     "semantic_hash": ""
   },
@@ -132,9 +132,9 @@
     "semantic_hash": "698214f182d2113f2c25e3c6d9377046"
   },
   "src/public/js/admin.js": {
-    "mtime": 1794968180.7482522,
-    "seen": 1794968248.9279037,
-    "ast_hash": "d4a1a9240840133560d4c12a18af20ae",
+    "mtime": 1794969831.9270434,
+    "seen": 1794969884.8843415,
+    "ast_hash": "7ce86323b62bdc9871ad5199da4710be",
     "semantic_hash": ""
   },
   "src/public/js/main.js": {
@@ -198,9 +198,9 @@
     "semantic_hash": ""
   },
   "src/public/admin.html": {
-    "mtime": 1794968179.4679835,
-    "seen": 1794968248.9279037,
-    "ast_hash": "58eac5576bf6a0edb1ef70db983d6298",
+    "mtime": 1794969805.0742996,
+    "seen": 1794969884.8843415,
+    "ast_hash": "f46f149655203944f739eaf53bb9e268",
     "semantic_hash": ""
   },
   "src/public/index.html": {
@@ -486,15 +486,15 @@
     "semantic_hash": ""
   },
   "src/public/js/cart.js": {
-    "mtime": 1794968084.8581524,
-    "seen": 1794968248.9279037,
-    "ast_hash": "5ed0268863395bc4bd26eacb8ec2cf9c",
+    "mtime": 1794969860.2283413,
+    "seen": 1794969884.8843415,
+    "ast_hash": "c699f4ab50f8a8604527740f2be53d9b",
     "semantic_hash": ""
   },
   "src/public/js/customerPortal.js": {
-    "mtime": 1794967970.1510575,
-    "seen": 1794968248.9279037,
-    "ast_hash": "f6acb00983d546bf0c4af71106ceffe6",
+    "mtime": 1794969750.8991764,
+    "seen": 1794969884.8843415,
+    "ast_hash": "20af51e2355fe8be686aa114bd448642",
     "semantic_hash": ""
   },
   "src/public/js/qrPayment.js": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "src/public/js/product.js": {
-    "mtime": 1794968157.7326512,
-    "seen": 1794968248.9279037,
-    "ast_hash": "b87dcf2c85cb8daf57eb75ba406c072d",
+    "mtime": 1794969747.7405696,
+    "seen": 1794969884.8843415,
+    "ast_hash": "b129fb3deaa858d8d37369beb44b903f",
     "semantic_hash": ""
   },
   "tests/designTokensContract.test.js": {
@@ -522,15 +522,15 @@
     "semantic_hash": ""
   },
   "tests/multiPageRouting.test.js": {
-    "mtime": 1794968223.3140876,
-    "seen": 1794968248.9279037,
-    "ast_hash": "fc81f2fcfe461908fbb5dea33046e4e0",
+    "mtime": 1794969862.5179615,
+    "seen": 1794969884.8843415,
+    "ast_hash": "a84017c899cf7b25701a4ec2c0c1c8f0",
     "semantic_hash": ""
   },
   "tests/triTierCart.test.js": {
-    "mtime": 1794968224.740067,
-    "seen": 1794968248.9279037,
-    "ast_hash": "b14a953d80174be470999e8a7cd8db3a",
+    "mtime": 1794969863.8056326,
+    "seen": 1794969884.8843415,
+    "ast_hash": "8c90b3292790537c70b566f1e673aed3",
     "semantic_hash": ""
   },
   "docs/adr/0011-split-landing-about-and-storefront-routing.md": {
@@ -546,9 +546,9 @@
     "semantic_hash": ""
   },
   "src/public/cart.html": {
-    "mtime": 1794968076.7569382,
-    "seen": 1794968248.9279037,
-    "ast_hash": "0acdccc2dfbed1bd253a04e2e9235c60",
+    "mtime": 1794969692.5584602,
+    "seen": 1794969884.8843415,
+    "ast_hash": "ec8bda2be3741215cca9fd2f727c4a66",
     "semantic_hash": ""
   },
   "src/public/product.html": {
@@ -558,9 +558,9 @@
     "semantic_hash": ""
   },
   "src/public/shop.html": {
-    "mtime": 1794968176.5275187,
-    "seen": 1794968248.9279037,
-    "ast_hash": "cfa129bcc9e2f49f94aa6dc44c911f80",
+    "mtime": 1794969693.8594518,
+    "seen": 1794969884.8843415,
+    "ast_hash": "3bb01f03588723ddf04f544082f90769",
     "semantic_hash": ""
   },
   "docs/adr/0013-dedicated-product-detail-page-and-commercial-actions.md": {

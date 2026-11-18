@@ -110,5 +110,16 @@ describe('Seam 1: HTTP Streamlined Routing & Navigation Indicators', () => {
     assert.ok(body.includes('id="ai-chat-form"'), 'Cart page must include #ai-chat-form');
     assert.ok(!body.includes('sendAiMessage()'), 'Cart page must not call undefined sendAiMessage()');
     assert.ok(!body.includes('mcp.figma.com'), 'Cart page must not include external Figma capture script');
+    assert.ok(body.includes('id="booking-day-pills"'), 'Cart page must include booking day quick pills');
+    assert.ok(body.includes('id="slot-capacity-badge"'), 'Cart page must include Sảnh I slot capacity badge');
+  });
+
+  test('Admin panel static markup uses GearHub Sảnh I station terminology without legacy smartphone brands', async () => {
+    const fs = require('fs');
+    const path = require('path');
+    const adminHtml = fs.readFileSync(path.join(__dirname, '../src/public/admin.html'), 'utf8');
+    assert.ok(adminHtml.includes('GearHub Service'), 'Admin crawl modal must list GearHub Service');
+    assert.ok(adminHtml.includes('GearHub Station CRM'), 'Admin settings must reflect GearHub Station CRM');
+    assert.ok(!adminHtml.includes('<option value="Apple">Apple</option>'), 'Admin must remove legacy smartphone brand filter options');
   });
 });

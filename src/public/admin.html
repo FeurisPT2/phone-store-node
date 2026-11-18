@@ -41,16 +41,16 @@
                         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>Tổng quan hoạt động</span>
                     </a>
                     <a href="#orders" class="nav-item" data-tab="orders" onclick="switchNavTab('orders', event)">
-                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>Đơn đặt hàng</span>
-                        <span id="badge-order-count" class="nav-badge">2</span>
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>Lịch hẹn &amp; Đơn đặt</span>
+                        <span id="badge-order-count" class="nav-badge">0</span>
                     </a>
                     <a href="#customers" class="nav-item" data-tab="customers" onclick="switchNavTab('customers', event)">
-                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Khách hàng (CRM)</span>
-                        <span id="badge-cust-count" class="nav-badge">8</span>
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Hồ sơ sinh viên (CRM)</span>
+                        <span id="badge-cust-count" class="nav-badge">0</span>
                     </a>
                     <a href="#products" class="nav-item" data-tab="products" onclick="switchNavTab('products', event)">
-                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>Kho sản phẩm</span>
-                        <span id="badge-prod-count" class="nav-badge">63</span>
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>Dịch vụ &amp; Thiết bị</span>
+                        <span id="badge-prod-count" class="nav-badge">8</span>
                     </a>
 
                     <div class="nav-group-title">Hệ thống &amp; Bảo mật</div>
@@ -90,8 +90,8 @@
                     <svg class="theme-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
                     <span class="theme-label-text">Giao diện</span>
                 </button>
-                <button type="button" class="btn-refresh" onclick="switchNavTab('orders', event)">Xử lý đơn hàng</button>
-                <button type="button" class="btn-refresh" onclick="switchNavTab('products', event); openProductModal();">+ Thêm máy mới</button>
+                <button type="button" class="btn-refresh" onclick="switchNavTab('orders', event)">Xử lý lịch hẹn Sảnh I</button>
+                <button type="button" class="btn-refresh" onclick="switchNavTab('products', event); openProductModal();">+ Thêm dịch vụ / gear</button>
                 <button type="button" class="btn-primary" onclick="refreshAllData()">Làm mới dữ liệu</button>
             </div>
         </header>
@@ -103,25 +103,25 @@
             <section id="tab-dashboard" class="tab-content active">
                 <!-- Interactive KPI Strip -->
                 <div class="kpi-strip">
-                    <div class="kpi-cell kpi-cell--revenue" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để xem chi tiết đơn hàng">
-                        <span class="kpi-label">Tổng doanh thu thực thu</span>
-                        <strong class="kpi-value tabular" id="kpi-revenue">198.450.000 ₫</strong>
-                        <span class="kpi-sub kpi-sub--ok">Tích lũy đơn hoàn thành &amp; đã thanh toán</span>
+                    <div class="kpi-cell kpi-cell--revenue" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để xem chi tiết lịch hẹn">
+                        <span class="kpi-label">Tổng doanh thu Trạm Sảnh I</span>
+                        <strong class="kpi-value tabular" id="kpi-revenue">0 ₫</strong>
+                        <span class="kpi-sub kpi-sub--ok">Tích lũy đơn hoàn tất &amp; đã thanh toán</span>
                     </div>
-                    <div class="kpi-cell kpi-cell--orders" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để mở danh sách đơn đặt hàng">
-                        <span class="kpi-label">Tổng số đơn đặt hàng</span>
-                        <strong class="kpi-value tabular" id="kpi-orders">14</strong>
-                        <span class="kpi-sub kpi-sub--warn tabular" id="kpi-pending-sub">2 đơn chờ xử lý &rarr;</span>
+                    <div class="kpi-cell kpi-cell--orders" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để mở danh sách lịch hẹn">
+                        <span class="kpi-label">Tổng lịch hẹn &amp; đơn đặt</span>
+                        <strong class="kpi-value tabular" id="kpi-orders">0</strong>
+                        <span class="kpi-sub kpi-sub--warn tabular" id="kpi-pending-sub">0 lịch hẹn chờ xử lý &rarr;</span>
                     </div>
-                    <div class="kpi-cell kpi-cell--customers" onclick="switchNavTab('customers', event)" style="cursor:pointer;" title="Nhấn để mở quản lý khách hàng CRM">
-                        <span class="kpi-label">Hồ sơ khách hàng (CRM)</span>
-                        <strong class="kpi-value tabular" id="kpi-customers">8</strong>
-                        <span class="kpi-sub">Định danh SĐT &amp; Phân hạng VIP &rarr;</span>
+                    <div class="kpi-cell kpi-cell--customers" onclick="switchNavTab('customers', event)" style="cursor:pointer;" title="Nhấn để mở hồ sơ sinh viên CRM">
+                        <span class="kpi-label">Hồ sơ sinh viên (CRM)</span>
+                        <strong class="kpi-value tabular" id="kpi-customers">0</strong>
+                        <span class="kpi-sub">Định danh SĐT &amp; Hạng thành viên &rarr;</span>
                     </div>
-                    <div class="kpi-cell kpi-cell--products" onclick="switchNavTab('products', event)" style="cursor:pointer;" title="Nhấn để quản lý kho sản phẩm">
-                        <span class="kpi-label">Mã hàng đang kinh doanh</span>
-                        <strong class="kpi-value tabular" id="kpi-products">63</strong>
-                        <span class="kpi-sub tabular">12 thương hiệu chính ngạch &rarr;</span>
+                    <div class="kpi-cell kpi-cell--products" onclick="switchNavTab('products', event)" style="cursor:pointer;" title="Nhấn để quản lý dịch vụ &amp; thiết bị">
+                        <span class="kpi-label">Gói dịch vụ &amp; Thiết bị</span>
+                        <strong class="kpi-value tabular" id="kpi-products">8</strong>
+                        <span class="kpi-sub tabular">3 nhóm: Vệ sinh · Thuê Gear · Kit &rarr;</span>
                     </div>
                 </div>
 
@@ -129,29 +129,29 @@
                 <div class="charts-grid">
                     <div class="card-panel">
                         <div class="panel-header">
-                            <h2>Xu hướng doanh thu bán hàng</h2>
+                            <h2>Xu hướng doanh thu tại Trạm Sảnh I</h2>
                             <span class="panel-badge">Theo kỳ ghi nhận</span>
                         </div>
                         <div class="chart-wrapper">
                             <canvas id="revenueChart"></canvas>
                         </div>
                         <div class="chart-foot-note">
-                            <span>Đối soát tự động từ cổng VietQR &amp; biên nhận COD</span>
+                            <span>Đối soát trực tiếp tại quầy COD Sảnh I</span>
                             <span class="tabular">Đơn vị: VNĐ</span>
                         </div>
                     </div>
 
                     <div class="card-panel">
                         <div class="panel-header">
-                            <h2>Phân bổ trạng thái đơn hàng</h2>
+                            <h2>Phân bổ tiến độ lịch hẹn</h2>
                             <span class="panel-badge">Thời gian thực</span>
                         </div>
                         <div class="chart-wrapper">
                             <canvas id="statusChart"></canvas>
                         </div>
                         <div class="chart-foot-note">
-                            <span>Tỷ lệ hoàn tất và tiến độ giao vận</span>
-                            <span class="tabular">4 trạng thái chuẩn</span>
+                            <span>Tỷ lệ hoàn tất vệ sinh máy &amp; bàn giao gear tại Sảnh I</span>
+                            <span class="tabular">Quy trình 4 bước</span>
                         </div>
                     </div>
                 </div>
@@ -160,42 +160,22 @@
                 <div class="dashboard-tables-grid">
                     <div class="card-panel">
                         <div class="panel-header">
-                            <h2>Đơn đặt hàng mới nhất</h2>
+                            <h2>Lịch hẹn &amp; Đơn mới nhất</h2>
                             <button type="button" class="btn-outline-sm" onclick="switchNavTab('orders', event)">Xem toàn bộ</button>
                         </div>
                         <div class="table-responsive">
                             <table class="data-table">
                                 <thead>
                                     <tr>
-                                        <th>Mã đơn</th>
-                                        <th>Khách hàng</th>
+                                        <th>Mã hẹn</th>
+                                        <th>Sinh viên</th>
                                         <th class="num-col">Tổng tiền</th>
                                         <th>Trạng thái</th>
                                         <th>Thời gian</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dash-recent-orders">
-                                    <tr>
-                                        <td><strong class="tabular">ORD-261101</strong></td>
-                                        <td><strong>Nguyễn Minh Quân</strong><div class="tabular" style="font-size:13px; color:var(--muted);">0987654321</div></td>
-                                        <td class="num-col"><strong class="tabular">33.990.000 ₫</strong></td>
-                                        <td><span class="status-badge status-completed">Hoàn thành</span></td>
-                                        <td class="tabular" style="font-size:13px; color:var(--muted);">06/11/2026</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong class="tabular">ORD-261102</strong></td>
-                                        <td><strong>Trần Thu Hà</strong><div class="tabular" style="font-size:13px; color:var(--muted);">0912345678</div></td>
-                                        <td class="num-col"><strong class="tabular">31.990.000 ₫</strong></td>
-                                        <td><span class="status-badge status-confirmed">Đã xác nhận</span></td>
-                                        <td class="tabular" style="font-size:13px; color:var(--muted);">06/11/2026</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong class="tabular">ORD-261103</strong></td>
-                                        <td><strong>Lê Hoàng Nam</strong><div class="tabular" style="font-size:13px; color:var(--muted);">0909112233</div></td>
-                                        <td class="num-col"><strong class="tabular">27.990.000 ₫</strong></td>
-                                        <td><span class="status-badge status-shipping">Đang giao</span></td>
-                                        <td class="tabular" style="font-size:13px; color:var(--muted);">06/11/2026</td>
-                                    </tr>
+                                    <tr><td colspan="5" style="text-align:center; color:var(--muted); padding:1.25rem;">Đang tải danh sách lịch hẹn...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -203,38 +183,21 @@
 
                     <div class="card-panel">
                         <div class="panel-header">
-                            <h2>Khách hàng chi tiêu cao nhất</h2>
+                            <h2>Sinh viên sử dụng dịch vụ nhiều nhất</h2>
                             <button type="button" class="btn-outline-sm" onclick="switchNavTab('customers', event)">Mở CRM</button>
                         </div>
                         <div class="table-responsive">
                             <table class="data-table">
                                 <thead>
                                     <tr>
-                                        <th>Khách hàng</th>
+                                        <th>Sinh viên</th>
                                         <th class="num-col">SĐT</th>
-                                        <th class="num-col">Số đơn</th>
+                                        <th class="num-col">Số lượt</th>
                                         <th class="num-col">Tổng chi tiêu</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dash-top-customers">
-                                    <tr>
-                                        <td><strong>Nguyễn Minh Quân</strong></td>
-                                        <td class="num-col tabular">0987654321</td>
-                                        <td class="num-col tabular">3</td>
-                                        <td class="num-col"><strong class="tabular">94.970.000 ₫</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Trần Thu Hà</strong></td>
-                                        <td class="num-col tabular">0912345678</td>
-                                        <td class="num-col tabular">2</td>
-                                        <td class="num-col"><strong class="tabular">61.980.000 ₫</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Lê Hoàng Nam</strong></td>
-                                        <td class="num-col tabular">0909112233</td>
-                                        <td class="num-col tabular">1</td>
-                                        <td class="num-col"><strong class="tabular">27.990.000 ₫</strong></td>
-                                    </tr>
+                                    <tr><td colspan="4" style="text-align:center; color:var(--muted); padding:1.25rem;">Đang tải dữ liệu sinh viên...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -269,9 +232,9 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Khách hàng</th>
+                                    <th>Sinh viên</th>
                                     <th>Số điện thoại</th>
-                                    <th>Địa chỉ giao hàng</th>
+                                    <th>Điểm hẹn / Ca nhận máy</th>
                                     <th>Phân hạng</th>
                                     <th class="num-col">Số đơn</th>
                                     <th class="num-col">Tổng chi tiêu</th>
@@ -293,9 +256,9 @@
                     </div>
                     <div class="filter-pills" id="order-status-filters">
                         <button type="button" class="pill-btn active" data-status="all" onclick="filterOrderStatus('all')">Tất cả</button>
-                        <button type="button" class="pill-btn" data-status="pending" onclick="filterOrderStatus('pending')">Chờ xác nhận</button>
-                        <button type="button" class="pill-btn" data-status="confirmed" onclick="filterOrderStatus('confirmed')">Đã xác nhận</button>
-                        <button type="button" class="pill-btn" data-status="shipping" onclick="filterOrderStatus('shipping')">Đang giao</button>
+                        <button type="button" class="pill-btn" data-status="pending" onclick="filterOrderStatus('pending')">Tiếp nhận hẹn</button>
+                        <button type="button" class="pill-btn" data-status="confirmed" onclick="filterOrderStatus('confirmed')">Đang thực hiện</button>
+                        <button type="button" class="pill-btn" data-status="shipping" onclick="filterOrderStatus('shipping')">Sẵn sàng Sảnh I</button>
                         <button type="button" class="pill-btn" data-status="completed" onclick="filterOrderStatus('completed')">Hoàn thành</button>
                         <button type="button" class="pill-btn" data-status="cancelled" onclick="filterOrderStatus('cancelled')">Đã hủy</button>
                     </div>
@@ -312,20 +275,20 @@
 
                 <div class="card-panel">
                     <div class="panel-header">
-                        <h2>Quản lý toàn bộ đơn đặt hàng &amp; Lịch hẹn dịch vụ</h2>
-                        <span class="panel-badge">Giao dịch thực tế</span>
+                        <h2>Quản lý toàn bộ lịch hẹn Sảnh I &amp; Đơn đặt</h2>
+                        <span class="panel-badge">Dữ liệu thực tế</span>
                     </div>
                     <div class="table-responsive">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Mã đơn</th>
+                                    <th>Mã hẹn</th>
                                     <th>Thời gian</th>
-                                    <th>Khách hàng</th>
-                                    <th>Sản phẩm đặt mua</th>
+                                    <th>Sinh viên</th>
+                                    <th>Dịch vụ &amp; Gear đã đặt</th>
                                     <th class="num-col">Tổng tiền</th>
                                     <th>Thanh toán</th>
-                                    <th>Trạng thái</th>
+                                    <th>Tiến độ Sảnh I</th>
                                     <th>Xử lý</th>
                                 </tr>
                             </thead>
@@ -410,7 +373,7 @@
                         <div class="sys-info-list">
                             <div class="sys-info-item">
                                 <span>Phiên bản CRM</span>
-                                <strong>TechStore Enterprise CRM v2.0</strong>
+                                <strong>GearHub Station CRM v2.0 (Sảnh I - ĐHKHTN)</strong>
                             </div>
                             <div class="sys-info-item">
                                 <span>Cơ chế bảo mật mật khẩu</span>
@@ -422,7 +385,7 @@
                             </div>
                             <div class="sys-info-item">
                                 <span>Phân hạng tự động</span>
-                                <strong>Mới &rarr; Thân thiết (&ge; 20tr) &rarr; VIP (&ge; 50tr)</strong>
+                                <strong>Mới &rarr; Thân thiết &rarr; VIP (Ưu đãi Sinh viên ĐHKHTN)</strong>
                             </div>
                         </div>
                     </div>
@@ -525,19 +488,19 @@
                     <input type="hidden" id="status-order-id">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="select-order-status">Trạng thái xử lý</label>
+                            <label for="select-order-status">Tiến độ xử lý tại Sảnh I</label>
                             <select id="select-order-status">
                                 <option value="awaiting_payment">Chờ thanh toán QR</option>
-                                <option value="pending">Chờ xác nhận</option>
-                                <option value="confirmed">Đã xác nhận</option>
-                                <option value="shipping">Đang giao vận</option>
-                                <option value="completed">Đã giao &amp; Thu tiền (Hoàn thành)</option>
-                                <option value="cancelled">Hủy đơn hàng</option>
+                                <option value="pending">Tiếp nhận lịch hẹn</option>
+                                <option value="confirmed">Đang vệ sinh / Chuẩn bị gear</option>
+                                <option value="shipping">Sẵn sàng bàn giao tại Sảnh I</option>
+                                <option value="completed">Đã bàn giao &amp; Thu COD (Hoàn thành)</option>
+                                <option value="cancelled">Hủy lịch hẹn</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="status-order-note">Ghi chú vận đơn</label>
-                            <input type="text" id="status-order-note" placeholder="VD: Đã bàn giao bưu cục, mã vận đơn...">
+                            <label for="status-order-note">Ghi chú kỹ thuật Sảnh I</label>
+                            <input type="text" id="status-order-note" placeholder="VD: Máy đã vệ sinh xong (72°C), mời bạn ra bàn Sảnh I nhận...">
                         </div>
                     </div>
                     <div class="modal-footer-btns">
@@ -643,21 +606,17 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="crawl-brand">Lọc theo thương hiệu</label>
+                        <label for="crawl-brand">Lọc theo nhóm / hãng gear</label>
                         <select id="crawl-brand">
-                            <option value="all">Tất cả hãng</option>
-                            <option value="Apple">Apple</option>
-                            <option value="Samsung">Samsung</option>
-                            <option value="Xiaomi">Xiaomi</option>
-                            <option value="OPPO">OPPO</option>
-                            <option value="Vivo">Vivo</option>
-                            <option value="Realme">Realme</option>
-                            <option value="Honor">Honor</option>
-                            <option value="Google">Google</option>
-                            <option value="OnePlus">OnePlus</option>
-                            <option value="ASUS">ASUS</option>
-                            <option value="Sony">Sony</option>
-                            <option value="Nothing">Nothing</option>
+                            <option value="all">Tất cả nhóm GearHub</option>
+                            <option value="GearHub Service">GearHub Service (Vệ sinh / Spa)</option>
+                            <option value="GearHub Rental">GearHub Rental (Thuê Gear SV)</option>
+                            <option value="GearHub Accessory">GearHub Accessory (Kit / Phụ kiện)</option>
+                            <option value="Dareu">Dareu</option>
+                            <option value="Keychron">Keychron</option>
+                            <option value="Logitech">Logitech</option>
+                            <option value="Ugreen">Ugreen</option>
+                            <option value="Arctic">Arctic (Keo tản nhiệt)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -666,13 +625,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="crawl-keyword">Từ khóa dòng máy (tùy chọn)</label>
-                    <input type="text" id="crawl-keyword" placeholder="VD: Ultra, Pro Max, Pixel 9...">
+                    <label for="crawl-keyword">Từ khóa dịch vụ / thiết bị (tùy chọn)</label>
+                    <input type="text" id="crawl-keyword" placeholder="VD: MX-4, EK75, Type-C, Chuột công thái học...">
                 </div>
                 <div class="form-group">
                     <label style="display:inline-flex; align-items:center; gap:0.5rem; cursor:pointer;">
                         <input type="checkbox" id="crawl-skip-existing" checked style="min-height:auto;">
-                        <span>Bỏ qua các mẫu điện thoại đã có sẵn trong kho</span>
+                        <span>Bỏ qua các gói dịch vụ / thiết bị đã có sẵn trong kho</span>
                     </label>
                 </div>
                 <div id="crawl-loading-status" style="display: none; padding: 0.75rem; background-color: var(--subtle); color: var(--accent);">
