@@ -1,13 +1,13 @@
 {
   "0": "main.js",
-  "1": "CustomerModel",
+  "1": "adminController.js",
   "3": "package.json",
   "4": "ref_figma",
-  "6": "adminController.js",
+  "6": "paymentAndOrderWorkflow.test.js",
   "8": "product.js",
   "9": "Design System Master File",
   "10": "customerPortal.js",
-  "11": "fullFlow.test.js",
+  "11": "themeLogos.js",
   "12": "GearHub Design System Rules & Architecture",
   "13": "ref_node_assert",
   "14": "storageSeam.js",
@@ -15,9 +15,7 @@
   "17": "utils.js",
   "18": "server.js",
   "19": "ProductModel",
-  "20": "Admin.js",
   "21": "geminiService.js",
-  "23": "OrderModel",
   "24": "storageSeam.test.js",
   "25": "express",
   "26": "ADR 0012: Kiến Trúc 5 Trang Chuyên Biệt, Đồng Bộ Màu & Tái Thiết Kế Giỏ Hàng 3 Phân Lớp",
@@ -28,7 +26,5 @@
   "37": "ref_http",
   "40": "qrPayment.js",
   "41": "aiChat.js",
-  "46": "seed-db.js",
-  "48": "catalogCacheAndFilter.test.js",
-  "49": "adminUpdateAI.test.js"
+  "46": "seed-db.js"
 }

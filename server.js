@@ -114,6 +114,11 @@ app.use(async (req, res, next) => {
   next();
 });
 
+app.get(['/src/public/logo.png', '/logo.png', '/src/public/logo2.png'], (req, res) => {
+  const filename = req.path.endsWith('logo2.png') ? 'logo2.png' : 'logo.png';
+  res.sendFile(path.join(__dirname, 'src', 'public', filename));
+});
+
 app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use('/api', async (req, res, next) => {
   if (db.isPostgres() && typeof db.ensureReady === 'function') {

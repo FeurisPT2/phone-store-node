@@ -243,6 +243,10 @@ body.editorial-mode,
     box-shadow: 0 10px 24px rgba(59, 130, 246, 0.45);
 }
 
+[data-theme="dark"] .about-cta-group > a.cta-btn-primary:not(.cta-btn-rental) {
+    color: var(--surface) !important;
+}
+
 .cta-btn-secondary {
     display: inline-flex;
     align-items: center;
