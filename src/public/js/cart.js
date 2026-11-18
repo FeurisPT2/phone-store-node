@@ -59,6 +59,9 @@ function selectBookingDay(dayLabel, btnEl) {
   });
 
   updateSlotAvailabilityUI();
+  if (typeof triggerPopAnimation === 'function') {
+    triggerPopAnimation('slot-capacity-badge');
+  }
 }
 
 function updateSlotAvailabilityUI() {
@@ -84,6 +87,16 @@ function updateSlotAvailabilityUI() {
   }
 }
 
+function triggerCartSummaryPop(includeTotals = true) {
+  if (typeof triggerPopAnimation !== 'function') return;
+  if (includeTotals) {
+    triggerPopAnimation('summary-subtotal');
+    triggerPopAnimation('cart-grand-total');
+  }
+  triggerPopAnimation('cart-count');
+  triggerPopAnimation('mobile-cart-count');
+}
+
 async function addToCart(productId, openAfter = false, quantity = 1) {
   try {
     const qty = Math.max(1, parseInt(quantity, 10) || 1);
@@ -96,6 +109,7 @@ async function addToCart(productId, openAfter = false, quantity = 1) {
     if (data.success) {
       lastPlacedOrder = null;
       await updateCart();
+      triggerCartSummaryPop(false);
       if (typeof showToast === 'function') {
         showToast(qty > 1 ? `Đã thêm gói ${qty} ngày vào lịch hẹn` : 'Đã thêm sản phẩm vào giỏ hàng', 'success');
       }
@@ -122,6 +136,7 @@ async function updateCartQty(productId, newQty) {
       body: JSON.stringify({ productId, quantity: newQty })
     });
     await updateCart();
+    triggerCartSummaryPop(true);
     const cartModal = document.getElementById('cart-modal');
     if (cartModal && cartModal.classList.contains('active')) {
       await openCartModal();
@@ -141,6 +156,7 @@ async function removeCartItem(productId) {
       body: JSON.stringify({ productId })
     });
     await updateCart();
+    triggerCartSummaryPop(true);
     const cartModal = document.getElementById('cart-modal');
     if (cartModal && cartModal.classList.contains('active')) {
       await openCartModal();
@@ -532,6 +548,9 @@ function renderCartPage(cart, total) {
     orderForm.addEventListener('submit', handlePlaceOrder);
   }
   updateSlotAvailabilityUI();
+  if (typeof triggerPopAnimation === 'function') {
+    triggerPopAnimation('slot-capacity-badge');
+  }
 }
 
 async function updateCart() {

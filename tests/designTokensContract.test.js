@@ -81,4 +81,17 @@ describe('Seam 3: Design Tokens, Palette Contract & Anti-Pattern Bans', () => {
     assert.doesNotMatch(cartJs, /🛠️|📦|🛍️|🟢|⏱️|🔌|📍|🎁|⚡/, 'cart.js must use crisp vector SVG icons instead of structural emojis');
     assert.ok(cartJs.includes('renderUiSvgIcon('), 'cart.js must render uniform SVG vector icons');
   });
+
+  test('Enforces smooth 60fps animation choreography for both PC (hover/pop) and Mobile (sheet slide-up, touch spring)', () => {
+    assert.match(styleCss, /@keyframes\s+ghFadeUp/, 'style.css must define ghFadeUp keyframe');
+    assert.match(styleCss, /@keyframes\s+ghSheetSlideUp/, 'style.css must define mobile ghSheetSlideUp keyframe');
+    assert.match(styleCss, /@keyframes\s+ghBadgePop/, 'style.css must define ghBadgePop feedback keyframe');
+    assert.match(styleCss, /@media\s*\(hover:\s*hover\)\s*and\s*\(pointer:\s*fine\)/, 'style.css must define desktop hover motion');
+    assert.match(styleCss, /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)/, 'style.css must define mobile touch spring motion');
+
+    const utilsJs = fs.readFileSync(path.join(__dirname, '../src/public/js/utils.js'), 'utf8');
+    assert.ok(utilsJs.includes('initSmoothMotionEngine'), 'utils.js must expose initSmoothMotionEngine');
+    assert.ok(utilsJs.includes('triggerPopAnimation'), 'utils.js must expose triggerPopAnimation');
+    assert.ok(utilsJs.includes('header-scrolled'), 'utils.js must toggle header-scrolled on scroll');
+  });
 });

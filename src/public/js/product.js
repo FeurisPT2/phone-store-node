@@ -275,7 +275,12 @@ function selectPdpRentalPlan(qty) {
   const discountPill = document.getElementById('pdp-discount-pill');
   const totalPay = (Number(currentProduct.price) || 0) * selectedRentalQty;
 
-  if (priceEl) priceEl.textContent = formatVnd(totalPay);
+  if (priceEl) {
+    priceEl.textContent = formatVnd(totalPay);
+    if (typeof triggerPopAnimation === 'function') {
+      triggerPopAnimation(priceEl);
+    }
+  }
   if (selectedRentalQty >= 5) {
     const fullWeek = (Number(currentProduct.price) || 0) * 7;
     if (oldPriceEl) {

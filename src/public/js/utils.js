@@ -54,6 +54,21 @@ function openModal(id) {
   if (!el) return;
   el.classList.remove('hidden');
   el.style.display = 'flex';
+  const content = el.querySelector('.modal-content');
+  if (content) {
+    content.classList.remove('modal-animate-in');
+    void content.offsetWidth;
+    content.classList.add('modal-animate-in');
+  }
+}
+
+function triggerPopAnimation(elOrId, className = 'gh-anim-pop') {
+  if (typeof document === 'undefined' || !elOrId) return;
+  const el = typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
+  if (!el || !el.classList) return;
+  el.classList.remove(className);
+  void el.offsetWidth;
+  el.classList.add(className);
 }
 
 function closeModal(id) {
@@ -135,6 +150,72 @@ function updateThemeUI(theme) {
   }
 }
 
+let ghSharedRevealObserver = null;
+
+function initSmoothMotionEngine() {
+  if (typeof document === 'undefined') return;
+
+  const autoSelectors = [
+    '.station-signboard',
+    '.about-metric-card',
+    '.story-card',
+    '.ps-card',
+    '.portal-entrance-card',
+    '.campus-location-banner',
+    '.pdp-gallery-wrap',
+    '.pdp-info-col',
+    '.pdp-trust-pill',
+    '.pdp-spec-card',
+    '.pdp-process-step',
+    '.cart-items-card',
+    '.cart-order-sidebar',
+    '.cart-tier-section',
+    '.cart-booking-success'
+  ];
+
+  const candidates = document.querySelectorAll(autoSelectors.join(', '));
+  candidates.forEach((el, idx) => {
+    if (!el.hasAttribute('data-reveal')) {
+      el.setAttribute('data-reveal', '');
+      el.style.setProperty('--i', String(idx % 5));
+    }
+  });
+
+  const revealEls = document.querySelectorAll('[data-reveal]:not(.in)');
+  const vh = typeof window !== 'undefined' ? window.innerHeight || 800 : 800;
+
+  if (typeof IntersectionObserver !== 'undefined' && revealEls.length > 0) {
+    if (!ghSharedRevealObserver) {
+      ghSharedRevealObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.06, rootMargin: '0px 0px -30px 0px' }
+      );
+    }
+
+    revealEls.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < vh * 0.96 && rect.bottom > 0) {
+        if (typeof requestAnimationFrame === 'function') {
+          requestAnimationFrame(() => el.classList.add('in'));
+        } else {
+          el.classList.add('in');
+        }
+      } else {
+        ghSharedRevealObserver.observe(el);
+      }
+    });
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+}
+
 if (typeof window !== 'undefined') {
   window.addEventListener('storage', function(e) {
     if (e.key === 'techstore_theme' && e.newValue) {
@@ -145,6 +226,17 @@ if (typeof window !== 'undefined') {
     }
   });
 
+  window.addEventListener(
+    'scroll',
+    function() {
+      const header = document.querySelector('.main-header');
+      if (header) {
+        header.classList.toggle('header-scrolled', window.scrollY > 12);
+      }
+    },
+    { passive: true }
+  );
+
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof document !== 'undefined') {
       document.documentElement.classList.add('js');
@@ -152,20 +244,15 @@ if (typeof window !== 'undefined') {
     const t = getStoredTheme();
     updateThemeUI(t);
 
-    // Initialize silky-smooth data-reveal scroll animations across all pages
-    const revealEls = document.querySelectorAll('[data-reveal]:not(.in)');
-    if (typeof IntersectionObserver !== 'undefined' && revealEls.length > 0) {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      revealEls.forEach(el => observer.observe(el));
-    } else {
-      revealEls.forEach(el => el.classList.add('in'));
+    initSmoothMotionEngine();
+
+    if (typeof MutationObserver !== 'undefined') {
+      const dynamicIds = ['cart-page-items', 'pdp-specs-grid', 'pdp-process-timeline', 'pdp-related-grid'];
+      const mo = new MutationObserver(() => initSmoothMotionEngine());
+      dynamicIds.forEach((id) => {
+        const node = document.getElementById(id);
+        if (node) mo.observe(node, { childList: true });
+      });
     }
   });
 }

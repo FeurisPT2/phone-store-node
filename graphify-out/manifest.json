@@ -72,20 +72,20 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1794973046.4086874,
-    "seen": 1794973048.7678418,
+    "mtime": 1794974484.2191663,
+    "seen": 1794974487.4680297,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1794973046.6624444,
-    "seen": 1794973048.7678418,
+    "mtime": 1794974484.5170183,
+    "seen": 1794974487.4680297,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1794973046.525568,
-    "seen": 1794973048.7678418,
+    "mtime": 1794974484.346084,
+    "seen": 1794974487.4680297,
     "ast_hash": "c7919c1aa0764251eee41202951b5ab3",
     "semantic_hash": ""
   },
@@ -210,9 +210,9 @@
     "semantic_hash": ""
   },
   "src/public/login.html": {
-    "mtime": 1794970551.1998582,
-    "seen": 1794970585.8672023,
-    "ast_hash": "551306d7ee451b671ef28efb24e01eea",
+    "mtime": 1794974435.0824826,
+    "seen": 1794974487.4680297,
+    "ast_hash": "633bb125912796393ebfc8d87bd94210",
     "semantic_hash": ""
   },
   "src/controllers/chatController.js": {
@@ -486,9 +486,9 @@
     "semantic_hash": ""
   },
   "src/public/js/cart.js": {
-    "mtime": 1794973032.1221423,
-    "seen": 1794973048.7678418,
-    "ast_hash": "7da7e28fdad96c5292d4d5e1043f0d21",
+    "mtime": 1794974461.9063914,
+    "seen": 1794974487.4680297,
+    "ast_hash": "d0067a6538e0011f70b07cdea86d3205",
     "semantic_hash": ""
   },
   "src/public/js/customerPortal.js": {
@@ -504,21 +504,21 @@
     "semantic_hash": ""
   },
   "src/public/js/utils.js": {
-    "mtime": 1794967944.6461775,
-    "seen": 1794968248.9279037,
-    "ast_hash": "87c66b33863a79a688ce0a7db29dfdb0",
+    "mtime": 1794974407.2012937,
+    "seen": 1794974487.4680297,
+    "ast_hash": "5e8d5d8d58f74bc39b9155bd5335c222",
     "semantic_hash": ""
   },
   "src/public/js/product.js": {
-    "mtime": 1794970485.3677623,
-    "seen": 1794970585.8672023,
-    "ast_hash": "00b74f92b3c3bb39b08cd048159a0bd8",
+    "mtime": 1794974432.725196,
+    "seen": 1794974487.4680297,
+    "ast_hash": "523a0ef83cf754f46b36d17855112e83",
     "semantic_hash": ""
   },
   "tests/designTokensContract.test.js": {
-    "mtime": 1794972869.4059668,
-    "seen": 1794972884.5020056,
-    "ast_hash": "28cc2ca2ed9bfd7b68992d65c910c383",
+    "mtime": 1794974471.011464,
+    "seen": 1794974487.4680297,
+    "ast_hash": "de3be6506646ce300dc94c7fd0c661fc",
     "semantic_hash": ""
   },
   "tests/multiPageRouting.test.js": {
