@@ -72,20 +72,20 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1794975250.5231023,
-    "seen": 1794975254.9799414,
+    "mtime": 1794986584.4367614,
+    "seen": 1794986589.835163,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1794975250.789706,
-    "seen": 1794975254.9799414,
+    "mtime": 1794986584.7082026,
+    "seen": 1794986589.835163,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1794975250.644385,
-    "seen": 1794975254.9799414,
+    "mtime": 1794986584.5625398,
+    "seen": 1794986589.835163,
     "ast_hash": "c7919c1aa0764251eee41202951b5ab3",
     "semantic_hash": ""
   },
@@ -228,10 +228,10 @@
     "semantic_hash": "8aa145a99def99451e565d4cd6851f50"
   },
   "src/services/geminiService.js": {
-    "mtime": 1794027755.4048095,
-    "seen": 1794918823.2957802,
-    "ast_hash": "281d6b5601243bfc18191687969ae423",
-    "semantic_hash": "281d6b5601243bfc18191687969ae423"
+    "mtime": 1794986562.3430471,
+    "seen": 1794986589.835163,
+    "ast_hash": "29bb1c6d991e3e3b9c21c575a92d0ce7",
+    "semantic_hash": ""
   },
   "tests/adminAI.test.js": {
     "mtime": 1793987417.9470384,
@@ -240,10 +240,10 @@
     "semantic_hash": "4f353904fa289d089b19877e29203922"
   },
   "tests/chatRoute.test.js": {
-    "mtime": 1793987417.9481046,
-    "seen": 1794918823.2957802,
-    "ast_hash": "816e755daebb003a5c441dc5db6cb49d",
-    "semantic_hash": "816e755daebb003a5c441dc5db6cb49d"
+    "mtime": 1794986572.112442,
+    "seen": 1794986589.835163,
+    "ast_hash": "e927c168d10c0c53326e25f522ccdb99",
+    "semantic_hash": ""
   },
   "tests/fullFlow.test.js": {
     "mtime": 1793987417.9491794,

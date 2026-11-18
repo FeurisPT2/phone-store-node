@@ -123,4 +123,75 @@ describe('AI Consultant & Chat Route', () => {
       geminiService.consultCustomer = origConsult;
     }
   });
+
+  test('geminiService.fallbackConsult answers GearHub overheating, 0d rental, COD, and direct PDP product queries', () => {
+    const sampleCatalog = [
+      {
+        id: 'gearhub_clean_cool',
+        name: 'Gói Spa Laptop Tiêu Chuẩn (Clean & Cool)',
+        category: 'service',
+        price: 79000,
+        unit: 'lần',
+        duration: '30 phút',
+        aiReview: {
+          summary: 'Gói vệ sinh tiêu chuẩn nhanh gọn 30 phút.',
+          pros: ['Nhanh chỉ 30 phút giữa ca học', 'Giảm 5-8°C']
+        }
+      },
+      {
+        id: 'gearhub_thermal_boost',
+        name: 'Gói Đại Tu Tản Nhiệt Pro (Thermal Boost)',
+        category: 'service',
+        price: 139000,
+        unit: 'lần',
+        duration: '45 phút',
+        aiReview: { summary: 'Tra keo Arctic MX-4/MX-6 hạ 10-15°C.' }
+      },
+      {
+        id: 'gearhub_rent_ek75',
+        name: 'Thuê Bàn Phím Cơ 3 Mode (DAREU EK75 Pro / Flex 75)',
+        category: 'rental',
+        price: 25000,
+        unit: 'ngày',
+        aiReview: { summary: 'Gõ êm không ồn cho phòng KTX.' }
+      },
+      {
+        id: 'gearhub_kit_7in1',
+        name: 'Kit Tự Vệ Sinh Thiết Bị 7-in-1 (GearHub Mini Kit)',
+        category: 'accessory',
+        price: 55000,
+        unit: 'bộ',
+        aiReview: { summary: 'Bộ dụng cụ bỏ túi 7 món.' }
+      }
+    ];
+
+    const heatRes = geminiService.fallbackConsult({
+      message: 'Laptop bị nóng và quạt kêu to khi gõ code',
+      catalog: sampleCatalog
+    });
+    assert.ok(heatRes.reply.includes('79.000'));
+    assert.ok(heatRes.reply.includes('COD'));
+    assert.deepEqual(heatRes.suggestedProductIds, ['gearhub_clean_cool', 'gearhub_thermal_boost']);
+
+    const policyRes = geminiService.fallbackConsult({
+      message: 'Thủ tục thuê gear bằng Thẻ Sinh Viên như thế nào?',
+      catalog: sampleCatalog
+    });
+    assert.ok(policyRes.reply.includes('0đ tiền cọc'));
+    assert.ok(policyRes.suggestedProductIds.includes('gearhub_rent_ek75'));
+
+    const pdpRes = geminiService.fallbackConsult({
+      message: 'Tư vấn cho mình về "Gói Spa Laptop Tiêu Chuẩn (Clean & Cool)"',
+      catalog: sampleCatalog
+    });
+    assert.ok(pdpRes.reply.includes('Clean & Cool'));
+    assert.deepEqual(pdpRes.suggestedProductIds, ['gearhub_clean_cool']);
+
+    const codRes = geminiService.fallbackConsult({
+      message: 'Thanh toán COD và giờ mở cửa ở Sảnh I sao vậy?',
+      catalog: sampleCatalog
+    });
+    assert.ok(codRes.reply.includes('Sảnh I'));
+    assert.ok(codRes.reply.includes('Phiếu Hẹn Điện Tử'));
+  });
 });
