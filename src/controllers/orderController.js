@@ -1,11 +1,27 @@
 const OrderModel = require('../models/Order');
 const CustomerModel = require('../models/Customer');
+const ProductModel = require('../models/Product');
 
 exports.createOrder = async (req, res) => {
   try {
     const sessionCart = Array.isArray(req.session?.cart) ? req.session.cart : [];
     const bodyItems = Array.isArray(req.body?.items) ? req.body.items : [];
-    const cart = sessionCart.length > 0 ? sessionCart : bodyItems;
+    let cart;
+    if (req.body?.checkoutMode === 'direct') {
+      const productId = String(req.body.productId || '').trim();
+      const quantity = Number.parseInt(req.body.quantity, 10);
+      if (!productId || !Number.isSafeInteger(quantity) || quantity < 1) {
+        return res.status(400).json({ success: false, message: 'Thông tin sản phẩm đặt lịch không hợp lệ' });
+      }
+
+      const product = await ProductModel.getById(productId);
+      if (!product) {
+        return res.status(404).json({ success: false, message: 'Không tìm thấy sản phẩm' });
+      }
+      cart = [{ ...product, quantity }];
+    } else {
+      cart = sessionCart.length > 0 ? sessionCart : bodyItems;
+    }
 
     if (cart.length === 0) {
       return res.status(400).json({ success: false, message: 'Giỏ hàng trống' });

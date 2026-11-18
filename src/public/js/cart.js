@@ -43,6 +43,17 @@ function buildBookingAddress(hallSlot, rawBaseAddress) {
   return cleanBase || 'Trạm Sảnh I ĐHKHTN (227 Nguyễn Văn Cừ, Q.5)';
 }
 
+function getDirectCheckoutRequest() {
+  if (typeof window === 'undefined') return null;
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get('buyNow');
+  if (!productId) return null;
+  return {
+    productId,
+    quantity: Math.max(1, parseInt(params.get('quantity'), 10) || 1)
+  };
+}
+
 function selectBookingDay(dayLabel, btnEl) {
   if (typeof document === 'undefined') return;
   const hidden = document.getElementById('c-booking-date');
@@ -124,8 +135,9 @@ async function addToCart(productId, openAfter = false, quantity = 1) {
   }
 }
 
-async function buyNow(productId, quantity = 1) {
-  await addToCart(productId, true, quantity);
+function buyNow(productId, quantity = 1) {
+  const qty = Math.max(1, parseInt(quantity, 10) || 1);
+  window.location.href = `/cart?buyNow=${encodeURIComponent(productId)}&quantity=${qty}`;
 }
 
 async function updateCartQty(productId, newQty) {
@@ -274,7 +286,7 @@ function renderCartDropdownFlyout(cart, total) {
   `;
 }
 
-function renderCartPage(cart, total) {
+function renderCartPage(cart, total, { directCheckout = false } = {}) {
   if (typeof document === 'undefined') return;
   const container = document.getElementById('cart-page-items');
   if (!container) return;
@@ -284,6 +296,15 @@ function renderCartPage(cart, total) {
 
   const countBadge = document.getElementById('cart-page-count');
   if (countBadge) countBadge.innerText = `${totalCount} mục`;
+
+  const pageTitle = document.getElementById('cart-page-title');
+  if (pageTitle) {
+    pageTitle.innerText = directCheckout ? 'Hoàn Tất Đặt Lịch' : 'Giỏ Hàng & Đặt Lịch Hẹn Trạm';
+  }
+  const itemsHeading = document.getElementById('cart-items-heading');
+  if (itemsHeading) {
+    itemsHeading.innerText = directCheckout ? 'Sản phẩm đang đặt lịch' : 'Các dịch vụ & gear đã chọn';
+  }
 
   const submitBtn = document.getElementById('btn-order-submit');
   const bottomActions = document.getElementById('cart-bottom-actions');
@@ -396,7 +417,7 @@ function renderCartPage(cart, total) {
 
   if (sidebar) sidebar.style.display = '';
   if (grid && grid.classList) grid.classList.remove('is-empty');
-  if (bottomActions) bottomActions.style.display = 'flex';
+  if (bottomActions) bottomActions.style.display = directCheckout ? 'none' : 'flex';
 
   const {
     serviceItems,
@@ -410,7 +431,7 @@ function renderCartPage(cart, total) {
 
   const renderPageItemRow = (i, isRental = false) => {
     const qty = Number(i.quantity) || 1;
-    const rentalPills = isRental
+    const rentalPills = isRental && !directCheckout
       ? `
         <div class="cart-rental-plans" style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-top:6px;">
           <button type="button" class="rental-pill-btn${qty === 1 ? ' active' : ''}" onclick="updateCartQty('${i.id}', 1)">1 ngày</button>
@@ -420,6 +441,18 @@ function renderCartPage(cart, total) {
         </div>
       `
       : '';
+    const itemControls = directCheckout
+      ? '<div class="cart-item-controls"><span class="cart-tier-badge">Đặt riêng sản phẩm này</span></div>'
+      : `
+        <div class="cart-item-controls">
+          <div class="cart-qty-stepper">
+            <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${qty - 1})" title="${isRental ? 'Giảm số ngày' : 'Giảm số lượng'}" aria-label="Giảm">-</button>
+            <span class="tabular qty-count">${qty}</span>
+            <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${qty + 1})" title="${isRental ? 'Tăng số ngày' : 'Tăng số lượng'}" aria-label="Tăng">+</button>
+          </div>
+          <button type="button" class="btn-remove" onclick="removeCartItem('${i.id}')" title="Xóa khỏi giỏ" aria-label="Xóa sản phẩm">Xóa</button>
+        </div>
+      `;
 
     return `
       <div class="cart-item">
@@ -433,14 +466,7 @@ function renderCartPage(cart, total) {
           </div>
         </div>
         ${rentalPills}
-        <div class="cart-item-controls">
-          <div class="cart-qty-stepper">
-            <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${qty - 1})" title="${isRental ? 'Giảm số ngày' : 'Giảm số lượng'}" aria-label="Giảm">-</button>
-            <span class="tabular qty-count">${qty}</span>
-            <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${qty + 1})" title="${isRental ? 'Tăng số ngày' : 'Tăng số lượng'}" aria-label="Tăng">+</button>
-          </div>
-          <button type="button" class="btn-remove" onclick="removeCartItem('${i.id}')" title="Xóa khỏi giỏ" aria-label="Xóa sản phẩm">Xóa</button>
-        </div>
+        ${itemControls}
       </div>
     `;
   };
@@ -557,6 +583,7 @@ async function updateCart() {
   try {
     const res = await fetch('/api/cart');
     const { cart, total } = await res.json();
+    const directCheckout = getDirectCheckoutRequest();
     const count = (cart || []).reduce((s, i) => s + (i.quantity || 1), 0);
     if (typeof document !== 'undefined') {
       const el = document.getElementById('cart-count');
@@ -567,12 +594,25 @@ async function updateCart() {
 
       // Render dedicated cart page if on /cart
       if (document.getElementById('cart-page-items')) {
-        renderCartPage(cart, total);
+        if (directCheckout) {
+          const productRes = await fetch(`/api/products/${encodeURIComponent(directCheckout.productId)}`);
+          const productData = await productRes.json();
+          if (!productRes.ok || !productData.success || !productData.data) {
+            throw new Error(productData.message || 'Không thể tải sản phẩm để đặt lịch');
+          }
+          const product = { ...productData.data, quantity: directCheckout.quantity };
+          renderCartPage([product], product.price * product.quantity, { directCheckout: true });
+        } else {
+          renderCartPage(cart, total);
+        }
       }
     }
     return { cart, total };
   } catch (err) {
     console.error('Error updating cart:', err);
+    if (getDirectCheckoutRequest() && typeof showToast === 'function') {
+      showToast(err instanceof Error ? err.message : 'Không thể tải sản phẩm để đặt lịch', 'error');
+    }
   }
 }
 
@@ -825,6 +865,12 @@ async function handlePlaceOrder(e) {
     rememberMe: document.getElementById('c-remember')?.checked || false,
     paymentMethod
   };
+  const directCheckout = getDirectCheckoutRequest();
+  if (directCheckout) {
+    payload.checkoutMode = 'direct';
+    payload.productId = directCheckout.productId;
+    payload.quantity = directCheckout.quantity;
+  }
 
   try {
     const res = await fetch('/api/orders/checkout', {
@@ -850,6 +896,9 @@ async function handlePlaceOrder(e) {
       }
       if (typeof closeModal === 'function') {
         closeModal('cart-modal');
+      }
+      if (directCheckout && window.history?.replaceState) {
+        window.history.replaceState({}, '', '/cart');
       }
       await updateCart();
       if (typeof checkAuthState === 'function') {

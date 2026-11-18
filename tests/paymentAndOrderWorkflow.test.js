@@ -339,4 +339,44 @@ describe('QR Payment Sandbox, Lazy TTL Expiration & Admin Order Tiering Workflow
     assert.equal(cartData.cart.length, 1);
     assert.equal(cartData.cart[0].id, 'gearhub_clean_cool');
   });
+
+  test('Direct checkout orders only the selected product without changing the normal cart', async () => {
+    const addToCartRes = await fetch(`${baseUrl}/api/cart/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId: 'gearhub_clean_cool', quantity: 1 })
+    });
+    assert.equal(addToCartRes.status, 200);
+    const sessionCookie = addToCartRes.headers.get('set-cookie')?.split(';')[0];
+    assert.ok(sessionCookie);
+
+    const checkoutRes = await fetch(`${baseUrl}/api/orders/checkout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Cookie: sessionCookie },
+      body: JSON.stringify({
+        fullName: 'Trần Văn QR',
+        phone: testCustomerPhone,
+        address: 'Trạm Sảnh I ĐHKHTN',
+        paymentMethod: 'cod',
+        checkoutMode: 'direct',
+        productId: 'gearhub_thermal_boost',
+        quantity: 2
+      })
+    });
+    assert.equal(checkoutRes.status, 200);
+    const checkoutData = await checkoutRes.json();
+    assert.equal(checkoutData.success, true);
+    createdOrderIds.push(checkoutData.orderId);
+    assert.equal(checkoutData.order.items.length, 1);
+    assert.equal(checkoutData.order.items[0].id, 'gearhub_thermal_boost');
+    assert.equal(checkoutData.order.items[0].quantity, 2);
+
+    const cartRes = await fetch(`${baseUrl}/api/cart`, {
+      headers: { Cookie: sessionCookie }
+    });
+    assert.equal(cartRes.status, 200);
+    const cartData = await cartRes.json();
+    assert.equal(cartData.cart.length, 1);
+    assert.equal(cartData.cart[0].id, 'gearhub_clean_cool');
+  });
 });
