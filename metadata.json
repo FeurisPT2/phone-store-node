@@ -1,0 +1,8 @@
+{
+  "name": "GearHub - Trạm Gear & Chăm Sóc Thiết Bị Sinh Viên",
+  "description": "Nền tảng đặt lịch dịch vụ vệ sinh laptop, thuê gear học tập và hỗ trợ kỹ thuật thông minh cho sinh viên.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ],
+  "permissions": []
+}

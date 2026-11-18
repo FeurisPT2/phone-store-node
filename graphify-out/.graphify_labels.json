@@ -1,0 +1,20 @@
+{
+  "2": "Admin CRM & Inventory Client",
+  "5": "Storefront DOM & Mobile Components",
+  "7": "Catalog Filter & Spec Extractor",
+  "15": "Getting Started & Runbooks",
+  "22": "Admin UI Views & Filters",
+  "29": "Luxury Theme System & SVG Icons",
+  "30": "Student Settings Page & Profile UI",
+  "31": "Issue Tracker & GitHub Workflow",
+  "32": "Agent Instructions & Governance",
+  "33": "Split-Stage Storefront & Anti-Slop",
+  "34": "Domain Modeling Conventions",
+  "38": "Glossary & Domain Terms",
+  "39": "Unified Login Page UI",
+  "42": "Vercel Serverless Config",
+  "43": "Dynamic Grounding & Schema Expansion",
+  "44": "TTL Cache & QR State Machine ADR",
+  "45": "Order Lifecycle & Customer Projection",
+  "47": "Triage Labels & Workflow"
+}

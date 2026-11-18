@@ -1,0 +1,296 @@
+[
+  {
+    "id": "gearhub_clean_cool",
+    "name": "Gói Spa Laptop Tiêu Chuẩn (Clean & Cool)",
+    "category": "service",
+    "categoryLabel": "Dịch vụ vệ sinh",
+    "brand": "GearHub Service",
+    "price": 79000,
+    "oldPrice": 99000,
+    "unit": "lần",
+    "duration": "30 phút",
+    "badge": "Bán chạy nhất",
+    "specs": "Thổi sạch bụi quạt tản nhiệt | Vệ sinh khe gió & bàn phím | Lau màn hình chuyên dụng | Giảm ngay 5-8°C | Thực hiện lấy liền 30 phút tại sảnh trường ĐHKHTN",
+    "description": "Thổi sạch bụi quạt tản nhiệt, vệ sinh khe gió, lau màn hình chuyên dụng và bàn phím trong 30 phút. Giúp máy êm ru, giảm ngay 5–8 độ C.",
+    "image": "https://images.unsplash.com/photo-1721332154191-ba5f1534266e?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:00:00.000Z",
+    "detailedSpecs": {
+      "type": "Vệ sinh ngoại quan & khe tản gió",
+      "time": "30 phút lấy liền",
+      "tools": "Máy hút bụi mini, khí nén, cọ quét mềm, dung dịch vệ sinh màn hình chuyên dụng",
+      "impact": "Giảm 5 - 8°C nhiệt độ CPU/GPU, quạt êm không hú gió",
+      "warranty": "Hỗ trợ kiểm tra lại miễn phí trong 7 ngày"
+    },
+    "aiReview": {
+      "summary": "Gói vệ sinh tiêu chuẩn nhanh gọn, phù hợp nhất cho sinh viên cần máy êm ngay trước buổi học hoặc ca thi.",
+      "pros": [
+        "Thời gian làm nhanh chỉ 30 phút giữa ca học",
+        "Chi phí hạt dẻ 79k, sinh viên quan sát trực tiếp toàn bộ quy trình",
+        "Máy êm rõ rệt, quạt không còn hú to trong thư viện hay giảng đường"
+      ],
+      "cons": [
+        "Chưa bao gồm tra lại keo tản nhiệt mới (nên chọn gói Thermal Boost nếu máy trên 1 năm chưa tra keo)"
+      ],
+      "targetAudience": "Sinh viên laptop bám bụi nhẹ, quạt kêu to khi mở nhiều tab Chrome hoặc VS Code"
+    },
+    "aiEnrichedAt": "2026-11-10T08:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z"
+  },
+  {
+    "id": "gearhub_thermal_boost",
+    "name": "Gói Đại Tu Tản Nhiệt Pro (Thermal Boost)",
+    "category": "service",
+    "categoryLabel": "Dịch vụ vệ sinh",
+    "brand": "GearHub Service",
+    "price": 139000,
+    "oldPrice": 180000,
+    "unit": "lần",
+    "duration": "45 phút",
+    "badge": "Cấp cứu laptop",
+    "specs": "Vệ sinh toàn diện bên trong | Tra keo tản nhiệt Arctic MX-4 / MX-6 | Tối ưu nhiệt độ CPU/GPU giảm 10-15°C | Giải nhiệt laptop gaming & máy trạm render, compile nặng",
+    "description": "Vệ sinh toàn diện bên trong kết hợp tra keo tản nhiệt hiệu năng cao (MX-4/MX-6). Giải nhiệt hiệu quả cho các dòng laptop gaming và máy trạm render, compile nặng.",
+    "image": "https://images.unsplash.com/photo-1705494833979-9377fbdee229?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:05:00.000Z",
+    "detailedSpecs": {
+      "type": "Đại tu tản nhiệt & tra keo gốm vi hạt",
+      "thermalPaste": "Arctic MX-4 / MX-6 chính hãng",
+      "time": "40 - 45 phút lấy liền",
+      "impact": "Hạ 10 - 15°C dưới tải nặng, chống tụt xung (thermal throttling) và sập nguồn",
+      "warranty": "Bảo hành lớp keo dẫn nhiệt ổn định trong 6 tháng"
+    },
+    "aiReview": {
+      "summary": "Giải pháp số một cho laptop gaming và máy trạm đồ họa đang gánh render, train mô hình AI hoặc compile code nặng.",
+      "pros": [
+        "Sử dụng keo tản nhiệt Arctic MX cao cấp không dẫn điện, an toàn tuyệt đối",
+        "Hạ nhiệt cực sâu, chấm dứt tình trạng giật lag, drop FPS do quá nhiệt",
+        "Quy trình chuyên nghiệp mở máy trước mặt khách, ký tên linh kiện"
+      ],
+      "cons": [
+        "Cần khoảng 45 phút thực hiện, nên đặt hẹn trước vào giờ nghỉ trưa"
+      ],
+      "targetAudience": "Sinh viên dùng laptop gaming (Asus TUF, Acer Nitro, Lenovo Legion, Dell G-Series) hoặc máy trạm chạy nặng"
+    },
+    "aiEnrichedAt": "2026-11-10T08:05:00.000Z",
+    "updatedAt": "2026-11-10T08:05:00.000Z"
+  },
+  {
+    "id": "gearhub_speedup_os",
+    "name": "Gói Cứu Hộ & Tối Ưu Máy Cũ (SpeedUp OS)",
+    "category": "service",
+    "categoryLabel": "Dịch vụ vệ sinh",
+    "brand": "GearHub Service",
+    "price": 49000,
+    "oldPrice": 70000,
+    "unit": "lần",
+    "duration": "25 phút",
+    "badge": "Chuẩn IT",
+    "specs": "Dọn rác hệ thống & cache sâu | Tối ưu startup Windows | Tắt background telemetry | Giải phóng RAM/CPU cho VS Code, Docker, Máy ảo | Giữ nguyên 100% dữ liệu",
+    "description": "Dọn dẹp file rác hệ thống, tối ưu khởi động Windows, tắt dịch vụ ngầm gây tốn RAM, giúp máy tính cũ mượt mà trở lại mà không mất dữ liệu.",
+    "image": "https://images.unsplash.com/photo-1509966756634-9c23dd6e6815?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:10:00.000Z",
+    "detailedSpecs": {
+      "type": "Tối ưu hóa hệ điều hành & dọn dẹp phần mềm",
+      "scope": "Windows 10/11 & macOS",
+      "time": "20 - 30 phút",
+      "impact": "Tăng tốc khởi động 40%, giải phóng 1.5GB - 3GB RAM chạy nền",
+      "safety": "Cam kết không xóa nhầm project code, file học tập hay tài liệu cá nhân"
+    },
+    "aiReview": {
+      "summary": "Tối ưu phần mềm chuẩn dân IT, hô biến chiếc laptop cũ ì ạch trở nên mượt mà, khởi động ứng dụng lập trình nhanh hơn hẳn.",
+      "pros": [
+        "Giá cực kỳ sinh viên chỉ 49k",
+        "Tinh chỉnh sâu service ngầm và registry an toàn không cần cài lại Win",
+        "Tối ưu riêng cho các công cụ code nặng: VS Code, Android Studio, Docker"
+      ],
+      "cons": [
+        "Không thay thế được nâng cấp phần cứng nếu máy chỉ có 4GB RAM hoặc dùng ổ HDD cũ"
+      ],
+      "targetAudience": "Sinh viên máy bị chậm, đơ lag khi mở máy hoặc bật nhiều ứng dụng học tập cùng lúc"
+    },
+    "aiEnrichedAt": "2026-11-10T08:10:00.000Z",
+    "updatedAt": "2026-11-10T08:10:00.000Z"
+  },
+  {
+    "id": "gearhub_keycare",
+    "name": "Gói Mod & Vệ Sinh Bàn Phím Cơ (KeyCare)",
+    "category": "service",
+    "categoryLabel": "Dịch vụ vệ sinh",
+    "brand": "GearHub Service",
+    "price": 69000,
+    "oldPrice": 95000,
+    "unit": "bàn phím",
+    "duration": "40 phút",
+    "badge": "Âm Thocky",
+    "specs": "Rửa siêu âm toàn bộ keycap | Hút bụi & làm sạch plate | Cân chỉnh stabilizer | Lube switch & thanh cân bằng | Gõ êm ái chống ồn phòng trọ",
+    "description": "Tháo keycap ngâm rửa siêu âm, hút bụi plate, cân chỉnh thanh cân bằng (stabilizer) và lube nhẹ giúp tiếng gõ êm ái (\"thocky\") không ồn phòng trọ.",
+    "image": "https://images.unsplash.com/photo-1760654550361-5437f6176370?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:15:00.000Z",
+    "detailedSpecs": {
+      "type": "Vệ sinh chuyên sâu & Mod phím cơ",
+      "method": "Rửa sóng siêu âm dung dịch chuyên dụng + Thổi khô",
+      "lube": "Krytox 205g0 & Permatex stabilizer lube",
+      "time": "35 - 45 phút",
+      "effect": "Loại bỏ 99% bụi bẩn mồ hôi, âm gõ đầm êm (thocky), hết lọc xọc stabilizer"
+    },
+    "aiReview": {
+      "summary": "Dịch vụ chăm sóc phím cơ chuyên nghiệp giúp bàn phím sạch như mới, gõ êm không gây khó chịu cho bạn cùng phòng trọ.",
+      "pros": [
+        "Rửa siêu âm sạch bong từng ngóc ngách keycap",
+        "Cân chỉnh stab hết rung lắc, tiếng spacebar đầm chắc",
+        "Phù hợp cho cả phím pre-built lẫn phím custom"
+      ],
+      "cons": [
+        "Phím cơ hàn switch (soldered) chỉ lube bên ngoài, không rã switch hàn"
+      ],
+      "targetAudience": "Sinh viên nghiện gõ phím cơ nhưng lười tháo rửa hoặc phím bị bám bẩn sau nhiều tháng thức đêm chạy code"
+    },
+    "aiEnrichedAt": "2026-11-10T08:15:00.000Z",
+    "updatedAt": "2026-11-10T08:15:00.000Z"
+  },
+  {
+    "id": "gearhub_rent_ek75",
+    "name": "Thuê Bàn Phím Cơ 3 Mode (DAREU EK75 Pro / Flex 75)",
+    "category": "rental",
+    "categoryLabel": "Thuê thiết bị",
+    "brand": "GearHub Rental",
+    "price": 25000,
+    "oldPrice": 35000,
+    "unit": "ngày",
+    "duration": "Theo ngày / 120k tuần",
+    "badge": "Thuê chỉ cần thẻ SV",
+    "specs": "3 Mode kết nối (Bluetooth 5.1 / Wireless 2.4G / Type-C) | Layout 75% có núm xoay | Switch linear êm mượt | Pin sạc 3750mAh dùng 1 tuần | Thuê bằng thẻ MSSV",
+    "description": "Trải nghiệm cảm giác gõ phím cơ custom cực êm với kết nối Bluetooth/2.4G/Type-C linh hoạt. Phù hợp cho tuần lễ chạy code đồ án hoặc viết báo cáo.",
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:20:00.000Z",
+    "detailedSpecs": {
+      "model": "DAREU EK75 Pro / Xinmeng M71 Flex 75",
+      "connection": "Bluetooth 5.1, Wireless 2.4GHz USB Dongle, Cáp Type-C",
+      "layout": "75% nhỏ gọn (82 phím) có núm vặn volume kim loại",
+      "switch": "Linear switch đã pre-lube, gõ cực êm không ồn",
+      "rentalPolicy": "Chỉ giữ Thẻ Sinh Viên (MSSV) hợp lệ, không cọc tiền mặt"
+    },
+    "aiReview": {
+      "summary": "Lựa chọn hoàn hảo cho sinh viên muốn trải nghiệm phím cơ cao cấp trong tuần lễ chạy deadline báo cáo mà không cần chi tiền triệu mua mới.",
+      "pros": [
+        "Giá thuê rẻ chỉ 25k/ngày (thuê tuần chỉ 120k)",
+        "Kết nối không dây nhạy, tương thích cả Windows và Mac",
+        "Thủ tục nhanh gọn 1 phút nhận máy tại sảnh trường"
+      ],
+      "cons": [
+        "Số lượng bàn phím cho thuê có hạn vào các tuần cao điểm thi cuối kỳ"
+      ],
+      "targetAudience": "Sinh viên chuẩn bị bảo vệ đồ án, viết tiểu luận hoặc muốn test thử trước khi quyết định mua phím cơ"
+    },
+    "aiEnrichedAt": "2026-11-10T08:20:00.000Z",
+    "updatedAt": "2026-11-10T08:20:00.000Z"
+  },
+  {
+    "id": "gearhub_rent_mouse",
+    "name": "Thuê Chuột Không Dây Công Thái Học & Gaming",
+    "category": "rental",
+    "categoryLabel": "Thuê thiết bị",
+    "brand": "GearHub Rental",
+    "price": 15000,
+    "oldPrice": 20000,
+    "unit": "ngày",
+    "duration": "Theo ngày / 75k tuần",
+    "badge": "Chống mỏi cổ tay",
+    "specs": "Không dây 2.4Ghz siêu nhạy | Thiết kế công thái học ôm sát lòng bàn tay | DPI tùy chỉnh 800 - 6400 | Cảm biến quang học chính xác | Thuê theo ngày/tuần",
+    "description": "Chuột không dây độ trễ thấp, DPI cao, cầm ôm tay chống mỏi cổ tay khi làm việc liên tục hoặc giải trí cùng team sau giờ học.",
+    "image": "https://images.unsplash.com/photo-1656457538054-b5c0d11d895d?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:25:00.000Z",
+    "detailedSpecs": {
+      "model": "Chuột công thái học Delux / Gaming Attack Shark",
+      "connection": "Wireless 2.4GHz + Bluetooth",
+      "weight": "Siêu nhẹ 65g, lướt êm ái",
+      "dpi": "800 / 1200 / 2400 / 3200 / 6400 DPI",
+      "rentalPolicy": "Xác thực thẻ sinh viên (MSSV), nhận chuột tại sảnh trường"
+    },
+    "aiReview": {
+      "summary": "Cứu tinh cho cổ tay của dân lập trình và thiết kế đồ họa khi phải ngồi máy liên tục 8-10 tiếng mỗi ngày.",
+      "pros": [
+        "Chi phí thuê chỉ 15k/ngày, rẻ hơn ly trà đá",
+        "Form công thái học giảm áp lực lên ống cổ tay rõ rệt",
+        "Pin trâu, độ nhạy cao không bị giật lag con trỏ"
+      ],
+      "cons": [
+        "Cần thời gian làm quen khoảng 30 phút nếu trước giờ chỉ dùng chuột văn phòng dẹt"
+      ],
+      "targetAudience": "Sinh viên bị đau mỏi cổ tay khi code đêm hoặc tham gia hackathon 24h"
+    },
+    "aiEnrichedAt": "2026-11-10T08:25:00.000Z",
+    "updatedAt": "2026-11-10T08:25:00.000Z"
+  },
+  {
+    "id": "gearhub_rent_hub_slide",
+    "name": "Combo Thuyết Trình Điểm A (Hub Type-C + Bút Slide)",
+    "category": "rental",
+    "categoryLabel": "Thuê thiết bị",
+    "brand": "GearHub Rental",
+    "price": 20000,
+    "oldPrice": 30000,
+    "unit": "buổi",
+    "duration": "Theo buổi thuyết trình",
+    "badge": "Cứu nguy báo cáo",
+    "specs": "Hub đa năng HDMI 4K + VGA + USB 3.0 + Type-C PD 100W | Bút laser đỏ khoảng cách 20m chuyển slide nhạy bén | Tương thích 100% máy chiếu giảng đường ĐHKHTN",
+    "description": "Bộ đôi hoàn hảo cho các buổi thuyết trình & báo cáo: Hub chuyển đổi HDMI/VGA ổn định mọi máy chiếu giảng đường kèm bút trình chiếu laser nhạy bén.",
+    "image": "https://images.unsplash.com/photo-1616578273461-3a99ce422de6?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:30:00.000Z",
+    "detailedSpecs": {
+      "hubPorts": "1x HDMI (4K@30Hz), 1x VGA (1080p), 3x USB 3.0, 1x Type-C PD 100W",
+      "pointer": "Bút laser đỏ sóng 2.4GHz, nhận sóng 20m, nút chuyển slide êm ái",
+      "compatibility": "MacBook Air/Pro, Dell XPS, ThinkPad, Asus, HP, iPad Type-C",
+      "rentalPolicy": "Thuê nhanh trước giờ vào lớp tại sảnh trường, trả sau buổi báo cáo"
+    },
+    "aiReview": {
+      "summary": "Bộ đôi cứu cánh thần tốc khi bạn bỗng nhận ra laptop của mình chỉ có cổng Type-C còn máy chiếu giảng đường lại dùng cổng VGA đời cũ.",
+      "pros": [
+        "Có cả cổng HDMI và VGA, cắm là nhận ngay không cần cài driver",
+        "Bút slide laser nhạy, hỗ trợ điều khiển slide tự tin trước hội đồng",
+        "Thuê theo buổi chỉ 20k, không phải bỏ ra 500k-700k mua hub dự phòng"
+      ],
+      "cons": [
+        "Nên kiểm tra cổng cắm máy tính trước khi nhận thiết bị"
+      ],
+      "targetAudience": "Sinh viên có buổi thuyết trình đồ án, seminar, bảo vệ luận văn tại giảng đường ĐHKHTN"
+    },
+    "aiEnrichedAt": "2026-11-10T08:30:00.000Z",
+    "updatedAt": "2026-11-10T08:30:00.000Z"
+  },
+  {
+    "id": "gearhub_kit_7in1",
+    "name": "Kit Tự Vệ Sinh Thiết Bị 7-in-1 (GearHub Mini Kit)",
+    "category": "accessory",
+    "categoryLabel": "Phụ kiện & Kit",
+    "brand": "GearHub Accessory",
+    "price": 55000,
+    "oldPrice": 75000,
+    "unit": "bộ",
+    "duration": "Sản phẩm bán đứt",
+    "badge": "Bỏ túi tiện lợi",
+    "specs": "7 chức năng trong 1 hộp nhỏ | Cọ quét bụi mật độ cao | Dụng cụ nhổ keycap | Bút vệ sinh tai nghe Bluetooth 3 đầu | Bình xịt & Khăn lau màn hình microfiber",
+    "description": "Bộ dụng cụ bỏ túi gồm cọ mềm, keycap puller, đầu lau tai nghe, bình xịt dung dịch lau màn hình và khăn microfiber dày dặn.",
+    "image": "https://images.unsplash.com/photo-1746005718015-a59f6fde6c65?w=800&auto=format&fit=crop&q=80",
+    "createdAt": "2026-11-10T08:35:00.000Z",
+    "detailedSpecs": {
+      "components": "Cọ bàn phím, keycap puller, bút vệ sinh tai nghe (đầu kim loại + cọ mini + bọt biển), bình xịt rỗng, mặt sau lót nỉ lau màn hình",
+      "material": "Nhựa ABS cao cấp, nỉ microfiber chống xước",
+      "size": "Cỡ thỏi son / thanh kẹo (12.5 x 4.4 x 2.8 cm), bỏ vừa túi balo",
+      "usage": "Tự làm sạch bàn phím, màn hình laptop, điện thoại, hộp tai nghe mọi lúc mọi nơi"
+    },
+    "aiReview": {
+      "summary": "Món phụ kiện bỏ túi không thể thiếu trong balo của mọi sinh viên IT giúp giữ thiết bị luôn sạch bong hạt bụi.",
+      "pros": [
+        "Thiết kế tích hợp thông minh tất cả trong một",
+        "Giá bán 55k cực hời cho bộ 7 công cụ bền bỉ",
+        "Khăn microfiber mềm mịn lau sạch vết vân tay trên màn hình mà không để lại vết xước"
+      ],
+      "cons": [
+        "Bình xịt dung dịch cần châm thêm nước cất hoặc nước lau kính chuyên dụng sau khi dùng hết"
+      ],
+      "targetAudience": "Mọi sinh viên muốn giữ gìn laptop, điện thoại và tai nghe sạch sẽ mỗi ngày"
+    },
+    "aiEnrichedAt": "2026-11-10T08:35:00.000Z",
+    "updatedAt": "2026-11-10T08:35:00.000Z"
+  }
+]

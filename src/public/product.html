@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="GearHub (TechStore Engine)">
+    <meta name="description" content="Chi tiết dịch vụ vệ sinh máy tính và thuê thiết bị học tập cho sinh viên tại Trạm GearHub ĐHKHTN ĐHQG-HCM.">
+    <meta property="og:title" content="GearHub · Chi Tiết Sản Phẩm &amp; Dịch Vụ Sinh Viên">
+    <meta property="og:description" content="Chi tiết dịch vụ vệ sinh máy tính và thuê thiết bị học tập cho sinh viên tại Trạm GearHub ĐHKHTN ĐHQG-HCM.">
+    <title>Chi Tiết Dịch Vụ &amp; Thiết Bị · GearHub Sinh Viên</title>
+    <link rel="icon" type="image/png" href="/favicon%20(1).png">
+    <script src="/js/themeLogos.js" defer></script>
+    <script>
+        document.documentElement.classList.add('js');
+        (function() {
+            const urlTheme = new URLSearchParams(window.location.search).get('theme');
+            const saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('techstore_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/product.css">
+</head>
+<body>
+
+    <!-- STICKY PRO MAX HEADER -->
+    <header class="main-header">
+        <div class="container header-inner">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="btn-mobile-drawer" onclick="toggleMobileDrawer()" aria-label="Mở menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <a href="/" class="logo">
+                    <img class="header-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub - Campus Tech Services">
+                </a>
+                <nav class="top-nav-links" aria-label="Điều hướng chính">
+                    <a href="/" class="top-nav-link">Giới thiệu</a>
+                    <a href="/shop" class="top-nav-link active-nav">Cửa hàng</a>
+                </nav>
+            </div>
+
+            <div class="header-center">
+                <div class="search-box" role="search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="input-search" placeholder="Tìm vệ sinh laptop, phím cơ, chuột, hub..." onkeydown="if(event.key==='Enter') window.location.href='/shop?q='+encodeURIComponent(this.value);" aria-label="Tìm kiếm">
+                    <kbd class="search-kbd" id="btn-search-kbd" role="button" tabindex="0" title="Nhấn / để tìm nhanh" aria-label="Phím tắt tìm kiếm">/</kbd>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button type="button" class="nav-action-btn theme-toggle-btn nav-icon-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                </button>
+                <button class="nav-action-btn" id="btn-customer-portal" onclick="openCustomerPortal('track')" title="Tra cứu tiến độ lịch hẹn bằng SĐT">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span class="nav-label">Tra cứu</span>
+                </button>
+
+                <button class="nav-action-btn nav-icon-btn" id="btn-open-wishlist" onclick="openCustomerPortal('wishlist')" title="Danh sách dịch vụ đã lưu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <span id="wishlist-count-badge" class="nav-badge-pill" style="display:none;">0</span>
+                </button>
+
+                <a href="/login" class="nav-action-btn" id="btn-open-auth" onclick="if(event.ctrlKey||event.metaKey)return true; event.preventDefault(); openAuthModal('login');" title="Tài khoản sinh viên / Đăng nhập" aria-label="Tài khoản sinh viên">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span class="nav-label">Đăng nhập</span>
+                </a>
+
+                <div class="user-profile-pill" id="user-profile-badge" style="display: none;" title="Tài khoản cá nhân / Cài đặt" role="button" tabindex="0">
+                    <span class="user-avatar-dot" id="user-avatar-initial">K</span>
+                    <button class="user-name-btn" id="user-display-name" onclick="openCustomerPortal('profile')">Khách</button>
+                    <a href="/settings" class="user-settings-btn" id="btn-user-settings" title="Cài đặt tài khoản sinh viên" style="display:inline-flex; align-items:center; color:var(--muted); padding: 0 4px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </a>
+                    <button class="user-orders-btn" id="btn-user-orders" onclick="openCustomerPortal('orders')">Đơn đặt</button>
+                    <button class="user-logout-btn" id="btn-logout-cust" onclick="logoutCustomer()" title="Đăng xuất">Thoát</button>
+                </div>
+
+                <div class="cart-btn-wrap" id="cart-btn-wrap">
+                    <a href="/cart" class="cart-btn-trigger" id="btn-open-cart" title="Xem giỏ hàng &amp; đặt lịch hẹn" aria-label="Giỏ hàng và lịch hẹn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        <span>Lịch đặt</span>
+                        <span id="cart-count" class="cart-count-pill">0</span>
+                    </a>
+                    <div class="cart-dropdown-flyout" id="cart-dropdown-flyout" aria-label="Xem nhanh giỏ hàng"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER NAVIGATION -->
+    <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" onclick="toggleMobileDrawer(false)"></div>
+    <aside class="mobile-drawer" id="mobile-drawer" aria-label="Menu điều hướng di động">
+        <div class="mobile-drawer-header">
+            <div class="drawer-header-brand">
+                <img class="header-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub - Campus Tech Services">
+            </div>
+            <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)" aria-label="Đóng menu">&times;</button>
+        </div>
+        <nav class="mobile-drawer-nav">
+            <a href="/" class="drawer-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                <span>Giới thiệu Trạm</span>
+            </a>
+            <a href="/shop" class="drawer-nav-item active-nav">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                <span>Cửa hàng &amp; Thuê Gear</span>
+            </a>
+            <a href="/cart" class="drawer-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>Giỏ hàng &amp; Lịch hẹn</span>
+            </a>
+            <a href="/settings" class="drawer-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>Hồ sơ &amp; Cài đặt SV</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- PRODUCT DETAIL MAIN CONTAINER -->
+    <main class="pdp-container">
+        <!-- Breadcrumbs -->
+        <nav class="pdp-breadcrumbs" aria-label="Đường dẫn điều hướng">
+            <a href="/">Trang chủ</a>
+            <span class="pdp-breadcrumbs-sep">/</span>
+            <a href="/shop">Cửa hàng</a>
+            <span class="pdp-breadcrumbs-sep">/</span>
+            <a href="/shop" id="pdp-bc-cat">Danh mục</a>
+            <span class="pdp-breadcrumbs-sep">/</span>
+            <span class="pdp-breadcrumbs-current" id="pdp-bc-current">Chi tiết</span>
+        </nav>
+
+        <!-- 2-Column Hero Showcase -->
+        <div class="pdp-hero-grid">
+            <!-- Left: Gallery & Trust -->
+            <div class="pdp-gallery-wrap">
+                <div class="pdp-main-image-card">
+                    <span class="pdp-badge-ribbon" id="pdp-ribbon">Bán chạy nhất</span>
+                    <img id="pdp-main-img" class="pdp-main-img" src="" alt="Sản phẩm GearHub" loading="eager">
+                    <span class="pdp-category-tag" id="pdp-cat-tag">Dịch vụ</span>
+                </div>
+
+                <div class="pdp-gallery-trust">
+                    <div class="pdp-trust-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <strong>30–45 Phút</strong>
+                        <span>Lấy liền tại Sảnh C</span>
+                    </div>
+                    <div class="pdp-trust-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                        <strong>0đ Tiền Cọc</strong>
+                        <span>Chỉ cần Thẻ SV hợp lệ</span>
+                    </div>
+                    <div class="pdp-trust-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <strong>Bảo Hành 7 Ngày</strong>
+                        <span>Hỗ trợ kỹ thuật 100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Details, Pricing & Actions -->
+            <div class="pdp-details-wrap">
+                <div class="pdp-meta-top">
+                    <span class="pdp-brand-badge" id="pdp-brand-badge">GEARHUB SERVICE</span>
+                    <span class="pdp-station-tag">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        Bàn kỹ thuật Sảnh C - ĐHKHTN Q.5
+                    </span>
+                </div>
+
+                <h1 class="pdp-title" id="pdp-title">Đang tải thông tin...</h1>
+
+                <div class="pdp-rating-row">
+                    <div class="pdp-stars">★★★★★</div>
+                    <span>5.0 (Hơn 120+ lượt đánh giá sinh viên hài lòng)</span>
+                </div>
+
+                <p class="pdp-lead-desc" id="pdp-desc">
+                    Vui lòng đợi giây lát trong khi hệ thống kết nối máy chủ dữ liệu...
+                </p>
+
+                <!-- Pricing Box -->
+                <div class="pdp-pricing-card">
+                    <div class="pdp-price-header">
+                        <span class="pdp-main-price" id="pdp-price">-- ₫</span>
+                        <span class="pdp-old-price" id="pdp-old-price">-- ₫</span>
+                        <span class="pdp-discount-pill" id="pdp-discount-pill">-20%</span>
+                    </div>
+                    <div class="pdp-price-unit-row">
+                        <span id="pdp-duration">Thời gian: 30 phút lấy liền</span>
+                        <span id="pdp-unit">Đơn vị: Tính theo lần</span>
+                    </div>
+                    <div class="pdp-zero-deposit-callout">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        <span>Chính sách trợ giá sinh viên: Miễn cọc tiền mặt khi xuất trình Thẻ SV (MSSV).</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pdp-actions-box">
+                    <div class="pdp-btn-group-primary">
+                        <button type="button" class="pdp-btn-main" id="pdp-btn-buy">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span>Đặt Lịch Hẹn Ngay &rarr;</span>
+                        </button>
+                        <button type="button" class="pdp-btn-cart" id="pdp-btn-cart">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            <span>Thêm vào giỏ hàng</span>
+                        </button>
+                    </div>
+
+                    <div class="pdp-btn-group-secondary">
+                        <button type="button" class="pdp-btn-tool" id="pdp-btn-wishlist">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            <span>Lưu vào Yêu thích</span>
+                        </button>
+                        <button type="button" class="pdp-btn-tool" id="pdp-btn-share">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                            <span>Chia sẻ link</span>
+                        </button>
+                        <button type="button" class="pdp-btn-tool" id="pdp-btn-ai">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Hỏi Trợ lý AI</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Station Footnote -->
+                <div class="pdp-station-box">
+                    <div><strong>Địa điểm tiếp nhận:</strong> Sảnh C trường ĐH Khoa học Tự nhiên ĐHQG-HCM (227 Nguyễn Văn Cừ, Q.5).</div>
+                    <div><strong>Giờ trực kỹ thuật:</strong> 07:30 – 17:30 (Thứ 2 đến Thứ 7 hàng tuần).</div>
+                    <div><strong>Cam kết:</strong> Sinh viên trực tiếp theo dõi kỹ thuật viên thao tác 100% trước mặt.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segmented Tabs Section -->
+        <section class="pdp-tabs-section">
+            <div class="pdp-tabs-nav" role="tablist">
+                <button type="button" class="pdp-tab-trigger active" data-tab="tab-specs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    <span>Thông Số &amp; Tiêu Chuẩn Kỹ Thuật</span>
+                </button>
+                <button type="button" class="pdp-tab-trigger" data-tab="tab-ai">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <span>Phân Tích &amp; Đánh Giá GearHub AI</span>
+                </button>
+                <button type="button" class="pdp-tab-trigger" data-tab="tab-process">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    <span>Quy Trình 4 Bước Chuẩn Dân IT</span>
+                </button>
+            </div>
+
+            <!-- Tab 1: Specs Grid -->
+            <div class="pdp-tab-panel active" id="tab-specs">
+                <div class="pdp-specs-grid" id="pdp-specs-grid">
+                    <!-- Populated dynamically by product.js -->
+                </div>
+            </div>
+
+            <!-- Tab 2: AI Review Card -->
+            <div class="pdp-tab-panel" id="tab-ai">
+                <div class="pdp-ai-card" id="pdp-ai-card">
+                    <!-- Populated dynamically by product.js -->
+                </div>
+            </div>
+
+            <!-- Tab 3: Process Timeline -->
+            <div class="pdp-tab-panel" id="tab-process">
+                <div class="pdp-process-timeline">
+                    <div class="pdp-process-step">
+                        <div class="pdp-step-num">1</div>
+                        <h4 class="pdp-step-title">Tiếp nhận &amp; Đo nhiệt độ ban đầu</h4>
+                        <p class="pdp-step-desc">Kỹ thuật viên ghi nhận tình trạng máy, đo nhiệt độ CPU/GPU khi tải nặng (cinebench/stress test) trước sự chứng kiến của bạn.</p>
+                    </div>
+                    <div class="pdp-process-step">
+                        <div class="pdp-step-num">2</div>
+                        <h4 class="pdp-step-title">Thao tác trực tiếp tại quầy</h4>
+                        <p class="pdp-step-desc">Hút sạch bụi quạt, thông khe gió tản nhiệt, vệ sinh phím và tra keo gốm Arctic MX-4/MX-6 chuẩn chỉ. Bạn ngồi đối diện theo dõi 100%.</p>
+                    </div>
+                    <div class="pdp-process-step">
+                        <div class="pdp-step-num">3</div>
+                        <h4 class="pdp-step-title">Đo nghiệm thu &amp; Bàn giao</h4>
+                        <p class="pdp-step-desc">Khởi động lại máy, đo lại nhiệt độ giảm rõ rệt 8–15°C, quạt êm ru. Với gear thuê: kiểm tra kết nối Bluetooth/2.4G và nhận máy trong 60 giây.</p>
+                    </div>
+                    <div class="pdp-process-step">
+                        <div class="pdp-step-num">4</div>
+                        <h4 class="pdp-step-title">Bảo hành 7 ngày &amp; Hỗ trợ online</h4>
+                        <p class="pdp-step-desc">Dán tem niêm phong hỗ trợ kiểm tra lại miễn phí trong 7 ngày. Trợ lý AI và đội kỹ thuật luôn online hỗ trợ qua cổng tra cứu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Products Section -->
+        <section class="pdp-related-section">
+            <h2 class="pdp-section-title">Dịch Vụ &amp; Thiết Bị Liên Quan Dành Cho Bạn</h2>
+            <div class="pdp-related-grid" id="pdp-related-grid">
+                <!-- Populated dynamically by product.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="commercial-footer">
+        <div class="container footer-grid">
+            <div class="footer-col footer-brand-col">
+                <div class="footer-logo">
+                    <img class="footer-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub Station">
+                </div>
+                <p class="footer-mission">Trạm dịch vụ vệ sinh máy tính lấy liền và cho thuê thiết bị học tập chuyên biệt dành cho sinh viên tại ĐHKHTN ĐHQG-HCM.</p>
+                <div class="footer-badges">
+                    <span class="footer-badge">Sảnh C ĐHKHTN</span>
+                    <span class="footer-badge">Lấy liền 30–45p</span>
+                    <span class="footer-badge">0đ cọc thẻ SV</span>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col-title">Dịch Vụ &amp; Thiết Bị</h4>
+                <ul class="footer-links">
+                    <li><a href="/shop?category=service">Vệ sinh &amp; Tra keo Laptop</a></li>
+                    <li><a href="/shop?category=rental">Thuê Bàn phím cơ &amp; Chuột</a></li>
+                    <li><a href="/shop?category=rental">Combo Thuyết trình Điểm A</a></li>
+                    <li><a href="/shop?category=accessory">Kit Tự Vệ Sinh 7-in-1</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col-title">Hỗ Trợ Sinh Viên</h4>
+                <ul class="footer-links">
+                    <li><a href="/cart">Giỏ hàng &amp; Lịch đặt hẹn</a></li>
+                    <li><a href="#" onclick="openCustomerPortal('track'); return false;">Tra cứu tiến độ lịch hẹn</a></li>
+                    <li><a href="#" onclick="openCustomerPortal('wishlist'); return false;">Danh sách đã lưu</a></li>
+                    <li><a href="#" onclick="toggleAiChat(); return false;">Tư vấn kỹ thuật cùng AI</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col-title">Địa Chỉ Trạm</h4>
+                <div class="footer-contact-block">
+                    <p><strong>Bàn Kỹ Thuật Sảnh C</strong></p>
+                    <p>Trường ĐH Khoa học Tự nhiên ĐHQG-HCM</p>
+                    <p>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM</p>
+                    <p>Thời gian trực: 07:30 – 17:30 (Thứ 2 – Thứ 7)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>&copy; 2026 GearHub. Trạm Gear &amp; Chăm Sóc Thiết Bị Sinh Viên.</p>
+            <div class="footer-bottom-links">
+                <a href="/">Giới thiệu</a>
+                <a href="/shop">Cửa hàng</a>
+                <a href="/cart">Lịch đặt</a>
+                <a href="/login">Đăng nhập</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI CHAT DRAWER -->
+    <button class="ai-fab-btn" id="ai-fab-btn" onclick="toggleAiChat()" title="Hỏi Trợ lý AI GearHub" aria-label="Mở Trợ lý AI">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span class="ai-fab-label">Tư vấn GearHub AI</span>
+        <span class="ai-online-dot"></span>
+    </button>
+
+    <div class="ai-chat-drawer-backdrop" id="ai-chat-backdrop" onclick="toggleAiChat(false)"></div>
+    <div class="ai-chat-drawer" id="ai-chat-drawer" aria-label="Hộp thoại tư vấn AI">
+        <div class="ai-chat-container">
+            <div class="ai-chat-header">
+                <div class="ai-chat-header-title">
+                    <span class="ai-avatar-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="20" height="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M13 8l-4 5h3l-1 4 4-5h-3l1-4z" fill="currentColor"></path></svg>
+                    </span>
+                    <div>
+                        <strong style="display:block; font-size:0.9375rem;">Trợ lý Kỹ thuật GearHub AI</strong>
+                        <span style="font-size:0.75rem; color:var(--accent-text);"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Đang trực tuyến · Tư vấn máy tính sinh viên</span>
+                    </div>
+                </div>
+                <button class="ai-chat-close" onclick="toggleAiChat()">&times;</button>
+            </div>
+
+            <div class="ai-chat-messages" id="ai-chat-messages">
+                <div class="chat-msg bot">
+                    <div class="msg-bubble">
+                        Xin chào bạn! Mình là trợ lý AI tại <strong>GearHub</strong>. Bạn cần hỗ trợ tư vấn thông số, quy trình làm sạch laptop hay thuê thiết bị học tập?
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-typing" id="chat-typing-indicator" style="display: none; padding: 0.5rem 1rem; font-size: 0.8125rem; color: var(--accent-text);">
+                GearHub AI đang phân tích dữ liệu kỹ thuật...
+            </div>
+
+            <form class="ai-chat-input-area" id="ai-chat-form" onsubmit="handleAiChatSubmit(event)">
+                <input type="text" id="ai-chat-input" placeholder="Nhập câu hỏi về máy tính, dịch vụ, thuê gear..." autocomplete="off">
+                <button type="submit" id="ai-chat-send-btn">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
+    <!-- SCRIPTS -->
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/customerPortal.js"></script>
+    <script src="js/aiChat.js"></script>
+    <script src="js/product.js"></script>
+</body>
+</html>

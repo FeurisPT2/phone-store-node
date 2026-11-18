@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Đăng Nhập · GearHub</title>
+    <link rel="icon" type="image/png" href="/favicon%20(1).png">
+    <script src="/js/themeLogos.js" defer></script>
+    <script>
+        document.documentElement.classList.add('js');
+        (function() {
+            const urlTheme = new URLSearchParams(window.location.search).get('theme');
+            const saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('techstore_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-raised: #f7f6f2;
+            --border: #e6e2d8;
+            --border-strong: #d6d1c7;
+            --border-accent: #1d4ed8;
+            --ink: #141413;
+            --muted: #6b6964;
+            --accent: #1d4ed8;
+            --accent-hover: #1e40af;
+            --accent-ink: #ffffff;
+            --accent-text: #1d4ed8;
+            --accent-glow: rgba(29, 78, 216, 0.14);
+            --field-1: #ffffff;
+            --field-1-ink: #141413;
+            --danger-bg: #fee2e2;
+            --danger-ink: #991b1b;
+            --success-bg: #dcfce7;
+            --success-ink: #166534;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.55;
+            min-height: 100svh;
+            overflow-x: hidden;
+            max-width: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, input {
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            background: none;
+            border: none;
+        }
+
+        button {
+            cursor: pointer;
+            transition: transform 160ms var(--ease-out), background-color 180ms var(--ease-out), color 180ms var(--ease-out), border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .login-stage {
+            min-height: 100svh;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        /* Left Visual Half (Columns 1-6) */
+        .login-visual-col {
+            grid-column: 1 / 7;
+            background-color: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: clamp(2rem, 4vw, 3.25rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            z-index: 2;
+        }
+
+        .brand-wordmark {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+        }
+
+        .brand-logo-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .back-store-link {
+            padding: 0.55rem 1rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            color: var(--ink);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .back-store-link:hover {
+            background-color: var(--accent);
+            border-color: var(--accent-hover);
+            color: var(--accent-ink);
+        }
+
+        .visual-object-frame {
+            margin: 1.5rem 0;
+            height: clamp(240px, 40svh, 390px);
+            background-color: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .visual-object-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .visual-float-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            background-color: rgba(17, 19, 23, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #f8fafc;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .visual-editorial-foot {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            z-index: 2;
+        }
+
+        .visual-headline {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-wrap: balance;
+        }
+
+        .visual-desc {
+            font-size: 0.95rem;
+            color: var(--muted);
+            max-width: 48ch;
+            text-wrap: pretty;
+        }
+
+        .visual-perks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.65rem;
+            margin-top: 0.25rem;
+        }
+
+        .perk-item {
+            padding: 0.65rem 0.85rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        /* Right Form Half (Columns 7-12) */
+        .login-form-col {
+            grid-column: 7 / 13;
+            background-color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1.5rem, 4vw, 3.5rem);
+        }
+
+        .portal-panel-box {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .portal-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .portal-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .portal-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.28rem 0.75rem;
+            border-radius: 999px;
+            background-color: var(--bg);
+            border: 1px solid var(--border-accent);
+            color: var(--accent-text);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .portal-header h1 {
+            font-size: 1.65rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
+
+        .portal-header p {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        /* Role Switcher (Customer vs Admin) */
+        .role-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.35rem;
+        }
+
+        .role-tab-btn {
+            padding: 0.75rem 0.85rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .role-tab-btn.active {
+            background-color: var(--accent);
+            color: var(--accent-ink);
+            font-weight: 700;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        /* Customer Sub Tabs (Login vs Register) */
+        .sub-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.15rem;
+        }
+
+        .sub-tab-btn {
+            padding: 0.6rem 0.85rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .sub-tab-btn.active {
+            background-color: var(--field-1);
+            border-color: #fff;
+            color: var(--field-1-ink);
+            font-weight: 700;
+        }
+
+        .alert-box {
+            display: none;
+            padding: 0.85rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .alert-box.error {
+            display: block;
+            background-color: var(--danger-bg);
+            border: 1px solid var(--danger-ink);
+            color: var(--danger-ink);
+        }
+
+        .alert-box.success {
+            display: block;
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-ink);
+            color: var(--success-ink);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 0.95rem;
+        }
+
+        .form-group label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 0.78rem 0.95rem;
+            font-size: 0.92rem;
+            color: var(--ink);
+            outline: none;
+        }
+
+        .input-wrapper input::placeholder {
+            color: var(--muted);
+        }
+
+        .toggle-pass {
+            padding: 0 0.85rem;
+            color: var(--accent-text);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .remember-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0.4rem 0 1.15rem;
+            font-size: 0.85rem;
+        }
+
+        .remember-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.9rem 1.25rem;
+            background-color: var(--accent);
+            border: 1px solid var(--accent-hover);
+            border-radius: var(--radius-sm);
+            color: var(--accent-ink);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 6px 18px var(--accent-glow);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .demo-hint-box {
+            margin-top: 1.15rem;
+            padding: 0.85rem 1rem;
+            background-color: var(--bg);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-fill-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            background-color: var(--surface-raised);
+            border: 1px solid var(--border-accent);
+            color: var(--accent-text);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .demo-fill-btn:hover {
+            background-color: var(--accent);
+            color: var(--accent-ink);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 960px) {
+            .login-stage {
+                display: flex;
+                flex-direction: column;
+            }
+            .login-form-col {
+                order: 1;
+                padding: clamp(1rem, 4vw, 2rem);
+            }
+            .login-visual-col {
+                order: 2;
+                padding: clamp(1rem, 4vw, 2rem);
+            }
+            .visual-object-frame {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .brand-bar {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .theme-label-text {
+                display: none;
+            }
+            .form-row-2,
+            .visual-perks-grid {
+                grid-template-columns: 1fr;
+            }
+            .portal-panel-box {
+                padding: 1.25rem 1rem;
+            }
+            .login-headline {
+                font-size: 1.5rem;
+            }
+        }
+    
+        /* Theme toggle button & Dark Theme adapt (UI/UX Pro Max) */
+        .theme-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.8rem;
+            border-radius: 6px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+        }
+        .theme-toggle-btn:hover {
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .theme-icon-sun { display: inline-block !important; color: #fbbf24; }
+        [data-theme="dark"] .theme-icon-moon { display: none !important; }
+        [data-theme="light"] .theme-icon-sun, :root:not([data-theme="dark"]) .theme-icon-sun { display: none !important; }
+        [data-theme="light"] .theme-icon-moon, :root:not([data-theme="dark"]) .theme-icon-moon { display: inline-block !important; color: var(--muted); }
+
+        :root, [data-theme="light"] {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-raised: #f7f6f2;
+            --border: #e6e2d8;
+            --border-strong: #d6d1c7;
+            --border-accent: #1d4ed8;
+            --ink: #141413;
+            --muted: #6b6964;
+            --accent: #1d4ed8;
+            --accent-hover: #1e40af;
+            --accent-ink: #ffffff;
+            --accent-text: #1d4ed8;
+            --accent-glow: rgba(29, 78, 216, 0.14);
+            --field-1: #ffffff;
+            --field-1-ink: #141413;
+            --danger-bg: #fee2e2;
+            --danger-ink: #991b1b;
+            --success-bg: #dcfce7;
+            --success-ink: #166534;
+        }
+
+        [data-theme="dark"] {
+            --bg: #090a0d;
+            --surface: #12151c;
+            --surface-raised: #191d26;
+            --border: rgba(255, 255, 255, 0.10);
+            --border-strong: rgba(255, 255, 255, 0.18);
+            --border-accent: #3b82f6;
+            --ink: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-ink: #ffffff;
+            --accent-text: #60a5fa;
+            --accent-glow: rgba(59, 130, 246, 0.18);
+            --field-1: #191d26;
+            --field-1-ink: #f8fafc;
+            --danger-bg: rgba(239, 68, 68, 0.18);
+            --danger-ink: #fca5a5;
+            --success-bg: rgba(34, 197, 94, 0.18);
+            --success-ink: #4ade80;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-stage">
+        <!-- Left Architectural Brand & Object Column -->
+        <aside class="login-visual-col">
+            <div class="brand-bar">
+                <a href="/" class="brand-wordmark">
+                    <img class="brand-logo-icon" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub">
+                    <span>GearHub · Trạm Gear SV</span>
+                </a>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                        <svg class="theme-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                        <svg class="theme-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                        <span class="theme-label-text">Giao diện</span>
+                    </button>
+                    <a href="/" class="back-store-link">&larr; Về cửa hàng</a>
+                </div>
+            </div>
+
+            <div class="visual-object-frame">
+                <span class="visual-float-tag">Hệ thống Flagship Chính Hãng VN/A</span>
+                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&auto=format&fit=crop&q=80" alt="TechStore Flagship Hardware" fetchpriority="high" decoding="async">
+            </div>
+
+            <div class="visual-editorial-foot">
+                <h2 class="visual-headline">Một tài khoản cho toàn bộ hành trình công nghệ.</h2>
+                <p class="visual-desc">Theo dõi vận đơn 4 bước thời gian thực, lưu cấu hình yêu thích, xuất hóa đơn VAT điện tử và quản trị kho hàng tập trung.</p>
+                <div class="visual-perks-grid">
+                    <div class="perk-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path></svg>Tra cứu vận đơn 4 mốc</div>
+                    <div class="perk-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>Thanh toán VietQR 3 giây</div>
+                    <div class="perk-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="M6 3h12l4 6-10 13L2 9Z"></path><path d="M11 3 8 9l4 13 4-13-3-6"></path><path d="M2 9h20"></path></svg>Tích lũy hạng VIP CRM</div>
+                    <div class="perk-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Bảo hành 12 tháng VN/A</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Authentication Workspace -->
+        <main class="login-form-col">
+            <div class="portal-panel-box">
+                <div class="portal-header">
+                    <div class="portal-title-row">
+                        <h1 id="portal-title">Cổng Đăng Nhập</h1>
+                        <span class="portal-badge" id="header-icon">GearHub Access</span>
+                    </div>
+                    <p id="portal-subtitle">Đăng nhập tài khoản sinh viên hoặc quản trị hệ thống</p>
+                </div>
+
+                <!-- Sub Tabs (Login vs Register) -->
+                <div class="sub-tabs">
+                    <button type="button" class="sub-tab-btn active" id="sub-login-btn" onclick="switchCustomerTab('login')">Đăng nhập</button>
+                    <button type="button" class="sub-tab-btn" id="sub-reg-btn" onclick="switchCustomerTab('register')">Đăng ký mới</button>
+                </div>
+
+                <!-- Alert Banner -->
+                <div id="login-alert" class="alert-box">
+                    <span id="alert-msg"></span>
+                </div>
+
+                <!-- Unified Login Form -->
+                <form id="form-customer-login" onsubmit="handleCustomerLogin(event)">
+                    <div class="form-group">
+                        <label for="cust-login-phone">Số điện thoại hoặc Tên tài khoản</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="cust-login-phone" required placeholder="Nhập số điện thoại (VD: 0987654321) hoặc tài khoản admin" autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-login-pass">Mật khẩu</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="cust-login-pass" required placeholder="Nhập mật khẩu của bạn" autocomplete="current-password">
+                            <button type="button" class="toggle-pass" onclick="togglePass('cust-login-pass', this)">Hiện</button>
+                        </div>
+                    </div>
+
+                    <div class="remember-row">
+                        <label class="remember-label">
+                            <input type="checkbox" id="cust-remember" checked>
+                            <span>Duy trì đăng nhập 30 ngày</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-cust-login">Đăng nhập ngay &rarr;</button>
+                </form>
+
+                <!-- Customer Register Form -->
+                <form id="form-customer-register" class="hidden" onsubmit="handleCustomerRegister(event)">
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="cust-reg-name">Họ và tên</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="cust-reg-name" required placeholder="Nguyễn Văn A">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-reg-phone">Số điện thoại</label>
+                            <div class="input-wrapper">
+                                <input type="tel" id="cust-reg-phone" required placeholder="09xxxxxxxx">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="cust-reg-pass">Mật khẩu</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="cust-reg-pass" required minlength="6" placeholder="Tối thiểu 6 ký tự">
+                                <button type="button" class="toggle-pass" onclick="togglePass('cust-reg-pass', this)">Hiện</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-reg-email">Email nhận hóa đơn</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="cust-reg-email" placeholder="ten@email.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-reg-address">Địa chỉ giao hàng mặc định</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="cust-reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-cust-reg">Tạo tài khoản &amp; vào cửa hàng &rarr;</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const tabParam = params.get('tab');
+            if (tabParam === 'register') {
+                switchCustomerTab('register');
+            } else {
+                switchCustomerTab('login');
+            }
+        });
+
+        function showAlert(msg, type = 'error') {
+            const box = document.getElementById('login-alert');
+            const text = document.getElementById('alert-msg');
+            box.className = `alert-box ${type}`;
+            text.innerText = msg;
+        }
+
+        function hideAlert() {
+            const box = document.getElementById('login-alert');
+            box.className = 'alert-box';
+        }
+
+        function switchCustomerTab(tab) {
+            hideAlert();
+            const isLogin = tab === 'login';
+            document.getElementById('sub-login-btn').classList.toggle('active', isLogin);
+            document.getElementById('sub-reg-btn').classList.toggle('active', !isLogin);
+            document.getElementById('form-customer-login').classList.toggle('hidden', !isLogin);
+            document.getElementById('form-customer-register').classList.toggle('hidden', isLogin);
+        }
+
+        function togglePass(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const isPass = input.type === 'password';
+            input.type = isPass ? 'text' : 'password';
+            btn.innerText = isPass ? 'Ẩn' : 'Hiện';
+        }
+
+        async function handleCustomerLogin(e) {
+            e.preventDefault();
+            hideAlert();
+            const btn = document.getElementById('btn-cust-login');
+            btn.disabled = true;
+            btn.innerText = 'Đang xác thực...';
+
+            const loginId = document.getElementById('cust-login-phone').value.trim();
+            const payload = {
+                identifier: loginId,
+                phone: loginId,
+                username: loginId,
+                password: document.getElementById('cust-login-pass').value,
+                rememberMe: document.getElementById('cust-remember')?.checked || false
+            };
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    if (data.role === 'admin') {
+                        showAlert('Xác thực Quản trị viên thành công. Đang chuyển đến Bảng điều khiển...', 'success');
+                        const redirect = new URLSearchParams(window.location.search).get('redirect') || '/admin';
+                        setTimeout(() => {
+                            window.location.href = redirect.startsWith('/admin') ? redirect : '/admin';
+                        }, 500);
+                        return;
+                    }
+
+                    showAlert('Đăng nhập thành công. Đang chuyển về cửa hàng...', 'success');
+                    const redirect = new URLSearchParams(window.location.search).get('redirect') || '/';
+                    setTimeout(() => {
+                        window.location.href = redirect.startsWith('/admin') ? '/' : redirect;
+                    }, 500);
+                } else {
+                    showAlert(data.message || 'Số điện thoại, tên tài khoản hoặc mật khẩu không chính xác.');
+                    btn.disabled = false;
+                    btn.innerText = 'Đăng nhập ngay →';
+                }
+            } catch {
+                showAlert('Lỗi kết nối máy chủ. Vui lòng thử lại.');
+                btn.disabled = false;
+                btn.innerText = 'Đăng nhập ngay →';
+            }
+        }
+
+        async function handleCustomerRegister(e) {
+            e.preventDefault();
+            hideAlert();
+            const btn = document.getElementById('btn-cust-reg');
+            btn.disabled = true;
+            btn.innerText = 'Đang khởi tạo tài khoản...';
+
+            const payload = {
+                fullName: document.getElementById('cust-reg-name').value.trim(),
+                phone: document.getElementById('cust-reg-phone').value.trim(),
+                password: document.getElementById('cust-reg-pass').value,
+                email: document.getElementById('cust-reg-email').value.trim(),
+                address: document.getElementById('cust-reg-address').value.trim()
+            };
+
+            try {
+                const res = await fetch('/api/customers/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showAlert('Tạo tài khoản thành công. Đang chuyển vào cửa hàng...', 'success');
+                    setTimeout(() => { window.location.href = '/'; }, 600);
+                } else {
+                    showAlert(data.message || 'Không thể đăng ký tài khoản.');
+                    btn.disabled = false;
+                    btn.innerText = 'Tạo tài khoản & vào cửa hàng →';
+                }
+            } catch {
+                showAlert('Lỗi kết nối máy chủ.');
+                btn.disabled = false;
+                btn.innerText = 'Tạo tài khoản & vào cửa hàng →';
+            }
+        }
+    </script>
+
+    <script>
+    
+// ==================== THEME MANAGEMENT & REAL-TIME SYNC (UI/UX Pro Max) ====================
+function getStoredTheme() {
+  const saved = localStorage.getItem('techstore_theme');
+  if (saved === 'dark' || saved === 'light') return saved;
+  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('techstore_theme', theme);
+  updateThemeUI(theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || getStoredTheme();
+  const next = current === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+}
+
+function updateThemeUI(theme) {
+  const labels = document.querySelectorAll('.theme-name-text, .theme-label-text');
+  labels.forEach(el => {
+    el.textContent = theme === 'dark' ? 'Tối' : 'Sáng';
+  });
+  const mobileLabel = document.getElementById('theme-status-mobile');
+  if (mobileLabel) {
+    mobileLabel.textContent = theme === 'dark' ? 'Tối' : 'Sáng';
+  }
+}
+
+window.addEventListener('storage', function(e) {
+  if (e.key === 'techstore_theme' && e.newValue) {
+    document.documentElement.setAttribute('data-theme', e.newValue);
+    updateThemeUI(e.newValue);
+  }
+});
+
+// Run UI sync on DOM load
+document.addEventListener('DOMContentLoaded', function() {
+  const t = getStoredTheme();
+  updateThemeUI(t);
+});
+
+    </script>
+</body>
+</html>

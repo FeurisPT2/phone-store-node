@@ -1,0 +1,10 @@
+node_modules/
+.env
+.agents/
+graphify-out/cache/
+graphify-out/*.png
+graphify-out/20*/
+.taste-skill/
+.vercel
+
+.env*

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>GearHub · Trạm Chăm Sóc Thiết Bị &amp; Cho Thuê Gear Công Nghệ Chuyên Nghiệp</title>
+    <meta name="description" content="GearHub - Hệ thống trạm chăm sóc, spa laptop tản nhiệt lấy liền 30–45 phút và cho thuê phụ kiện công nghệ học tập chính hãng chất lượng cao.">
+    <link rel="icon" type="image/png" href="/favicon%20(1).png">
+    <script src="/js/themeLogos.js" defer></script>
+
+    <!-- Đồng bộ hóa Theme Sáng/Tối tức thì chống FOUC -->
+    <script>
+        (function() {
+            try {
+                var stored = localStorage.getItem('techstore_theme');
+                var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var theme = stored ? stored : (systemDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {}
+        })();
+    </script>
+
+    <!-- Google Fonts: Be Vietnam Pro (Hỗ trợ tiếng Việt hoàn hảo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+    <!-- CSS Thiết Kế Hệ Thống & Landing Page -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
+</head>
+<body class="editorial-mode">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="main-header" id="site-header">
+        <div class="container header-inner">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="btn-mobile-drawer" onclick="toggleMobileDrawer()" aria-label="Mở menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <a href="/" class="logo">
+                    <img class="header-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub - Campus Tech Services">
+                </a>
+                <nav class="top-nav-links" aria-label="Điều hướng chính">
+                    <a href="/" class="top-nav-link active-nav">Giới thiệu</a>
+                    <a href="/shop" class="top-nav-link">Cửa hàng</a>
+                </nav>
+            </div>
+
+            <div class="header-actions">
+                <button type="button" class="nav-action-btn theme-toggle-btn nav-icon-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                    <span class="theme-name-text nav-label" style="display:none;">Giao diện</span>
+                </button>
+
+                <a href="/login" class="nav-action-btn" id="btn-open-auth" title="Tài khoản sinh viên / Đăng nhập" aria-label="Tài khoản sinh viên">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span class="nav-label">Đăng nhập</span>
+                </a>
+
+                <div class="user-profile-pill" id="user-profile-badge" style="display: none;" onclick="window.location.href='/settings';" title="Tài khoản cá nhân / Cài đặt" aria-label="Tài khoản sinh viên" role="button" tabindex="0">
+                    <span class="user-avatar-dot" id="user-avatar-initial">K</span>
+                    <button class="user-name-btn" id="user-display-name" onclick="window.location.href='/settings';">Khách</button>
+                    <a href="/settings" class="user-settings-btn" id="btn-user-settings" title="Cài đặt tài khoản sinh viên" style="display:inline-flex; align-items:center; color:var(--muted); padding: 0 4px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- CART BUTTON WITH HOVER DROPDOWN -->
+                <div class="cart-btn-wrap" id="cart-btn-wrap">
+                    <a href="/cart" class="cart-btn-trigger" id="btn-open-cart" title="Xem giỏ hàng &amp; đặt lịch hẹn" aria-label="Giỏ hàng và lịch hẹn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        <span>Lịch đặt</span>
+                        <span id="cart-count" class="cart-count-pill">0</span>
+                    </a>
+                    <!-- Mini-Cart Hover Dropdown Flyout -->
+                    <div class="cart-dropdown-flyout" id="cart-dropdown-flyout" aria-label="Xem nhanh giỏ hàng">
+                        <!-- Rendered by renderCartDropdownFlyout() -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER NAVIGATION -->
+    <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" onclick="toggleMobileDrawer(false)"></div>
+    <aside class="mobile-drawer" id="mobile-drawer" aria-label="Menu điều hướng di động">
+        <div class="mobile-drawer-header">
+            <div class="drawer-header-brand">
+                <img class="header-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub - Campus Tech Services">
+            </div>
+            <button class="close-btn" onclick="toggleMobileDrawer(false)" aria-label="Đóng menu">&times;</button>
+        </div>
+
+        <!-- MOBILE DRAWER ACCOUNT SPOTLIGHT CARD -->
+        <div class="drawer-account-section">
+            <div class="drawer-account-card drawer-account-guest" id="drawer-guest-card">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title">Tài khoản sinh viên</span>
+                        <span class="drawer-account-sub">Đăng nhập để xem lịch hẹn &amp; ưu đãi</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <a href="/login" class="drawer-account-login-btn" onclick="toggleMobileDrawer(false);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                        <span>Đăng nhập / Đăng ký</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="drawer-account-card drawer-account-user" id="drawer-user-card" style="display:none;">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap drawer-avatar-initial" id="drawer-user-initial">K</div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title" id="drawer-user-name">Khách</span>
+                        <span class="drawer-account-sub" id="drawer-user-role">Sinh viên HCMUS</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <div class="drawer-account-actions-row">
+                        <a href="/settings" class="drawer-action-btn" title="Cài đặt tài khoản" onclick="toggleMobileDrawer(false);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            <span>Cài đặt</span>
+                        </a>
+                        <button type="button" class="drawer-action-btn drawer-action-btn-danger" onclick="logoutCustomer(); toggleMobileDrawer(false);" title="Đăng xuất">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>Thoát</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-drawer-body">
+            <button class="drawer-item" onclick="toggleTheme();">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <span>Chế độ giao diện:</span>
+                <strong id="theme-status-mobile" style="margin-left:auto; color:var(--accent-text);">Sáng</strong>
+            </button>
+
+            <p class="drawer-section-title">Các trang hệ thống</p>
+            <a href="/" class="drawer-item" style="color:var(--accent-text); font-weight:700;" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Giới Thiệu</span>
+            </a>
+            <a href="/shop" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>Cửa Hàng</span>
+            </a>
+            <a href="/cart" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Giỏ Hàng &amp; Lịch Hẹn</span>
+            </a>
+
+            <p class="drawer-section-title">Nội dung trang</p>
+            <a href="#station-signboard" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                <span>Bảng Hiệu Trạm Sảnh C</span>
+            </a>
+            <a href="#story-section" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>Vì Sao Làm? (Lý Do &amp; Sứ Mệnh)</span>
+            </a>
+            <a href="#team-section" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Đội Ngũ 5 Thành Viên Nhóm</span>
+            </a>
+            <a href="#faq-section" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span>Câu Hỏi Thường Gặp (FAQ)</span>
+            </a>
+            <button class="drawer-item" onclick="toggleAiChat(); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>Trợ Lý Kỹ Thuật AI</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main>
+
+        <!-- 0. GEARHUB STATION SIGNBOARD (BẢNG HIỆU TRẠM THỰC TẾ) -->
+        <div class="container">
+            <section class="station-signboard" id="station-signboard" data-reveal style="--i:0">
+                <div class="signboard-inner">
+                    <div class="signboard-brand-col">
+                        <div class="signboard-tag">
+                            <span class="trust-dot" style="background:#60a5fa;"></span>
+                            <span>HỆ THỐNG DỊCH VỤ LAPTOP &amp; THIẾT BỊ IT CHÍNH HÃNG · TRẠM ĐHKHTN ĐHQG-HCM</span>
+                        </div>
+                        <h2 class="signboard-title">GEARHUB STATION · TRẠM GEAR SINH VIÊN</h2>
+                        <p class="signboard-subtitle">Trạm dịch vụ vệ sinh máy tính lấy liền 30–45 phút và cho thuê thiết bị học tập bằng Thẻ Sinh Viên tại sảnh trường ĐH Khoa học Tự nhiên ĐHQG-HCM.</p>
+                    </div>
+                    <div class="signboard-station-meta">
+                        <div class="signboard-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span><strong>Địa chỉ:</strong> Bàn kỹ thuật Sảnh C - 227 Nguyễn Văn Cừ, Q.5</span>
+                        </div>
+                        <div class="signboard-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span><strong>Giờ trực:</strong> 07:30 – 17:30 (Thứ 2 – Thứ 7)</span>
+                        </div>
+                        <div class="signboard-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span><strong>Cam kết:</strong> 0đ cọc · Lấy ngay 30–45p · Xem trực tiếp 100%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section class="about-hero" id="hero-section">
+            <div class="container about-hero-inner">
+                <h1 class="about-hero-title" data-reveal style="--i:0">
+                    Trạm Gear &amp; Chăm Sóc Thiết Bị Tại Chỗ<br>
+                    <span class="hero-accent">Dành Riêng Cho Sinh Viên IT</span>
+                </h1>
+
+                <p class="about-hero-desc" data-reveal style="--i:1">
+                    GearHub giải quyết triệt để nỗi lo máy tính quá nhiệt trong mùa học tập cao điểm, thiếu thiết bị ngoại vi chuyên dụng khi thuyết trình, với quy trình lấy liền trong 30–45 phút ngay tại trường và chính sách thuê gear bằng thẻ sinh viên không cần cọc tiền mặt.
+                </p>
+
+                <div class="about-cta-group" data-reveal style="--i:2">
+                    <a href="/shop?category=service" class="cta-btn-primary" title="Đặt lịch vệ sinh máy tính lấy liền 30–45 phút tại Sảnh C">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span>Đặt Lịch Vệ Sinh</span>
+                    </a>
+                    <a href="/shop?category=rental" class="cta-btn-primary cta-btn-rental" title="Thuê bàn phím cơ, chuột công thái học, hub máy chiếu 0đ cọc">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="8" x2="17" y2="8"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="16" x2="13" y2="16"></line></svg>
+                        <span>Thuê Gear Ngay</span>
+                    </a>
+                    <a href="#story-section" class="cta-btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                        <span>Xem Câu Chuyện Thương Hiệu</span>
+                    </a>
+                    <button type="button" class="cta-btn-ai" onclick="toggleAiChat()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span>Hỏi Trợ Lý AI Ngay</span>
+                    </button>
+                </div>
+
+                <!-- 4 METRICS BENCHMARK -->
+                <div class="about-metrics-grid">
+                    <div class="metric-card" data-reveal style="--i:0">
+                        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.4rem; color:var(--accent);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="20" height="20"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span class="metric-value" style="margin-bottom:0;">30 – 45 Phút</span>
+                        </div>
+                        <p class="metric-label">Vệ sinh &amp; tra keo MX-4 lấy ngay giữa hai ca học, không phải gửi máy qua đêm.</p>
+                    </div>
+
+                    <div class="metric-card" data-reveal style="--i:1">
+                        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.4rem; color:var(--accent);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="20" height="20"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="8" x2="17" y2="8"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="16" x2="13" y2="16"></line></svg>
+                            <span class="metric-value" style="margin-bottom:0;">0đ Tiền Cọc</span>
+                        </div>
+                        <p class="metric-label">Xác thực thuê chuột, phím cơ, hub máy chiếu đơn giản bằng Thẻ Sinh Viên (MSSV).</p>
+                    </div>
+
+                    <div class="metric-card" data-reveal style="--i:2">
+                        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.4rem; color:var(--accent);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="20" height="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span class="metric-value" style="margin-bottom:0;">100% An Toàn</span>
+                        </div>
+                        <p class="metric-label">Quan sát trực tiếp kỹ thuật viên thao tác tại sảnh trường, tuyệt đối an tâm dữ liệu code.</p>
+                    </div>
+
+                    <div class="metric-card" data-reveal style="--i:3">
+                        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.4rem; color:var(--accent);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="20" height="20"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M12 2a10 10 0 0 1 10 10h-10V2z" fill="currentColor"></path></svg>
+                            <span class="metric-value" style="margin-bottom:0;">Gemini AI</span>
+                        </div>
+                        <p class="metric-label">Trợ lý ảo chẩn đoán lỗi phần cứng &amp; tư vấn giải pháp sát với nhu cầu sinh viên IT.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PROBLEM & SOLUTION SECTION (VÌ SAO LÀM? LÝ DO & SỨ MỆNH) -->
+        <section class="about-section" id="story-section">
+            <div class="container">
+                <div class="section-head" data-reveal style="--i:0">
+                    <h2 class="section-title">Lý Do Ra Đời &amp; Sứ Mệnh Vì Sinh Viên IT</h2>
+                    <p class="section-subtitle">
+                        Mỗi mùa thi cuối kỳ, chạy hackathon hay thuyết trình dự án lớn, sinh viên ngành công nghệ luôn phải đối mặt với những sự cố thiết bị dở khóc dở cười mà các tiệm truyền thống bên ngoài chưa giải quyết được.
+                    </p>
+                </div>
+
+                <div class="problem-solution-grid">
+                    <!-- Nỗi đau thực tế -->
+                    <div class="story-card story-card--problem" data-reveal style="--i:0">
+                        <div class="story-header">
+                            <span class="story-badge story-badge--red">
+                                <span class="story-badge-icon-wrap story-badge-icon-wrap--red" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </span>
+                                <span>Thực Trạng Khó Khăn</span>
+                            </span>
+                            <h3 class="story-title">Nỗi Đau Khi Đem Máy Ra Tiệm Ngoài</h3>
+                        </div>
+                        <ul class="story-list">
+                            <li>
+                                <span class="bullet-icon bullet-icon--red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                                <div>
+                                    <strong>Nóng máy &amp; tụt xung nhịp:</strong> Laptop gào to, quạt kêu rít, giật lag khi mở VS Code, Docker, chạy máy ảo hay compile code nặng.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bullet-icon bullet-icon--red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                                <div>
+                                    <strong>Giữ máy qua đêm:</strong> Các tiệm bên ngoài thường hẹn 2–3 ngày, làm gián đoạn hoàn toàn việc học và tiềm ẩn nguy cơ rò rỉ dữ liệu hoặc thay đổi linh kiện.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bullet-icon bullet-icon--red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                                <div>
+                                    <strong>Giá cọc thuê thiết bị trên trời:</strong> Muốn thuê bàn phím cơ gõ êm ở KTX hay bút trình chiếu laser phải đặt cọc 2–5 triệu tiền mặt và giữ CCCD.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Giải pháp GearHub -->
+                    <div class="story-card story-card--solution" data-reveal style="--i:1">
+                        <div class="story-header">
+                            <span class="story-badge story-badge--green">
+                                <span class="story-badge-icon-wrap story-badge-icon-wrap--green" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </span>
+                                <span>Giải Pháp GearHub Tại Chỗ</span>
+                            </span>
+                            <h3 class="story-title">Mô Hình Trạm Công Nghệ Sảnh C</h3>
+                        </div>
+                        <ul class="story-list">
+                            <li>
+                                <span class="bullet-icon bullet-icon--green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                                <div>
+                                    <strong>Spa Laptop lấy liền 30–45p:</strong> Đặt trạm ngay tại Sảnh C, vệ sinh quạt và tra keo MX-4/MX-6 lấy ngay giữa 2 ca học, giảm nhiệt 5–10°C.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bullet-icon bullet-icon--green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                                <div>
+                                    <strong>Minh bạch tuyệt đối:</strong> Khách hàng ngồi xem trực tiếp toàn bộ quy trình, giải thích từng bước vệ sinh và dọn rác hệ điều hành.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bullet-icon bullet-icon--green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                                <div>
+                                    <strong>Thuê gear bằng Thẻ Sinh Viên:</strong> Không cần tiền cọc lớn, giá thuê chỉ từ 15k–25k/ngày (bằng một ly trà sữa), nhận và trả máy ngay tại trường.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. THREE CORE PILLARS SHOWCASE (CỔNG TRUY CẬP CÁC DANH MỤC CỬA HÀNG) -->
+        <section class="about-section" id="services-section">
+            <div class="container">
+                <div class="section-head" data-reveal style="--i:0">
+                    <h2 class="section-title">Hệ Sinh Thái Dịch Vụ, Cho Thuê &amp; Bán Lẻ GearHub</h2>
+                    <p class="section-subtitle">
+                        Khám phá trọn gói danh mục dịch vụ vệ sinh máy tính, thuê gear học tập và phụ kiện IT tích hợp tiện lợi ngay tại Cửa Hàng.
+                    </p>
+                </div>
+
+                <div class="pillars-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <!-- Pillar 1: Services -->
+                    <div class="pillar-card" data-reveal style="--i:0">
+                        <div class="pillar-img-frame">
+                            <img src="https://images.unsplash.com/photo-1721332154191-ba5f1534266e?w=800&auto=format&fit=crop&q=80" alt="Spa Laptop Tản Nhiệt">
+                        </div>
+                        <div class="pillar-content">
+                            <span class="pillar-badge">Dịch Vụ Vệ Sinh</span>
+                            <h3 class="pillar-title">Trạm Dịch Vụ Vệ Sinh Laptop</h3>
+                            <p class="pillar-desc">
+                                Làm sạch bụi bẩn buồng tản nhiệt, vệ sinh cánh quạt, tra keo tản nhiệt gốm cao cấp Arctic MX-4/MX-6 chuyên trị laptop gaming, máy trạm đồ họa &amp; lập trình nặng. Lấy liền trong 30–45 phút tại sảnh.
+                            </p>
+                            <div class="pillar-meta">
+                                <span class="pillar-price">Từ 49.000đ – 139.000đ</span>
+                                <a href="/shop?category=service" class="pillar-link">Xem dịch vụ &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 2: Rentals -->
+                    <div class="pillar-card" data-reveal style="--i:1">
+                        <div class="pillar-img-frame">
+                            <img src="https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=800&auto=format&fit=crop&q=80" alt="Cho thuê Gear Sinh Viên">
+                        </div>
+                        <div class="pillar-content">
+                            <span class="pillar-badge">Cho Thuê Thiết Bị</span>
+                            <h3 class="pillar-title">Trạm Cho Thuê Thiết Bị Bằng Thẻ SV</h3>
+                            <p class="pillar-desc">
+                                Bàn phím cơ Dareu EK75 Pro gõ êm ái chống ồn phòng KTX 32dB, chuột công thái học chống mỏi cổ tay, và Combo Hub Type-C + Bút laser cứu nguy buổi thuyết trình. 0đ tiền cọc.
+                            </p>
+                            <div class="pillar-meta">
+                                <span class="pillar-price">Từ 15.000đ – 25.000đ/ngày</span>
+                                <a href="/shop?category=rental" class="pillar-link">Thuê thiết bị ngay &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 3: Shop / Accessories -->
+                    <div class="pillar-card" data-reveal style="--i:2">
+                        <div class="pillar-img-frame">
+                            <img src="https://images.unsplash.com/photo-1746005718015-a59f6fde6c65?w=800&auto=format&fit=crop&q=80" alt="Gian Hàng Phụ Kiện IT">
+                        </div>
+                        <div class="pillar-content">
+                            <span class="pillar-badge">Phụ Kiện IT</span>
+                            <h3 class="pillar-title">Gian Hàng Phụ Kiện &amp; Kit Chăm Sóc</h3>
+                            <p class="pillar-desc">
+                                Bán lẻ các sản phẩm phụ kiện bỏ túi: Kit tự vệ sinh 7-in-1, tuýp keo MX-4 mini, khăn lau microfiber nano, giá đỡ laptop công thái học và phụ kiện máy tính học đường.
+                            </p>
+                            <div class="pillar-meta">
+                                <span class="pillar-price">Từ 55.000đ · Bán đứt</span>
+                                <a href="/shop?category=accessory" class="pillar-link">Vào cửa hàng &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. MEET THE TEAM SECTION -->
+        <section class="about-section" id="team-section">
+            <div class="container">
+                <div class="section-head" data-reveal style="--i:0">
+                    <h2 class="section-title">Đội Ngũ Sáng Lập &amp; Vận Hành Kỹ Thuật GearHub</h2>
+                    <p class="section-subtitle">
+                        Đội ngũ kỹ thuật viên phần cứng và chuyên viên vận hành tận tâm tại Trạm GearHub Sảnh C, cam kết mang đến dịch vụ tiêu chuẩn và trải nghiệm công nghệ chuyên nghiệp nhất.
+                    </p>
+                </div>
+
+                <div class="team-grid">
+                    <!-- Member 1 -->
+                    <div class="team-card" data-reveal style="--i:0">
+                        <div class="team-avatar-frame">
+                            <div class="team-avatar-inner">P</div>
+                        </div>
+                        <h3 class="team-name">Trần Gia Phúc</h3>
+                        <span class="team-mssv">Đồng Sáng Lập</span>
+                        <div class="team-role">Lead Systems Architect</div>
+                        <p class="team-desc">Phụ trách định hướng công nghệ, thiết kế nền tảng đặt lịch hẹn trực tuyến và chuẩn hóa quy trình dịch vụ trạm.</p>
+                    </div>
+
+                    <!-- Member 2 -->
+                    <div class="team-card" data-reveal style="--i:1">
+                        <div class="team-avatar-frame">
+                            <div class="team-avatar-inner">L</div>
+                        </div>
+                        <h3 class="team-name">Nguyễn Hoàng Long</h3>
+                        <span class="team-mssv">Đồng Sáng Lập</span>
+                        <div class="team-role">Lead Frontend &amp; Mobile UX</div>
+                        <p class="team-desc">Xây dựng trải nghiệm Storefront đa nền tảng, tối ưu giao diện đặt hẹn trên di động và hệ thống thanh toán VietQR tức thì.</p>
+                    </div>
+
+                    <!-- Member 3 -->
+                    <div class="team-card" data-reveal style="--i:2">
+                        <div class="team-avatar-frame">
+                            <div class="team-avatar-inner">Q</div>
+                        </div>
+                        <h3 class="team-name">Lê Minh Quân</h3>
+                        <span class="team-mssv">Kỹ Thuật Viên Trưởng</span>
+                        <div class="team-role">AI Engineer &amp; Hardware Diagnostics</div>
+                        <p class="team-desc">Phát triển trợ lý GearHub AI hỗ trợ bắt bệnh nhiệt độ laptop 24/7, chuẩn hóa quy trình tra keo tản nhiệt Arctic hiệu năng cao.</p>
+                    </div>
+
+                    <!-- Member 4 -->
+                    <div class="team-card" data-reveal style="--i:3">
+                        <div class="team-avatar-frame">
+                            <div class="team-avatar-inner">A</div>
+                        </div>
+                        <h3 class="team-name">Phạm Quỳnh Anh</h3>
+                        <span class="team-mssv">Vận Hành &amp; Thương Hiệu</span>
+                        <div class="team-role">Head of Brand &amp; Customer Experience</div>
+                        <p class="team-desc">Quản lý tiêu chuẩn dịch vụ tại quầy Sảnh C, chăm sóc trải nghiệm khách hàng và xây dựng các chương trình trợ giá thiết bị học tập.</p>
+                    </div>
+
+                    <!-- Member 5 -->
+                    <div class="team-card" data-reveal style="--i:4">
+                        <div class="team-avatar-frame">
+                            <div class="team-avatar-inner">K</div>
+                        </div>
+                        <h3 class="team-name">Võ Đăng Khoa</h3>
+                        <span class="team-mssv">Hạ Tầng &amp; Đảm Bảo Chất Lượng</span>
+                        <div class="team-role">Cloud Infrastructure &amp; QA Lead</div>
+                        <p class="team-desc">Đảm bảo hạ tầng máy chủ vận hành ổn định 99.9%, bảo mật dữ liệu khách hàng tuyệt đối và kiểm thử chất lượng hệ thống.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 5. FAQ - CÂU HỎI THƯỜNG GẶP VỀ GEARHUB -->
+        <section class="about-section faq-section" id="faq-section">
+            <div class="container">
+                <div class="faq-grid">
+                    <div class="faq-heading-col" data-reveal style="--i:0">
+                        <span class="about-badge" style="margin-bottom: 0.75rem;">
+                            <span class="badge-dot"></span>
+                            <span>Hỏi Đáp Nhanh</span>
+                        </span>
+                        <h2 class="section-title" style="margin-bottom: 0.75rem;">Câu hỏi thường gặp</h2>
+                        <p class="section-subtitle" style="margin-bottom: 1.5rem; text-wrap: balance;">
+                            Giải đáp nhanh về thủ tục thuê gear, dịch vụ vệ sinh lấy liền và quy trình trải nghiệm tại GearHub.
+                        </p>
+                    </div>
+
+                    <div class="faq-list-col">
+                        <details class="faq-item" open data-reveal style="--i:0">
+                            <summary>
+                                <span>Sinh viên có cần đặt cọc tiền mặt khi thuê bàn phím cơ / chuột không?</span>
+                                <span class="faq-marker">+</span>
+                            </summary>
+                            <p class="faq-answer">Hoàn toàn không cần đặt cọc tiền mặt. Sinh viên chỉ cần xuất trình Thẻ Sinh Viên (hoặc VNeID) hợp lệ khi nhận thiết bị tại Sảnh C trường ĐHKHTN để làm thủ tục đối chiếu nhanh trong 1 phút.</p>
+                        </details>
+
+                        <details class="faq-item" data-reveal style="--i:1">
+                            <summary>
+                                <span>Vệ sinh laptop mất bao lâu, tôi có phải để máy lại qua đêm không?</span>
+                                <span class="faq-marker">+</span>
+                            </summary>
+                            <p class="faq-answer">GearHub cam kết quy trình lấy liền trong 30-45 phút ngay tại sảnh trường. Bạn hoàn toàn có thể ngồi học bài hoặc quan sát kỹ thuật viên thao tác trực tiếp trước mặt.</p>
+                        </details>
+
+                        <details class="faq-item" data-reveal style="--i:2">
+                            <summary>
+                                <span>Dữ liệu và linh kiện trong máy tính của tôi có được bảo mật không?</span>
+                                <span class="faq-marker">+</span>
+                            </summary>
+                            <p class="faq-answer">Kỹ thuật viên GearHub chỉ thao tác cơ học với quạt tản nhiệt và keo tản nhiệt, không can thiệp ổ cứng hay hệ điều hành của bạn. Thiết bị được kiểm tra tình trạng bật/tắt cùng sinh viên trước và sau khi làm.</p>
+                        </details>
+
+                        <details class="faq-item" data-reveal style="--i:3">
+                            <summary>
+                                <span>GearHub hỗ trợ những hình thức thanh toán nào?</span>
+                                <span class="faq-marker">+</span>
+                            </summary>
+                            <p class="faq-answer">Khách hàng có thể thanh toán linh hoạt bằng mã chuyển khoản VietQR tự động xác nhận trong 5 giây, các ví điện tử phổ biến (MoMo, ZaloPay) hoặc thanh toán trực tiếp bằng tiền mặt khi nhận máy tại bàn kỹ thuật Sảnh C.</p>
+                        </details>
+
+                        <details class="faq-item" data-reveal style="--i:4">
+                            <summary>
+                                <span>Chính sách bảo hành dịch vụ và đổi trả thiết bị như thế nào?</span>
+                                <span class="faq-marker">+</span>
+                            </summary>
+                            <p class="faq-answer">Mọi gói spa laptop đều được bảo hành nhiệt độ 7 ngày (hỗ trợ kiểm tra và tra lại keo Arctic miễn phí 100% nếu máy quá nhiệt). Thiết bị thuê được đổi mới 1-đổi-1 ngay lập tức nếu phát sinh lỗi phần cứng trong thời gian sử dụng.</p>
+                        </details>
+
+                        <details class="faq-item" data-reveal style="--i:5">
+                            <summary>
+                                <span>Trợ lý AI GearHub có thể tư vấn những nội dung gì?</span>
+                                <span class="faq-marker">+</span>
+                            </summary>
+                            <p class="faq-answer">Trợ lý AI được nạp dữ liệu về các dòng máy nóng phổ biến, các loại keo tản nhiệt (Arctic MX-4/MX-6), các loại switch phím cơ (Red, Brown, Dream Switch) để giúp sinh viên chọn giải pháp tối ưu cho túi tiền.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CAMPUS LOCATION & CALL TO ACTION -->
+        <section class="about-section" id="location-section">
+            <div class="container">
+                <div class="campus-location-banner" data-reveal style="--i:0">
+                    <div>
+                        <h2 class="campus-info-title">Trải Nghiệm Trực Tiếp Tại Trạm Kỹ Thuật Sảnh C</h2>
+                        <p class="campus-info-desc">
+                            Ghé thăm bàn kỹ thuật GearHub tại Sảnh C trường ĐHKHTN để được đo nhiệt độ máy tính miễn phí, vệ sinh lấy liền 30–45 phút và trải nghiệm các thiết bị công nghệ chuyên nghiệp!
+                        </p>
+                        <ul class="campus-meta-list">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span><strong>Địa điểm:</strong> Bàn Kỹ Thuật Sảnh C, Trường ĐH Khoa học Tự nhiên (227 Nguyễn Văn Cừ, Quận 5, TP.HCM)</span>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span><strong>Thời gian phục vụ:</strong> 07:30 – 17:30 (Thứ 2 đến Thứ 7 hàng tuần)</span>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                <span><strong>Hotline hỗ trợ:</strong> 0987.654.321 · Email tiếp nhận dịch vụ: support@gearhub.vn</span>
+                            </li>
+                        </ul>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                            <a href="/shop" class="cta-btn-primary" style="font-size:1.05rem;">
+                                <span>Mở Gian Hàng GearHub (/shop)</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </a>
+                            <a href="/login" class="cta-btn-secondary">
+                                <span>Đăng Nhập Cổng Khách Hàng</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="campus-qr-box">
+                        <div class="campus-qr-img">
+                            <svg viewBox="0 0 100 100" fill="currentColor">
+                                <rect x="5" y="5" width="25" height="25" fill="#1d4ed8"/>
+                                <rect x="9" y="9" width="17" height="17" fill="#fff"/>
+                                <rect x="13" y="13" width="9" height="9" fill="#1d4ed8"/>
+                                
+                                <rect x="70" y="5" width="25" height="25" fill="#1d4ed8"/>
+                                <rect x="74" y="9" width="17" height="17" fill="#fff"/>
+                                <rect x="78" y="13" width="9" height="9" fill="#1d4ed8"/>
+                                
+                                <rect x="5" y="70" width="25" height="25" fill="#1d4ed8"/>
+                                <rect x="9" y="74" width="17" height="17" fill="#fff"/>
+                                <rect x="13" y="78" width="9" height="9" fill="#1d4ed8"/>
+
+                                <rect x="35" y="10" width="6" height="6"/>
+                                <rect x="45" y="15" width="6" height="6"/>
+                                <rect x="55" y="10" width="6" height="6"/>
+                                <rect x="35" y="25" width="6" height="6"/>
+                                <rect x="50" y="25" width="6" height="6"/>
+                                <rect x="40" y="40" width="8" height="8" fill="#1d4ed8"/>
+                                <rect x="52" y="40" width="8" height="8" fill="#1d4ed8"/>
+                                <rect x="40" y="52" width="8" height="8" fill="#1d4ed8"/>
+                                <rect x="52" y="52" width="8" height="8" fill="#1d4ed8"/>
+                                <rect x="35" y="70" width="6" height="6"/>
+                                <rect x="45" y="75" width="6" height="6"/>
+                                <rect x="55" y="70" width="6" height="6"/>
+                                <rect x="70" y="45" width="6" height="6"/>
+                                <rect x="80" y="55" width="6" height="6"/>
+                                <rect x="70" y="75" width="6" height="6"/>
+                                <rect x="85" y="85" width="6" height="6"/>
+                            </svg>
+                        </div>
+                        <h3 class="campus-qr-title">Quét Mã Đặt Lịch Nhanh</h3>
+                        <p class="campus-qr-sub">Đặt lịch hẹn chỉ trong 30 giây, không chờ đợi tại quầy</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-col footer-col--brand">
+                <div class="footer-brand-title">
+                    <img class="footer-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub Technologies">
+                </div>
+                <p class="footer-brand-desc">
+                    Hệ thống trạm chăm sóc thiết bị công nghệ &amp; cho thuê gear chuyên biệt tại trường đại học. Cam kết 100% linh kiện và keo tản nhiệt chính hãng, quy trình minh bạch quan sát trực tiếp, giải pháp tối ưu cho sinh viên và giới công nghệ.
+                </p>
+                <p class="footer-copy">&copy; 2026 GearHub Technologies. Giấy phép dịch vụ kỹ thuật số trạm trường ĐHKHTN ĐHQG-HCM.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col-title">Dịch Vụ &amp; Cửa Hàng</h4>
+                <ul class="footer-links">
+                    <li><a href="/shop">Gian Hàng GearHub (/shop)</a></li>
+                    <li><a href="/shop?category=service">Dịch Vụ Vệ Sinh Laptop Lấy Liền</a></li>
+                    <li><a href="/shop?category=rental">Cho Thuê Gear Không Cọc Tiền Mặt</a></li>
+                    <li><a href="/shop?category=accessory">Phụ Kiện Máy Tính &amp; Kit Chăm Sóc</a></li>
+                    <li><a href="/cart">Giỏ Hàng &amp; Đặt Lịch Hẹn</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col-title">Chính Sách &amp; Hỗ Trợ</h4>
+                <ul class="footer-links">
+                    <li><a href="/#faq-section">Câu Hỏi Thường Gặp (FAQ)</a></li>
+                    <li><a href="/#story-section">Cam Kết Chất Lượng &amp; Bảo Hành</a></li>
+                    <li><a href="/login">Cổng Khách Hàng / Đăng Nhập</a></li>
+                    <li><a href="/settings">Quản Lý Tài Khoản &amp; Lịch Sử</a></li>
+                    <li><a href="/admin">Cổng Quản Trị Hệ Thống (Admin)</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING AI CONSULTANT WIDGET -->
+    <div class="ai-chat-widget" id="ai-chat-widget" data-ui>
+        <button class="ai-chat-trigger" id="ai-chat-btn" onclick="toggleAiChat()" title="Trợ lý AI tư vấn thiết bị">
+            <span class="ai-trigger-pulse"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Tư vấn GearHub AI</span>
+        </button>
+
+        <div class="ai-chat-window" id="ai-chat-window">
+            <div class="ai-chat-header">
+                <div class="ai-chat-header-info">
+                    <span class="ai-avatar">GH</span>
+                    <div>
+                        <strong style="display:block; font-size:0.9375rem;">Trợ lý Kỹ thuật GearHub AI</strong>
+                        <span style="font-size:0.75rem; color:var(--accent-text);"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Đang trực tuyến · Tư vấn máy tính sinh viên</span>
+                    </div>
+                </div>
+                <button class="ai-chat-close" onclick="toggleAiChat()">&times;</button>
+            </div>
+
+            <div class="ai-chat-messages" id="ai-chat-messages">
+                <div class="chat-msg bot">
+                    <div class="msg-bubble">
+                        Xin chào bạn! Mình là trợ lý AI tại <strong>GearHub (Trạm Gear &amp; Chăm Sóc Thiết Bị Sinh Viên ĐHKHTN)</strong>. Bạn cần hỗ trợ vệ sinh laptop hạ nhiệt, tư vấn thuê bàn phím cơ gõ êm cho phòng KTX, hay mượn thiết bị thuyết trình?
+                        <div class="ai-quick-prompts">
+                            <button type="button" onclick="sendQuickPrompt('Laptop bị nóng và quạt kêu to khi gõ code')"> Laptop nóng quạt kêu to</button>
+                            <button type="button" onclick="sendQuickPrompt('Tư vấn thuê bàn phím cơ gõ êm không ồn')"> Thuê phím cơ gõ êm KTX</button>
+                            <button type="button" onclick="sendQuickPrompt('Combo vệ sinh 79k gồm những bước nào?')"> Quy trình vệ sinh 79k</button>
+                            <button type="button" onclick="sendQuickPrompt('Thủ tục thuê gear bằng Thẻ Sinh Viên như thế nào?')"> Thủ tục thuê bằng thẻ SV</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-typing" id="chat-typing-indicator" style="display: none; padding: 0.5rem 1rem; font-size: 0.8125rem; color: var(--accent-text);">
+                GearHub AI đang phân tích dữ liệu kỹ thuật...
+            </div>
+
+            <form class="ai-chat-input-area" id="ai-chat-form" onsubmit="handleAiChatSubmit(event)">
+                <input type="text" id="ai-chat-input" placeholder="Nhập câu hỏi về máy tính, dịch vụ, thuê gear..." autocomplete="off">
+                <button type="submit" id="ai-chat-send-btn">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CLIENT JAVASCRIPT MODULES -->
+    <script src="js/catalogFilter.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/customerPortal.js"></script>
+    <script src="js/aiChat.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof updateThemeUI === 'function') {
+                updateThemeUI(getStoredTheme());
+            }
+            if (typeof checkAuthState === 'function') {
+                checkAuthState();
+            }
+        });
+    </script>
+</body>
+</html>

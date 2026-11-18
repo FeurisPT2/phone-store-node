@@ -1,0 +1,53 @@
+[
+  {
+    "id": "CUST_1791800380355",
+    "fullName": "Trần Văn Hoàng",
+    "phone": "0988776655",
+    "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "email": "hoang.tran@gmail.com",
+    "address": "123 Đường Cầu Giấy, Hà Nội",
+    "note": "Giao trong giờ hành chính",
+    "adminNote": "",
+    "tag": "Thân thiết",
+    "visitCount": 1,
+    "orderCount": 1,
+    "totalSpent": 29490000,
+    "createdAt": "2026-10-12T10:19:40.355Z",
+    "updatedAt": "2026-10-12T10:19:40.357Z",
+    "lastOrderAt": "2026-10-12T10:19:40.357Z"
+  },
+  {
+    "id": "CUST_1791802409926",
+    "fullName": "Lê Minh Tuấn",
+    "phone": "0919998877",
+    "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "email": "tuan.le@gmail.com",
+    "address": "456 Lê Lợi, Quận 1, TP.HCM",
+    "note": "",
+    "adminNote": "",
+    "tag": "Mới",
+    "visitCount": 1,
+    "orderCount": 0,
+    "totalSpent": 0,
+    "createdAt": "2026-10-12T10:53:29.926Z",
+    "updatedAt": "2026-10-12T10:53:29.927Z"
+  },
+  {
+    "id": "CUST_1791802518023",
+    "fullName": "Phạm Đức Anh",
+    "phone": "0901112233",
+    "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "email": "ducanh@gmail.com",
+    "address": "100 Hai Bà Trưng, Quận 1",
+    "note": "",
+    "adminNote": "",
+    "tag": "Thân thiết",
+    "visitCount": 2,
+    "orderCount": 1,
+    "totalSpent": 34990000,
+    "createdAt": "2026-10-12T10:55:18.023Z",
+    "updatedAt": "2026-10-12T10:55:26.689Z",
+    "lastVisited": "2026-10-12T10:55:26.685Z",
+    "lastOrderAt": "2026-10-12T10:55:26.688Z"
+  }
+]

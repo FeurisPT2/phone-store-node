@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="GearHub (TechStore Engine)">
+    <meta name="description" content="Nền tảng đặt lịch dịch vụ vệ sinh laptop, thuê gear học tập và hỗ trợ kỹ thuật thông minh cho sinh viên.">
+    <meta property="og:title" content="GearHub · Trạm Gear &amp; Chăm Sóc Thiết Bị Sinh Viên">
+    <meta property="og:description" content="Nền tảng đặt lịch dịch vụ vệ sinh laptop, thuê gear học tập và hỗ trợ kỹ thuật thông minh cho sinh viên.">
+    <title>GearHub · Trạm Gear &amp; Chăm Sóc Thiết Bị Sinh Viên (Khoa CNTT - ĐHKHTN ĐHQG-HCM)</title>
+    <link rel="icon" type="image/png" href="/favicon%20(1).png">
+    <script src="/js/themeLogos.js" defer></script>
+    <script>
+        document.documentElement.classList.add('js');
+        (function() {
+            const urlTheme = new URLSearchParams(window.location.search).get('theme');
+            const saved = (urlTheme === 'dark' || urlTheme === 'light') ? urlTheme : localStorage.getItem('techstore_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+    <!-- STICKY PRO MAX HEADER -->
+    <header class="main-header">
+        <div class="container header-inner">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="btn-mobile-drawer" onclick="toggleMobileDrawer()" aria-label="Mở menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <a href="/" class="logo">
+                    <img class="header-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub - Campus Tech Services">
+                </a>
+                <nav class="top-nav-links" aria-label="Điều hướng chính">
+                    <a href="/" class="top-nav-link">Giới thiệu</a>
+                    <a href="/shop" class="top-nav-link active-nav">Cửa hàng</a>
+                </nav>
+            </div>
+
+            <div class="header-center">
+                <div class="search-box" role="search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="input-search" placeholder="Tìm vệ sinh laptop, phím cơ, chuột, hub..." oninput="handleSearch(this.value)" aria-label="Tìm kiếm dịch vụ">
+                    <button type="button" id="btn-clear-search" class="search-clear-btn" style="display:none;" onclick="document.getElementById('input-search').value=''; handleSearch('');" title="Xóa từ khóa">&times;</button>
+                    <kbd class="search-kbd" id="btn-search-kbd" role="button" tabindex="0" title="Nhấn / để tìm nhanh" aria-label="Phím tắt tìm kiếm">/</kbd>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button type="button" class="nav-action-btn theme-toggle-btn nav-icon-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                    <span class="theme-name-text nav-label" style="display:none;">Giao diện</span>
+                </button>
+                <button class="nav-action-btn" id="btn-customer-portal" onclick="openCustomerPortal('track')" title="Tra cứu tiến độ lịch hẹn bằng SĐT">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span class="nav-label">Tra cứu</span>
+                </button>
+
+                <button class="nav-action-btn nav-icon-btn" id="btn-open-wishlist" onclick="openCustomerPortal('wishlist')" title="Danh sách dịch vụ đã lưu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <span class="nav-label" style="display:none;">Yêu thích</span>
+                    <span id="wishlist-count-badge" class="nav-badge-pill" style="display:none;">0</span>
+                </button>
+
+                <a href="/login" class="nav-action-btn" id="btn-open-auth" onclick="if(event.ctrlKey||event.metaKey)return true; event.preventDefault(); openAuthModal('login');" title="Tài khoản sinh viên / Đăng nhập" aria-label="Tài khoản sinh viên">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span class="nav-label">Đăng nhập</span>
+                </a>
+
+                <div class="user-profile-pill" id="user-profile-badge" style="display: none;" onclick="if(window.innerWidth<=640){window.location.href='/settings';}" title="Tài khoản cá nhân / Cài đặt" aria-label="Tài khoản sinh viên" role="button" tabindex="0">
+                    <span class="user-avatar-dot" id="user-avatar-initial">K</span>
+                    <button class="user-name-btn" id="user-display-name" onclick="openCustomerPortal('profile')">Khách</button>
+                    <a href="/settings" class="user-settings-btn" id="btn-user-settings" title="Cài đặt tài khoản sinh viên" style="display:inline-flex; align-items:center; color:var(--muted); padding: 0 4px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </a>
+                    <button class="user-orders-btn" id="btn-user-orders" onclick="openCustomerPortal('orders')">Đơn đặt</button>
+                    <button class="user-logout-btn" id="btn-logout-cust" onclick="logoutCustomer()" title="Đăng xuất">Thoát</button>
+                </div>
+
+                <!-- CART BUTTON WITH HOVER DROPDOWN -->
+                <div class="cart-btn-wrap" id="cart-btn-wrap">
+                    <a href="/cart" class="cart-btn-trigger" id="btn-open-cart" title="Xem giỏ hàng &amp; đặt lịch hẹn" aria-label="Giỏ hàng và lịch hẹn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        <span>Lịch đặt</span>
+                        <span id="cart-count" class="cart-count-pill">0</span>
+                    </a>
+                    <!-- Mini-Cart Hover Dropdown Flyout -->
+                    <div class="cart-dropdown-flyout" id="cart-dropdown-flyout" aria-label="Xem nhanh giỏ hàng">
+                        <!-- Rendered by renderCartDropdownFlyout() -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER NAVIGATION -->
+    <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" onclick="toggleMobileDrawer(false)"></div>
+    <aside class="mobile-drawer" id="mobile-drawer" aria-label="Menu điều hướng di động">
+        <div class="mobile-drawer-header">
+            <div class="drawer-header-brand">
+                <img class="header-logo-image" src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub - Campus Tech Services">
+            </div>
+            <button class="close-btn" onclick="toggleMobileDrawer(false)" aria-label="Đóng menu">&times;</button>
+        </div>
+
+        <!-- MOBILE DRAWER ACCOUNT SPOTLIGHT CARD -->
+        <div class="drawer-account-section">
+            <div class="drawer-account-card drawer-account-guest" id="drawer-guest-card">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title">Tài khoản sinh viên</span>
+                        <span class="drawer-account-sub">Đăng nhập để xem lịch hẹn &amp; ưu đãi</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <a href="/login" class="drawer-account-login-btn" onclick="toggleMobileDrawer(false);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                        <span>Đăng nhập / Đăng ký</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="drawer-account-card drawer-account-user" id="drawer-user-card" style="display:none;">
+                <div class="drawer-account-top">
+                    <div class="drawer-avatar-wrap drawer-avatar-initial" id="drawer-user-initial">K</div>
+                    <div class="drawer-account-info">
+                        <span class="drawer-account-title" id="drawer-user-name">Khách</span>
+                        <span class="drawer-account-sub" id="drawer-user-role">Sinh viên HCMUS</span>
+                    </div>
+                </div>
+                <div class="drawer-account-bottom">
+                    <div class="drawer-account-actions-row">
+                        <a href="/settings" class="drawer-action-btn" title="Cài đặt tài khoản" onclick="toggleMobileDrawer(false);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            <span>Cài đặt</span>
+                        </a>
+                        <button type="button" class="drawer-action-btn drawer-action-btn-danger" onclick="logoutCustomer(); toggleMobileDrawer(false);" title="Đăng xuất">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>Thoát</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-drawer-body">
+            <button class="drawer-item" onclick="toggleTheme();">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <span>Chế độ giao diện:</span>
+                <strong id="theme-status-mobile" style="margin-left:auto; color:var(--accent-text);">Sáng</strong>
+            </button>
+
+            <p class="drawer-section-title">Các trang hệ thống</p>
+            <a href="/" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Giới Thiệu</span>
+            </a>
+            <a href="/shop" class="drawer-item" style="color:var(--accent-text); font-weight:700;" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>Cửa Hàng</span>
+            </a>
+            <a href="/cart" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Giỏ Hàng &amp; Lịch Hẹn</span>
+            </a>
+
+            <p class="drawer-section-title">Dịch vụ &amp; Đặt hẹn</p>
+            <button class="drawer-item" onclick="resetAllFilters(); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>Bảng Dịch Vụ &amp; Thiết Bị</span>
+            </button>
+            <button class="drawer-item" onclick="openCustomerPortal('track'); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Tra Cứu Lịch Hẹn Trạm</span>
+            </button>
+            <button class="drawer-item" onclick="openCustomerPortal('orders'); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span>Lịch Hẹn Của Tôi</span>
+            </button>
+            <button class="drawer-item" onclick="openCustomerPortal('wishlist'); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <span>Danh Sách Đã Lưu</span>
+            </button>
+            <a href="/settings" class="drawer-item" onclick="toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>Cài Đặt Hồ Sơ Sinh Viên</span>
+            </a>
+            <button class="drawer-item" onclick="toggleAiChat(); toggleMobileDrawer(false);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>Trợ Lý Kỹ Thuật AI</span>
+            </button>
+
+            <p class="drawer-section-title">Danh mục trạm sảnh C</p>
+            <div class="drawer-brand-grid">
+                <button onclick="filterByBrand('service'); toggleMobileDrawer(false);">Vệ sinh MX-4</button>
+                <button onclick="filterByBrand('rental'); toggleMobileDrawer(false);">Thuê Gear SV</button>
+                <button onclick="filterByBrand('accessory'); toggleMobileDrawer(false);">Kit Vệ Sinh</button>
+                <button onclick="resetAllFilters(); toggleMobileDrawer(false);">Tất Cả Gói</button>
+            </div>
+        </div>
+    </aside>
+
+    
+    <!-- 1. HERO - Split Stage: GearHub Station Spotlight -->
+    <section class="container split-stage-section" id="hero-section" aria-label="Tâm điểm Dịch vụ GearHub">
+        <div class="split-stage-wrap">
+            <div class="split-left-sticky">
+                <div class="stage-image-frame">
+                    <img id="stage-main-image" src="https://images.unsplash.com/photo-1721332154191-ba5f1534266e?w=1200&auto=format&fit=crop&q=80" alt="Vệ sinh laptop chuyên sâu tại GearHub" fetchpriority="high">
+                </div>
+                <div class="stage-finish-row">
+                    <span class="finish-label">Dịch vụ &amp; Gear tiêu biểu:</span>
+                    <div class="swatch-group" role="group" aria-label="Chọn dịch vụ spotlight">
+                        <button type="button" class="swatch-btn active" data-swatch="clean" title="Vệ sinh Laptop (MX-4)" style="background:#334155;" onclick="selectFinishSwatch('clean')"></button>
+                        <button type="button" class="swatch-btn" data-swatch="keyboard" title="Thuê Phím Cơ DareU EK75" style="background:#0f172a;" onclick="selectFinishSwatch('keyboard')"></button>
+                        <button type="button" class="swatch-btn" data-swatch="mouse" title="Thuê Chuột Silent Ergonomic" style="background:#64748b;" onclick="selectFinishSwatch('mouse')"></button>
+                        <button type="button" class="swatch-btn" data-swatch="slide" title="Thuê Hub Type-C &amp; Bút Trình Chiếu" style="background:#cbd5e1;" onclick="selectFinishSwatch('slide')"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-right-column">
+                <h1 class="editorial-title" id="stage-main-title">Combo Sinh Viên Cool &amp; Clean</h1>
+                <div class="editorial-category-line" style="display:flex; align-items:center; gap:8px; margin-bottom:1rem;">
+                    <span class="editorial-sub" id="stage-finish-tag" style="margin-bottom:0;">Dịch vụ Vệ sinh Laptop Lấy liền</span>
+                </div>
+                <p class="editorial-desc" id="stage-main-desc">Hút sạch bụi quạt tản nhiệt, tra keo gốm Arctic MX-4, hạ ngay 10–15°C khi compile code hoặc render đồ họa. Hoàn thành nhanh 30–45 phút tại sảnh trường.</p>
+
+                <div class="spec-list-block" id="stage-specs-block">
+                    <div class="spec-line">
+                        <span class="spec-k">Vật tư chuẩn</span>
+                        <strong class="spec-v">Keo gốm Arctic MX-4</strong>
+                    </div>
+                    <div class="spec-line">
+                        <span class="spec-k">Thời gian</span>
+                        <strong class="spec-v">Lấy liền 30–45 phút</strong>
+                    </div>
+                    <div class="spec-line">
+                        <span class="spec-k">Cam kết</span>
+                        <strong class="spec-v">Đo nhiệt trước &amp; sau</strong>
+                    </div>
+                    <div class="spec-line">
+                        <span class="spec-k">Chi phí</span>
+                        <strong class="spec-v">Đồng giá 79.000 ₫ SV</strong>
+                    </div>
+                </div>
+
+                <div class="editorial-cta-bar">
+                    <div class="price-stack">
+                        <span class="price-caption">Giá sinh viên niêm yết:</span>
+                        <span class="price-strong" id="stage-price-strong">79.000 ₫</span>
+                    </div>
+                    <button type="button" class="btn-editorial-buy" onclick="document.getElementById('catalog-section').scrollIntoView({behavior:'smooth'})">
+                        Xem Bảng Dịch Vụ &amp; Đặt Lịch &rarr;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. USP / SERVICE RECOGNITION (4 Trụ cột cam kết GearHub) -->
+    <section class="container usp-recognition-section" aria-label="Cam kết dịch vụ GearHub">
+        <div class="usp-recognition-grid">
+            <div class="usp-card" data-reveal style="--i:0">
+                <span class="usp-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </span>
+                <div class="usp-info">
+                    <strong>30–45P Lấy Liền</strong>
+                    <span>Tại Sảnh C trường ĐHKHTN, theo dõi trực tiếp</span>
+                </div>
+            </div>
+            <div class="usp-card" data-reveal style="--i:1">
+                <span class="usp-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                </span>
+                <div class="usp-info">
+                    <strong>Thẻ SV Không Cọc</strong>
+                    <span>Chỉ cần MSSV và Thẻ SV hợp lệ là nhận gear</span>
+                </div>
+            </div>
+            <div class="usp-card" data-reveal style="--i:2">
+                <span class="usp-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"></path></svg>
+                </span>
+                <div class="usp-info">
+                    <strong>Tối Ưu Chuẩn Dân IT</strong>
+                    <span>Keo Arctic MX-4/MX-6 xịn, dọn rác mát máy</span>
+                </div>
+            </div>
+            <div class="usp-card" data-reveal style="--i:3">
+                <span class="usp-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+                </span>
+                <div class="usp-info">
+                    <strong>Trợ Lý AI GearHub 24/7</strong>
+                    <span>Bắt bệnh nhiệt độ máy, tư vấn loại switch</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CATALOG & MULTI-ATTRIBUTE SPEC LAB -->
+    <main class="container catalog-section" id="catalog-section">
+        <div class="catalog-header-grid">
+            <div class="catalog-heading-col" data-reveal style="--i:0">
+                <h2 class="section-headline">Bảng Giá Dịch Vụ &amp; Thiết Bị Sinh Viên</h2>
+            </div>
+            <div class="catalog-summary-col" data-reveal style="--i:1">
+                <p class="breadcrumb-count">Đang hiển thị <strong id="total-products-count">0</strong> dịch vụ &amp; thiết bị sẵn sàng phục vụ</p>
+            </div>
+        </div>
+
+        <nav class="breadcrumb-nav" id="breadcrumb-bar" aria-label="Đường dẫn danh mục" data-reveal style="--i:2">
+            <div class="breadcrumb-trail">
+                <span class="breadcrumb-link" onclick="resetAllFilters()">Trang chủ GearHub</span>
+                <span class="breadcrumb-sep">/</span>
+                <span class="breadcrumb-link" onclick="resetAllFilters()">Dịch vụ &amp; Thiết bị</span>
+                <span class="breadcrumb-sep" id="bc-active-sep" style="display:none;">/</span>
+                <span class="breadcrumb-active" id="bc-active-label" style="display:none;">Tất cả</span>
+            </div>
+            <div class="breadcrumb-right-meta">
+                <span class="tabular"> Trạm Sảnh C ĐHKHTN · Hoạt động trực tiếp 07:30 – 17:30</span>
+            </div>
+        </nav>
+
+        <!-- Smart Need / Quick Filter Presets -->
+        <div class="quick-presets-bar" aria-label="Chọn nhanh theo nhu cầu" data-reveal style="--i:2">
+            <span class="preset-label">Nhu cầu sinh viên:</span>
+            <button type="button" class="preset-pill active" data-preset="all" onclick="applyQuickPreset('all')">Tất cả (8 gói)</button>
+            <button type="button" class="preset-pill" data-preset="service" onclick="applyQuickPreset('service')">Vệ sinh &amp; Tra keo</button>
+            <button type="button" class="preset-pill" data-preset="rental" onclick="applyQuickPreset('rental')">Thuê Gear theo ngày</button>
+            <button type="button" class="preset-pill" data-preset="accessory" onclick="applyQuickPreset('accessory')">Phụ kiện IT sinh viên</button>
+            <button type="button" class="preset-pill" data-preset="discount" onclick="applyQuickPreset('discount')">Ưu đãi sâu nhất</button>
+        </div>
+
+        <!-- Category Filter Bar -->
+        <section class="filter-bar" aria-label="Lọc theo phân loại" data-reveal style="--i:3">
+            <button type="button" class="btn-filter active" data-brand="all" onclick="filterByBrand('all')">Tất cả phân loại <span class="brand-count-badge">8</span></button>
+            <button type="button" class="btn-filter" data-brand="service" onclick="filterByBrand('service')">Gói Dịch Vụ Vệ Sinh <span class="brand-count-badge">4</span></button>
+            <button type="button" class="btn-filter" data-brand="rental" onclick="filterByBrand('rental')">Thiết Bị Cho Thuê <span class="brand-count-badge">3</span></button>
+            <button type="button" class="btn-filter" data-brand="accessory" onclick="filterByBrand('accessory')">Phụ Kiện IT Học Tập <span class="brand-count-badge">1</span></button>
+        </section>
+
+        <div class="active-filter-chips" id="active-filter-chips" style="display: none;"></div>
+
+        <!-- Product Catalog Grid (Grouped by Category) -->
+        <div id="product-list" class="catalog-groups-wrap"></div>
+        <div id="catalog-more-wrap" class="catalog-more-bar" style="display: none;"></div>
+    </main>
+
+
+
+    <!-- 9. FOOTER - GearHub Station Footer -->
+    <footer class="main-footer">
+        <div class="container footer-split">
+            <div class="footer-photo-half">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80" alt="Không gian học tập và kỹ thuật GearHub" loading="lazy" decoding="async">
+            </div>
+            <div class="footer-menu-half">
+                <nav class="footer-nav-big" aria-label="Liên kết cuối trang">
+                    <a href="#catalog-section" class="footer-big-link">Bảng Dịch Vụ &amp; Báo Giá Gear &rarr;</a>
+                    <a href="/#faq-section" class="footer-big-link">Câu Hỏi Thường Gặp &amp; Quy Định Thuê &rarr;</a>
+                    <a href="/admin" class="footer-big-link">Cổng Quản Trị Hệ Thống Trạm &rarr;</a>
+                </nav>
+
+                <div class="footer-contact-grid">
+                    <div class="footer-contact-col">
+                        <strong>Trạm GearHub Sảnh C</strong>
+                        <p>Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM</p>
+                        <p style="text-wrap:pretty;">227 Nguyễn Văn Cừ, Phường 4, Quận 5,&nbsp;TP.HCM</p>
+                        <p>Giờ hoạt động: 07:30 – 17:30 (Thứ 2 – Thứ 7)</p>
+                    </div>
+                </div>
+
+                <div class="footer-bottom-row">
+                    <span>&copy; 2026 GearHub · Trạm Gear &amp; Chăm Sóc Thiết Bị Sinh Viên ĐHKHTN.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         MODALS & INTERACTIVE PORTAL OVERLAYS (data-ui)
+         ========================================================================== -->
+
+    <!-- 1. Customer Auth Modal -->
+    <div id="auth-modal" class="modal" data-ui>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="auth-modal-title">Đăng nhập tài khoản</h2>
+                </div>
+                <button type="button" class="close-btn" onclick="closeAuthModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')"> Đăng nhập</button>
+                    <button class="auth-tab-btn" id="tab-register-btn" onclick="switchAuthTab('register')"> Đăng ký thành viên</button>
+                </div>
+
+                <form id="form-customer-login" onsubmit="handleCustomerLogin(event)">
+                    <div class="form-group">
+                        <label for="login-phone">Số điện thoại hoặc Tên tài khoản</label>
+                        <input type="text" id="login-phone" required placeholder="Nhập số điện thoại hoặc tài khoản admin" autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Mật khẩu</label>
+                        <input type="password" id="login-password" required placeholder="Nhập mật khẩu" autocomplete="current-password">
+                    </div>
+                    <div class="remember-row">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="login-remember" checked>
+                            <span>Ghi nhớ phiên đăng nhập (30 ngày)</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit" id="btn-login-submit">Đăng nhập ngay</button>
+                </form>
+
+                <form id="form-customer-register" style="display: none;" onsubmit="handleCustomerRegister(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-name">Họ và tên</label>
+                            <input type="text" id="reg-name" required placeholder="Nguyễn Văn A">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-phone">Số điện thoại</label>
+                            <input type="tel" id="reg-phone" required placeholder="09xxxxxxxx (10 số)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-password">Mật khẩu</label>
+                            <input type="password" id="reg-password" required minlength="6" placeholder="Tối thiểu 6 ký tự">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">Email nhận hóa đơn VAT</label>
+                            <input type="email" id="reg-email" placeholder="example@email.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-address">Địa chỉ nhận hàng mặc định</label>
+                        <input type="text" id="reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành">
+                    </div>
+                    <button type="submit" class="btn-submit" id="btn-reg-submit">Tạo tài khoản thành viên</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Customer Self-Service Portal Modal -->
+    <div id="customer-portal-modal" class="modal" data-ui>
+        <div class="modal-content modal-xl">
+            <div class="modal-header">
+                <div>
+                    <h2 id="portal-modal-title">Cổng Sinh Viên &amp; Tra Cứu Lịch Hẹn GearHub</h2>
+                </div>
+                <button type="button" class="close-btn" onclick="closeCustomerPortal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="portal-tabs">
+                    <button class="portal-tab-btn active" data-ptab="track" onclick="switchPortalTab('track')"> Tra cứu lịch hẹn</button>
+                    <button class="portal-tab-btn" data-ptab="orders" onclick="switchPortalTab('orders')"> Lịch hẹn của tôi</button>
+                    <button class="portal-tab-btn" data-ptab="profile" onclick="switchPortalTab('profile')"> Hồ sơ sinh viên</button>
+                    <button class="portal-tab-btn" data-ptab="wishlist" onclick="switchPortalTab('wishlist')"> Dịch vụ quan tâm</button>
+                </div>
+
+                <div class="portal-panel" id="portal-panel-track">
+                    <div class="portal-info-banner">
+                        <span> Nhập <strong>Mã đơn hẹn (#GH-...)</strong> và <strong>Số điện thoại</strong> để theo dõi tiến trình 4 bước: <em>Tiếp nhận &rarr; Vệ sinh / Chuẩn bị gear &rarr; Sẵn sàng tại sảnh C &rarr; Hoàn thành</em>.</span>
+                    </div>
+                    <form class="form-row" id="form-track-order" onsubmit="handleTrackOrderSubmit(event)" style="align-items: end;">
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label for="track-order-id">Mã đơn hẹn</label>
+                            <input type="text" id="track-order-id" required placeholder="VD: GH-2026-001 hoặc ORD-...">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label for="track-order-phone">Số điện thoại sinh viên</label>
+                            <input type="tel" id="track-order-phone" required placeholder="VD: 0912345678">
+                        </div>
+                        <button type="submit" class="btn-primary-sage" style="grid-column: 1 / -1;"> Tra cứu trạng thái lịch hẹn</button>
+                    </form>
+                    <div id="track-order-result" style="margin-top: 1.5rem;"></div>
+                </div>
+
+                <div class="portal-panel" id="portal-panel-orders" style="display: none;">
+                    <div id="my-orders-list-body">
+                        <p>Đang tải danh sách lịch hẹn...</p>
+                    </div>
+                </div>
+
+                <div class="portal-panel" id="portal-panel-profile" style="display: none;">
+                    <div id="portal-profile-content"></div>
+                </div>
+
+                <div class="portal-panel" id="portal-panel-wishlist" style="display: none;">
+                    <div id="portal-wishlist-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Cart & Checkout Modal -->
+    <div id="cart-modal" class="modal" data-ui>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <div>
+                    <h2>Phiếu Đặt Lịch Hẹn &amp; Thuê Gear</h2>
+                </div>
+                <button type="button" class="close-btn" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Checkout Visual Stepper -->
+                <div class="checkout-flow-steps">
+                    <div class="cf-step active"><span>1</span> Gói dịch vụ &amp; Gear</div>
+                    <div class="cf-sep">&rarr;</div>
+                    <div class="cf-step active"><span>2</span> Khung giờ tại sảnh</div>
+                    <div class="cf-sep">&rarr;</div>
+                    <div class="cf-step active"><span>3</span> Xác nhận hẹn lịch</div>
+                </div>
+
+                <div id="cart-items" class="cart-items-container"></div>
+                <div class="cart-summary">
+                    <div>
+                        <span style="display:block; font-size:0.8125rem; color:var(--muted); font-weight:400;">Áp dụng chính sách sinh viên · Không thu phụ phí</span>
+                        <span>Tổng chi phí ước tính</span>
+                    </div>
+                    <span id="cart-total" class="total-price">0 ₫</span>
+                </div>
+
+                <div class="checkout-section">
+                    <div class="modal-header" style="margin-bottom: 1rem;">
+                        <h3> Thông tin hẹn nhận máy tại trường</h3>
+                        <span id="remember-hint" style="display: none; font-size: 0.8125rem; color: var(--accent-text);"> Đã tự động điền từ hồ sơ của bạn</span>
+                    </div>
+                    <form id="order-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="c-phone">Số điện thoại sinh viên *</label>
+                                <input type="tel" id="c-phone" required placeholder="Nhập SĐT (VD: 0912345678)" autocomplete="tel">
+                            </div>
+                            <div class="form-group">
+                                <label for="c-name">Họ và tên sinh viên *</label>
+                                <input type="text" id="c-name" required placeholder="Nhập họ và tên (VD: Nguyễn Văn A)" autocomplete="name">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="c-student-id">Mã số sinh viên (MSSV) *</label>
+                                <input type="text" id="c-student-id" required placeholder="VD: 22120001 (Để thuê gear hoặc nhận ưu đãi)" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="c-hall-slot">Khung giờ hẹn tại sảnh trường *</label>
+                                <select id="c-hall-slot" required>
+                                    <option value="Sảnh C (227 NVC) - Ca sáng: 09:00 - 11:30">Sảnh C (227 NVC) · Ca sáng: 09:00 - 11:30</option>
+                                    <option value="Sảnh C (227 NVC) - Nghỉ trưa: 11:30 - 13:00">Sảnh C (227 NVC) · Nghỉ trưa: 11:30 - 13:00</option>
+                                    <option value="Sảnh C (227 NVC) - Ca chiều: 13:30 - 17:00">Sảnh C (227 NVC) · Ca chiều: 13:30 - 17:00</option>
+                                    <option value="KTX Khu B (ĐHQG) - Tối hẹn trước: 18:00 - 20:00">KTX Khu B (ĐHQG) · Tối hẹn trước: 18:00 - 20:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-address">Địa điểm bàn giao chi tiết *</label>
+                            <input type="text" id="c-address" required placeholder="VD: Bàn giao trực tiếp tại Sảnh C - 227 Nguyễn Văn Cừ" autocomplete="street-address">
+                        </div>
+                        <div class="form-group">
+                            <label for="c-note">Ghi chú tình trạng máy / Yêu cầu đặc biệt</label>
+                            <textarea id="c-note" rows="2" placeholder="VD: Laptop chạy quạt kêu to khi mở Android Studio, cần test nhiệt trước khi nhận..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Chọn phương thức thanh toán thử nghiệm</label>
+                            <div class="payment-methods-grid">
+                                <label class="payment-method-card active" id="pay-opt-cod" onclick="selectPaymentMethodUI('COD')">
+                                    <input type="radio" name="paymentMethod" value="COD" checked>
+                                    <div class="pm-info">
+                                        <div class="pm-title-row">
+                                            <strong> Thanh toán tại sảnh (Demo COD)</strong>
+                                            <span class="pm-tag">Tiền mặt</span>
+                                        </div>
+                                        <span>Kiểm tra máy mát, test phím êm rồi mới thanh toán</span>
+                                    </div>
+                                </label>
+                                <label class="payment-method-card" id="pay-opt-qr" onclick="selectPaymentMethodUI('BANK_QR')">
+                                    <input type="radio" name="paymentMethod" value="BANK_QR">
+                                    <div class="pm-info">
+                                        <div class="pm-title-row">
+                                            <strong> Chuyển khoản VietQR Sinh Viên</strong>
+                                            <span class="pm-tag pm-tag--fast">Mô phỏng 3s</span>
+                                        </div>
+                                        <span>Quét mã QR giả lập, đối soát webhook tự động không mất tiền</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="remember-row">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="c-remember" checked>
+                                <span>Ghi nhớ thông tin sinh viên cho lần hẹn sau</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-submit" id="btn-order-submit">Xác nhận đặt lịch hẹn (Demo COD)</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. VietQR Payment Modal -->
+    <div id="qr-payment-modal" class="modal" data-ui>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <div>
+                    <h2>Quét mã VietQR thanh toán dịch vụ GearHub</h2>
+                </div>
+                <button type="button" class="close-btn" onclick="closeQrPaymentModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="qr-payment-body">
+                <div class="qr-payment-box">
+                    <div class="demo-warning-banner" style="margin: 0.5rem 1rem 0 1rem;">
+                        <strong>Môi trường mô phỏng thanh toán (Sandbox):</strong> Quét mã QR chỉ mang tính chất minh họa thao tác giao dịch. Nhấn nút <em>"Giả lập đã chuyển khoản"</em> để hệ thống tự động đối soát xác nhận sau 3 giây.
+                    </div>
+                    <div class="qr-status-banner" id="qr-status-banner">
+                        <span id="qr-status-text">Đang chờ quét mã QR thanh toán (tự động kiểm tra trạng thái mỗi 3 giây)...</span>
+                    </div>
+                    <div class="qr-main-grid">
+                        <div class="qr-image-frame">
+                            <div class="qr-frame-header">VIETQR · GEARHUB NAPAS247</div>
+                            <img id="qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="VietQR Payment Code">
+                            <div class="qr-scan-hint">Mở App Ngân hàng bất kỳ để quét mã demo</div>
+                        </div>
+                        <div class="qr-transfer-details">
+                            <div class="qr-detail-row">
+                                <span>Đơn vị tiếp nhận</span>
+                                <strong id="qr-bank-name">MB Bank (Ngân hàng Quân Đội)</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Số tài khoản trạm</span>
+                                <div class="qr-copy-wrap">
+                                    <strong id="qr-acc-no" class="tabular">0901234567</strong>
+                                    <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard(document.getElementById('qr-acc-no').innerText, 'Số tài khoản')">Sao chép</button>
+                                </div>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Chủ tài khoản</span>
+                                <strong id="qr-acc-name">GEARHUB STARTUP - DH KHOA HOC TU NHIEN</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Chi phí dịch vụ</span>
+                                <strong id="qr-amount-display" class="qr-amount-highlight">0 ₫</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Mã đơn đặt lịch</span>
+                                <strong id="qr-order-id-text" class="tabular">#GH-...</strong>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Nội dung chuyển khoản demo</span>
+                                <div class="qr-copy-wrap">
+                                    <strong id="qr-ref-text" class="tabular">GH...</strong>
+                                    <button type="button" class="btn-copy-mini" onclick="copyTextToClipboard(document.getElementById('qr-ref-text').innerText, 'Nội dung CK')">Sao chép</button>
+                                </div>
+                            </div>
+                            <div class="qr-detail-row">
+                                <span>Thời gian giữ lịch hẹn (TTL)</span>
+                                <strong id="qr-countdown-timer" class="tabular qr-timer-badge">15:00</strong>
+                            </div>
+                            <div class="qr-sandbox-actions">
+                                <button type="button" class="btn-primary-sage" id="btn-simulate-qr-confirm" onclick="simulateQrWebhook()"> Giả lập đã chuyển khoản (3s)</button>
+                                <button type="button" class="btn-secondary-tone" onclick="closeQrPaymentModal()">Đóng / Xem phiếu hẹn</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Product Detail + Specs + AI Analysis Modal -->
+    <div id="product-detail-modal" class="modal" data-ui>
+        <div class="modal-content modal-xl">
+            <div class="modal-header">
+                <div>
+                    <h2 id="detail-modal-title">Chi tiết dịch vụ &amp; Thiết bị GearHub</h2>
+                </div>
+                <button type="button" class="close-btn" onclick="closeProductDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-grid">
+                    <div class="detail-visual-col">
+                        <div class="detail-img-box">
+                            <img id="detail-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Product Image">
+                        </div>
+                        <div class="detail-meta-card">
+                            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+                                <span id="detail-brand-badge" class="detail-brand-tag">Brand</span>
+                                <span class="detail-stock-pill"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Sẵn sàng phục vụ</span>
+                            </div>
+                            <div class="detail-price-box">
+                                <span id="detail-price" class="detail-price-current">0 ₫</span>
+                                <span id="detail-old-price" class="detail-price-old"></span>
+                            </div>
+                            <p class="detail-warranty-note">Bảo hành 7 ngày · Lấy liền tại Sảnh C · Miễn 100% cọc với Thẻ SV</p>
+                        </div>
+                        <div class="detail-cta-group">
+                            <button id="detail-btn-buy" class="btn-buy-now">Đặt Lịch Ngay &rarr;</button>
+                            <button id="detail-btn-cart" class="btn-add-cart">+ Thêm Vào Giỏ Hàng</button>
+                            <a id="detail-btn-fullpage" href="/shop" class="btn-add-cart" style="text-decoration:none;" title="Xem trang sản phẩm riêng">Trang riêng &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="detail-info-col">
+                        <!-- Segmented Switcher: Specs vs AI -->
+                        <div class="detail-tabs-bar">
+                            <button type="button" class="detail-tab-btn active" id="detail-tab-specs" onclick="switchDetailTab('specs')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                                <span>Thông Số &amp; Tiêu Chuẩn Kỹ Thuật</span>
+                            </button>
+                            <button type="button" class="detail-tab-btn" id="detail-tab-ai" onclick="switchDetailTab('ai')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                <span>Tư Vấn &amp; Đánh Giá AI</span>
+                            </button>
+                        </div>
+
+                        <!-- Tab 1: Specs Sheet -->
+                        <div class="detail-tab-pane active" id="detail-pane-specs">
+                            <div id="detail-specs-sheet" class="specs-sheet-grid"></div>
+                        </div>
+
+                        <!-- Tab 2: AI Review & Recommendation -->
+                        <div class="detail-tab-pane" id="detail-pane-ai">
+                            <div class="detail-ai-box">
+                                <p id="detail-ai-summary" class="detail-ai-lead">Đang phân tích dữ liệu...</p>
+                                <div class="ai-pros-cons-grid">
+                                    <div class="ai-pros-box">
+                                        <h4>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span>Ưu điểm cho sinh viên</span>
+                                        </h4>
+                                        <ul id="detail-ai-pros"></ul>
+                                    </div>
+                                    <div class="ai-cons-box">
+                                        <h4>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="13" height="13"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            <span>Lưu ý khi sử dụng</span>
+                                        </h4>
+                                        <ul id="detail-ai-cons"></ul>
+                                    </div>
+                                </div>
+                                <div class="ai-audience-banner">
+                                    <strong>Đối tượng phù hợp:</strong>
+                                    <span id="detail-ai-audience"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Floating AI Consultant Widget -->
+    <div class="ai-chat-widget" id="ai-chat-widget" data-ui>
+        <button class="ai-chat-trigger" id="ai-chat-btn" onclick="toggleAiChat()" title="Trợ lý AI tư vấn thiết bị">
+            <span class="ai-trigger-pulse"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Tư vấn GearHub AI</span>
+        </button>
+
+        <div class="ai-chat-window" id="ai-chat-window">
+            <div class="ai-chat-header">
+                <div class="ai-chat-header-info">
+                    <span class="ai-avatar">GH</span>
+                    <div>
+                        <strong style="display:block; font-size:0.9375rem;">Trợ lý Kỹ thuật GearHub AI</strong>
+                        <span style="font-size:0.75rem; color:var(--accent-text);"><span class="trust-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span>Đang trực tuyến · Tư vấn máy tính sinh viên</span>
+                    </div>
+                </div>
+                <button class="ai-chat-close" onclick="toggleAiChat()">&times;</button>
+            </div>
+
+            <div class="ai-chat-messages" id="ai-chat-messages">
+                <div class="chat-msg bot">
+                    <div class="msg-bubble">
+                        Xin chào bạn! Mình là trợ lý AI tại <strong>GearHub (Trạm Gear &amp; Chăm Sóc Thiết Bị Sinh Viên ĐHKHTN)</strong>. Bạn cần hỗ trợ vệ sinh laptop hạ nhiệt, tư vấn thuê bàn phím cơ gõ êm cho phòng KTX, hay mượn thiết bị thuyết trình?
+                        <div class="ai-quick-prompts">
+                            <button type="button" onclick="sendQuickPrompt('Laptop bị nóng và quạt kêu to khi gõ code')"> Laptop nóng quạt kêu to</button>
+                            <button type="button" onclick="sendQuickPrompt('Tư vấn thuê bàn phím cơ gõ êm không ồn')"> Thuê phím cơ gõ êm KTX</button>
+                            <button type="button" onclick="sendQuickPrompt('Combo vệ sinh 79k gồm những bước nào?')"> Quy trình vệ sinh 79k</button>
+                            <button type="button" onclick="sendQuickPrompt('Thủ tục thuê gear bằng Thẻ Sinh Viên như thế nào?')"> Thủ tục thuê bằng thẻ SV</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-typing" id="chat-typing-indicator" style="display: none; padding: 0.5rem 1rem; font-size: 0.8125rem; color: var(--accent-text);">
+                 GearHub AI đang phân tích dữ liệu kỹ thuật...
+            </div>
+
+            <form class="ai-chat-input-area" id="ai-chat-form" onsubmit="handleAiChatSubmit(event)">
+                <input type="text" id="ai-chat-input" placeholder="Nhập câu hỏi về máy tính, dịch vụ, thuê gear..." autocomplete="off">
+                <button type="submit" id="ai-chat-send-btn">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="js/catalogFilter.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/qrPayment.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/customerPortal.js"></script>
+    <script src="js/aiChat.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

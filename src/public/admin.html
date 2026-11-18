@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Trị Hệ Thống · GearHub Admin</title>
+    <link rel="icon" type="image/png" href="/favicon%20(1).png">
+    <script src="/js/themeLogos.js" defer></script>
+    <script>
+        document.documentElement.classList.add('js');
+        (function() {
+            const saved = localStorage.getItem('techstore_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="admin-shell">
+        <!-- LEFT SIDEBAR (Sits directly on warm-tinted L-frame canvas) -->
+        <aside class="sidebar" id="admin-sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <img src="/src/public/logo.png" data-theme-logo-light="/src/public/logo.png" data-theme-logo-dark="/src/public/logo2.png" alt="GearHub" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;">
+                    <span class="brand-title">GearHub</span>
+                    <span class="brand-tag">PRO CRM v2.0</span>
+                </div>
+
+                <nav class="sidebar-nav" aria-label="Điều hướng quản trị">
+                    <div class="nav-group-title">Bàn làm việc chính</div>
+                    <a href="#dashboard" class="nav-item active" data-tab="dashboard" onclick="switchNavTab('dashboard', event)">
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>Tổng quan hoạt động</span>
+                    </a>
+                    <a href="#orders" class="nav-item" data-tab="orders" onclick="switchNavTab('orders', event)">
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>Đơn đặt hàng</span>
+                        <span id="badge-order-count" class="nav-badge">2</span>
+                    </a>
+                    <a href="#customers" class="nav-item" data-tab="customers" onclick="switchNavTab('customers', event)">
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Khách hàng (CRM)</span>
+                        <span id="badge-cust-count" class="nav-badge">8</span>
+                    </a>
+                    <a href="#products" class="nav-item" data-tab="products" onclick="switchNavTab('products', event)">
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>Kho sản phẩm</span>
+                        <span id="badge-prod-count" class="nav-badge">63</span>
+                    </a>
+
+                    <div class="nav-group-title">Hệ thống &amp; Bảo mật</div>
+                    <a href="#settings" class="nav-item" data-tab="settings" onclick="switchNavTab('settings', event)">
+                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:6px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>Bảo mật &amp; Cấu hình</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="admin-user-card">
+                    <span class="admin-avatar" id="admin-avatar">A</span>
+                    <div class="admin-user-info">
+                        <strong class="admin-user-name" id="admin-name">Admin</strong>
+                        <span class="admin-user-role" id="admin-role">Super Admin</span>
+                    </div>
+                </div>
+                <div class="sidebar-footer-actions">
+                    <a href="/" target="_blank" class="btn-storefront">Cửa hàng</a>
+                    <button type="button" class="btn-logout" onclick="logoutAdmin()">Thoát</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button type="button" class="mobile-sidebar-toggle" onclick="document.getElementById('admin-sidebar').classList.toggle('open')" aria-label="Mở menu">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <span class="topbar-crumb">Quản trị Pro Max /</span>
+                <h1 id="page-heading" class="page-title">Tổng quan hoạt động</h1>
+            </div>
+            <div class="topbar-right">
+                <button type="button" class="btn-theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                    <svg class="theme-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="theme-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                    <span class="theme-label-text">Giao diện</span>
+                </button>
+                <button type="button" class="btn-refresh" onclick="switchNavTab('orders', event)">Xử lý đơn hàng</button>
+                <button type="button" class="btn-refresh" onclick="switchNavTab('products', event); openProductModal();">+ Thêm máy mới</button>
+                <button type="button" class="btn-primary" onclick="refreshAllData()">Làm mới dữ liệu</button>
+            </div>
+        </header>
+
+        <!-- INSET WHITE SHEET WORKSPACE -->
+        <main class="main-workspace">
+
+            <!-- TAB 1: DASHBOARD -->
+            <section id="tab-dashboard" class="tab-content active">
+                <!-- Interactive KPI Strip -->
+                <div class="kpi-strip">
+                    <div class="kpi-cell kpi-cell--revenue" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để xem chi tiết đơn hàng">
+                        <span class="kpi-label">Tổng doanh thu thực thu</span>
+                        <strong class="kpi-value tabular" id="kpi-revenue">198.450.000 ₫</strong>
+                        <span class="kpi-sub kpi-sub--ok">Tích lũy đơn hoàn thành &amp; đã thanh toán</span>
+                    </div>
+                    <div class="kpi-cell kpi-cell--orders" onclick="switchNavTab('orders', event)" style="cursor:pointer;" title="Nhấn để mở danh sách đơn đặt hàng">
+                        <span class="kpi-label">Tổng số đơn đặt hàng</span>
+                        <strong class="kpi-value tabular" id="kpi-orders">14</strong>
+                        <span class="kpi-sub kpi-sub--warn tabular" id="kpi-pending-sub">2 đơn chờ xử lý &rarr;</span>
+                    </div>
+                    <div class="kpi-cell kpi-cell--customers" onclick="switchNavTab('customers', event)" style="cursor:pointer;" title="Nhấn để mở quản lý khách hàng CRM">
+                        <span class="kpi-label">Hồ sơ khách hàng (CRM)</span>
+                        <strong class="kpi-value tabular" id="kpi-customers">8</strong>
+                        <span class="kpi-sub">Định danh SĐT &amp; Phân hạng VIP &rarr;</span>
+                    </div>
+                    <div class="kpi-cell kpi-cell--products" onclick="switchNavTab('products', event)" style="cursor:pointer;" title="Nhấn để quản lý kho sản phẩm">
+                        <span class="kpi-label">Mã hàng đang kinh doanh</span>
+                        <strong class="kpi-value tabular" id="kpi-products">63</strong>
+                        <span class="kpi-sub tabular">12 thương hiệu chính ngạch &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Charts Row (align-items: start, tight wrapper + foot summary) -->
+                <div class="charts-grid">
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h2>Xu hướng doanh thu bán hàng</h2>
+                            <span class="panel-badge">Theo kỳ ghi nhận</span>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                        <div class="chart-foot-note">
+                            <span>Đối soát tự động từ cổng VietQR &amp; biên nhận COD</span>
+                            <span class="tabular">Đơn vị: VNĐ</span>
+                        </div>
+                    </div>
+
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h2>Phân bổ trạng thái đơn hàng</h2>
+                            <span class="panel-badge">Thời gian thực</span>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                        <div class="chart-foot-note">
+                            <span>Tỷ lệ hoàn tất và tiến độ giao vận</span>
+                            <span class="tabular">4 trạng thái chuẩn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders & Top VIP Customers -->
+                <div class="dashboard-tables-grid">
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h2>Đơn đặt hàng mới nhất</h2>
+                            <button type="button" class="btn-outline-sm" onclick="switchNavTab('orders', event)">Xem toàn bộ</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn</th>
+                                        <th>Khách hàng</th>
+                                        <th class="num-col">Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thời gian</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dash-recent-orders">
+                                    <tr>
+                                        <td><strong class="tabular">ORD-261101</strong></td>
+                                        <td><strong>Nguyễn Minh Quân</strong><div class="tabular" style="font-size:13px; color:var(--muted);">0987654321</div></td>
+                                        <td class="num-col"><strong class="tabular">33.990.000 ₫</strong></td>
+                                        <td><span class="status-badge status-completed">Hoàn thành</span></td>
+                                        <td class="tabular" style="font-size:13px; color:var(--muted);">06/11/2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="tabular">ORD-261102</strong></td>
+                                        <td><strong>Trần Thu Hà</strong><div class="tabular" style="font-size:13px; color:var(--muted);">0912345678</div></td>
+                                        <td class="num-col"><strong class="tabular">31.990.000 ₫</strong></td>
+                                        <td><span class="status-badge status-confirmed">Đã xác nhận</span></td>
+                                        <td class="tabular" style="font-size:13px; color:var(--muted);">06/11/2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="tabular">ORD-261103</strong></td>
+                                        <td><strong>Lê Hoàng Nam</strong><div class="tabular" style="font-size:13px; color:var(--muted);">0909112233</div></td>
+                                        <td class="num-col"><strong class="tabular">27.990.000 ₫</strong></td>
+                                        <td><span class="status-badge status-shipping">Đang giao</span></td>
+                                        <td class="tabular" style="font-size:13px; color:var(--muted);">06/11/2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h2>Khách hàng chi tiêu cao nhất</h2>
+                            <button type="button" class="btn-outline-sm" onclick="switchNavTab('customers', event)">Mở CRM</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Khách hàng</th>
+                                        <th class="num-col">SĐT</th>
+                                        <th class="num-col">Số đơn</th>
+                                        <th class="num-col">Tổng chi tiêu</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dash-top-customers">
+                                    <tr>
+                                        <td><strong>Nguyễn Minh Quân</strong></td>
+                                        <td class="num-col tabular">0987654321</td>
+                                        <td class="num-col tabular">3</td>
+                                        <td class="num-col"><strong class="tabular">94.970.000 ₫</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Trần Thu Hà</strong></td>
+                                        <td class="num-col tabular">0912345678</td>
+                                        <td class="num-col tabular">2</td>
+                                        <td class="num-col"><strong class="tabular">61.980.000 ₫</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Lê Hoàng Nam</strong></td>
+                                        <td class="num-col tabular">0909112233</td>
+                                        <td class="num-col tabular">1</td>
+                                        <td class="num-col"><strong class="tabular">27.990.000 ₫</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: CUSTOMERS (CRM) -->
+            <section id="tab-customers" class="tab-content">
+                <div class="toolbar-panel">
+                    <div class="search-input-wrap">
+                        <input type="text" id="cust-search" placeholder="Tìm theo tên, số điện thoại, email, địa chỉ..." oninput="renderCustomersTable()">
+                    </div>
+                    <div class="filter-pills" id="cust-tag-filters">
+                        <button type="button" class="pill-btn active" data-tag="all" onclick="filterCustomerTag('all')">Tất cả</button>
+                        <button type="button" class="pill-btn" data-tag="VIP" onclick="filterCustomerTag('VIP')">Khách VIP</button>
+                        <button type="button" class="pill-btn" data-tag="Thân thiết" onclick="filterCustomerTag('Thân thiết')">Thân thiết</button>
+                        <button type="button" class="pill-btn" data-tag="Mới" onclick="filterCustomerTag('Mới')">Khách mới</button>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button type="button" class="btn-export" onclick="exportCustomersCSV()">Xuất CSV</button>
+                        <button type="button" class="btn-primary" onclick="openCustomerModal()">+ Thêm khách hàng</button>
+                    </div>
+                </div>
+
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h2>Danh sách khách hàng &amp; Phân hạng sinh viên</h2>
+                        <span class="panel-badge">Dữ liệu CRM</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ giao hàng</th>
+                                    <th>Phân hạng</th>
+                                    <th class="num-col">Số đơn</th>
+                                    <th class="num-col">Tổng chi tiêu</th>
+                                    <th>Ghi chú CRM</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: ORDERS -->
+            <section id="tab-orders" class="tab-content">
+                <div class="toolbar-panel">
+                    <div class="search-input-wrap">
+                        <input type="text" id="order-search" placeholder="Tìm theo mã đơn, tên khách hàng, số điện thoại..." oninput="renderOrdersTable()">
+                    </div>
+                    <div class="filter-pills" id="order-status-filters">
+                        <button type="button" class="pill-btn active" data-status="all" onclick="filterOrderStatus('all')">Tất cả</button>
+                        <button type="button" class="pill-btn" data-status="pending" onclick="filterOrderStatus('pending')">Chờ xác nhận</button>
+                        <button type="button" class="pill-btn" data-status="confirmed" onclick="filterOrderStatus('confirmed')">Đã xác nhận</button>
+                        <button type="button" class="pill-btn" data-status="shipping" onclick="filterOrderStatus('shipping')">Đang giao</button>
+                        <button type="button" class="pill-btn" data-status="completed" onclick="filterOrderStatus('completed')">Hoàn thành</button>
+                        <button type="button" class="pill-btn" data-status="cancelled" onclick="filterOrderStatus('cancelled')">Đã hủy</button>
+                    </div>
+                    <div class="toolbar-actions">
+                        <div class="date-range-filter">
+                            <span>Từ</span>
+                            <input type="date" id="order-date-from" onchange="renderOrdersTable()">
+                            <span>đến</span>
+                            <input type="date" id="order-date-to" onchange="renderOrdersTable()">
+                        </div>
+                        <button type="button" class="btn-export" onclick="exportOrdersCSV()">Xuất CSV</button>
+                    </div>
+                </div>
+
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h2>Quản lý toàn bộ đơn đặt hàng &amp; Lịch hẹn dịch vụ</h2>
+                        <span class="panel-badge">Giao dịch thực tế</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn</th>
+                                    <th>Thời gian</th>
+                                    <th>Khách hàng</th>
+                                    <th>Sản phẩm đặt mua</th>
+                                    <th class="num-col">Tổng tiền</th>
+                                    <th>Thanh toán</th>
+                                    <th>Trạng thái</th>
+                                    <th>Xử lý</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: PRODUCTS -->
+            <section id="tab-products" class="tab-content">
+                <div class="toolbar-panel">
+                    <div class="search-input-wrap">
+                        <input type="text" id="prod-search" placeholder="Tìm tên dịch vụ, thiết bị, phân loại, thông số..." oninput="renderProductsTable()">
+                    </div>
+                    <div class="filter-pills" id="prod-brand-filters">
+                        <button type="button" class="pill-btn active" data-brand="all" onclick="filterProductBrand('all')">Tất cả</button>
+                        <button type="button" class="pill-btn" data-brand="service" onclick="filterProductBrand('service')">Dịch vụ vệ sinh</button>
+                        <button type="button" class="pill-btn" data-brand="rental" onclick="filterProductBrand('rental')">Thuê thiết bị</button>
+                        <button type="button" class="pill-btn" data-brand="accessory" onclick="filterProductBrand('accessory')">Phụ kiện &amp; Kit</button>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button type="button" class="btn-secondary" onclick="openCrawlModal()">Đồng bộ sản phẩm tự động</button>
+                        <button type="button" class="btn-secondary" id="btn-self-heal" onclick="handleSelfHealCatalog()">Chuẩn hóa ảnh &amp; thông số</button>
+                        <button type="button" class="btn-primary" onclick="openProductModal()">+ Thêm dịch vụ / thiết bị</button>
+                    </div>
+                </div>
+
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h2>Danh mục dịch vụ &amp; Thiết bị công nghệ</h2>
+                        <span class="panel-badge">Kho vận hành</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên dịch vụ / thiết bị</th>
+                                    <th>Phân loại</th>
+                                    <th>Thông số tóm tắt</th>
+                                    <th class="num-col">Giá sinh viên</th>
+                                    <th class="num-col">Giá niêm yết</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: SETTINGS -->
+            <section id="tab-settings" class="tab-content">
+                <div class="settings-grid">
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h2>Đổi mật khẩu Quản trị viên</h2>
+                        </div>
+                        <form id="change-pass-form" class="admin-form" onsubmit="handleChangeAdminPassword(event)">
+                            <div class="form-group">
+                                <label for="old-pass">Mật khẩu hiện tại</label>
+                                <input type="password" id="old-pass" required placeholder="Nhập mật khẩu đang dùng">
+                            </div>
+                            <div class="form-group">
+                                <label for="new-pass">Mật khẩu mới</label>
+                                <input type="password" id="new-pass" required minlength="6" placeholder="Ít nhất 6 ký tự">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-new-pass">Xác nhận mật khẩu mới</label>
+                                <input type="password" id="confirm-new-pass" required minlength="6" placeholder="Nhập lại mật khẩu mới">
+                            </div>
+                            <button type="submit" class="btn-primary">Cập nhật mật khẩu</button>
+                        </form>
+                    </div>
+
+                    <div class="card-panel">
+                        <div class="panel-header">
+                            <h2>Thông tin vận hành hệ thống</h2>
+                        </div>
+                        <div class="sys-info-list">
+                            <div class="sys-info-item">
+                                <span>Phiên bản CRM</span>
+                                <strong>TechStore Enterprise CRM v2.0</strong>
+                            </div>
+                            <div class="sys-info-item">
+                                <span>Cơ chế bảo mật mật khẩu</span>
+                                <strong>PBKDF2-HMAC-SHA512 (10,000 vòng)</strong>
+                            </div>
+                            <div class="sys-info-item">
+                                <span>Lưu trữ dữ liệu</span>
+                                <strong>Dual-Mode (PostgreSQL / Local JSON)</strong>
+                            </div>
+                            <div class="sys-info-item">
+                                <span>Phân hạng tự động</span>
+                                <strong>Mới &rarr; Thân thiết (&ge; 20tr) &rarr; VIP (&ge; 50tr)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+         MODALS (Customer Detail, Customer Edit, Order Detail, Product Edit, Crawl)
+         ========================================================================== -->
+
+    <!-- 1. Customer 360 Detail Modal -->
+    <div id="modal-customer-detail" class="modal-overlay">
+        <div class="modal-box modal-lg">
+            <div class="modal-header">
+                <h3>Hồ sơ chi tiết khách hàng</h3>
+                <button type="button" class="close-modal" onclick="closeAdminModal('modal-customer-detail')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="customer-profile-card" style="margin-bottom: 1rem;"></div>
+                <h4 style="margin-bottom: 0.5rem;">Lịch sử đặt hàng (<span id="cust-orders-count">0</span> đơn)</h4>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn</th>
+                                <th>Ngày đặt</th>
+                                <th>Sản phẩm</th>
+                                <th class="num-col">Tổng tiền</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cust-orders-history-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Customer Add/Edit Modal -->
+    <div id="modal-customer-edit" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-cust-edit-title">Cập nhật hồ sơ khách hàng</h3>
+                <button type="button" class="close-modal" onclick="closeAdminModal('modal-customer-edit')">&times;</button>
+            </div>
+            <form id="form-customer-edit" class="admin-form" onsubmit="handleSaveCustomer(event)">
+                <input type="hidden" id="edit-cust-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-cust-name">Họ và tên khách hàng</label>
+                        <input type="text" id="edit-cust-name" required placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-cust-phone">Số điện thoại</label>
+                        <input type="tel" id="edit-cust-phone" required placeholder="0912345678">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-cust-email">Email</label>
+                        <input type="email" id="edit-cust-email" placeholder="khachhang@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-cust-tag">Phân hạng CRM</label>
+                        <select id="edit-cust-tag">
+                            <option value="Mới">Khách mới</option>
+                            <option value="Thân thiết">Khách thân thiết</option>
+                            <option value="VIP">Khách VIP</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-cust-address">Địa chỉ nhận hàng mặc định</label>
+                    <input type="text" id="edit-cust-address" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành">
+                </div>
+                <div class="form-group">
+                    <label for="edit-cust-admin-note">Ghi chú nội bộ (CRM)</label>
+                    <textarea id="edit-cust-admin-note" rows="3" placeholder="Sở thích, khung giờ giao hàng..."></textarea>
+                </div>
+                <div class="modal-footer-btns">
+                    <button type="button" class="btn-cancel" onclick="closeAdminModal('modal-customer-edit')">Hủy</button>
+                    <button type="submit" class="btn-primary">Lưu thông tin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Order Detail & Status Update Modal -->
+    <div id="modal-order-detail" class="modal-overlay">
+        <div class="modal-box modal-lg">
+            <div class="modal-header">
+                <h3>Chi tiết đơn hàng <span id="modal-order-id"></span></h3>
+                <button type="button" class="close-modal" onclick="closeAdminModal('modal-order-detail')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="order-detail-content"></div>
+                <form id="form-update-order-status" class="admin-form" style="padding: 1rem 0 0;" onsubmit="handleUpdateOrderStatus(event)">
+                    <input type="hidden" id="status-order-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="select-order-status">Trạng thái xử lý</label>
+                            <select id="select-order-status">
+                                <option value="awaiting_payment">Chờ thanh toán QR</option>
+                                <option value="pending">Chờ xác nhận</option>
+                                <option value="confirmed">Đã xác nhận</option>
+                                <option value="shipping">Đang giao vận</option>
+                                <option value="completed">Đã giao &amp; Thu tiền (Hoàn thành)</option>
+                                <option value="cancelled">Hủy đơn hàng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status-order-note">Ghi chú vận đơn</label>
+                            <input type="text" id="status-order-note" placeholder="VD: Đã bàn giao bưu cục, mã vận đơn...">
+                        </div>
+                    </div>
+                    <div class="modal-footer-btns">
+                        <button type="button" class="btn-secondary" onclick="printOrderInvoice()">In hóa đơn</button>
+                        <button type="submit" class="btn-primary">Lưu cập nhật</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Product Add/Edit Modal -->
+    <div id="modal-product-edit" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-prod-title">Thêm sản phẩm mới</h3>
+                <button type="button" class="close-modal" onclick="closeAdminModal('modal-product-edit')">&times;</button>
+            </div>
+            <form id="form-product-edit" class="admin-form" onsubmit="handleSaveProduct(event)">
+                <input type="hidden" id="edit-prod-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-p-name">Tên dịch vụ / thiết bị</label>
+                        <input type="text" id="edit-p-name" required placeholder="VD: Gói Spa Laptop Tiêu Chuẩn (Clean &amp; Cool)">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-p-category">Phân loại danh mục</label>
+                        <select id="edit-p-category" required onchange="syncAdminCategoryBrand(this.value)">
+                            <option value="service">Dịch vụ vệ sinh</option>
+                            <option value="rental">Thuê thiết bị</option>
+                            <option value="accessory">Phụ kiện &amp; Kit</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-p-brand">Nhóm / Thương hiệu</label>
+                        <select id="edit-p-brand" required>
+                            <option value="GearHub Service">GearHub Service</option>
+                            <option value="GearHub Rental">GearHub Rental</option>
+                            <option value="GearHub Accessory">GearHub Accessory</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-p-badge">Nhãn nổi bật (Badge)</label>
+                        <input type="text" id="edit-p-badge" placeholder="VD: Bán chạy nhất / Thuê chỉ cần thẻ SV">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-p-unit">Đơn vị tính</label>
+                        <input type="text" id="edit-p-unit" placeholder="VD: lần / ngày / buổi / bộ">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-p-duration">Thời lượng / Định mức</label>
+                        <input type="text" id="edit-p-duration" placeholder="VD: 30 phút / Theo ngày / 120k tuần">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-p-price">Giá sinh viên (VNĐ)</label>
+                        <input type="number" id="edit-p-price" required min="0" placeholder="79000">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-p-oldprice">Giá niêm yết cũ (VNĐ)</label>
+                        <input type="number" id="edit-p-oldprice" min="0" placeholder="99000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-p-specs">Thông số / quy trình tóm tắt</label>
+                    <input type="text" id="edit-p-specs" placeholder="VD: Thổi bụi | Tra keo Arctic MX-4 | Giảm 10-15°C">
+                </div>
+                <div class="form-group">
+                    <label for="edit-p-description">Mô tả ngắn hiển thị</label>
+                    <input type="text" id="edit-p-description" placeholder="Mô tả chi tiết gói dịch vụ hoặc thiết bị">
+                </div>
+                <div class="form-group">
+                    <label for="edit-p-image">Đường dẫn hình ảnh (URL)</label>
+                    <input type="text" id="edit-p-image" placeholder="https://...">
+                </div>
+                <div class="modal-footer-btns">
+                    <button type="button" class="btn-cancel" onclick="closeAdminModal('modal-product-edit')">Hủy</button>
+                    <button type="submit" class="btn-primary">Lưu sản phẩm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. Auto-Crawler Modal -->
+    <div id="modal-crawl-products" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Đồng bộ sản phẩm tự động</h3>
+                <button type="button" class="close-modal" onclick="closeAdminModal('modal-crawl-products')">&times;</button>
+            </div>
+            <form id="form-crawl-products" class="admin-form" onsubmit="handleCrawlProducts(event)">
+                <div class="form-group">
+                    <label for="crawl-source">Nguồn dữ liệu</label>
+                    <select id="crawl-source" required onchange="handleCrawlSourceChange()">
+                        <option value="tiki">Tiki Vietnam (Chính hãng, Giá VNĐ thực tế)</option>
+                        <option value="dummy">DummyJSON API (Dữ liệu quốc tế)</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="crawl-brand">Lọc theo thương hiệu</label>
+                        <select id="crawl-brand">
+                            <option value="all">Tất cả hãng</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Xiaomi">Xiaomi</option>
+                            <option value="OPPO">OPPO</option>
+                            <option value="Vivo">Vivo</option>
+                            <option value="Realme">Realme</option>
+                            <option value="Honor">Honor</option>
+                            <option value="Google">Google</option>
+                            <option value="OnePlus">OnePlus</option>
+                            <option value="ASUS">ASUS</option>
+                            <option value="Sony">Sony</option>
+                            <option value="Nothing">Nothing</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="crawl-limit">Số lượng tối đa</label>
+                        <input type="number" id="crawl-limit" value="15" min="1" max="50" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="crawl-keyword">Từ khóa dòng máy (tùy chọn)</label>
+                    <input type="text" id="crawl-keyword" placeholder="VD: Ultra, Pro Max, Pixel 9...">
+                </div>
+                <div class="form-group">
+                    <label style="display:inline-flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                        <input type="checkbox" id="crawl-skip-existing" checked style="min-height:auto;">
+                        <span>Bỏ qua các mẫu điện thoại đã có sẵn trong kho</span>
+                    </label>
+                </div>
+                <div id="crawl-loading-status" style="display: none; padding: 0.75rem; background-color: var(--subtle); color: var(--accent);">
+                    <span id="crawl-status-text">Đang kết nối nguồn dữ liệu...</span>
+                </div>
+                <div class="modal-footer-btns">
+                    <button type="button" class="btn-cancel" onclick="closeAdminModal('modal-crawl-products')">Đóng</button>
+                    <button type="submit" id="btn-submit-crawl" class="btn-primary">Bắt đầu đồng bộ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="invoice-print-area" class="invoice-print-only"></div>
+    <div id="toast-container"></div>
+
+    <script src="js/catalogFilter.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
