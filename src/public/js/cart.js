@@ -430,9 +430,9 @@ function renderCartPage(cart, total) {
             <div class="cart-item-price">
               ${fmt(i.price)} &times; ${qty}${isRental ? ' ngày' : ''} = <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(i.price * qty)}</strong>
             </div>
-            ${rentalPills}
           </div>
         </div>
+        ${rentalPills}
         <div class="cart-item-controls">
           <div class="cart-qty-stepper">
             <button type="button" class="qty-btn" onclick="updateCartQty('${i.id}', ${qty - 1})" title="${isRental ? 'Giảm số ngày' : 'Giảm số lượng'}" aria-label="Giảm">-</button>
@@ -476,7 +476,7 @@ function renderCartPage(cart, total) {
             <span class="cart-tier-badge" style="font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--muted);">${rentalItems.length} thiết bị</span>
           </div>
         </div>
-        <div class="cart-policy-notice" style="padding: 0.5rem 1rem; background: var(--surface-subtle, rgba(0,0,0,0.02)); border-bottom: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 6px;">
+        <div class="cart-policy-notice" style="margin: 0; padding: 0.5rem 1rem; background: var(--surface-subtle, rgba(0,0,0,0.02)); border-bottom: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 6px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
           <span>Chính sách đặc quyền: <strong>0đ tiền cọc</strong> · Chỉ cần xuất trình Thẻ Sinh Viên (MSSV)</span>
         </div>

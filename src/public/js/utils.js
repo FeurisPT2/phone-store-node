@@ -166,11 +166,7 @@ function initSmoothMotionEngine() {
     '.pdp-info-col',
     '.pdp-trust-pill',
     '.pdp-spec-card',
-    '.pdp-process-step',
-    '.cart-items-card',
-    '.cart-order-sidebar',
-    '.cart-tier-section',
-    '.cart-booking-success'
+    '.pdp-process-step'
   ];
 
   const candidates = document.querySelectorAll(autoSelectors.join(', '));
@@ -247,7 +243,7 @@ if (typeof window !== 'undefined') {
     initSmoothMotionEngine();
 
     if (typeof MutationObserver !== 'undefined') {
-      const dynamicIds = ['cart-page-items', 'pdp-specs-grid', 'pdp-process-timeline', 'pdp-related-grid'];
+      const dynamicIds = ['pdp-specs-grid', 'pdp-process-timeline', 'pdp-related-grid'];
       const mo = new MutationObserver(() => initSmoothMotionEngine());
       dynamicIds.forEach((id) => {
         const node = document.getElementById(id);

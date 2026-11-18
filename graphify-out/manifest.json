@@ -72,20 +72,20 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1794974484.2191663,
-    "seen": 1794974487.4680297,
+    "mtime": 1794975250.5231023,
+    "seen": 1794975254.9799414,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1794974484.5170183,
-    "seen": 1794974487.4680297,
+    "mtime": 1794975250.789706,
+    "seen": 1794975254.9799414,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1794974484.346084,
-    "seen": 1794974487.4680297,
+    "mtime": 1794975250.644385,
+    "seen": 1794975254.9799414,
     "ast_hash": "c7919c1aa0764251eee41202951b5ab3",
     "semantic_hash": ""
   },
@@ -486,9 +486,9 @@
     "semantic_hash": ""
   },
   "src/public/js/cart.js": {
-    "mtime": 1794974461.9063914,
-    "seen": 1794974487.4680297,
-    "ast_hash": "d0067a6538e0011f70b07cdea86d3205",
+    "mtime": 1794975212.7249672,
+    "seen": 1794975254.9799414,
+    "ast_hash": "1c37f88bf57b7de320257f4a4c898054",
     "semantic_hash": ""
   },
   "src/public/js/customerPortal.js": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "src/public/js/utils.js": {
-    "mtime": 1794974407.2012937,
-    "seen": 1794974487.4680297,
-    "ast_hash": "5e8d5d8d58f74bc39b9155bd5335c222",
+    "mtime": 1794975210.1159444,
+    "seen": 1794975254.9799414,
+    "ast_hash": "02125ce9badf3bf6e3a6a3b2feeb9f78",
     "semantic_hash": ""
   },
   "src/public/js/product.js": {
