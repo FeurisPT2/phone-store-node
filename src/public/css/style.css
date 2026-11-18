@@ -2081,7 +2081,6 @@ a {
 
 .btn-filter:active {
     transform: translateY(0) scale(0.97);
-}
     font-size: var(--fs-sm);
     font-weight: 600;
     display: inline-flex;
@@ -2596,6 +2595,7 @@ html.js .product-card[data-reveal].in:hover {
     cursor: pointer;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 2.9rem;
@@ -2674,7 +2674,7 @@ html.js .product-card[data-reveal].in:hover {
 
 .product-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr auto;
+    grid-template-columns: 1fr 1fr;
     gap: 0.35rem;
     margin-top: 0.35rem;
 }

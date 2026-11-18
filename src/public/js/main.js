@@ -709,7 +709,6 @@ function renderProductCardHtml(p, idx) {
 
       <a href="/product?id=${p.id}" class="product-img-wrapper" style="text-decoration:none; display:block;">
         <img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy" decoding="async">
-        <span class="card-quickview-pill">Xem chi tiết &amp; AI tư vấn</span>
       </a>
 
       <div class="product-body">
@@ -736,7 +735,6 @@ function renderProductCardHtml(p, idx) {
         <div class="product-actions">
           <button type="button" class="btn-buy-now" onclick="buyNow('${p.id}')" title="${catMeta.key === 'rental' ? 'Thuê thiết bị ngay' : (catMeta.key === 'service' ? 'Đặt lịch vệ sinh lấy liền' : 'Mua ngay')}">${catMeta.key === 'rental' ? 'Thuê ngay' : (catMeta.key === 'service' ? 'Đặt lịch ngay' : 'Mua ngay')}</button>
           <button type="button" class="btn-add-cart" onclick="addToCart('${p.id}')" title="Thêm vào giỏ hàng">Thêm vào giỏ hàng</button>
-          <a href="/product?id=${p.id}" class="btn-add-cart" title="Xem chi tiết &amp; thông số" style="text-decoration:none;">Chi tiết</a>
         </div>
       </div>
     </article>
