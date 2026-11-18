@@ -869,6 +869,9 @@ async function handlePlaceOrder(e) {
           );
         }
       } else {
+        if (lastPlacedOrder && document.getElementById('cart-page-items')) {
+          renderCartPage([], 0);
+        }
         if (typeof showToast === 'function') {
           showToast('Đặt lịch hẹn GearHub thành công! Mã đơn: #' + data.orderId, 'success');
         }
