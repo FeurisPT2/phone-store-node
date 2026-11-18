@@ -215,7 +215,7 @@
             <section class="cart-items-card" aria-label="Danh sách dịch vụ và thiết bị">
                 <div class="cart-items-card-header">
                     <h2 style="font-size:1.15rem; font-weight:700; color:var(--ink);">Các dịch vụ &amp; gear đã chọn</h2>
-                    <span id="cart-page-count" style="font-size:0.8125rem; color:var(--muted); font-weight:600;">0 mục</span>
+                    <span id="cart-page-count" role="status" aria-live="polite" aria-atomic="true" style="font-size:0.8125rem; color:var(--muted); font-weight:600;">0 mục</span>
                 </div>
 
                 <div id="cart-page-items" class="cart-page-items-wrap">
@@ -258,9 +258,9 @@
                     <div class="form-group" style="margin-top:0.85rem;">
                         <label style="font-size:0.8125rem; font-weight:600; color:var(--ink); display:block; margin-bottom:6px;">Ngày hẹn tại Sảnh I <span style="color:#ef4444;">*</span></label>
                         <div class="booking-day-pills" id="booking-day-pills" style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
-                            <button type="button" class="booking-day-pill active" data-day="Hôm nay" onclick="selectBookingDay('Hôm nay', this)" style="padding:0.5rem 0.4rem; border-radius:var(--radius-sm); border:1.5px solid var(--ink); background:var(--ink); color:var(--surface); font-size:0.78rem; font-weight:700; cursor:pointer;">Hôm nay</button>
-                            <button type="button" class="booking-day-pill" data-day="Ngày mai" onclick="selectBookingDay('Ngày mai', this)" style="padding:0.5rem 0.4rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); font-size:0.78rem; font-weight:600; cursor:pointer;">Ngày mai</button>
-                            <button type="button" class="booking-day-pill" data-day="Thứ 7 tuần này" onclick="selectBookingDay('Thứ 7 tuần này', this)" style="padding:0.5rem 0.4rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); font-size:0.78rem; font-weight:600; cursor:pointer;">Thứ 7 tuần này</button>
+                            <button type="button" class="booking-day-pill active" data-day="Hôm nay" aria-pressed="true" onclick="selectBookingDay('Hôm nay', this)" style="padding:0.5rem 0.4rem; border-radius:var(--radius-sm); border:1.5px solid var(--ink); background:var(--ink); color:var(--surface); font-size:0.78rem; font-weight:700; cursor:pointer;">Hôm nay</button>
+                            <button type="button" class="booking-day-pill" data-day="Ngày mai" aria-pressed="false" onclick="selectBookingDay('Ngày mai', this)" style="padding:0.5rem 0.4rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); font-size:0.78rem; font-weight:600; cursor:pointer;">Ngày mai</button>
+                            <button type="button" class="booking-day-pill" data-day="Thứ 7 tuần này" aria-pressed="false" onclick="selectBookingDay('Thứ 7 tuần này', this)" style="padding:0.5rem 0.4rem; border-radius:var(--radius-sm); border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); font-size:0.78rem; font-weight:600; cursor:pointer;">Thứ 7 tuần này</button>
                         </div>
                         <input type="hidden" id="c-booking-date" value="Hôm nay">
                     </div>
@@ -274,8 +274,11 @@
                             <option value="Ca chiều muộn: 15:00 – 16:30 (Sảnh I)">Ca chiều muộn: 15:00 – 16:30 (Sảnh I) · Còn 3/5 chỗ</option>
                             <option value="Giờ tự do trong ngày (07:30 – 17:30)">Giờ tự do linh hoạt (07:30 – 17:30) · Luôn sẵn sàng</option>
                         </select>
-                        <div id="slot-capacity-badge" style="margin-top:6px; padding:6px 10px; border-radius:6px; background:#f0fdf4; border:1px solid #bbf7d0; color:#15803d; font-size:0.75rem; font-weight:600; display:flex; align-items:center; justify-content:space-between;">
-                            <span>🟢 Bàn kỹ thuật Sảnh I sẵn sàng tiếp nhận (Hôm nay)</span>
+                        <div id="slot-capacity-badge" class="slot-status-badge slot-badge--ready" role="status" aria-live="polite" aria-atomic="true">
+                            <span style="display:inline-flex; align-items:center; gap:5px;">
+                                <svg class="ui-svg-icon" width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>
+                                Bàn kỹ thuật Sảnh I sẵn sàng tiếp nhận (Hôm nay)
+                            </span>
                             <span class="tabular">2 KTV trực</span>
                         </div>
                     </div>
@@ -290,12 +293,12 @@
                         <label style="font-size:0.8125rem; font-weight:600; color:var(--ink); display:block; margin-bottom:6px;">Phương thức thanh toán</label>
                         <div class="pay-single-cod" style="padding:12px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--ink); background:var(--surface-raised); color:var(--ink); display:flex; align-items:center; gap:10px;">
                             <span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:6px; background:var(--surface); border:1px solid var(--border); color:var(--ink); flex-shrink:0;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
                             </span>
                             <div style="flex:1;">
                                 <div style="font-size:0.875rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:6px;">
                                     <span>Thanh toán trực tiếp tại sảnh (COD)</span>
-                                    <span style="font-size:0.6875rem; font-weight:700; padding:2px 6px; border-radius:4px; background:#e0f2fe; color:#0369a1;">Mặc định</span>
+                                    <span class="cod-default-badge">Mặc định</span>
                                 </div>
                                 <span style="font-size:0.75rem; color:var(--muted); line-height:1.4; display:block; margin-top:2px;">Kiểm tra máy hoàn tất, test thiết bị êm mượt mới thanh toán tiền mặt tại quầy</span>
                             </div>

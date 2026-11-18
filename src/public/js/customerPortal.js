@@ -467,8 +467,9 @@ function renderOrderTimelineTracker(order) {
           <span>Người nhận: ${escPortal(order.customerInfo?.fullName || '')} (${escPortal(order.customerInfo?.phone || '')}) · ${escPortal(order.customerInfo?.address || '')}</span>
           <strong class="tabular" style="font-size: 1rem; color: var(--accent-text);">Tổng: ${fmt(order.totalAmount)}</strong>
         </div>
-        <div style="margin-top: 0.55rem; padding-top: 0.55rem; border-top: 1px dashed var(--border); font-size: 0.8125rem; color: var(--accent-text);">
-          📍 Check-in tại bàn kỹ thuật Sảnh I ĐHKHTN · Mang theo Thẻ SV + Mã <strong>#${escPortal(order.id)}</strong>
+        <div style="margin-top: 0.55rem; padding-top: 0.55rem; border-top: 1px dashed var(--border); font-size: 0.8125rem; color: var(--accent-text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+          <svg class="ui-svg-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Check-in tại bàn kỹ thuật Sảnh I ĐHKHTN · Mang theo Thẻ SV + Mã <strong>#${escPortal(order.id)}</strong></span>
         </div>
       </div>
 

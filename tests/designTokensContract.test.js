@@ -67,4 +67,18 @@ describe('Seam 3: Design Tokens, Palette Contract & Anti-Pattern Bans', () => {
       assert.ok(content.includes('css/about.css'), `${surface} must link css/about.css`);
     }
   });
+
+  test('Enforces UI/UX Pro Max contracts: persisted MASTER.md, :focus-visible, reduced motion, dark badges & vector SVG icons', () => {
+    const masterPath = path.join(__dirname, '../design-system/gearhub-station/MASTER.md');
+    assert.ok(fs.existsSync(masterPath), 'design-system/gearhub-station/MASTER.md must exist');
+
+    assert.match(styleCss, /:focus-visible\s*\{/, 'style.css must define accessible :focus-visible rings');
+    assert.match(styleCss, /@media\s*\(prefers-reduced-motion:\s*reduce\)/, 'style.css must respect prefers-reduced-motion');
+    assert.match(styleCss, /\[data-theme=["']?dark["']?\]\s+\.slot-badge--ready/, 'style.css must adapt slot-badge--ready for dark mode');
+    assert.match(styleCss, /\[data-theme=["']?dark["']?\]\s+\.cod-default-badge/, 'style.css must adapt cod-default-badge for dark mode');
+
+    const cartJs = fs.readFileSync(path.join(__dirname, '../src/public/js/cart.js'), 'utf8');
+    assert.doesNotMatch(cartJs, /🛠️|📦|🛍️|🟢|⏱️|🔌|📍|🎁|⚡/, 'cart.js must use crisp vector SVG icons instead of structural emojis');
+    assert.ok(cartJs.includes('renderUiSvgIcon('), 'cart.js must render uniform SVG vector icons');
+  });
 });

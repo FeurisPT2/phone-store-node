@@ -5,6 +5,23 @@
 
 let lastPlacedOrder = null;
 
+const UI_SVG_PATHS = {
+  wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  package: '<path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
+  bag: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  cable: '<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+  pin: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  gift: '<polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>',
+  bolt: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  statusDot: '<circle cx="12" cy="12" r="6" fill="currentColor" stroke="none"/>'
+};
+
+function renderUiSvgIcon(name, size = 14) {
+  const path = UI_SVG_PATHS[name] || UI_SVG_PATHS.statusDot;
+  return `<svg class="ui-svg-icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${path}</svg>`;
+}
+
 function escCart(v) {
   if (typeof escapeHtml === 'function') return escapeHtml(v);
   return String(v ?? '')
@@ -34,6 +51,7 @@ function selectBookingDay(dayLabel, btnEl) {
   document.querySelectorAll('#booking-day-pills .booking-day-pill').forEach((btn) => {
     const isActive = btn === btnEl || btn.getAttribute('data-day') === dayLabel;
     btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     btn.style.border = isActive ? '1.5px solid var(--ink)' : '1px solid var(--border-strong)';
     btn.style.background = isActive ? 'var(--ink)' : 'var(--surface)';
     btn.style.color = isActive ? 'var(--surface)' : 'var(--ink)';
@@ -51,16 +69,18 @@ function updateSlotAvailabilityUI() {
 
   const day = document.getElementById('c-booking-date')?.value || 'Hôm nay';
   const slotVal = slotEl.value || '';
-  if (slotVal.includes('10:00') || slotVal.toLowerCase().includes('trưa')) {
-    badge.style.background = '#fffbeb';
-    badge.style.borderColor = '#fde68a';
-    badge.style.color = '#b45309';
-    badge.innerHTML = `<span>⚡ Ca trưa ${escCart(day)} sắp đầy (Còn 1/5 chỗ)</span><span class="tabular">Đặt sớm giữ bàn</span>`;
+  badge.style.background = '';
+  badge.style.borderColor = '';
+  badge.style.color = '';
+
+  if (slotVal.includes('10:00 – 11:30') || slotVal.toLowerCase().includes('trưa')) {
+    badge.classList.remove('slot-badge--ready');
+    badge.classList.add('slot-badge--busy');
+    badge.innerHTML = `<span style="display:inline-flex; align-items:center; gap:5px;">${renderUiSvgIcon('bolt', 13)}Ca trưa ${escCart(day)} sắp đầy (Còn 1/5 chỗ)</span><span class="tabular">Đặt sớm giữ bàn</span>`;
   } else {
-    badge.style.background = '#f0fdf4';
-    badge.style.borderColor = '#bbf7d0';
-    badge.style.color = '#15803d';
-    badge.innerHTML = `<span>🟢 Bàn kỹ thuật Sảnh I sẵn sàng (${escCart(day)})</span><span class="tabular">2 KTV trực</span>`;
+    badge.classList.remove('slot-badge--busy');
+    badge.classList.add('slot-badge--ready');
+    badge.innerHTML = `<span style="display:inline-flex; align-items:center; gap:5px;">${renderUiSvgIcon('statusDot', 10)}Bàn kỹ thuật Sảnh I sẵn sàng (${escCart(day)})</span><span class="tabular">2 KTV trực</span>`;
   }
 }
 
@@ -277,7 +297,7 @@ function renderCartPage(cart, total) {
 
           <!-- 4-step Station Progress -->
           <div class="booking-ticket-steps" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:1.25rem; font-size:0.75rem;">
-            <div style="padding:0.5rem 0.55rem; border-radius:6px; background:#dcfce7; color:#15803d; font-weight:700; text-align:center; border:1px solid #86efac;">1. Tiếp nhận hẹn ✓</div>
+            <div class="step-pill--done" style="padding:0.5rem 0.55rem; border-radius:6px; text-align:center;">1. Tiếp nhận hẹn ✓</div>
             <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--ink); font-weight:600; text-align:center; border:1px solid var(--border);">2. Vệ sinh / Soạn gear</div>
             <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--muted); text-align:center; border:1px solid var(--border);">3. Sẵn sàng Sảnh I</div>
             <div style="padding:0.5rem 0.55rem; border-radius:6px; background:var(--surface-raised); color:var(--muted); text-align:center; border:1px solid var(--border);">4. Bàn giao &amp; BH 7d</div>
@@ -377,10 +397,10 @@ function renderCartPage(cart, total) {
     const rentalPills = isRental
       ? `
         <div class="cart-rental-plans" style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-top:6px;">
-          <button type="button" onclick="updateCartQty('${i.id}', 1)" style="padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; cursor:pointer; border:1px solid ${qty === 1 ? 'var(--ink)' : 'var(--border-strong)'}; background:${qty === 1 ? 'var(--ink)' : 'var(--surface)'}; color:${qty === 1 ? 'var(--surface)' : 'var(--ink)'};">1 ngày</button>
-          <button type="button" onclick="updateCartQty('${i.id}', 3)" style="padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; cursor:pointer; border:1px solid ${qty === 3 ? 'var(--ink)' : 'var(--border-strong)'}; background:${qty === 3 ? 'var(--ink)' : 'var(--surface)'}; color:${qty === 3 ? 'var(--surface)' : 'var(--ink)'};">3 ngày</button>
-          <button type="button" onclick="updateCartQty('${i.id}', 5)" style="padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:700; cursor:pointer; border:1px solid ${qty >= 5 ? '#15803d' : 'var(--border-strong)'}; background:${qty >= 5 ? '#dcfce7' : 'var(--surface)'}; color:${qty >= 5 ? '#15803d' : 'var(--ink)'};">Gói 1 Tuần (-28%)</button>
-          ${qty >= 5 ? '<span style="font-size:0.72rem; font-weight:600; color:#15803d;">🎁 Tính 5 ngày, miễn phí 2 ngày cuối tuần</span>' : ''}
+          <button type="button" class="rental-pill-btn${qty === 1 ? ' active' : ''}" onclick="updateCartQty('${i.id}', 1)">1 ngày</button>
+          <button type="button" class="rental-pill-btn${qty === 3 ? ' active' : ''}" onclick="updateCartQty('${i.id}', 3)">3 ngày</button>
+          <button type="button" class="rental-pill-btn ${qty >= 5 ? 'rental-pill--weekly' : ''}" onclick="updateCartQty('${i.id}', 5)">Gói 1 Tuần (-28%)</button>
+          ${qty >= 5 ? `<span class="rental-bonus-note">${renderUiSvgIcon('gift', 13)}Tính 5 ngày, miễn phí 2 ngày cuối tuần</span>` : ''}
         </div>
       `
       : '';
@@ -416,7 +436,7 @@ function renderCartPage(cart, total) {
       <div class="cart-tier-section" style="margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface);">
         <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem;">
           <div class="cart-tier-title" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
-            <span>🛠️ Lịch Hẹn Dịch Vụ Vệ Sinh &amp; Tản Nhiệt</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;">${renderUiSvgIcon('wrench', 15)}Lịch Hẹn Dịch Vụ Vệ Sinh &amp; Tản Nhiệt</span>
             <span class="cart-tier-badge" style="font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--muted);">${serviceItems.length} dịch vụ</span>
           </div>
         </div>
@@ -424,7 +444,7 @@ function renderCartPage(cart, total) {
           ${serviceItems.map((it) => renderPageItemRow(it, false)).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: var(--muted);">
-          <span>⏱️ Cam kết: Lấy liền 30-45 phút tại Sảnh I</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;">${renderUiSvgIcon('clock', 14)}Cam kết: Lấy liền 30-45 phút tại Sảnh I</span>
           <span>Tạm tính dịch vụ: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(serviceSubtotal)}</strong></span>
         </div>
       </div>
@@ -436,19 +456,19 @@ function renderCartPage(cart, total) {
       <div class="cart-tier-section" style="margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface);">
         <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem;">
           <div class="cart-tier-title" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
-            <span>📦 Thiết Bị Cho Thuê (Phím Cơ, Chuột, Hub)</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;">${renderUiSvgIcon('package', 15)}Thiết Bị Cho Thuê (Phím Cơ, Chuột, Hub)</span>
             <span class="cart-tier-badge" style="font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--muted);">${rentalItems.length} thiết bị</span>
           </div>
         </div>
         <div class="cart-policy-notice" style="padding: 0.5rem 1rem; background: var(--surface-subtle, rgba(0,0,0,0.02)); border-bottom: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 6px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
           <span>Chính sách đặc quyền: <strong>0đ tiền cọc</strong> · Chỉ cần xuất trình Thẻ Sinh Viên (MSSV)</span>
         </div>
         <div class="cart-tier-body">
           ${rentalItems.map((it) => renderPageItemRow(it, true)).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: var(--muted);">
-          <span>🔌 Được mượn kèm cáp kết nối đầy đủ</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;">${renderUiSvgIcon('cable', 14)}Được mượn kèm cáp kết nối đầy đủ</span>
           <span>Tạm tính thuê: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(rentalSubtotal)}</strong></span>
         </div>
       </div>
@@ -460,7 +480,7 @@ function renderCartPage(cart, total) {
       <div class="cart-tier-section" style="margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface);">
         <div class="cart-tier-header" style="padding: 0.75rem 1rem; background: var(--surface-raised); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem;">
           <div class="cart-tier-title" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--ink);">
-            <span>🛍️ Phụ Kiện Mua Đứt &amp; Kit Chăm Sóc</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;">${renderUiSvgIcon('bag', 15)}Phụ Kiện Mua Đứt &amp; Kit Chăm Sóc</span>
             <span class="cart-tier-badge" style="font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--border); color: var(--muted);">${retailItems.length} sản phẩm</span>
           </div>
         </div>
@@ -468,7 +488,7 @@ function renderCartPage(cart, total) {
           ${retailItems.map((it) => renderPageItemRow(it, false)).join('')}
         </div>
         <div class="cart-tier-subtotal-row" style="padding: 0.65rem 1rem; background: var(--surface-raised); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: var(--muted);">
-          <span>📍 Nhận ngay tại bàn kỹ thuật Sảnh I</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;">${renderUiSvgIcon('pin', 14)}Nhận ngay tại bàn kỹ thuật Sảnh I</span>
           <span>Tạm tính phụ kiện: <strong style="color: var(--ink); font-variant-numeric: tabular-nums;">${fmt(retailSubtotal)}</strong></span>
         </div>
       </div>
@@ -650,7 +670,7 @@ async function openCartModal() {
           <div class="cart-tier-section">
             <div class="cart-tier-header">
               <div class="cart-tier-title">
-                <span>🛠️ Lịch Hẹn Dịch Vụ Vệ Sinh & Tản Nhiệt</span>
+                <span style="display:inline-flex; align-items:center; gap:6px;">${renderUiSvgIcon('wrench', 15)}Lịch Hẹn Dịch Vụ Vệ Sinh & Tản Nhiệt</span>
                 <span class="cart-tier-badge">${serviceItems.length} mục</span>
               </div>
             </div>
@@ -670,12 +690,12 @@ async function openCartModal() {
           <div class="cart-tier-section">
             <div class="cart-tier-header">
               <div class="cart-tier-title">
-                <span>📦 Thiết Bị Cho Thuê (Phím Cơ, Chuột, Hub)</span>
+                <span style="display:inline-flex; align-items:center; gap:6px;">${renderUiSvgIcon('package', 15)}Thiết Bị Cho Thuê (Phím Cơ, Chuột, Hub)</span>
                 <span class="cart-tier-badge">${rentalItems.length} mục</span>
               </div>
             </div>
             <div class="cart-policy-notice" style="margin: 0.5rem 1rem 0;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
               <span>Chính sách: 0đ tiền cọc · Chỉ cần xuất trình Thẻ Sinh Viên (MSSV)</span>
             </div>
             <div class="cart-tier-body">
@@ -694,7 +714,7 @@ async function openCartModal() {
           <div class="cart-tier-section">
             <div class="cart-tier-header">
               <div class="cart-tier-title">
-                <span>🛍️ Phụ Kiện Mua Đứt & Kit Chăm Sóc</span>
+                <span style="display:inline-flex; align-items:center; gap:6px;">${renderUiSvgIcon('bag', 15)}Phụ Kiện Mua Đứt & Kit Chăm Sóc</span>
                 <span class="cart-tier-badge">${retailItems.length} mục</span>
               </div>
             </div>

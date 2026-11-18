@@ -514,8 +514,11 @@
                                     <option value="Ca chiều muộn: 15:00 – 16:30 (Sảnh I)">Ca chiều muộn: 15:00 – 16:30 (Sảnh I) · Còn 3/5 chỗ</option>
                                     <option value="Giờ tự do trong ngày (07:30 – 17:30)">Giờ tự do linh hoạt (07:30 – 17:30) · Luôn sẵn sàng</option>
                                 </select>
-                                <div id="slot-capacity-badge" style="margin-top:6px; padding:6px 10px; border-radius:6px; background:#f0fdf4; border:1px solid #bbf7d0; color:#15803d; font-size:0.75rem; font-weight:600; display:flex; align-items:center; justify-content:space-between;">
-                                    <span>🟢 Bàn kỹ thuật Sảnh I sẵn sàng tiếp nhận</span>
+                                <div id="slot-capacity-badge" class="slot-status-badge slot-badge--ready" role="status" aria-live="polite" aria-atomic="true">
+                                    <span style="display:inline-flex; align-items:center; gap:5px;">
+                                        <svg class="ui-svg-icon" width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>
+                                        Bàn kỹ thuật Sảnh I sẵn sàng tiếp nhận
+                                    </span>
                                     <span class="tabular">2 KTV trực</span>
                                 </div>
                             </div>

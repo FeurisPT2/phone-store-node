@@ -1,17 +1,17 @@
 # Graph Report - phone-store-node  (2026-11-18)
 
 ## Corpus Check
-- 94 files · ~147,235 words
+- 95 files · ~148,570 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: .css 4, .example 1, (none) 1)
 
 ## Summary
-- 752 nodes · 1304 edges · 49 communities (39 shown, 10 thin omitted)
+- 772 nodes · 1326 edges · 45 communities (38 shown, 7 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 58 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `bca3668f`
+- Built from commit: `6ffd7f18`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -25,9 +25,9 @@
 - multiPageRouting.test.js
 - Catalog Filter & Spec Extractor
 - product.js
-- JsonStorageAdapter
+- Design System Master File
 - customerPortal.js
-- ProductModel
+- fullFlow.test.js
 - GearHub Design System Rules & Architecture
 - loginAndDeploy.test.js
 - storageSeam.js
@@ -35,13 +35,11 @@
 - ref_node_assert
 - utils.js
 - server.js
-- geminiService.js
+- ProductModel
 - storageSeam.test.js
 - paymentAndOrderWorkflow.test.js
 - Admin UI Views & Filters
-- crawlerService.js
-- Product.js
-- chatRoutes.js
+- express
 - ADR 0012: Kiến Trúc 5 Trang Chuyên Biệt, Đồng Bộ Màu & Tái Thiết Kế Giỏ Hàng 3 Phân Lớp
 - ADR 0011: Tách biệt Trang Giới Thiệu (About Us Landing Page) và Trang Bán Hàng (Storefront Routing)
 - designTokensContract.test.js
@@ -57,7 +55,6 @@
 - qrPayment.js
 - aiChat.js
 - Vercel Serverless Config
-- cartController.js
 - Triage Labels & Workflow
 
 ## God Nodes (most connected - your core abstractions)
@@ -79,7 +76,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (49 total, 10 thin omitted)
+## Communities (45 total, 7 thin omitted)
 
 ### Community 0 - "main.js"
 Cohesion: 0.10
@@ -87,15 +84,15 @@ Nodes (33): allProducts, applyQuickPreset(), BENCH_MODELS, CATEGORY_BUTTON_LABEL
 
 ### Community 1 - "CustomerModel"
 Cohesion: 0.06
-Nodes (38): addProduct(), createCustomer(), deleteCustomer(), deleteOrder(), exportCustomersCsv(), exportOrdersCsv(), getAllCustomers(), getAllOrders() (+30 more)
+Nodes (36): addProduct(), createCustomer(), deleteCustomer(), deleteOrder(), deleteProduct(), exportCustomersCsv(), exportOrdersCsv(), getAllCustomers() (+28 more)
 
 ### Community 2 - "Admin CRM & Inventory Client"
 Cohesion: 0.09
 Nodes (54): ADMIN_CATEGORY_DEFAULTS, closeAdminModal(), currentCustFilter, currentOrderFilter, currentProdFilter, deleteCustomer(), deleteOrder(), deleteProduct() (+46 more)
 
 ### Community 3 - "package.json"
-Cohesion: 0.05
-Nodes (43): dependencies, cookie-parser@^1.4.6, cors@^2.8.5, dotenv@^18.0.7, express@^4.19.2, express-session@^1.18.0, @google/genai@^3.0.0, pg@^8.23.1 (+35 more)
+Cohesion: 0.07
+Nodes (34): dependencies, cookie-parser@^1.4.6, cors@^2.8.5, dotenv@^18.0.7, express@^4.19.2, express-session@^1.18.0, @google/genai@^3.0.0, pg@^8.23.1 (+26 more)
 
 ### Community 5 - "Storefront DOM & Mobile Components"
 Cohesion: 0.07
@@ -113,13 +110,17 @@ Nodes (16): buildProductTextHaystack(), escapeRegExp(), filterProducts(), getCat
 Cohesion: 0.19
 Nodes (17): allCatalog, formatVnd(), getUrlProductId(), getWishlistIds(), handlePdpWishlistToggle(), initProductTabs(), loadProductDetailPage(), renderAiReview() (+9 more)
 
+### Community 9 - "Design System Master File"
+Cohesion: 0.11
+Nodes (17): Additional Forbidden Patterns, Anti-Patterns (Do NOT Use), Buttons, Cards, Color Palette, Component Specs, Design System Master File, Global Rules (+9 more)
+
 ### Community 10 - "customerPortal.js"
 Cohesion: 0.16
 Nodes (22): cancelCustomerOrderUI(), checkAuthState(), escPortal(), executeTrackOrder(), handleCustomerLogin(), handleCustomerRegister(), handleTrackOrderSubmit(), handleUpdateCustomerProfile() (+14 more)
 
-### Community 11 - "ProductModel"
-Cohesion: 0.21
-Nodes (6): addFlagships(), flagships, deleteProduct(), updateProduct(), ProductModel, enrichAndPersistProduct()
+### Community 11 - "fullFlow.test.js"
+Cohesion: 0.50
+Nodes (3): assert, http, { test, describe, before, after }
 
 ### Community 12 - "GearHub Design System Rules & Architecture"
 Cohesion: 0.17
@@ -131,7 +132,7 @@ Nodes (3): assert, http, { test, describe, before, after }
 
 ### Community 14 - "storageSeam.js"
 Cohesion: 0.05
-Nodes (24): crypto, fs, path, ensureReady(), initDatabase(), { Pool }, PostgresStorageAdapter, adminSchema (+16 more)
+Nodes (20): JsonDB, JsonStorageAdapter, PostgresStorageAdapter, adminSchema, customerSchema, findFieldDef(), mapRowToOrder(), mapRowToProduct() (+12 more)
 
 ### Community 15 - "Getting Started & Runbooks"
 Cohesion: 0.15
@@ -149,13 +150,13 @@ Nodes (6): copyTextToClipboard(), getStoredTheme(), setTheme(), showToast(), tog
 Cohesion: 0.20
 Nodes (5): cookieParser, cors, express, path, zlib
 
-### Community 19 - "geminiService.js"
-Cohesion: 0.20
-Nodes (8): consultCustomer(), consultWithCatalog(), enrichProduct(), fallbackEnrich(), getClient(), normalizeEnrichArgs(), selfHealCatalog(), toMiniProductCard()
+### Community 19 - "ProductModel"
+Cohesion: 0.06
+Nodes (27): addFlagships(), flagships, run(), crawlProducts(), addToCart(), catalogCache, ProductModel, express (+19 more)
 
 ### Community 20 - "storageSeam.test.js"
 Cohesion: 0.07
-Nodes (14): changePassword(), login(), unifiedLogin(), AdminModel, crypto, hashPassword(), express, router (+6 more)
+Nodes (17): crypto, fs, path, ensureReady(), initDatabase(), { Pool }, changePassword(), login() (+9 more)
 
 ### Community 21 - "paymentAndOrderWorkflow.test.js"
 Cohesion: 0.50
@@ -165,17 +166,9 @@ Nodes (3): assert, http, { test, describe, before, after }
 Cohesion: 0.17
 Nodes (11): cust-tag-filters, modal-crawl-products, modal-cust-edit-title, modal-customer-detail, modal-customer-edit, modal-order-detail, modal-order-id, modal-prod-title (+3 more)
 
-### Community 23 - "crawlerService.js"
-Cohesion: 0.31
-Nodes (7): run(), crawlProducts(), ACCESSORY_KEYWORDS, cleanProductName(), CrawlerService, generateSpecs(), normalizeBrand()
-
-### Community 24 - "Product.js"
-Cohesion: 0.17
-Nodes (7): catalogCache, express, router, assert, { test, describe, after }, assert, { test }
-
-### Community 25 - "chatRoutes.js"
-Cohesion: 0.29
-Nodes (3): chatController, express, router
+### Community 25 - "express"
+Cohesion: 0.06
+Nodes (16): express, chatController, express, router, express, router, express, router (+8 more)
 
 ### Community 26 - "ADR 0012: Kiến Trúc 5 Trang Chuyên Biệt, Đồng Bộ Màu & Tái Thiết Kế Giỏ Hàng 3 Phân Lớp"
 Cohesion: 0.25
@@ -210,8 +203,8 @@ Cohesion: 0.16
 Nodes (9): baseDataDir, fs, path, assert, http, { test, describe, before, after }, zlib, assert (+1 more)
 
 ### Community 36 - "cart.js"
-Cohesion: 0.15
-Nodes (23): 1. Tuyến Đường & Bộ Điều Khiển Trang Chi Tiết, 2. Chuẩn Hóa Nhãn Nút Hành Động, ADR 0013: Kiến Trúc Trang Chi Tiết Sản Phẩm (PDP) & Phân Tách Nút Hành Động Chuẩn E-Commerce, Bối Cảnh (Context), Kết Quả (Consequences), Quyết Định Kiến Trúc (Decision), addToCart(), buildBookingAddress() (+15 more)
+Cohesion: 0.14
+Nodes (25): 1. Tuyến Đường & Bộ Điều Khiển Trang Chi Tiết, 2. Chuẩn Hóa Nhãn Nút Hành Động, ADR 0013: Kiến Trúc Trang Chi Tiết Sản Phẩm (PDP) & Phân Tách Nút Hành Động Chuẩn E-Commerce, Bối Cảnh (Context), Kết Quả (Consequences), Quyết Định Kiến Trúc (Decision), addToCart(), buildBookingAddress() (+17 more)
 
 ### Community 37 - "adminUpdateAI.test.js"
 Cohesion: 0.16
@@ -239,23 +232,23 @@ Nodes (3): builds, routes, version
 
 ## Knowledge Gaps
 - **80 isolated node(s):** `1. Cài đặt thư viện`, `🛒 1. Phía Khách Hàng (Storefront)`, `2. Chạy môi trường phát triển`, `🛡️ 2. Hệ Thống Quản Trị (Admin Panel & CRM)`, `3. Truy cập ứng dụng` (+75 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 320 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 334 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **7 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `handlePlaceOrder()` connect `cart.js` to `main.js`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
+  _High betweenness centrality (0.057) - this node is a cross-community bridge._
 - **What connects `1. Cài đặt thư viện`, `🛒 1. Phía Khách Hàng (Storefront)`, `2. Chạy môi trường phát triển` to the rest of the system?**
   _80 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `main.js` be split into smaller, more focused modules?**
   _Cohesion score 0.09986504723346828 - nodes in this community are weakly interconnected._
-- **Why does `ProductModel` connect `ProductModel` to `CustomerModel`, `catalogCacheAndFilter.test.js`, `adminUpdateAI.test.js`, `cartController.js`, `geminiService.js`, `storageSeam.test.js`, `crawlerService.js`, `Product.js`?**
-  _High betweenness centrality (0.039) - this node is a cross-community bridge._
+- **Why does `ProductModel` connect `ProductModel` to `CustomerModel`, `catalogCacheAndFilter.test.js`, `adminUpdateAI.test.js`, `fullFlow.test.js`, `storageSeam.test.js`?**
+  _High betweenness centrality (0.038) - this node is a cross-community bridge._
 - **Should `CustomerModel` be split into smaller, more focused modules?**
-  _Cohesion score 0.05886708626434654 - nodes in this community are weakly interconnected._
-- **Why does `express` connect `package.json` to `Product.js`, `chatRoutes.js`, `server.js`, `storageSeam.test.js`?**
-  _High betweenness centrality (0.039) - this node is a cross-community bridge._
+  _Cohesion score 0.06095481670929241 - nodes in this community are weakly interconnected._
+- **Why does `express` connect `express` to `ProductModel`, `server.js`, `package.json`?**
+  _High betweenness centrality (0.037) - this node is a cross-community bridge._
 - **Should `Admin CRM & Inventory Client` be split into smaller, more focused modules?**
   _Cohesion score 0.09025974025974026 - nodes in this community are weakly interconnected._
