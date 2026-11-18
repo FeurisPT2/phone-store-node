@@ -17,9 +17,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         :root {
-            --bg: #f8fafc;
+            --bg: #f3f2ee;
             --surface: #ffffff;
             --surface-raised: #f7f6f2;
             --border: #e6e2d8;
@@ -623,7 +624,7 @@
         [data-theme="light"] .theme-icon-moon, :root:not([data-theme="dark"]) .theme-icon-moon { display: inline-block !important; color: var(--muted); }
 
         :root, [data-theme="light"] {
-            --bg: #f8fafc;
+            --bg: #f3f2ee;
             --surface: #ffffff;
             --surface-raised: #f7f6f2;
             --border: #e6e2d8;
@@ -673,9 +674,89 @@
         [data-theme="dark"] .portal-panel-box {
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
+
+        body {
+            background: var(--bg);
+        }
+
+        .main-header {
+            position: relative;
+            z-index: 20;
+        }
+
+        .login-stage {
+            min-height: calc(100svh - 84px);
+            padding-top: 32px;
+            padding-bottom: 32px;
+        }
+
+        .login-visual-col {
+            min-height: calc(100svh - 148px);
+        }
+
+        .mobile-login-topbar {
+            display: none;
+        }
+
+        @media (max-width: 960px) {
+            .login-stage {
+                min-height: calc(100svh - 76px);
+                padding: 20px 16px 24px;
+            }
+            .login-form-col {
+                min-height: calc(100svh - 116px);
+            }
+            .top-nav-links {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-header .header-inner {
+                min-height: 64px;
+                padding: 8px 12px;
+            }
+            .main-header .header-logo-image {
+                width: 48px;
+                height: 48px;
+            }
+            .top-nav-links {
+                display: none;
+            }
+            .login-stage {
+                min-height: calc(100svh - 64px);
+                padding: 12px;
+            }
+            .login-form-col {
+                min-height: calc(100svh - 88px);
+            }
+        }
     </style>
 </head>
 <body>
+
+    <header class="main-header" id="site-header">
+        <div class="container header-inner">
+            <div class="header-left">
+                <a href="/" class="logo" aria-label="GearHub">
+                    <img class="header-logo-image" src="logo.png" data-theme-logo-light="logo.png" data-theme-logo-dark="logo2.png" alt="GearHub">
+                </a>
+                <nav class="top-nav-links" aria-label="Điều hướng chính">
+                    <a href="/" class="top-nav-link">Giới thiệu</a>
+                    <a href="/shop" class="top-nav-link">Cửa hàng</a>
+                </nav>
+            </div>
+            <div class="header-actions">
+                <button type="button" class="nav-action-btn theme-toggle-btn nav-icon-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ Sáng / Tối">
+                    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                </button>
+                <a href="/" class="nav-action-btn">
+                    <span>&larr; Về cửa hàng</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
     <div class="login-stage">
         <!-- Left Architectural Brand & Object Column -->
@@ -784,7 +865,7 @@
                         <div class="form-group">
                             <label for="cust-reg-phone">Số điện thoại</label>
                             <div class="input-wrapper">
-                                <input type="tel" id="cust-reg-phone" required placeholder="09xxxxxxxx">
+                                <input type="tel" id="cust-reg-phone" required placeholder="0xxxxxxxxx">
                             </div>
                         </div>
                     </div>
