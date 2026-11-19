@@ -194,4 +194,46 @@ describe('AI Consultant & Chat Route', () => {
     assert.ok(codRes.reply.includes('Sảnh I'));
     assert.ok(codRes.reply.includes('Phiếu Hẹn Điện Tử'));
   });
+
+  test('POST /api/chat returns dedicated pre-written answers and product cards for all 4 quick-prompt presets', async () => {
+    const cases = [
+      {
+        message: 'Laptop bị nóng và quạt kêu to khi gõ code',
+        mustInclude: ['79.000', '139.000', 'COD'],
+        expectedId: 'gearhub_clean_cool'
+      },
+      {
+        message: 'Tư vấn thuê bàn phím cơ gõ êm không ồn',
+        mustInclude: ['DAREU EK75 Pro', '32dB', '0đ tiền cọc'],
+        expectedId: 'gearhub_rent_ek75'
+      },
+      {
+        message: 'Combo vệ sinh 79k gồm những bước nào?',
+        mustInclude: ['4 bước', 'Kiểm tra đầu vào', 'Hút bụi', '5–8°C'],
+        expectedId: 'gearhub_clean_cool'
+      },
+      {
+        message: 'Thủ tục thuê gear bằng Thẻ Sinh Viên như thế nào?',
+        mustInclude: ['0đ tiền cọc', 'Phiếu Hẹn Điện Tử', '1-đổi-1'],
+        expectedId: 'gearhub_rent_ek75'
+      }
+    ];
+
+    for (const c of cases) {
+      const res = await fetch(`${baseUrl}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: c.message })
+      });
+
+      assert.equal(res.status, 200);
+      const data = await res.json();
+      assert.equal(data.success, true);
+      for (const phrase of c.mustInclude) {
+        assert.ok(data.reply.includes(phrase), `Preset "${c.message}" reply should include "${phrase}"`);
+      }
+      assert.ok(Array.isArray(data.suggestedProducts) && data.suggestedProducts.length > 0, `Preset "${c.message}" should return suggestedProducts`);
+      assert.ok(data.suggestedProducts.some((p) => p.id === c.expectedId), `Preset "${c.message}" should include ${c.expectedId}`);
+    }
+  });
 });

@@ -255,9 +255,113 @@ function buildDirectProductReply(p) {
   return { reply, suggestedProductIds: [p.id] };
 }
 
+function normalizePresetKey(text) {
+  return String(text || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .replace(/[?!.]+$/g, '')
+    .trim();
+}
+
+const PRESET_QUICK_ANSWERS = [
+  {
+    id: 'preset_overheating',
+    fallbackCategory: 'service',
+    keys: [
+      'laptop bị nóng và quạt kêu to khi gõ code',
+      'laptop nóng quạt kêu to'
+    ],
+    productIds: ['gearhub_clean_cool', 'gearhub_thermal_boost'],
+    reply:
+      'Khi gõ code, chạy Docker/VS Code hoặc compile nặng mà máy nóng nhanh và quạt hú to, nguyên nhân thường là bụi bít khe tản gió hoặc lớp keo tản nhiệt đã khô.\n\n' +
+      'GearHub Sảnh I gợi ý **2 gói xử lý lấy liền** phù hợp tình trạng máy:\n' +
+      '- **Gói Spa Laptop Tiêu Chuẩn (Clean & Cool) — 79.000₫** (30 phút): thổi bụi buồng quạt, khe gió, vệ sinh phím/màn hình, giảm ngay **5–8°C**.\n' +
+      '- **Gói Đại Tu Tản Nhiệt Pro (Thermal Boost) — 139.000₫** (45 phút): tháo vệ sinh toàn diện bên trong và tra lại keo gốm **Arctic MX-4 / MX-6**, hạ **10–15°C**, hết tụt xung.\n\n' +
+      'Thực hiện trực tiếp trước mặt bạn trong **30–45 phút** tại **Sảnh I ĐHKHTN (07:30–17:30, T2–T7)**, test máy mát êm rồi mới **thanh toán COD** (bảo hành kiểm tra lại 7 ngày, keo 6 tháng).'
+  },
+  {
+    id: 'preset_quiet_keyboard',
+    fallbackCategory: 'rental',
+    keys: [
+      'tư vấn thuê bàn phím cơ gõ êm không ồn',
+      'thuê phím cơ gõ êm ktx'
+    ],
+    productIds: ['gearhub_rent_ek75', 'gearhub_rent_mouse'],
+    reply:
+      'Để cày đồ án ban đêm trong phòng KTX hoặc thư viện mà không làm phiền mọi người, bạn nên chọn:\n' +
+      '- **Thuê Bàn Phím Cơ 3 Mode (DAREU EK75 Pro / Flex 75) — 25.000₫/ngày** (hoặc **120.000₫/tuần** theo ưu đãi **Gói 1 Tuần -28%**): sử dụng switch linear đã pre-lube gõ cực êm (~**32dB**), kết nối 3 mode Bluetooth 5.1 / 2.4GHz / Type-C, layout 75% gọn có núm xoay, pin 3750mAh.\n' +
+      '- Gợi ý ghép cặp: **Thuê Chuột Không Dây Công Thái Học (15.000₫/ngày)** để chống mỏi cổ tay khi làm việc liên tục.\n\n' +
+      'Thủ tục **0đ tiền cọc** (chỉ cần xuất trình Thẻ Sinh Viên/VNeID tại Sảnh I), test phím êm tay tại chỗ rồi thanh toán **COD** nhé!'
+  },
+  {
+    id: 'preset_clean_79k_steps',
+    fallbackCategory: 'service',
+    keys: [
+      'combo vệ sinh 79k gồm những bước nào',
+      'quy trình vệ sinh 79k'
+    ],
+    productIds: ['gearhub_clean_cool', 'gearhub_thermal_boost'],
+    reply:
+      '**Gói Spa Laptop Tiêu Chuẩn (Clean & Cool) — 79.000₫** hoàn thành lấy liền trong **30 phút** gồm **4 bước minh bạch** (bạn quan sát trực tiếp 100%):\n' +
+      '1. **Kiểm tra đầu vào & đo nhiệt độ (5 phút):** Ghi nhận tình trạng quạt, pin, màn hình — tuyệt đối không can thiệp ổ cứng hay dữ liệu.\n' +
+      '2. **Hút bụi & thổi sạch quạt tản nhiệt, khe gió (10 phút):** Dùng máy hút bụi mini, cọ quét mềm và khí nén làm sạch bụi kẹt.\n' +
+      '3. **Vệ sinh kẽ bàn phím, chiếu nghỉ & lau màn hình (10 phút):** Lau bằng dung dịch chuyên dụng và khăn microfiber chống xước.\n' +
+      '4. **Test lại độ ồn quạt & nhiệt độ (5 phút):** Kiểm tra máy hạ **5–8°C**, quạt êm hơn hẳn rồi mới **thanh toán COD** (hỗ trợ kiểm tra miễn phí trong **7 ngày**).\n\n' +
+      '**Mẹo nhỏ:** Nếu máy đã hơn 1 năm chưa tra lại keo hoặc là laptop gaming/đồ họa chạy nặng, bạn nên chọn **Gói Đại Tu Tản Nhiệt Pro (139.000₫)** có tra keo **Arctic MX-4 / MX-6** nhé!'
+  },
+  {
+    id: 'preset_student_rental_policy',
+    fallbackCategory: 'rental',
+    keys: [
+      'thủ tục thuê gear bằng thẻ sinh viên như thế nào',
+      'thủ tục thuê bằng thẻ sv'
+    ],
+    productIds: ['gearhub_rent_ek75', 'gearhub_rent_mouse', 'gearhub_rent_hub_slide'],
+    reply:
+      'Thủ tục thuê thiết bị tại GearHub áp dụng chính sách **0đ tiền cọc** cho sinh viên (chỉ cần **Thẻ Sinh Viên / MSSV** hoặc **VNeID** hợp lệ, đối chiếu nhanh trong 1 phút):\n' +
+      '1. **Chọn thiết bị & gói thuê:** Thuê theo ngày hoặc chọn **Gói 1 Tuần (-28%: tính phí 5 ngày, miễn phí trọn 2 ngày cuối tuần)**.\n' +
+      '2. **Đặt lịch online:** Chọn ca nhận máy để hệ thống cấp **Phiếu Hẹn Điện Tử (Mã QR Check-in)**.\n' +
+      '3. **Nhận & test trực tiếp tại Sảnh I ĐHKHTN** (227 Nguyễn Văn Cừ, Q.5 · 07:30–17:30, T2–T7).\n' +
+      '4. **Thanh toán COD linh hoạt** (tiền mặt, VietQR, MoMo hoặc ZaloPay) khi nhận gear; lỗi phần cứng được **đổi 1-đổi-1** ngay lập tức.'
+  }
+];
+
+function matchPresetQuickResponse(message, catalog = []) {
+  if (!message || !Array.isArray(catalog) || catalog.length === 0) return null;
+  const hasGearHubCatalog = catalog.some((p) => ['service', 'rental', 'accessory'].includes(p.category));
+  if (!hasGearHubCatalog) return null;
+
+  const key = normalizePresetKey(message);
+  if (!key) return null;
+
+  const preset = PRESET_QUICK_ANSWERS.find((item) => item.keys.includes(key));
+  if (!preset) return null;
+
+  const presentIds = preset.productIds.filter((id) =>
+    catalog.some((p) => p.id === id || String(p.id) === String(id))
+  );
+  const suggestedProductIds = presentIds.length
+    ? presentIds
+    : catalog
+        .filter((p) => p.category === preset.fallbackCategory)
+        .slice(0, 2)
+        .map((p) => p.id);
+
+  return {
+    reply: preset.reply,
+    suggestedProductIds
+  };
+}
+
 function buildGearHubIntentResponse(msg, catalog) {
   const hasGearHubCatalog = catalog.some((p) => ['service', 'rental', 'accessory'].includes(p.category));
   if (!hasGearHubCatalog) return null;
+
+  const presetMatch = matchPresetQuickResponse(msg, catalog);
+  if (presetMatch) {
+    return presetMatch;
+  }
 
   const byCat = (cat) => catalog.filter((p) => p.category === cat);
   const direct = findDirectProductMatch(msg, catalog);
@@ -458,6 +562,13 @@ async function consultCustomer(arg1 = {}, catalogArg = [], historyArg = [], cust
     client = customClient;
   }
 
+  if (!client) {
+    const presetReply = matchPresetQuickResponse(message, catalog);
+    if (presetReply) {
+      return presetReply;
+    }
+  }
+
   const aiClient = getClient(client);
 
   if (!aiClient) {
@@ -625,7 +736,9 @@ const geminiService = {
   selfHealCatalog,
   consultCustomer,
   fallbackConsult,
-  consultWithCatalog
+  consultWithCatalog,
+  matchPresetQuickResponse,
+  PRESET_QUICK_ANSWERS
 };
 
 module.exports = geminiService;

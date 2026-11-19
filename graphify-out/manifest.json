@@ -72,20 +72,20 @@
     "semantic_hash": ""
   },
   "src/data/customers.json": {
-    "mtime": 1795053071.718002,
-    "seen": 1795053075.7242215,
+    "mtime": 1795054053.7224722,
+    "seen": 1795054057.8038418,
     "ast_hash": "351c9686d8286152410f7039b269fa8b",
     "semantic_hash": ""
   },
   "src/data/orders.json": {
-    "mtime": 1795053071.989811,
-    "seen": 1795053075.7242215,
+    "mtime": 1795054053.9761305,
+    "seen": 1795054057.8038418,
     "ast_hash": "f6a84b63bd4e6fd3e671b0b9d030a27d",
     "semantic_hash": ""
   },
   "src/data/products.json": {
-    "mtime": 1795053071.8387296,
-    "seen": 1795053075.7242215,
+    "mtime": 1795054053.8422334,
+    "seen": 1795054057.8038418,
     "ast_hash": "c7919c1aa0764251eee41202951b5ab3",
     "semantic_hash": ""
   },
@@ -228,9 +228,9 @@
     "semantic_hash": "8aa145a99def99451e565d4cd6851f50"
   },
   "src/services/geminiService.js": {
-    "mtime": 1795005742.9808514,
-    "seen": 1795028004.5926366,
-    "ast_hash": "29bb1c6d991e3e3b9c21c575a92d0ce7",
+    "mtime": 1795054036.172346,
+    "seen": 1795054057.8038418,
+    "ast_hash": "07217ba59b4950751ba5d8752cd7ad24",
     "semantic_hash": ""
   },
   "tests/adminAI.test.js": {
@@ -240,9 +240,9 @@
     "semantic_hash": "4f353904fa289d089b19877e29203922"
   },
   "tests/chatRoute.test.js": {
-    "mtime": 1795005742.9818478,
-    "seen": 1795028004.5926366,
-    "ast_hash": "e927c168d10c0c53326e25f522ccdb99",
+    "mtime": 1795053854.625089,
+    "seen": 1795053875.1990433,
+    "ast_hash": "f452dc0b61703aada6629c38ca84bc40",
     "semantic_hash": ""
   },
   "tests/fullFlow.test.js": {
@@ -546,15 +546,15 @@
     "semantic_hash": ""
   },
   "src/public/cart.html": {
-    "mtime": 1795027241.0793858,
-    "seen": 1795028004.5926366,
-    "ast_hash": "2568a9cbcf6d80ee9cbc13d49641ce78",
+    "mtime": 1795053852.3966823,
+    "seen": 1795053875.1990433,
+    "ast_hash": "d89294b287a9e0fb4d7a37b65f9aea80",
     "semantic_hash": ""
   },
   "src/public/product.html": {
-    "mtime": 1795005742.9778488,
-    "seen": 1795028004.5926366,
-    "ast_hash": "0102ba1f5c08175f7163d33287138ebf",
+    "mtime": 1795053853.6136658,
+    "seen": 1795053875.1990433,
+    "ast_hash": "08359585ddf1af51b3519794585249da",
     "semantic_hash": ""
   },
   "src/public/shop.html": {
