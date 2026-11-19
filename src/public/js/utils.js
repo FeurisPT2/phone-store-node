@@ -86,10 +86,14 @@ function toggleMobileDrawer(forceState) {
   if (typeof document === 'undefined') return;
   const drawer = document.getElementById('mobile-drawer');
   const backdrop = document.getElementById('mobile-drawer-backdrop');
+  const toggleBtn = document.getElementById('btn-mobile-drawer');
   if (!drawer || !backdrop) return;
   const shouldOpen = forceState !== undefined ? forceState : !drawer.classList.contains('open');
   drawer.classList.toggle('open', shouldOpen);
   backdrop.classList.toggle('open', shouldOpen);
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+  }
 }
 
 function showToast(message, type = 'success') {
@@ -156,7 +160,6 @@ function initSmoothMotionEngine() {
   if (typeof document === 'undefined') return;
 
   const autoSelectors = [
-    '.station-signboard',
     '.about-metric-card',
     '.story-card',
     '.ps-card',
@@ -222,16 +225,236 @@ if (typeof window !== 'undefined') {
     }
   });
 
+  let scrollRafPending = false;
+  const syncScrollEffects = () => {
+    scrollRafPending = false;
+    const header = document.querySelector('.main-header');
+    if (header) {
+      header.classList.toggle('header-scrolled', window.scrollY > 12);
+    }
+    const progressBar = document.getElementById('scroll-progress-bar');
+    if (progressBar && typeof document !== 'undefined' && document.documentElement) {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      progressBar.style.transform = `scaleX(${ratio.toFixed(4)})`;
+    }
+  };
+
   window.addEventListener(
     'scroll',
     function() {
-      const header = document.querySelector('.main-header');
-      if (header) {
-        header.classList.toggle('header-scrolled', window.scrollY > 12);
+      if (typeof requestAnimationFrame === 'function') {
+        if (!scrollRafPending) {
+          scrollRafPending = true;
+          requestAnimationFrame(syncScrollEffects);
+        }
+      } else {
+        syncScrollEffects();
       }
     },
     { passive: true }
   );
+
+  if (typeof document !== 'undefined') {
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const drawer = document.getElementById('mobile-drawer');
+        if (drawer && drawer.classList.contains('open')) {
+          toggleMobileDrawer(false);
+          const toggleBtn = document.getElementById('btn-mobile-drawer');
+          if (toggleBtn) toggleBtn.focus();
+        }
+      }
+    });
+  }
+
+  function initPointerSpotlightEffects() {
+    if (typeof document === 'undefined' || typeof window.matchMedia !== 'function') return;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!finePointer || reducedMotion) return;
+
+    const targets = document.querySelectorAll('.station-signboard, .pillar-card, .campus-location-banner');
+    targets.forEach((el) => {
+      if (el.dataset.spotlightBound === '1') return;
+      el.dataset.spotlightBound = '1';
+      let rafId = null;
+      el.addEventListener('pointermove', (ev) => {
+        if (rafId !== null) return;
+        const clientX = ev.clientX;
+        const clientY = ev.clientY;
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          const rect = el.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            const x = ((clientX - rect.left) / rect.width) * 100;
+            const y = ((clientY - rect.top) / rect.height) * 100;
+            el.style.setProperty('--mx', `${x.toFixed(1)}%`);
+            el.style.setProperty('--my', `${y.toFixed(1)}%`);
+          }
+        });
+      }, { passive: true });
+    });
+  }
+
+  function initWordmarkWriteAnimation() {
+    if (typeof document === 'undefined') return;
+    const stage = document.getElementById('station-signboard');
+    if (!stage || !stage.classList.contains('gh-wordmark-stage')) return;
+
+    const reducedMotion = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      stage.classList.add('is-written');
+      return;
+    }
+
+    let started = false;
+    const startWrite = () => {
+      if (started) return;
+      started = true;
+      stage.classList.remove('is-written');
+      stage.classList.add('is-writing');
+    };
+
+    const fallbackTimer = setTimeout(startWrite, 600);
+    if (document.fonts && typeof document.fonts.load === 'function') {
+      document.fonts.load('400 106px "Kaushan Script"').then(
+        () => {
+          clearTimeout(fallbackTimer);
+          if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(startWrite);
+          } else {
+            startWrite();
+          }
+        },
+        () => {
+          clearTimeout(fallbackTimer);
+          startWrite();
+        }
+      );
+    } else {
+      clearTimeout(fallbackTimer);
+      startWrite();
+    }
+
+    const canvas = document.getElementById('gh-script-canvas');
+    if (canvas && canvas.dataset.replayBound !== '1') {
+      canvas.dataset.replayBound = '1';
+      const replay = () => {
+        stage.classList.remove('is-writing', 'is-written');
+        void stage.offsetWidth;
+        stage.classList.add('is-writing');
+      };
+      canvas.addEventListener('click', replay);
+      canvas.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          replay();
+        }
+      });
+    }
+  }
+
+  function initCursorFollowerEffect() {
+    if (typeof document === 'undefined' || !document.body || typeof window.matchMedia !== 'function') return;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!finePointer || reducedMotion) return;
+
+    const root = document.documentElement;
+    if (root.dataset.cursorFxBound === '1') return;
+    root.dataset.cursorFxBound = '1';
+
+    const glow = document.createElement('div');
+    glow.className = 'gh-cursor-glow';
+    glow.id = 'gh-cursor-glow';
+    glow.setAttribute('aria-hidden', 'true');
+
+    const ring = document.createElement('div');
+    ring.className = 'gh-cursor-ring';
+    ring.id = 'gh-cursor-ring';
+    ring.setAttribute('aria-hidden', 'true');
+
+    document.body.appendChild(glow);
+    document.body.appendChild(ring);
+
+    const interactiveSelector = 'a, button, summary, [role="button"], input, select, textarea, .pillar-card, .faq-item, .product-card, .gh-script-canvas';
+    let tx = -240;
+    let ty = -240;
+    let cx = -240;
+    let cy = -240;
+    let initialized = false;
+    let rafId = null;
+
+    const renderFrame = () => {
+      const dx = tx - cx;
+      const dy = ty - cy;
+      if (Math.hypot(dx, dy) < 0.35) {
+        cx = tx;
+        cy = ty;
+        rafId = null;
+      } else {
+        cx += dx * 0.24;
+        cy += dy * 0.24;
+        rafId = requestAnimationFrame(renderFrame);
+      }
+
+      const px = `${cx.toFixed(1)}px`;
+      const py = `${cy.toFixed(1)}px`;
+      root.style.setProperty('--cx', px);
+      root.style.setProperty('--cy', py);
+      const transformVal = `translate3d(${px}, ${py}, 0) translate(-50%, -50%)`;
+      ring.style.transform = transformVal;
+      glow.style.transform = transformVal;
+    };
+
+    document.addEventListener('pointermove', (ev) => {
+      if (ev.pointerType === 'touch') return;
+      tx = ev.clientX;
+      ty = ev.clientY;
+      if (!initialized) {
+        cx = tx;
+        cy = ty;
+        initialized = true;
+      }
+      root.classList.add('gh-cursor-active');
+      const targetEl = ev.target && typeof ev.target.closest === 'function'
+        ? ev.target.closest(interactiveSelector)
+        : null;
+      ring.classList.toggle('is-hovering', Boolean(targetEl));
+      if (rafId === null && typeof requestAnimationFrame === 'function') {
+        rafId = requestAnimationFrame(renderFrame);
+      }
+    }, { passive: true });
+
+    document.addEventListener('pointerdown', (ev) => {
+      if (ev.pointerType === 'touch') return;
+      ring.classList.add('is-pressed');
+      const ripple = document.createElement('span');
+      ripple.className = 'gh-cursor-ripple';
+      ripple.setAttribute('aria-hidden', 'true');
+      ripple.style.left = `${ev.clientX}px`;
+      ripple.style.top = `${ev.clientY}px`;
+      document.body.appendChild(ripple);
+      const cleanup = () => {
+        if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+      };
+      ripple.addEventListener('animationend', cleanup, { once: true });
+      setTimeout(cleanup, 560);
+    }, { passive: true });
+
+    const releasePress = () => ring.classList.remove('is-pressed');
+    document.addEventListener('pointerup', releasePress, { passive: true });
+    document.addEventListener('pointercancel', releasePress, { passive: true });
+
+    const hideCursorFx = () => {
+      root.classList.remove('gh-cursor-active');
+      ring.classList.remove('is-pressed', 'is-hovering');
+    };
+    document.addEventListener('mouseleave', hideCursorFx);
+    window.addEventListener('blur', hideCursorFx);
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof document !== 'undefined') {
@@ -241,6 +464,10 @@ if (typeof window !== 'undefined') {
     updateThemeUI(t);
 
     initSmoothMotionEngine();
+    initWordmarkWriteAnimation();
+    initPointerSpotlightEffects();
+    initCursorFollowerEffect();
+    syncScrollEffects();
 
     if (typeof MutationObserver !== 'undefined') {
       const dynamicIds = ['pdp-specs-grid', 'pdp-process-timeline', 'pdp-related-grid'];
